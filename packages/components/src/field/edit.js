@@ -25,10 +25,9 @@ const selfClosingTagNames = [
 
 const fieldClassNames = memoize(( { blockName, type = '', name, value = '' } ) => {
     return classNames(
-        'blueprint-blocks-field',
-        `blueprint-blocks-field:${ type }`,
+        'blueprint-blocks:component',
+        `blueprint-blocks:${ type }-field`,
 		`${ delimiterize(blockName) }:${ name }`,
-        `field:${ type }`,
 		{ 'has-value': value }
     )
 })

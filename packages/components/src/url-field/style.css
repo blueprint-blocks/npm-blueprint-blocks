@@ -1,0 +1,17 @@
+.PatternsFields_UrlField input[type='text'] {
+    width: 100% !important;
+}
+
+.PatternsFields_UrlField input[type='text'] {
+	border: 1px solid #1e1e1e;
+    text-align: inherit;
+    transition: none;
+    width: 100% !important;
+}
+
+.PatternsFields_UrlField input[type='text']::placeholder,
+.PatternsFields_UrlField input[type='text']:focus::placeholder,
+.PatternsFields_UrlField input[type='text']:hover::placeholder {
+    color: currentcolor;
+    opacity: 0.5;
+}

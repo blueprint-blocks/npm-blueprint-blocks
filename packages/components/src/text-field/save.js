@@ -1,9 +1,10 @@
 import Field from '../field'
 
-function save( { name, tagName = 'div', value } ) {
+function save( { attributes, name, tagName = 'div', value, ...props } ) {
 
 	return (
 		<Field.save
+			{ ...props }
 			name={ name }
 			tagName={ tagName }
 			type="text"

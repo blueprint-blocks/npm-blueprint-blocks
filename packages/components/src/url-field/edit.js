@@ -1,4 +1,4 @@
-import { TextControl } from '@wordpress/components'
+import { URLInput } from '@wordpress/block-editor'
 import Field from '../field'
 
 //import './style.css'
@@ -10,15 +10,15 @@ function edit( { attributes, name, onInput, placeholder, disabled = false, tagNa
 			{ ...props }
 			name={ name }
 			tagName={ tagName }
-			type="text"
+			type="number"
 			value={ value }
 		>
-			<TextControl
-                disabled={ disabled }
-                onChange={ onInput }
-                placeholder={ placeholder }
-                value={ value }
-            />
+			<URLInput
+				disabled={ disabled }
+				onChange={ onInput }
+				placeholder={ placeholder }
+				value={ value }
+			/>
 		</Field.edit>
 	)
 }

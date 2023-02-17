@@ -16,11 +16,13 @@ import { useBlockProps } from '@wordpress/block-editor';
 import NumberField from '../number-field';
 import RichTextField from '../rich-text-field';
 import TextField from '../text-field';
+import UrlField from '../url-field';
 
 const Components = {
-	'number': NumberField,
-	'rich-text': RichTextField,
-	'text': TextField,
+	'number-field': NumberField,
+	'rich-text-field': RichTextField,
+	'text-field': TextField,
+	'url-field': UrlField,
 }
 
 /**
@@ -40,6 +42,7 @@ function renderJsxArray( { attributes, jsx = [] } ) {
 			return (
 				<Component
 					{ ...props }
+					className={ classNames(...className) }
 					name={ name }
 					tagName={ tagName }
 					attributes={ attributes }

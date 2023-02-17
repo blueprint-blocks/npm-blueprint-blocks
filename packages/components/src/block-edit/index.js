@@ -21,12 +21,14 @@ import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
  *
  * @see https://www.blueprint-blocks.com/docs/
  */
+import NumberField from '../number-field';
 import RichTextField from '../rich-text-field';
 import TextField from '../text-field';
 
-const Fields = {
-	'rich-text': RichTextField,
-	'text': TextField,
+const Components = {
+	'number-field': NumberField,
+	'rich-text-field': RichTextField,
+	'text-field': TextField,
 }
 
 /**
@@ -40,8 +42,8 @@ function renderJsxArray( { attributes, setAttributes, jsx = [] } ) {
 
 		let Component = tagName
 
-		if ( type in Fields && Fields[type] ) {
-			Component = Fields[type].edit
+		if ( type in Components && Components[type] ) {
+			Component = Components[type].edit
 
 			return (
 				<Component

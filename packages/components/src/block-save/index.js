@@ -13,10 +13,12 @@ import { useBlockProps } from '@wordpress/block-editor';
  *
  * @see https://www.blueprint-blocks.com/docs/
  */
+import NumberField from '../number-field';
 import RichTextField from '../rich-text-field';
 import TextField from '../text-field';
 
-const Fields = {
+const Components = {
+	'number': NumberField,
 	'rich-text': RichTextField,
 	'text': TextField,
 }
@@ -32,8 +34,8 @@ function renderJsxArray( { attributes, jsx = [] } ) {
 
 		let Component = tagName
 
-		if ( type in Fields && Fields[type] ) {
-			Component = Fields[type].save
+		if ( type in Components && Components[type] ) {
+			Component = Components[type].save
 
 			return (
 				<Component

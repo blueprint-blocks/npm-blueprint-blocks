@@ -1,0 +1,12 @@
+{
+	"name": "@blueprint-blocks/create-block",
+	"private": true,
+	"version": "23.2.0",
+	"bin": {
+		"@blueprint-blocks/create-block": "./bin/create-block.js"
+	},
+	"dependencies": {
+		"commander": "^4.1.0",
+		"prompts": "^2.3.0"
+	}
+}

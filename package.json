@@ -1,0 +1,24 @@
+{
+  "name": "blueprint-blocks",
+  "private": true,
+  "version": "23.2.0",
+  "scripts": {
+    "build": "echo 'hello root'"
+  },
+  "dependencies": {
+    "@blueprint-blocks/components": "file:packages/components",
+    "@blueprint-blocks/create-block": "file:packages/create-block"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@vitejs/plugin-react": "^3.1.0",
+    "lerna": "^6.4.1",
+    "postcss": "^8.4.21",
+    "postcss-nesting": "^11.1.0",
+    "vite": "^4.1.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}

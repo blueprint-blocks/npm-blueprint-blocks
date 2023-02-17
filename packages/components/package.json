@@ -1,0 +1,17 @@
+{
+  "name": "@blueprint-blocks/components",
+  "private": true,
+  "version": "23.2.0",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "echo 'hello components'"
+  },
+  "dependencies": {
+    "@blueprint-blocks/utility": "file:../utility",
+    "@wordpress/block-editor": "^11.4.0",
+    "@wordpress/components": "^23.4.0",
+    "@wordpress/i18n": "^4.27.0",
+    "classnames": "^2.3.2",
+    "micro-memoize": "^4.0.14"
+  }
+}

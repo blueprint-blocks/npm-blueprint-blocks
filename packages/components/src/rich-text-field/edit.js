@@ -8,7 +8,6 @@ function edit( { name, onInput, placeholder, allowedFormats = [], multiLine = fa
 	return (
 		<Field.edit
 			name={ name }
-			position="body"
 			tagName={ tagName }
 			type="rich-text"
 			value={ value }

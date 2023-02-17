@@ -14,9 +14,11 @@ import { useBlockProps } from '@wordpress/block-editor';
  * @see https://www.blueprint-blocks.com/docs/
  */
 import RichTextField from '../rich-text-field';
+import TextField from '../text-field';
 
 const Fields = {
 	'rich-text': RichTextField,
+	'text': TextField,
 }
 
 /**
@@ -26,7 +28,7 @@ const Fields = {
  */
 function renderJsxArray( { attributes, jsx = [] } ) {
 
-	return jsx.map( ( { children = [], className = [], attributeName = '', type = '', tagName = 'div', ...props } ) => {
+	return jsx.map( ( { children = [], className = [], name = '', attributeName = '', type = '', tagName = 'div', ...props } ) => {
 
 		let Component = tagName
 
@@ -36,7 +38,7 @@ function renderJsxArray( { attributes, jsx = [] } ) {
 			return (
 				<Component
 					{ ...props }
-					name={ attributeName }
+					name={ name }
 					tagName={ tagName }
 					attributes={ attributes }
 					value={ attributes?.[attributeName] }
@@ -70,7 +72,7 @@ function BlockSave( blueprintMetadata ) {
 	return ( { attributes } ) => {
 
 		const blockProps = useBlockProps.save()
-		const blockSave = (blueprintMetadata.blockSave !== null && blueprintMetadata.blockSave || blueprintMetadata.blockEdit)
+		const blockSave = (blueprintMetadata.blockSave !== null && blueprintMetadata.blockSave || blueprintMetadata.blockEdit || {})
 
 		return renderJsxArray( {
 			attributes,

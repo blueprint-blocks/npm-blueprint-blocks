@@ -17,6 +17,7 @@ import NumberField from '../number-field';
 import RichTextField from '../rich-text-field';
 import SelectField from '../select-field';
 import TextField from '../text-field';
+import TextareaField from '../textarea-field';
 import UrlField from '../url-field';
 
 const Components = {
@@ -24,6 +25,7 @@ const Components = {
 	'rich-text-field': RichTextField,
 	'select-field': SelectField,
 	'text-field': TextField,
+	'textarea-field': TextareaField,
 	'url-field': UrlField,
 }
 

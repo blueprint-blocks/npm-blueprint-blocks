@@ -1,0 +1,12 @@
+.PatternsFields_TextareaField textarea {
+    font-family: inherit;
+    text-align: inherit;
+    transition: none;
+}
+
+.PatternsFields_TextareaField textarea::placeholder,
+.PatternsFields_TextareaField textarea:focus::placeholder,
+.PatternsFields_TextareaField textarea:hover::placeholder {
+    color: currentcolor;
+    opacity: 0.5;
+}

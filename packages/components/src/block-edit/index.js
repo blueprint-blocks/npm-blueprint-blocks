@@ -23,12 +23,14 @@ import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
  */
 import NumberField from '../number-field';
 import RichTextField from '../rich-text-field';
+import SelectField from '../select-field';
 import TextField from '../text-field';
 import UrlField from '../url-field';
 
 const Components = {
 	'number-field': NumberField,
 	'rich-text-field': RichTextField,
+	'select-field': SelectField,
 	'text-field': TextField,
 	'url-field': UrlField,
 }

@@ -1,6 +1,6 @@
 import Field from '../field'
 
-function save( { attributes, name, multiLine = false, tagName = 'p', value, ...props } ) {
+function save( { attributes, name, multiLine = false, placeholder = '', tagName = 'p', value, ...props } ) {
 
 	return (
 		<Field.save

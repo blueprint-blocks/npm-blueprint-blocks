@@ -7,7 +7,7 @@ function save( { attributes, name, placeholder = '', tagName = 'div', value, ...
 			{ ...props }
 			name={ name }
 			tagName={ tagName }
-			type="text"
+			type="range"
 			dangerouslySetInnerHTML={ { __html: value } }
 		/>
 	)

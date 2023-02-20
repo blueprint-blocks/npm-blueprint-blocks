@@ -59,6 +59,7 @@ function edit( { blockName, children = [], className = '', name, tagName = 'div'
 			) }
 			onClick={ preventEventPropagation }
 			onInput={ preventEventPropagation }
+			onKeydown={ preventEventPropagation }
 		/>
 	}
 
@@ -77,6 +78,7 @@ function edit( { blockName, children = [], className = '', name, tagName = 'div'
 			) }
 			onClick={ preventEventPropagation }
 			onInput={ preventEventPropagation }
+			onKeydown={ preventEventPropagation }
 			children={ children }
 		/>
 	)

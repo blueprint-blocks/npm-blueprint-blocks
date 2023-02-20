@@ -1,0 +1,147 @@
+.PatternsFields_RangeField {
+    align-items: center;
+    display: flex;
+    width: 100%;
+}
+
+.PatternsFields_RangeField.label-above {
+    flex-wrap: wrap;
+}
+
+.PatternsFields_RangeField label {
+    cursor: default;
+    display: block;
+    flex-shrink: 0;
+    font-weight: 600;
+    margin: 0;
+}
+
+.PatternsFields_RangeField label.is-above {
+    margin-bottom: 4px;
+    width: 100%;
+}
+
+.PatternsFields_RangeField label.is-left {
+    font-size: 12px;
+    margin-right: 8px;
+    text-align: right;
+    width: 72px;
+}
+
+.PatternsFields_RangeField input[type='range'] {
+    -webkit-appearance: none;
+    flex-shrink: 0;
+    height: 16px;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.PatternsFields_RangeField input[type='range']:focus {
+    outline: none;
+}
+
+.PatternsFields_RangeField input[type='range']::-webkit-slider-runnable-track {
+    animate: 0.4s;
+    background: #e3e4e7;
+    border-radius: 2px;
+    cursor: pointer;
+    height: 4px;
+    width: 100%;
+}
+
+.PatternsFields_RangeField input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    animate: 0.4s;
+    border-radius: 6px;
+    background: #8d96a0;
+    cursor: pointer;
+    height: 12px;
+    margin-top: -4px;
+    width: 12px;
+}
+
+.PatternsFields_RangeField input[type='range']:hover::-webkit-slider-thumb {
+    background: #00a0d2;
+}
+
+.PatternsFields_RangeField input[type='range']::-moz-range-track {
+    animate: 0.4s;
+    background: #e3e4e7;
+    border-radius: 2px;
+    cursor: pointer;
+    height: 4px;
+    width: 100%;
+}
+
+.PatternsFields_RangeField input[type='range']::-moz-range-thumb {
+    -webkit-appearance: none;
+    animate: 0.4s;
+    border-radius: 6px;
+    background: #8d96a0;
+    cursor: pointer;
+    height: 12px;
+    margin-top: -4px;
+    width: 12px;
+}
+
+.PatternsFields_RangeField input[type='range']:hover::-moz-range-thumb {
+    background: #00a0d2;
+}
+
+.PatternsFields_RangeField input[type='range']::-ms-track {
+    animate: 0.4s;
+    background: transparent;
+    border: transparent;
+    color: transparent;
+    cursor: pointer;
+    height: 4px;
+    width: 100%;
+    width: 100%;
+}
+
+.PatternsFields_RangeField input[type='range']::-ms-fill-lower {
+    background: #e3e4e7;
+    border-radius: 2px;
+}
+
+.PatternsFields_RangeField input[type='range']::-ms-fill-upper {
+    background: #e3e4e7;
+    border-radius: 2px;
+}
+
+.PatternsFields_RangeField input[type='range']::-ms-thumb {
+    -webkit-appearance: none;
+    animate: 0.4s;
+    border-radius: 6px;
+    background: #8d96a0;
+    cursor: pointer;
+    height: 12px;
+    margin-top: -4px;
+    width: 12px;
+}
+
+.PatternsFields_RangeField input[type='range']:hover::-ms-thumb {
+    background: #00a0d2;
+}
+
+.PatternsFields_RangeField label.is-left ~ input[type='range'] {
+    width: calc(100% - 152px);
+}
+
+.PatternsFields_RangeField label.is-left ~ input[type='range']:last-child {
+    width: calc(100% - 80px);
+}
+
+.PatternsFields_RangeField input[type='range']:first-child:not(:last-child),
+.PatternsFields_RangeField label.is-above ~ input[type='range']:not(:last-child) {
+    width: calc(100% - 72px);
+}
+
+.PatternsFields_RangeField input[type='number'] {
+    display: block;
+    font-size: 12px;
+    margin: 0 0 0 8px;
+	padding: 0 4px;
+    width: 64px;
+}

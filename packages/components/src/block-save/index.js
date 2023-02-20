@@ -15,6 +15,7 @@ import { useBlockProps } from '@wordpress/block-editor';
  */
 import IncrementField from '../increment-field';
 import NumberField from '../number-field';
+import RangeField from '../range-field';
 import RichTextField from '../rich-text-field';
 import SelectField from '../select-field';
 import TextField from '../text-field';
@@ -24,6 +25,7 @@ import UrlField from '../url-field';
 const Components = {
 	'increment-field': IncrementField,
 	'number-field': NumberField,
+	'range-field': RangeField,
 	'rich-text-field': RichTextField,
 	'select-field': SelectField,
 	'text-field': TextField,

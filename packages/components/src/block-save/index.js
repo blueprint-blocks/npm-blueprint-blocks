@@ -13,6 +13,7 @@ import { useBlockProps } from '@wordpress/block-editor';
  *
  * @see https://www.blueprint-blocks.com/docs/
  */
+import IncrementField from '../increment-field';
 import NumberField from '../number-field';
 import RichTextField from '../rich-text-field';
 import SelectField from '../select-field';
@@ -21,6 +22,7 @@ import TextareaField from '../textarea-field';
 import UrlField from '../url-field';
 
 const Components = {
+	'increment-field': IncrementField,
 	'number-field': NumberField,
 	'rich-text-field': RichTextField,
 	'select-field': SelectField,

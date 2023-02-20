@@ -14,17 +14,17 @@ function edit( { attributes, name, onInput, min = 0, max = 100, step = 1, disabl
 		>
 			<input
 				type="range"
-				min={ Number(min) }
-				max={ Number(max) }
-				step={ Number(step) }
+				min={ Number( min ) }
+				max={ Number( max ) }
+				step={ Number( step ) }
 				value={ value }
 				onChange={ ( event ) => onInput( Number( event.target.value ) ) }
 			/>
 			<input
 				type="number"
-				min={ Number(min) }
-				max={ Number(max) }
-				step={ Number(step) }
+				min={ Number( min ) }
+				max={ Number( max ) }
+				step={ Number( step ) }
 				value={ value }
 				onChange={ ( event ) => onInput( Number( event.target.value ) ) }
 			/>

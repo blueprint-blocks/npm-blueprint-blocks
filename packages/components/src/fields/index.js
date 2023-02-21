@@ -1,3 +1,4 @@
+export { default as Html } from './html'
 export { default as IncrementField } from './increment-field'
 export { default as NumberField } from './number-field'
 export { default as RangeField } from './range-field'

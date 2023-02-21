@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import memoize from 'micro-memoize'
 import { useBlockProps } from '@wordpress/block-editor'
-import { delimiterize } from '@blueprint-blocks/utility'
+import { delimiterize, replaceTokens } from '@blueprint-blocks/utility'
 
 const selfClosingTagNames = [
 	'area',
@@ -26,7 +26,18 @@ const fieldClassNames = memoize(( { blockName, name, type = '', value = '' } ) =
     )
 })
 
-function save( { blockName, children = [], className = '', name, tagName = 'div', type = 'field', value ='', ...props } ) {
+function save( { 
+	attributes,
+	blockName,
+	name,
+	children = [], 
+	innerHtml = '',
+	className = '', 
+	tagName = 'div', 
+	type = 'field', 
+	value ='', 
+	...props 
+} ) {
 
 	const blockProps = useBlockProps.save()
 	const Component = tagName

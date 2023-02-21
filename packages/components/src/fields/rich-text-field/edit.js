@@ -3,12 +3,11 @@ import Field from '../field'
 
 //import './style.css'
 
-function edit( { attributes, name, onInput, placeholder, allowedFormats = [], multiLine = false, disabled = false, tagName = 'p', value, ...props } ) {
+function edit( { onInput, placeholder, allowedFormats = [], multiLine = false, disabled = false, tagName = 'p', value, ...props } ) {
 
 	return (
 		<Field.edit
 			{ ...props }
-			name={ name }
 			tagName={ tagName }
 			type="rich-text"
 			value={ value }

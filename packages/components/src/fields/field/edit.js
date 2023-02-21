@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import memoize from 'micro-memoize'
 import { useBlockProps } from '@wordpress/block-editor'
 import { createRef } from '@wordpress/element'
-import { delimiterize } from '@blueprint-blocks/utility'
+import { delimiterize, replaceTokens } from '@blueprint-blocks/utility'
 
 //import './style.css'
 
@@ -38,29 +38,65 @@ function preventEventPropagation( event ) {
 	event.nativeEvent.stopImmediatePropagation()
 }
 
-function edit( { blockName, children = [], className = '', name, tagName = 'div', type = 'field', value ='', ...props } ) {
+function edit( { 
+	attributes,
+	blockName, 
+	name, 
+	children = [], 
+	dangerouslySetInnerHTML,
+	innerHtml = '', 
+	className = '', 
+	tagName = 'div', 
+	type = 'field', 
+	value ='', 
+	...props
+} ) {
 
 	const blockProps = useBlockProps()
 	const Component = tagName
 	const ref = createRef()
 
-	if ( selfClosingTagNames.includes(tagName) === true || children.length === 0 || props.dangerouslySetInnerHTML ) {
-		<Component
-			{ ...props }
-			ref={ ref }
-			className={ classNames(
-				fieldClassNames( {
-					blockName: blockProps['data-type'], 
-					type,
-					name,
-					value,
-				} ),
-				...(Array.isArray(className) && className || [className])
-			) }
-			onClick={ preventEventPropagation }
-			onInput={ preventEventPropagation }
-			onKeydown={ preventEventPropagation }
-		/>
+	if ( selfClosingTagNames.includes(tagName) === false && dangerouslySetInnerHTML ) {
+		return (
+			<Component
+				{ ...props }
+				ref={ ref }
+				className={ classNames(
+					fieldClassNames( {
+						blockName: blockProps['data-type'], 
+						type,
+						name,
+						value,
+					} ),
+					...(Array.isArray(className) && className || [className])
+				) }
+				onClick={ preventEventPropagation }
+				onInput={ preventEventPropagation }
+				onKeydown={ preventEventPropagation }
+				dangerouslySetInnerHTML={ dangerouslySetInnerHTML }
+			/>
+		)
+	}
+
+	if ( selfClosingTagNames.includes(tagName) === true || children.length === 0 ) {
+		return (
+			<Component
+				{ ...props }
+				ref={ ref }
+				className={ classNames(
+					fieldClassNames( {
+						blockName: blockProps['data-type'], 
+						type,
+						name,
+						value,
+					} ),
+					...(Array.isArray(className) && className || [className])
+				) }
+				onClick={ preventEventPropagation }
+				onInput={ preventEventPropagation }
+				onKeydown={ preventEventPropagation }
+			/>
+		)
 	}
 
 	return (

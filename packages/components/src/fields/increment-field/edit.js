@@ -14,15 +14,13 @@ const activeIndex = memoize( ( options, activeValue ) => {
 	return 0
 } )
 
-function edit( { attributes, name, onInput, options = [], multiple = false, disabled = false, tagName = 'div', value, ...props } ) {
+function edit( { onInput, options = [], multiple = false, disabled = false, value, ...props } ) {
 
 	const index = activeIndex(options, value)
 
 	return (
 		<Field.edit
 			{ ...props }
-			name={ name }
-			tagName={ tagName }
 			type="increment"
 			value={ value }
 		>

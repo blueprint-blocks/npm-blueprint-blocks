@@ -1,0 +1,47 @@
+.blueprint-blocks\:increment-field {
+    border: 1px solid #8d96a0;
+    border-radius: 4px;
+    display: flex;
+    height: 28px;
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+}
+
+.blueprint-blocks\:increment-field-minus,
+.blueprint-blocks\:increment-field-plus {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    height: 26px;
+    transition: background 0.4s, colors 0.4s;
+    width: 27px;
+}
+
+.blueprint-blocks\:increment-field-minus {
+    border-right: 1px solid #e2e4e7;
+}
+
+.blueprint-blocks\:increment-field-plus {
+    border-left: 1px solid #e2e4e7;
+}
+
+.blueprint-blocks\:increment-field-minus:not(.is-disabled):hover,
+.blueprint-blocks\:increment-field-plus:not(.is-disabled):hover {
+    background: #e5f3f8;
+    color: #0085ba;
+}
+
+.blueprint-blocks\:increment-field-minus.is-disabled,
+.blueprint-blocks\:increment-field-plus.is-disabled {
+    cursor: default;
+    opacity: 0.25;
+}
+
+.blueprint-blocks\:increment-field-label {
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    width: calc(100% - 54px);
+}

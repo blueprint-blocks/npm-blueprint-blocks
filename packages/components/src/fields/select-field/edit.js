@@ -3,13 +3,11 @@ import Field from '../field'
 
 //import './style.css'
 
-function edit( { attributes, name, onInput, options = [], multiple = false, disabled = false, tagName = 'div', value, ...props } ) {
+function edit( { onInput, options = [], multiple = false, disabled = false, value, ...props } ) {
 
 	return (
 		<Field.edit
 			{ ...props }
-			name={ name }
-			tagName={ tagName }
 			type="select"
 			value={ value }
 		>

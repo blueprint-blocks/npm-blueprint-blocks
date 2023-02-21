@@ -13,25 +13,12 @@ import { useBlockProps } from '@wordpress/block-editor';
  *
  * @see https://www.blueprint-blocks.com/docs/
  */
-import IncrementField from '../increment-field';
-import NumberField from '../number-field';
-import RangeField from '../range-field';
-import RichTextField from '../rich-text-field';
-import SelectField from '../select-field';
-import TextField from '../text-field';
-import TextareaField from '../textarea-field';
-import UrlField from '../url-field';
-
-const Components = {
-	'increment-field': IncrementField,
-	'number-field': NumberField,
-	'range-field': RangeField,
-	'rich-text-field': RichTextField,
-	'select-field': SelectField,
-	'text-field': TextField,
-	'textarea-field': TextareaField,
-	'url-field': UrlField,
-}
+ const Components = Object.fromEntries(
+	Object.values(require('../fields')).map( ( { name, edit, save } ) => [
+		name, 
+		{ edit, save },
+	] )
+)
 
 /**
  * Renders an array of JSX objects

@@ -1,8 +1,8 @@
 import memoize from 'micro-memoize'
 
-const valueByIdentifier = memoize(( identifier = '', context = {} ) => {
+const valueByIdentifier = memoize( ( identifier = '', context = {} ) => {
     let value = { ...context }
-	let parts = identifier.split('.')
+	let parts = identifier.split( '.' )
 
 	if ( parts.length === 0 ) {
 		return ''
@@ -15,11 +15,11 @@ const valueByIdentifier = memoize(( identifier = '', context = {} ) => {
 	}
 
 	if ( parts.length === 0 ) {
-		return value[key]
+		return value[ key ]
 	}
 
-	return valueByIdentifier(parts.join('.'), value[key])
-})
+	return valueByIdentifier( parts.join( '.' ), value[ key ] )
+} )
 
 function replaceTokens( string = '', context = {} ) {
 	if ( typeof string !== 'string' ) {
@@ -27,8 +27,8 @@ function replaceTokens( string = '', context = {} ) {
 	}
 	
 	return string.replaceAll( /\{\{\s(.*?)\s\}\}/g, ( match, p1 ) => {
-		return valueByIdentifier(p1, context)
-	})
+		return valueByIdentifier( p1, context )
+	} )
 }
 
 export default replaceTokens

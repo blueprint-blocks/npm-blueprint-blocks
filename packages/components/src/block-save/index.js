@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import { classNames } from '@blueprint-blocks/utility'
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -37,7 +37,7 @@ function renderJsxArray( { attributes, jsx = [] } ) {
 			return (
 				<Component
 					{ ...props }
-					className={ classNames(...className) }
+					className={ classNames( className, { block: attributes } ) }
 					name={ name }
 					tagName={ tagName }
 					attributes={ attributes }
@@ -49,7 +49,7 @@ function renderJsxArray( { attributes, jsx = [] } ) {
 		}
 
 		return (
-			<Component { ...props } className={ classNames(...className) }>
+			<Component { ...props } className={ classNames( className, { block: attributes } ) }>
 				{ renderJsxArray( { attributes, jsx: children } ) }
 			</Component>
 		)
@@ -72,22 +72,26 @@ function BlockSave( blueprintMetadata ) {
 	return ( { attributes } ) => {
 
 		const blockProps = useBlockProps.save()
-		const blockSave = (blueprintMetadata.blockSave !== null && blueprintMetadata.blockSave || blueprintMetadata.blockEdit || {})
+
+		const { children = [], className = [], tagName = 'div', ...blockSave } = (blueprintMetadata.blockSave !== null && blueprintMetadata.blockSave || blueprintMetadata.blockEdit || {})
+		const Component = tagName
+
+		const blockClassNames = [
+			...(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]),
+			...(Array.isArray(blockSave.className) && blockSave.className || [blockSave.className])
+		]
 
 		return (
-			<div { ...blockProps }>
+			<Component
+				{ ...blockProps }
+				{ ...blockSave }
+				className={ classNames( blockClassNames, { block: attributes } ) }
+			>
 				{ renderJsxArray( {
 					attributes,
-					jsx: [ {
-						...blockProps,
-						...blockSave,
-						className: [
-							...(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]),
-							...(Array.isArray(blockSave.className) && blockSave.className || [blockSave.className])
-						]
-					} ]
+					jsx: children,
 				} ) }
-			</div>
+			</Component>
 		)
 
 	}

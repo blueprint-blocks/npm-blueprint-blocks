@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import { classNames } from '@blueprint-blocks/utility'
 
 /**
  * Retrieves the translation of text.
@@ -42,12 +42,10 @@ function renderJsxArray( { attributes, setAttributes, jsx = [] } ) {
 		if ( type in Components && Components[type] ) {
 			Component = Components[type].edit
 
-			console.log(Component, type, attributes?.[attributeName], props)
-
 			return (
 				<Component
 					{ ...props }
-					className={ classNames(...className) }
+					className={ classNames( className, { block: attributes } ) }
 					name={ name }
 					tagName={ tagName }
 					attributes={ attributes }
@@ -65,7 +63,7 @@ function renderJsxArray( { attributes, setAttributes, jsx = [] } ) {
 		}
 
 		return (
-			<Component { ...props } className={ classNames(...className) }>
+			<Component { ...props } className={ classNames( className, { block: attributes } ) }>
 				{ renderJsxArray( { attributes, setAttributes, jsx: children } ) }
 			</Component>
 		)
@@ -86,26 +84,28 @@ function BlockEdit( blueprintMetadata ) {
 
 	return ( { attributes, setAttributes } ) => {
 
-		const blockProps = useBlockProps.save()
-		const blockEdit = ( blueprintMetadata.blockEdit || {} )
+		const blockProps = useBlockProps()
 		const blockSidebar = Array.isArray(blueprintMetadata.blockSidebar) && blueprintMetadata.blockSidebar || [blueprintMetadata.blockSidebar]
 		const blockToolbar = Array.isArray(blueprintMetadata.blockToolbar) && blueprintMetadata.blockToolbar || [blueprintMetadata.blockToolbar]
+		
+		const { children = [], tagName = 'div', ...blockEdit } = ( blueprintMetadata.blockEdit || {} )
+		const Component = tagName
+
+		const blockClassNames = [
+			...(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]),
+			...(Array.isArray(blockEdit.className) && blockEdit.className || [blockEdit.className])
+		]
 
 		return (
-			<div { ...useBlockProps() }>
+			<Component
+				{ ...blockProps }
+				{ ...blockEdit }
+				className={ classNames( blockClassNames, { block: attributes } ) }
+			>
 				{ renderJsxArray( {
 					attributes,
 					setAttributes,
-					jsx: [
-						{
-							...blockProps,
-							...blockEdit,
-							className: [
-								...(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]),
-								...(Array.isArray(blockEdit.className) && blockEdit.className || [blockEdit.className])
-							]
-						}
-					]
+					jsx: children,
 				} ) }
 				{ blockSidebar.map( ( { label, ...props } ) => (
 					<InspectorControls>
@@ -127,7 +127,7 @@ function BlockEdit( blueprintMetadata ) {
 						} ) }
 					</BlockControls>
 				) ) }
-			</div>
+			</Component>
 		)
 		
 	}

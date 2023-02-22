@@ -1,0 +1,23 @@
+{
+	"all": {
+		"label": "Margin"
+	},
+	"bottom": {
+		"label": "Margin Bottom"
+	},
+	"horizontal": {
+		"label": "Horizontal Margins"
+	},
+	"left": {
+		"label": "Margin Left"
+	},
+	"right": {
+		"label": "Margin Right"
+	},
+	"top": {
+		"label": "Margin Top"
+	},
+	"vertical": {
+		"label": "Vertical Margins"
+	}
+}

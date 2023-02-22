@@ -1,0 +1,34 @@
+[
+	{
+		"label": "None",
+		"value": "none"
+	},
+	{
+		"label": "XX-Small",
+		"value": "xx-small"
+	},
+	{
+		"label": "X-Small",
+		"value": "x-small"
+	},
+	{
+		"label": "Small",
+		"value": "small"
+	},
+	{
+		"label": "Medium",
+		"value": "medium"
+	},
+	{
+		"label": "Large",
+		"value": "large"
+	},
+	{
+		"label": "X-Large",
+		"value": "x-large"
+	},
+	{
+		"label": "XX-Large",
+		"value": "xx-large"
+	}
+]

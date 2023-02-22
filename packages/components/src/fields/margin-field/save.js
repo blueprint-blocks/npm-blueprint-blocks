@@ -5,7 +5,7 @@ function save( { value, ...props } ) {
 	return (
 		<Field.save
 			{ ...props }
-			type="text-size"
+			type="margin"
 			dangerouslySetInnerHTML={ { __html: value } }
 		/>
 	)

@@ -14,7 +14,7 @@ import { __ } from '@wordpress/i18n';
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { PanelBody } from '@wordpress/components';
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import { BlockControls, InspectorControls, useBlockProps } from '@wordpress/block-editor';
 
 /**
  * Field components from Blueprint Blocks
@@ -41,6 +41,8 @@ function renderJsxArray( { attributes, setAttributes, jsx = [] } ) {
 
 		if ( type in Components && Components[type] ) {
 			Component = Components[type].edit
+
+			console.log(Component, type, attributes?.[attributeName], props)
 
 			return (
 				<Component
@@ -87,34 +89,46 @@ function BlockEdit( blueprintMetadata ) {
 		const blockProps = useBlockProps.save()
 		const blockEdit = ( blueprintMetadata.blockEdit || {} )
 		const blockSidebar = Array.isArray(blueprintMetadata.blockSidebar) && blueprintMetadata.blockSidebar || [blueprintMetadata.blockSidebar]
+		const blockToolbar = Array.isArray(blueprintMetadata.blockToolbar) && blueprintMetadata.blockToolbar || [blueprintMetadata.blockToolbar]
 
-		return [
-			...renderJsxArray( {
-				attributes,
-				setAttributes,
-				jsx: [
-					{
-						...blockProps,
-						...blockEdit,
-						className: [
-							...(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]),
-							...(Array.isArray(blockEdit.className) && blockEdit.className || [blockEdit.className])
-						]
-					}
-				]
-			} ),
-			...blockSidebar.map( ( { label, ...props } ) => (
-				<InspectorControls>
-					<PanelBody title={ label }>
+		return (
+			<div { ...useBlockProps() }>
+				{ renderJsxArray( {
+					attributes,
+					setAttributes,
+					jsx: [
+						{
+							...blockProps,
+							...blockEdit,
+							className: [
+								...(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]),
+								...(Array.isArray(blockEdit.className) && blockEdit.className || [blockEdit.className])
+							]
+						}
+					]
+				} ) }
+				{ blockSidebar.map( ( { label, ...props } ) => (
+					<InspectorControls>
+						<PanelBody title={ label }>
+							{ renderJsxArray( {
+								attributes, 
+								setAttributes, 
+								jsx: [ props ],
+							} ) }
+						</PanelBody>
+					</InspectorControls>
+				) ) }
+				{ blockToolbar.map( ( props ) => (
+					<BlockControls>
 						{ renderJsxArray( {
 							attributes, 
 							setAttributes, 
 							jsx: [ props ],
 						} ) }
-					</PanelBody>
-				</InspectorControls>
-			) )
-		]
+					</BlockControls>
+				) ) }
+			</div>
+		)
 		
 	}
 	

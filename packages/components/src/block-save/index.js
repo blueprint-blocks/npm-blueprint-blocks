@@ -74,17 +74,21 @@ function BlockSave( blueprintMetadata ) {
 		const blockProps = useBlockProps.save()
 		const blockSave = (blueprintMetadata.blockSave !== null && blueprintMetadata.blockSave || blueprintMetadata.blockEdit || {})
 
-		return renderJsxArray( {
-			attributes,
-			jsx: [ {
-				...blockProps,
-				...blockSave,
-				className: [
-					...(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]),
-					...(Array.isArray(blockSave.className) && blockSave.className || [blockSave.className])
-				]
-			} ]
-		} )
+		return (
+			<div { ...blockProps }>
+				{ renderJsxArray( {
+					attributes,
+					jsx: [ {
+						...blockProps,
+						...blockSave,
+						className: [
+							...(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]),
+							...(Array.isArray(blockSave.className) && blockSave.className || [blockSave.className])
+						]
+					} ]
+				} ) }
+			</div>
+		)
 
 	}
 

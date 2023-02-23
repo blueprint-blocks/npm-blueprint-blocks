@@ -1,0 +1,22 @@
+{
+	"full": {
+		"icon": "align-full-width",
+		"value": "full"
+	},
+	"wide": {
+		"icon": "align-wide-width",
+		"value": "wide"
+	},
+	"left": {
+		"icon": "align-left",
+		"value": "left"
+	},
+	"center": {
+		"icon": "align-center",
+		"value": "center"
+	},
+	"right": {
+		"icon": "align-right",
+		"value": "right"
+	}
+}

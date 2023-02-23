@@ -1,6 +1,6 @@
 import ToolbarField from '../toolbar-field'
 
-import ALIGN_CONTROLS from './data/controls.json'
+import TEXT_ALIGN_CONTROLS from './data/controls.json'
 
 function edit( { onInput, controls = [ 'left', 'center', 'right' ], value, ...props } ) {
 
@@ -10,7 +10,7 @@ function edit( { onInput, controls = [ 'left', 'center', 'right' ], value, ...pr
 			type="align"
 			value={ value }
 			options={ controls.map( ( control ) => (
-				control in ALIGN_CONTROLS && ALIGN_CONTROLS[ control ] || control 
+				control in TEXT_ALIGN_CONTROLS && TEXT_ALIGN_CONTROLS[ control ] || control 
 			) ) }
 			onInput={ onInput }
 		/>

@@ -1,0 +1,14 @@
+{
+	"left": {
+		"icon": "editor-alignleft",
+		"value": "left"
+	},
+	"center": {
+		"icon": "editor-aligncenter",
+		"value": "center"
+	},
+	"right": {
+		"icon": "editor-alignright",
+		"value": "right"
+	}
+}

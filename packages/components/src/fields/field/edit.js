@@ -4,7 +4,7 @@ import { useBlockProps } from '@wordpress/block-editor'
 import { createRef } from '@wordpress/element'
 import { delimiterize, replaceTokens } from '@blueprint-blocks/utility'
 
-//import './style.css'
+import './style.css'
 
 const selfClosingTagNames = [
 	'area',
@@ -26,6 +26,7 @@ const selfClosingTagNames = [
 const fieldClassNames = memoize(( { blockName, type = '', name, value = '' } ) => {
     return classNames(
         'blueprint-blocks:component',
+        'blueprint-blocks:field',
         `blueprint-blocks:${ type }-field`,
 		`${ delimiterize(blockName) }:${ name }`,
 		{ 'has-value': value }
@@ -46,6 +47,7 @@ function edit( {
 	dangerouslySetInnerHTML,
 	innerHtml = '', 
 	className = '', 
+	label = '',
 	tagName = 'div', 
 	type = 'field', 
 	value ='', 
@@ -78,7 +80,7 @@ function edit( {
 		)
 	}
 
-	if ( selfClosingTagNames.includes(tagName) === true || children.length === 0 ) {
+	if ( selfClosingTagNames.includes(tagName) === true || (children.length === 0 && label.length === 0) ) {
 		return (
 			<Component
 				{ ...props }
@@ -115,8 +117,12 @@ function edit( {
 			onClick={ preventEventPropagation }
 			onInput={ preventEventPropagation }
 			onKeydown={ preventEventPropagation }
-			children={ children }
-		/>
+		>
+			{ label && (
+				<div className="blueprint-blocks:field-label">{ label }</div>
+			) }
+			{ children }
+		</Component>
 	)
 
 }

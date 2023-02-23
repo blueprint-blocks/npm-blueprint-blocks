@@ -24,35 +24,37 @@ function edit( { onInput, options = [], multiple = false, disabled = false, valu
 			type="increment"
 			value={ value }
 		>
-			<div
-				className={ classNames(
-					'blueprint-blocks:increment-field-minus', 
-					{ 'is-disabled': index === 0 } 
-				) } 
-				onClick={ () => {
-					if ( index > 0 ) { 
-						onInput(options?.[ index - 1 ]?.value)
-					}
-				} }
-			/>
+			<div className="blueprint-blocks:increment-field-wrap">
+				<div
+					className={ classNames(
+						'blueprint-blocks:increment-field-minus', 
+						{ 'is-disabled': index === 0 } 
+					) } 
+					onClick={ () => {
+						if ( index > 0 ) { 
+							onInput(options?.[ index - 1 ]?.value)
+						}
+					} }
+				/>
 
-			<div className={ classNames(
-				'blueprint-blocks:increment-field-label'
-			) }>
-				{ options?.[ index ]?.label }
+				<div className={ classNames(
+					'blueprint-blocks:increment-field-label'
+				) }>
+					{ options?.[ index ]?.label }
+				</div>
+
+				<div
+					className={ classNames(
+						'blueprint-blocks:increment-field-plus',
+						{ 'is-disabled': index === options.length - 1 }
+					) }
+					onClick={ () => {
+						if ( index < options.length - 1 ) { 
+							onInput(options?.[ index + 1 ]?.value)
+						}
+					} }
+				/>
 			</div>
-
-			<div
-				className={ classNames(
-					'blueprint-blocks:increment-field-plus',
-					{ 'is-disabled': index === options.length - 1 }
-				) }
-				onClick={ () => {
-					if ( index < options.length - 1 ) { 
-						onInput(options?.[ index + 1 ]?.value)
-					}
-				} }
-			/>
 		</Field.edit>
 	)
 

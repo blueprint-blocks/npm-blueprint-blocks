@@ -1,0 +1,23 @@
+{
+	"all": {
+		"label": "Padding"
+	},
+	"bottom": {
+		"label": "Padding Bottom"
+	},
+	"horizontal": {
+		"label": "Horizontal Paddings"
+	},
+	"left": {
+		"label": "Padding Left"
+	},
+	"right": {
+		"label": "Padding Right"
+	},
+	"top": {
+		"label": "Padding Top"
+	},
+	"vertical": {
+		"label": "Vertical Paddings"
+	}
+}

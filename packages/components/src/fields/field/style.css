@@ -1,0 +1,11 @@
+.blueprint-blocks\:field {
+	margin: 0 0 16px;
+}
+
+.blueprint-blocks\:field:last-child {
+	margin-bottom: 0;
+}
+
+.blueprint-blocks\:field-label {
+	margin-bottom: 8px;
+}

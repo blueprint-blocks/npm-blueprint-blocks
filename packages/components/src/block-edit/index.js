@@ -118,7 +118,7 @@ function BlockEdit( blueprintMetadata ) {
 						</PanelBody>
 					</InspectorControls>
 				) ) }
-				{ blockToolbar.map( ( props ) => (
+				{ blockToolbar.map( ( { label, ...props } ) => (
 					<BlockControls>
 						{ renderJsxArray( {
 							attributes, 

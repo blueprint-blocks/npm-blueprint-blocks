@@ -1,5 +1,6 @@
 export { default as Html } from './html'
 export { default as IncrementField } from './increment-field'
+export { default as InnerBlocks } from './inner-blocks'
 export { default as MarginField } from './margin-field'
 export { default as NumberField } from './number-field'
 export { default as PaddingField } from './padding-field'

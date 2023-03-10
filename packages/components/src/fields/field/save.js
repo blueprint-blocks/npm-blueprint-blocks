@@ -35,12 +35,18 @@ function save( {
 	className = '', 
 	tagName = 'div', 
 	type = 'field', 
-	value ='', 
 	...props 
 } ) {
 
 	const blockProps = useBlockProps.save()
 	const Component = tagName
+
+	props = Object.fromEntries(
+		Object.entries(props).map( ( [ attributeName, attributeValue ] ) => ( [
+			attributeName,
+			replaceTokens( attributeValue, { block: attributes, field: {} } )
+		] ) )
+	)
 
 	if ( selfClosingTagNames.includes(tagName) === true || children.length === 0 || props.dangerouslySetInnerHTML ) {
 		<Component
@@ -50,7 +56,7 @@ function save( {
 					blockName: blockProps.className, 
 					type,
 					name,
-					value,
+					value: props?.value,
 				} ),
 				...(Array.isArray(className) && className || [className])
 			) }
@@ -65,7 +71,7 @@ function save( {
 					blockName: blockProps.className, 
 					type,
 					name,
-					value,
+					value: props?.value,
 				} ),
 				...(Array.isArray(className) && className || [className])
 			) }

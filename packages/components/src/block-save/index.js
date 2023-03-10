@@ -34,6 +34,10 @@ function renderJsxArray( { attributes, jsx = [] } ) {
 		if ( type in Components && Components[type] ) {
 			Component = Components[type].save
 
+			if ( typeof attributes?.[attributeName] !== 'undefined' ) {
+				props.value = attributes?.[attributeName]
+			}
+
 			return (
 				<Component
 					{ ...props }
@@ -41,7 +45,6 @@ function renderJsxArray( { attributes, jsx = [] } ) {
 					name={ name }
 					tagName={ tagName }
 					attributes={ attributes }
-					value={ attributes?.[attributeName] }
 				>
 					{ renderJsxArray( { attributes, jsx: children } ) }
 				</Component>

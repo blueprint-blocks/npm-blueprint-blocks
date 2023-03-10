@@ -40,7 +40,7 @@ function preventEventPropagation( event ) {
 }
 
 function edit( { 
-	attributes,
+	attributes = {},
 	blockName, 
 	name, 
 	children = [], 
@@ -50,13 +50,21 @@ function edit( {
 	label = '',
 	tagName = 'div', 
 	type = 'field', 
-	value ='', 
+	setAttributes,
+	onInput,
 	...props
 } ) {
 
 	const blockProps = useBlockProps()
 	const Component = tagName
 	const ref = createRef()
+
+	props = Object.fromEntries(
+		Object.entries(props).map( ( [ attributeName, attributeValue ] ) => ( [
+			attributeName,
+			replaceTokens( attributeValue, { block: attributes, field: {} } )
+		] ) )
+	)
 
 	if ( selfClosingTagNames.includes(tagName) === false && dangerouslySetInnerHTML ) {
 		return (
@@ -68,7 +76,7 @@ function edit( {
 						blockName: blockProps['data-type'], 
 						type,
 						name,
-						value,
+						value: props?.value,
 					} ),
 					...(Array.isArray(className) && className || [className])
 				) }
@@ -90,7 +98,7 @@ function edit( {
 						blockName: blockProps['data-type'], 
 						type,
 						name,
-						value,
+						value: props?.value,
 					} ),
 					...(Array.isArray(className) && className || [className])
 				) }
@@ -110,7 +118,7 @@ function edit( {
 					blockName: blockProps['data-type'], 
 					type, 
 					name, 
-					value,
+					value: props?.value,
 				}),
 				...(Array.isArray(className) && className || [className])
 			) }

@@ -42,6 +42,10 @@ function renderJsxArray( { attributes, setAttributes, jsx = [] } ) {
 		if ( type in Components && Components[type] ) {
 			Component = Components[type].edit
 
+			if ( typeof attributes?.[attributeName] !== 'undefined' ) {
+				props.value = attributes?.[attributeName]
+			}
+
 			return (
 				<Component
 					{ ...props }
@@ -51,11 +55,13 @@ function renderJsxArray( { attributes, setAttributes, jsx = [] } ) {
 					attributes={ attributes }
 					setAttributes={ setAttributes }
 					onInput={ ( value ) => {
+						if ( !attributeName ) {
+							return
+						}
 						setAttributes( { 
 							[attributeName]: value,
 						} )
 					} }
-					value={ attributes?.[attributeName] }
 				>
 					{ renderJsxArray( { attributes, setAttributes, jsx: children } ) }
 				</Component>

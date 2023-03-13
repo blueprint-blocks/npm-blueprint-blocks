@@ -1,4 +1,5 @@
 export { default as AlignField } from './align-field'
+export { default as BooleanField } from './boolean-field'
 export { default as Html } from './html'
 export { default as IncrementField } from './increment-field'
 export { default as InnerBlocks } from './inner-blocks'

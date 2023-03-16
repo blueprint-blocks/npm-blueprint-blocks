@@ -1,7 +1,8 @@
 .blueprint-blocks\:increment-field-wrap {
     border: 1px solid #8d96a0;
     border-radius: 4px;
-    display: flex;
+    display: grid;
+	grid-template-columns: 27px 1fr 27px;
     height: 28px;
     overflow: hidden;
     position: relative;
@@ -12,7 +13,7 @@
 .blueprint-blocks\:increment-field-plus {
     align-items: center;
     cursor: pointer;
-    display: flex;
+    display: grid;
     justify-content: center;
     height: 26px;
     transition: background 0.4s, colors 0.4s;
@@ -37,6 +38,13 @@
 .blueprint-blocks\:increment-field-plus.is-disabled {
     cursor: default;
     opacity: 0.25;
+}
+
+.blueprint-blocks\:increment-field-minus img,
+.blueprint-blocks\:increment-field-plus img {
+	display: block;
+	height: 14px;
+	width: 14px;
 }
 
 .blueprint-blocks\:increment-field-label {

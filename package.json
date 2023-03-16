@@ -7,7 +7,9 @@
   },
   "dependencies": {
     "@blueprint-blocks/components": "file:packages/components",
-    "@blueprint-blocks/create-block": "file:packages/create-block"
+    "@blueprint-blocks/create-block": "file:packages/create-block",
+    "@blueprint-blocks/icons": "file:packages/icons",
+    "@blueprint-blocks/utility": "file:packages/utility"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",

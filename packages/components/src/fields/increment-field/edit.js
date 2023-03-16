@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import memoize from 'micro-memoize'
+import { angleLeft, angleRight } from '@blueprint-blocks/icons'
 import Field from '../field'
 
 import './style.css'
@@ -35,7 +36,9 @@ function edit( { onInput, options = [], multiple = false, disabled = false, valu
 							onInput(options?.[ index - 1 ]?.value)
 						}
 					} }
-				/>
+				>
+					<img src={ angleLeft }/>
+				</div>
 
 				<div className={ classNames(
 					'blueprint-blocks:increment-field-label'
@@ -53,7 +56,9 @@ function edit( { onInput, options = [], multiple = false, disabled = false, valu
 							onInput(options?.[ index + 1 ]?.value)
 						}
 					} }
-				/>
+				>
+					<img src={ angleRight }/>
+				</div>
 			</div>
 		</Field.edit>
 	)

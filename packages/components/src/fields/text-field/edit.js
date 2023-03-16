@@ -1,4 +1,4 @@
-import { TextControl } from '@wordpress/components'
+import { createRef } from '@wordpress/element'
 import Field from '../field'
 
 //import './style.css'
@@ -13,6 +13,8 @@ function edit( {
 	...props
 } ) {
 
+	const ref = createRef()
+
 	return (
 		<Field.edit
 			{ ...props }
@@ -21,6 +23,7 @@ function edit( {
 		>
 			<input
 				type="text"
+				onBlur={ () => ref?.current?.reportValidity() }
                 onChange={ ( { target } ) => onInput(target.value) }
                 placeholder={ placeholder }
 				pattern={ pattern }

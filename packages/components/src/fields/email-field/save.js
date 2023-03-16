@@ -4,6 +4,7 @@ function save( {
 	placeholder = '', 
 	pattern = '', 
 	disabled = false, 
+	multiple = false, 
 	required = false, 
 	value, 
 	...props 
@@ -12,7 +13,7 @@ function save( {
 	return (
 		<Field.save
 			{ ...props }
-			type="text"
+			type="email"
 			dangerouslySetInnerHTML={ { __html: value } }
 		/>
 	)

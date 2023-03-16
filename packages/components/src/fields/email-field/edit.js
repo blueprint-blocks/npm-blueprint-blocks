@@ -8,6 +8,7 @@ function edit( {
 	placeholder, 
 	pattern = '', 
 	disabled = false, 
+	multiple = false, 
 	required = false, 
 	value, 
 	...props
@@ -16,15 +17,16 @@ function edit( {
 	return (
 		<Field.edit
 			{ ...props }
-			type="text"
+			type="email"
 			value={ value }
 		>
 			<input
-				type="text"
+				type="email"
                 onChange={ ( { target } ) => onInput(target.value) }
                 placeholder={ placeholder }
 				pattern={ pattern }
                 disabled={ disabled }
+				multiple={ multiple }
 				required={ required }
                 value={ value }
             />

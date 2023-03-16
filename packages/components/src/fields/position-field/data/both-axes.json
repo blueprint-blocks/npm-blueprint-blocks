@@ -1,0 +1,47 @@
+[
+    {
+        "icon": "arrowUpLeft",
+        "label": "Left Top",
+        "value": ["left", "top"]
+    },
+    {
+        "icon": "arrowUp",
+        "label": "Center Top",
+        "value": ["center", "top"]
+    },
+    {
+        "icon": "arrowUpRight",
+        "label": "Right Top",
+        "value": ["right", "top"]
+    },
+    {
+        "icon": "arrowLeft",
+        "label": "Left Middle",
+        "value": ["left", "center"]
+    },
+    {
+        "icon": "circle",
+        "label": "Center Middle",
+        "value": ["center", "center"]
+    },
+    {
+        "icon": "arrowRight",
+        "label": "Right Middle",
+        "value": ["right", "center"]
+    },
+    {
+        "icon": "arrowDownLeft",
+        "label": "Left Bottom",
+        "value": ["left", "bottom"]
+    },
+    {
+        "icon": "arrowDown",
+        "label": "Center Bottom",
+        "value": ["center", "bottom"]
+    },
+    {
+        "icon": "arrowDownRight",
+        "label": "Right Bottom",
+        "value": ["right", "bottom"]
+    }
+]

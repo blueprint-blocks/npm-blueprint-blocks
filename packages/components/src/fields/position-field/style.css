@@ -1,0 +1,58 @@
+.blueprint-blocks\:position-field-wrap {
+    border: 1px solid #8d96a0;
+    border-radius: 4px;
+    display: grid;
+	grid-auto-columns: 26px;
+	grid-auto-rows: 26px;
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+}
+
+.blueprint-blocks\:position-field-wrap.is-both-axes {
+	grid-template-columns: repeat(3, 26px);
+	height: 80px;
+	width: 80px;
+}
+
+.blueprint-blocks\:position-field-wrap.is-x-axis {
+	grid-template-columns: repeat(3, 26px);
+	height: 28px;
+	width: 80px;
+}
+
+.blueprint-blocks\:position-field-wrap.is-y-axis {
+	height: 80px;
+	width: 28px;
+}
+
+.blueprint-blocks\:position-field-wrap > div {
+	align-items: center;
+	cursor: pointer;
+	display: grid;
+	justify-content: center;
+	position: relative;
+}
+
+.blueprint-blocks\:position-field-wrap img {
+	display: block;
+	height: 14px;
+    opacity: 0.25;
+	width: 14px;
+}
+
+.blueprint-blocks\:position-field-wrap > div.is-active img {
+	opacity: 1;
+}
+
+.blueprint-blocks\:position-field-wrap.is-stretch > div.is-active:before {
+	background: #e5f3f8;
+	content: '';
+    display: block;
+    height: 78px;
+    left: 0;
+    position: absolute;
+    top: -26px;
+    width: 26px;
+    z-index: -1;
+}

@@ -1,0 +1,17 @@
+[
+    {
+        "icon": "arrowUp",
+        "label": "Top",
+        "value": [null, "top"]
+    },
+    {
+        "icon": "circle",
+        "label": "Center",
+        "value": [null, "center"]
+    },
+    {
+        "icon": "arrowDown",
+        "label": "Bottom",
+        "value": [null, "Bottom"]
+    }
+]

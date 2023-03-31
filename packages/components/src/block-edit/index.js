@@ -33,7 +33,7 @@ const Components = Object.fromEntries(
  * 
  * @param {array} jsx 
  */
-function renderJsxArray( { attributes, setAttributes, jsx = [] } ) {
+function renderJsxArray( { blockName, attributes, setAttributes, jsx = [] } ) {
 
 	return jsx.map( ( { children = [], className = [], name = '', attributeName = '', type = '', tagName = 'div', ...props } ) => {
 
@@ -49,6 +49,7 @@ function renderJsxArray( { attributes, setAttributes, jsx = [] } ) {
 			return (
 				<Component
 					{ ...props }
+					blockName={ blockName }
 					className={ classNames( className, { block: attributes } ) }
 					name={ name }
 					tagName={ tagName }
@@ -63,14 +64,18 @@ function renderJsxArray( { attributes, setAttributes, jsx = [] } ) {
 						} )
 					} }
 				>
-					{ renderJsxArray( { attributes, setAttributes, jsx: children } ) }
+					{ renderJsxArray( { blockName, attributes, setAttributes, jsx: children } ) }
 				</Component>
 			)
 		}
 
 		return (
-			<Component { ...props } className={ classNames( className, { block: attributes } ) }>
-				{ renderJsxArray( { attributes, setAttributes, jsx: children } ) }
+			<Component
+				{ ...props }
+				blockName={ blockName }
+				className={ classNames( className, { block: attributes } ) }
+			>
+				{ renderJsxArray( { blockName, attributes, setAttributes, jsx: children } ) }
 			</Component>
 		)
 
@@ -91,6 +96,8 @@ function BlockEdit( blueprintMetadata ) {
 	return ( { attributes, setAttributes } ) => {
 
 		const blockProps = useBlockProps()
+		const blockName = blockProps['data-type']
+
 		const blockSidebar = Array.isArray(blueprintMetadata.blockSidebar) && blueprintMetadata.blockSidebar || [blueprintMetadata.blockSidebar]
 		const blockToolbar = Array.isArray(blueprintMetadata.blockToolbar) && blueprintMetadata.blockToolbar || [blueprintMetadata.blockToolbar]
 		
@@ -109,6 +116,7 @@ function BlockEdit( blueprintMetadata ) {
 				className={ classNames( blockClassNames, { block: attributes } ) }
 			>
 				{ renderJsxArray( {
+					blockName,
 					attributes,
 					setAttributes,
 					jsx: children,
@@ -117,6 +125,7 @@ function BlockEdit( blueprintMetadata ) {
 					<InspectorControls>
 						<PanelBody title={ label }>
 							{ renderJsxArray( {
+								blockName,
 								attributes, 
 								setAttributes, 
 								jsx: [ props ],
@@ -127,6 +136,7 @@ function BlockEdit( blueprintMetadata ) {
 				{ blockToolbar.map( ( { label, ...props } ) => (
 					<BlockControls>
 						{ renderJsxArray( {
+							blockName,
 							attributes, 
 							setAttributes, 
 							jsx: [ props ],

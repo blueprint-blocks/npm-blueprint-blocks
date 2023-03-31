@@ -20,9 +20,10 @@ const selfClosingTagNames = [
 	'wbr',
 ]
 
-const fieldClassNames = memoize(( { blockName, name, type = '', value = '' } ) => {
+const fieldClassNames = memoize(( { blockName, name, type = '' } ) => {
     return classNames(
-		`${ delimiterize(blockName) }:${ name }`
+		`block:${ name }`,
+		`${ blockName }:${ name }`
     )
 })
 
@@ -30,6 +31,7 @@ function save( {
 	attributes,
 	blockName,
 	name,
+	label,
 	children = [], 
 	innerHtml = '',
 	className = '', 
@@ -37,8 +39,7 @@ function save( {
 	type = 'field', 
 	...props 
 } ) {
-
-	const blockProps = useBlockProps.save()
+	
 	const Component = tagName
 
 	props = Object.fromEntries(
@@ -52,13 +53,8 @@ function save( {
 		<Component
 			{ ...props }
 			className={ classNames(
-				fieldClassNames( {
-					blockName: blockProps.className, 
-					type,
-					name,
-					value: props?.value,
-				} ),
-				...(Array.isArray(className) && className || [className])
+				fieldClassNames( { blockName, name, type } ),
+				...( Array.isArray( className ) && className || [ className ] )
 			) }
 		/>
 	}
@@ -67,13 +63,8 @@ function save( {
 		<Component
 			{ ...props }
 			className={ classNames(
-				fieldClassNames( {
-					blockName: blockProps.className, 
-					type,
-					name,
-					value: props?.value,
-				} ),
-				...(Array.isArray(className) && className || [className])
+				fieldClassNames( { blockName, name, type } ),
+				...( Array.isArray( className ) && className || [ className ] )
 			) }
 			children={ children }
 		/>

@@ -25,7 +25,7 @@ import { useBlockProps } from '@wordpress/block-editor';
  * 
  * @param {array} jsx 
  */
-function renderJsxArray( { attributes, jsx = [] } ) {
+function renderJsxArray( { blockName, attributes, jsx = [] } ) {
 
 	return jsx.map( ( { children = [], className = [], name = '', attributeName = '', type = '', tagName = 'div', ...props } ) => {
 
@@ -41,19 +41,24 @@ function renderJsxArray( { attributes, jsx = [] } ) {
 			return (
 				<Component
 					{ ...props }
+					blockName={ blockName }
 					className={ classNames( className, { block: attributes } ) }
 					name={ name }
 					tagName={ tagName }
 					attributes={ attributes }
 				>
-					{ renderJsxArray( { attributes, jsx: children } ) }
+					{ renderJsxArray( { blockName, attributes, jsx: children } ) }
 				</Component>
 			)
 		}
 
 		return (
-			<Component { ...props } className={ classNames( className, { block: attributes } ) }>
-				{ renderJsxArray( { attributes, jsx: children } ) }
+			<Component
+				{ ...props } 
+				blockName={ blockName }
+				className={ classNames( className, { block: attributes } ) }
+			>
+				{ renderJsxArray( { blockName, attributes, jsx: children } ) }
 			</Component>
 		)
 
@@ -75,6 +80,7 @@ function BlockSave( blueprintMetadata ) {
 	return ( { attributes } ) => {
 
 		const blockProps = useBlockProps.save()
+		const blockName = blockProps.className
 
 		const { children = [], className = [], tagName = 'div', ...blockSave } = (blueprintMetadata.blockSave !== null && blueprintMetadata.blockSave || blueprintMetadata.blockEdit || {})
 		const Component = tagName
@@ -91,6 +97,7 @@ function BlockSave( blueprintMetadata ) {
 				className={ classNames( blockClassNames, { block: attributes } ) }
 			>
 				{ renderJsxArray( {
+					blockName,
 					attributes,
 					jsx: children,
 				} ) }

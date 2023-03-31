@@ -73,10 +73,9 @@ function edit( {
 				ref={ ref }
 				className={ classNames(
 					fieldClassNames( {
-						blockName: blockProps['data-type'], 
-						type,
+						blockName,
 						name,
-						value: props?.value,
+						type,
 					} ),
 					...(Array.isArray(className) && className || [className])
 				) }
@@ -95,10 +94,9 @@ function edit( {
 				ref={ ref }
 				className={ classNames(
 					fieldClassNames( {
-						blockName: blockProps['data-type'], 
-						type,
+						blockName,
 						name,
-						value: props?.value,
+						type,
 					} ),
 					...(Array.isArray(className) && className || [className])
 				) }
@@ -115,10 +113,9 @@ function edit( {
 			ref={ ref }
 			className={ classNames(
 				fieldClassNames({ 
-					blockName: blockProps['data-type'], 
-					type, 
+					blockName,
 					name, 
-					value: props?.value,
+					type, 
 				}),
 				...(Array.isArray(className) && className || [className])
 			) }

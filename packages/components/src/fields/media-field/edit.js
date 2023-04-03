@@ -1,8 +1,9 @@
+import { __ } from '@wordpress/i18n'
 import { models } from '@wordpress/api'
 import { MediaPlaceholder, MediaUpload } from '@wordpress/block-editor'
 import { withNotices, Button } from '@wordpress/components'
 import { createRef } from '@wordpress/element'
-import { plus } from '@blueprint-blocks/icons'
+import { pencil, plus, trash } from '@blueprint-blocks/icons'
 import Field from '../field'
 
 import getAllowedTypes from './functions/get-allowed-types'
@@ -10,7 +11,7 @@ import hasValue from './functions/has-value'
 
 import ALL_TYPES from './data/types.json'
 
-//import './style.css'
+import './style.css'
 
 function edit( { 
 	onInput, 
@@ -25,13 +26,21 @@ function edit( {
 
 	const ref = createRef()
 
-	const onSelectOne = ( { id, height, type, url, width, ...item } ) => {					
+	const removeItem = ( id ) => {
+		onInput(
+			Object.values(value).filter( ( item ) => (
+				item.id !== id
+			) )
+		)
+	}
+
+	const selectItem = ( { id, height, type, url, width, ...item } ) => {					
 		onInput( [
 			{ id, height, width, type, url }
 		] )
 	}
 
-	const onSelectMultiple = ( items ) => {
+	const selectMultiple = ( items ) => {
 		onInput(
 			Object.values(items).map( ( { id, height, type, url, width, ...item } ) => (
 				{ id, height, width, type, url }
@@ -52,7 +61,7 @@ function edit( {
 						labels={ { title: label } }
 						allowedTypes={ ALL_TYPES }
 						multiple={ multiple }
-						onSelect={ multiple && onSelectMultiple || onSelectOne }
+						onSelect={ multiple && selectMultiple || selectItem }
 						notices={ noticeUI }
 						onError={ noticeOperations.createErrorNotice }
 					/>
@@ -67,20 +76,45 @@ function edit( {
 								{ type === 'pdf' && getAllowedTypes( allowedTypes ).includes( 'pdf' ) && (
 									<span className="fa-solid fa-file-pdf"/>
 								) }
+								<div className="blueprint-blocks:media-field-item-options">
+									<div>
+										<MediaUpload
+											allowedTypes={ ALL_TYPES }
+											gallery={ multiple }
+											multiple={ multiple }
+											onSelect={ multiple && selectMultiple || selectItem }
+											value={ value.map( ( { id } ) => id ) }
+											render={ ( { open } ) => (
+												<Button
+													label={ __( `Edit ${ label || 'Image' }` ) }
+													onClick={ open }
+													icon={ <img src={ pencil }/> }
+												/>
+											) }
+										/>
+										<Button
+											label={ __( `Remove ${label || 'Image' }` ) }
+											icon={ <img src={ trash }/> }
+											onClick={ () => removeItem(id) }
+										/>
+									</div>
+								</div>
 							</div>
 						) ) }
-						<MediaUpload
-							allowedTypes={ ALL_TYPES }
-							gallery={ multiple }
-							multiple={ multiple }
-							onSelect={ multiple && onSelectMultiple || onSelectOne }
-							value={ value.map( ( { id } ) => id ) }
-							render={ ( { open } ) => (
-								<div onClick={ open }>
-									<img src={ plus }/>
-								</div>
-							) }
-						/>
+						{ multiple && (
+							<MediaUpload
+								allowedTypes={ ALL_TYPES }
+								gallery={ multiple }
+								multiple={ multiple }
+								onSelect={ multiple && selectMultiple || selectItem }
+								value={ value.map( ( { id } ) => id ) }
+								render={ ( { open } ) => (
+									<div onClick={ open }>
+										<img src={ plus }/>
+									</div>
+								) }
+							/>
+						) }
 					</div>
 				) }
 			</div>

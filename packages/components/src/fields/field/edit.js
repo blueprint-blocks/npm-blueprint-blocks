@@ -24,11 +24,12 @@ const selfClosingTagNames = [
 ]
 
 const fieldClassNames = memoize(( { blockName, type = '', name, value = '' } ) => {
-    return classNames(
+	return classNames(
+		{ [`block:${ name }`]: name?.length },
+		{ [`${ blockName }:${ name }`]: name?.length },
         'blueprint-blocks:component',
         'blueprint-blocks:field',
         `blueprint-blocks:${ type }-field`,
-		`${ delimiterize(blockName) }:${ name }`,
 		{ 'has-value': value }
     )
 })
@@ -76,6 +77,7 @@ function edit( {
 						blockName,
 						name,
 						type,
+						value: props?.value,
 					} ),
 					...(Array.isArray(className) && className || [className])
 				) }
@@ -97,6 +99,7 @@ function edit( {
 						blockName,
 						name,
 						type,
+						value: props?.value,
 					} ),
 					...(Array.isArray(className) && className || [className])
 				) }
@@ -116,6 +119,7 @@ function edit( {
 					blockName,
 					name, 
 					type, 
+					value: props?.value,
 				}),
 				...(Array.isArray(className) && className || [className])
 			) }

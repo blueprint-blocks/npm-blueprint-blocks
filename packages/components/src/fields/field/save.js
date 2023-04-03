@@ -22,8 +22,8 @@ const selfClosingTagNames = [
 
 const fieldClassNames = memoize(( { blockName, name, type = '' } ) => {
     return classNames(
-		`block:${ name }`,
-		`${ blockName }:${ name }`
+		{ [`block:${ name }`]: name?.length },
+		{ [`${ blockName }:${ name }`]: name?.length }
     )
 })
 

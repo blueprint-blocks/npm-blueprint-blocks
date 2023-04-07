@@ -1,32 +1,54 @@
+import classNames from 'classnames'
 import { RichText } from '@wordpress/block-editor'
-import Field from '../field'
+import getFieldClassNames from '../field/functions/get-field-class-names'
 
-//import './style.css'
+function edit( { 
+	blockName,
+	name,
+	placeholder, 
+	allowedFormats = [], 
+	disabled = false, 
+	tagName = 'p', 
+	className = [],
+	value, 
+	onInput, 
+	...props
+} ) {
 
-function edit( { onInput, placeholder, allowedFormats = [], multiLine = false, disabled = false, tagName = 'p', value, ...props } ) {
+	if ( disabled === true ) {
+		const Component = tagName
+		return <Component
+			className={ classNames(
+				getFieldClassNames( {
+					blockName,
+					name,
+					type: 'rich-text',
+					value,
+				} ),
+				...(Array.isArray(className) && className || [className])
+			) }
+			dangerouslySetInnerHTML={ { __html: value } }
+		/>
+	}
 
 	return (
-		<Field.edit
-			{ ...props }
+		<RichText
+			className={ classNames(
+				getFieldClassNames( {
+					blockName,
+					name,
+					type: 'rich-text',
+					value,
+				} ),
+				...(Array.isArray(className) && className || [className])
+			) }
+			onChange={ onInput }
 			tagName={ tagName }
-			type="rich-text"
+			allowedFormats={ allowedFormats }
+			keepPlaceholderOnFocus={ true }
+			placeholder={ placeholder }
 			value={ value }
-		>
-			{ disabled === true && (
-				<div dangerouslySetInnerHTML={ { __html: value } }/>
-			) }
-			{ disabled === false && (
-				<RichText
-					onChange={ onInput }
-					tagName="div"
-					allowedFormats={ allowedFormats }
-					multiline={ multiLine }
-					keepPlaceholderOnFocus={ true }
-					placeholder={ placeholder }
-					value={ value }
-				/>
-			) }
-		</Field.edit>
+		/>
 	)
 }
 

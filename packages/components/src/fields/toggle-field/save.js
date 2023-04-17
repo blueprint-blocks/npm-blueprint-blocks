@@ -5,7 +5,7 @@ function save( { value, ...props } ) {
 	return (
 		<Field.save
 			{ ...props }
-			type="increment"
+			type="toggle"
 			dangerouslySetInnerHTML={ { __html: (Array.isArray(value) && value || [ value ]).join(',') } }
 		/>
 	)

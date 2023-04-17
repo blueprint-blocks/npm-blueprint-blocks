@@ -1,0 +1,8 @@
+:root {
+	--blueprint-blocks-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	--blueprint-blocks-border: 1px solid var(--blueprint-blocks-color-gray);
+	--blueprint-blocks-border-radius: 4px;
+	--blueprint-blocks-color: #2c3338;
+	--blueprint-blocks-color-gray: #8c8f94;
+	--blueprint-blocks-font-size: 13px;
+}

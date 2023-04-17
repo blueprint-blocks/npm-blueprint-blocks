@@ -1,25 +1,15 @@
 import classNames from 'classnames'
-import memoize from 'micro-memoize'
 import Field from '../field'
+import Tooltip from '../../tooltip'
 
 import './style.css'
 
-const activeIndex = memoize( ( options, activeValue ) => {
-	for ( let i = 0; i < options.length; i++ ) {
-		if ( options[i]?.value === activeValue ) {
-			return i
-		}
-	}
-
-	return 0
-} )
-
-function edit( { onInput, options = [], multiple = false, disabled = false, value, ...props } ) {
+function edit( { onInput, options = [], multiple = false, disabled = false, size = 'normal', tooltip, tooltipPosition = 'center', value, ...props } ) {
 
 	return (
 		<Field.edit
 			{ ...props }
-			className={ [ { 'is-true': !!value, 'is-false': !value }, ...( props.className || [] ) ] }
+			className={ [ { 'is-true': !!value, 'is-false': !value, 'is-small': ( size === 'small' ) }, ...( props.className || [] ) ] }
 			type="boolean"
 			value={ value }
 		>
@@ -30,6 +20,9 @@ function edit( { onInput, options = [], multiple = false, disabled = false, valu
 				<div className={ classNames('blueprint-blocks:boolean-field-false') }/>
 				<div className={ classNames('blueprint-blocks:boolean-field-true') } />
 				<div className={ classNames('blueprint-blocks:boolean-field-toggle') }/>
+				{ tooltip && (
+					<Tooltip label={ tooltip }/>
+				) }
 			</div>
 		</Field.edit>
 	)

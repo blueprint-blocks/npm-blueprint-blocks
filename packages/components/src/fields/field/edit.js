@@ -1,8 +1,8 @@
 import classNames from 'classnames'
-import memoize from 'micro-memoize'
 import { useBlockProps } from '@wordpress/block-editor'
 import { createRef } from '@wordpress/element'
 import { delimiterize, replaceTokens } from '@blueprint-blocks/utility'
+import getFieldClassNames from './functions/get-field-class-names'
 
 import './style.css'
 
@@ -23,17 +23,6 @@ const selfClosingTagNames = [
 	'wbr',
 ]
 
-const fieldClassNames = memoize(( { blockName, type = '', name, value = '' } ) => {
-	return classNames(
-		{ [`block:${ name }`]: name?.length },
-		{ [`${ blockName }:${ name }`]: name?.length },
-        'blueprint-blocks:component',
-        'blueprint-blocks:field',
-        `blueprint-blocks:${ type }-field`,
-		{ 'has-value': value }
-    )
-})
-
 function preventEventPropagation( event ) {
 	event.stopPropagation()
 	event.nativeEvent.stopPropagation()
@@ -47,11 +36,10 @@ function edit( {
 	children = [], 
 	dangerouslySetInnerHTML,
 	innerHtml = '', 
-	className = '', 
+	className = [], 
 	label = '',
 	tagName = 'div', 
 	type = 'field', 
-	setAttributes,
 	onInput,
 	...props
 } ) {
@@ -73,13 +61,13 @@ function edit( {
 				{ ...props }
 				ref={ ref }
 				className={ classNames(
-					fieldClassNames( {
+					getFieldClassNames( {
 						blockName,
 						name,
 						type,
 						value: props?.value,
 					} ),
-					...(Array.isArray(className) && className || [className])
+					...( Array.isArray( className ) && className || [ className ] )
 				) }
 				onClick={ preventEventPropagation }
 				onInput={ preventEventPropagation }
@@ -95,13 +83,13 @@ function edit( {
 				{ ...props }
 				ref={ ref }
 				className={ classNames(
-					fieldClassNames( {
+					getFieldClassNames( {
 						blockName,
 						name,
 						type,
 						value: props?.value,
 					} ),
-					...(Array.isArray(className) && className || [className])
+					...( Array.isArray( className ) && className || [ className ] )
 				) }
 				onClick={ preventEventPropagation }
 				onInput={ preventEventPropagation }
@@ -115,13 +103,13 @@ function edit( {
 			{ ...props }
 			ref={ ref }
 			className={ classNames(
-				fieldClassNames({ 
+				getFieldClassNames({ 
 					blockName,
 					name, 
 					type, 
 					value: props?.value,
 				}),
-				...(Array.isArray(className) && className || [className])
+				...( Array.isArray( className ) && className || [ className ] )
 			) }
 			onClick={ preventEventPropagation }
 			onInput={ preventEventPropagation }

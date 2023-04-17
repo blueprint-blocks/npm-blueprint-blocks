@@ -2,7 +2,6 @@ import { __ } from '@wordpress/i18n'
 import { models } from '@wordpress/api'
 import { MediaPlaceholder, MediaUpload } from '@wordpress/block-editor'
 import { withNotices, Button } from '@wordpress/components'
-import { createRef } from '@wordpress/element'
 import { pencil, plus, trash } from '@blueprint-blocks/icons'
 import Field from '../field'
 
@@ -23,8 +22,6 @@ function edit( {
 	value = [], 
 	...props
 } ) {
-
-	const ref = createRef()
 
 	const removeItem = ( id ) => {
 		onInput(

@@ -1,8 +1,8 @@
-.blueprint-blocks\:field {
+.components-panel__body .blueprint-blocks\:field {
 	margin: 0 0 16px;
 }
 
-.blueprint-blocks\:field:last-child {
+.components-panel__body .blueprint-blocks\:field:last-child {
 	margin-bottom: 0;
 }
 

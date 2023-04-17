@@ -1,15 +1,24 @@
+.blueprint-blocks\:boolean-field {
+	--padding: 2px;
+	--size: 22px;
+}
+
+.blueprint-blocks\:boolean-field.is-small {
+	--size: 14px;
+}
+
 .blueprint-blocks\:boolean-field-wrap {
     border: 1px solid #8d96a0;
-    border-radius: 28px;
+    border-radius: calc(2px + var(--size) + (var(--padding) * 2));
+	box-sizing: border-box;
 	cursor: pointer;
     display: grid;
 	grid-template-columns: 1fr 1fr;
-    height: 28px;
-    overflow: hidden;
-	padding: 2px;
+    height: calc(2px + var(--size) + (var(--padding) * 2));
+	padding: var(--padding);
     position: relative;
     user-select: none;
-	width: 50px;
+	width: calc((var(--size) * 2) + (var(--padding) * 3));
 }
 
 .blueprint-blocks\:boolean-field-false,
@@ -18,8 +27,8 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    height: 22px;
-    width: 22px;
+    height: var(--size);
+    width: var(--size);
 }
 
 .blueprint-blocks\:boolean-field-false,
@@ -36,7 +45,7 @@
 
 .blueprint-blocks\:boolean-field-toggle {
 	background: #8d96a0;
-	border-radius: 22px;
+	border-radius: var(--size);
 }
 
 .blueprint-blocks\:boolean-field.is-true .blueprint-blocks\:boolean-field-toggle {

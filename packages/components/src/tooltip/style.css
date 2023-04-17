@@ -1,0 +1,31 @@
+.blueprint-blocks\:tooltip {
+	background: #000;
+	border-radius: 2px;
+	bottom: calc(100% + 5px);
+	color: #fff;
+	display: none;
+	font-size: 12px;
+	left: 50%;
+	padding: 4px 8px;
+	position: absolute;
+	min-width: 80px;
+	transform: translateX(-50%);
+	white-space: nowrap;
+	z-index: 10;
+}
+
+:hover > .blueprint-blocks\:tooltip {
+	display: block;
+}
+
+.blueprint-blocks\:tooltip:after {
+	border-left: 4px solid transparent;
+	border-right: 4px solid transparent;
+	border-top: 4px solid #000;
+	bottom: -4px;
+	content: '';
+	display: block;
+	left: 50%;
+	position: absolute;
+	transform: translateX(-50%);
+}

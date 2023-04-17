@@ -1,17 +1,20 @@
-.PatternsFields_UrlField input[type='text'] {
-    width: 100% !important;
-}
-
-.PatternsFields_UrlField input[type='text'] {
-	border: 1px solid #1e1e1e;
+.blueprint-blocks\:url-field input[type='text'] {
+	border: var(--blueprint-blocks-border);
+	border-radius: var(--blueprint-blocks-border-radius);
+	color: var(--blueprint-blocks-color);
+	display: block;
+	font-size: var(--blueprint-blocks-font-size) !important;
+	height: 32px !important;
+	line-height: 30px !important;
+	padding: 0 8px;
     text-align: inherit;
     transition: none;
     width: 100% !important;
 }
 
-.PatternsFields_UrlField input[type='text']::placeholder,
-.PatternsFields_UrlField input[type='text']:focus::placeholder,
-.PatternsFields_UrlField input[type='text']:hover::placeholder {
-    color: currentcolor;
+.blueprint-blocks\:url-field input[type='text']::placeholder,
+.blueprint-blocks\:url-field input[type='text']:focus::placeholder,
+.blueprint-blocks\:url-field input[type='text']:hover::placeholder {
+	color: var(--blueprint-blocks-color);
     opacity: 0.5;
 }

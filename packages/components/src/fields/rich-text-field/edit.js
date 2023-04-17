@@ -25,7 +25,7 @@ function edit( {
 					type: 'rich-text',
 					value,
 				} ),
-				...(Array.isArray(className) && className || [className])
+				...( Array.isArray( className ) && className || [ className ] )
 			) }
 			dangerouslySetInnerHTML={ { __html: value } }
 		/>
@@ -40,7 +40,7 @@ function edit( {
 					type: 'rich-text',
 					value,
 				} ),
-				...(Array.isArray(className) && className || [className])
+				...( Array.isArray( className ) && className || [ className ] )
 			) }
 			onChange={ onInput }
 			tagName={ tagName }

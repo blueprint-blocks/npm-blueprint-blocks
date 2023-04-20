@@ -7,6 +7,7 @@ function edit( {
 	onInput, 
 	placeholder, 
 	pattern = '', 
+	customValidity = '',
 	disabled = false, 
 	required = false, 
 	value, 
@@ -22,9 +23,17 @@ function edit( {
 			value={ value }
 		>
 			<input
+				ref={ ref }
 				type="text"
-				onBlur={ () => ref?.current?.reportValidity() }
-                onChange={ ( { target } ) => onInput(target.value) }
+				onInput={ ( { target } ) => {
+					if (target?.validity?.patternMismatch && customValidity) {
+						target?.setCustomValidity(customValidity)
+					} else {
+						target?.setCustomValidity('')
+					}
+					target?.reportValidity()
+					onInput(target.value)
+				} }
                 placeholder={ placeholder }
 				pattern={ pattern }
                 disabled={ disabled }

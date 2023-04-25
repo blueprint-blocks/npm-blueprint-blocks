@@ -49,8 +49,8 @@
 		{
 			"type": "boolean-field",
 			"label": "Is world?",
-			"name": "boolean",
-			"attributeName": "boolean"
+			"name": "world",
+			"attributeName": "world"
 		}
 	],
 	"blockToolbar": [

@@ -1,0 +1,36 @@
+.PatternsFields_RichTextField {
+	white-space: pre-wrap;
+}
+
+.PatternsFields_RichTextField .block-editor-rich-text,
+.PatternsFields_RichTextField .block-editor-rich-text__editable {
+    background: none !important;
+    border: 0 !important;
+	color: inherit !important;
+	font-size: inherit !important;
+	font-variation-settings: inherit !important;
+	font-weight: inherit !important;
+	letter-spacing: inherit !important;
+	line-break: inherit !important;
+	line-height: inherit !important;
+    min-height: initial !important;
+	min-width: initial !important;
+    padding: 0 !important;
+	text-decoration: inherit !important;
+	text-emphasis: inherit !important;
+	text-indent: inherit !important;
+	text-rendering: inherit !important;
+	text-transform: inherit !important;
+	white-space: inherit !important;
+	word-wrap: inherit !important;
+}
+
+.PatternsFields_RichTextField .block-editor-rich-text > * {
+    font-family: inherit;
+    margin: 0;
+    text-align: inherit;
+}
+
+.block-editor-block-list__layout.is-root-container > :not(.is-selected):not(.has-child-selected) .PatternsFields_RichTextField:not(.has-value) {
+	display: none;
+}

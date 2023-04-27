@@ -33,6 +33,7 @@ function edit( {
 	attributes = {},
 	blockName, 
 	name, 
+	attributeName,
 	children = [], 
 	dangerouslySetInnerHTML,
 	innerHtml = '', 

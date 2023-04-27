@@ -10,6 +10,7 @@ export { default as angleLeft } from './fontawesome/svgs/sharp-solid/angle-left.
 export { default as angleRight } from './fontawesome/svgs/sharp-solid/angle-right.svg'
 export { default as circle } from './fontawesome/svgs/sharp-solid/circle.svg'
 export { default as link } from './fontawesome/svgs/sharp-solid/link.svg'
+export { default as minus } from './fontawesome/svgs/sharp-solid/minus.svg'
 export { default as pencil } from './fontawesome/svgs/sharp-solid/pencil.svg'
 export { default as plus } from './fontawesome/svgs/sharp-solid/plus.svg'
 export { default as trash } from './fontawesome/svgs/sharp-solid/trash.svg'

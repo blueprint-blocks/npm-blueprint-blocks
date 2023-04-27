@@ -52,6 +52,7 @@ function renderJsxArray( { blockName, attributes, setAttributes, jsx = [] } ) {
 					blockName={ blockName }
 					className={ classNames( className, { block: attributes } ) }
 					name={ name }
+					attributeName={ attributeName }
 					tagName={ tagName }
 					attributes={ attributes }
 					setAttributes={ setAttributes }

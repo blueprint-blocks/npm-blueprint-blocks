@@ -1,0 +1,18 @@
+{
+	"desktop": {
+		"icon": "desktop",
+		"label": "Desktop"
+	},
+	"laptop": {
+		"icon": "laptop",
+		"label": "Laptop"
+	},
+	"tablet": {
+		"icon": "tablet-android",
+		"label": "Tablet"
+	},
+	"mobile": {
+		"icon": "mobile-android",
+		"label": "Mobile"
+	}
+}

@@ -1,8 +1,12 @@
 :root {
 	--blueprint-blocks-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 	--blueprint-blocks-border: 1px solid var(--blueprint-blocks-color-gray);
-	--blueprint-blocks-border-radius: 4px;
+	--blueprint-blocks-border-radius: 2px;
 	--blueprint-blocks-color: #2c3338;
-	--blueprint-blocks-color-gray: #8c8f94;
+	--blueprint-blocks-color-accent: var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba));
+	--blueprint-blocks-color-gray: #949494;
+	--blueprint-blocks-color-light-gray: var(--wp-components-color-gray-300, #ddd);
+	--blueprint-blocks-color-lightest-gray: #e6eaf0;
+	--blueprint-blocks-color-white: #fff;
 	--blueprint-blocks-font-size: 13px;
 }

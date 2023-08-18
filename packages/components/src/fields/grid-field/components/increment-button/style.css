@@ -1,0 +1,31 @@
+.blueprint-blocks\:grid-field-plus {
+    align-items: center;
+	border: 1px solid transparent;
+	border-radius: var(--blueprint-blocks-border-radius);
+    cursor: pointer;
+    display: grid;
+    justify-content: center;
+    height: 26px;
+    transition: border 0.4s, colors 0.4s;
+    width: 26px;
+}
+
+.blueprint-blocks\:grid-field-plus:not(.is-disabled):hover {
+    border-color: var(--blueprint-blocks-color-accent);
+    color: var(--blueprint-blocks-color-accent);
+}
+
+.blueprint-blocks\:grid-field-plus:not(.is-disabled):active {
+	background: var(--blueprint-blocks-color-light-gray);
+}
+
+.blueprint-blocks\:grid-field-plus.is-disabled {
+    cursor: default;
+    opacity: 0.25;
+}
+
+.blueprint-blocks\:grid-field-plus img {
+	display: block;
+	height: 12px;
+	width: 12px;
+}

@@ -1,0 +1,33 @@
+.blueprint-blocks\:grid-field-breakpoint-toggle {
+    display: grid;
+	gap: 2px;
+	grid-auto-columns: 1fr;
+	grid-auto-flow: column;
+}
+
+.blueprint-blocks\:grid-field-breakpoint-toggle > div {
+    align-items: center;
+	border: 1px solid transparent;
+	border-radius: var(--blueprint-blocks-border-radius);
+    cursor: pointer;
+    display: grid;
+    justify-content: center;
+    height: 26px;
+	line-height: 24px;
+	text-align: center;
+    transition: border 0.4s, colors 0.4s;
+}
+
+.blueprint-blocks\:grid-field-breakpoint-toggle > div:hover {
+    border-color: var(--blueprint-blocks-color-accent);
+    color: var(--blueprint-blocks-color-accent);
+}
+
+.blueprint-blocks\:grid-field-breakpoint-toggle > div:active {
+	background: var(--blueprint-blocks-color-light-gray);
+}
+
+.blueprint-blocks\:grid-field-breakpoint-toggle > div.is-active {
+	background-color: var(--blueprint-blocks-color-accent);
+	color: var(--blueprint-blocks-color-white);
+}

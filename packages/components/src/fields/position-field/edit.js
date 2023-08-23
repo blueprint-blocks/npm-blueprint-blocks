@@ -7,7 +7,7 @@ import BOTH_AXES_OPTIONS from './data/both-axes.json'
 import X_AXIS_OPTIONS from './data/x-axis.json'
 import Y_AXIS_OPTIONS from './data/y-axis.json'
 
-import './style.css'
+import './style.scss'
 
 const getActiveIndex = memoize( ( axis = 'both', activeValue ) => {
 	const values = axisValues( axis )
@@ -70,7 +70,7 @@ function edit( { onInput, axis = 'both', stretch = true, value, ...props } ) {
 						title={ label }
 						className={ classNames( { 'is-active': index === activeIndex } ) }
 					>
-						<img src={ Icons[ icon ] }/>
+						<div dangerouslySetInnerHTML={ { __html: Icons[ icon ] } }/>
 					</div>
 				) ) }
 			</div>

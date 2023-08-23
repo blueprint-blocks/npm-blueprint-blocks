@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n'
 import Field from '../field/index.js'
 import TextField from '../text-field/index.js'
 
-import './style.css'
+import './style.scss'
 
 function edit( { 
 	onInput, 

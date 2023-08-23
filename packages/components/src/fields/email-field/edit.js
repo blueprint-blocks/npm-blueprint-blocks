@@ -1,7 +1,7 @@
 import { createRef } from '@wordpress/element'
 import Field from '../field/index.js'
 
-//import './style.css'
+//import './style.scss'
 
 function edit( { 
 	onInput, 

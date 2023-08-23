@@ -1,7 +1,7 @@
 import { SelectControl } from '@wordpress/components'
 import Field from '../field/index.js'
 
-//import './style.css'
+//import './style.scss'
 
 function edit( { onInput, options = [], multiple = false, disabled = false, value, ...props } ) {
 

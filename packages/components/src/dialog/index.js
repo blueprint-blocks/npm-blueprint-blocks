@@ -3,7 +3,7 @@ import { Button } from '@wordpress/components'
 import { createRef, useState } from '@wordpress/element'
 import { useClickOutside } from '@blueprint-blocks/utility'
 
-import './style.css'
+import './style.scss'
 
 function Dialog( { icon, label, children = [], ...props } ) {
 

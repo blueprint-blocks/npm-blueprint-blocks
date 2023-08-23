@@ -1,7 +1,7 @@
 import { TextareaControl } from '@wordpress/components'
 import Field from '../field/index.js'
 
-//import './style.css'
+//import './style.scss'
 
 function edit( { onInput, placeholder, disabled = false, rows = 8, value, ...props } ) {
 

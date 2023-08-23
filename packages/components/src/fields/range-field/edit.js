@@ -1,6 +1,6 @@
 import Field from '../field/index.js'
 
-//import './style.css'
+//import './style.scss'
 
 function edit( { onInput, min = 0, max = 100, step = 1, disabled = false, value, ...props } ) {
 

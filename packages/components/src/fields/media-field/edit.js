@@ -10,7 +10,7 @@ import hasValue from './functions/has-value.js'
 
 import ALL_TYPES from './data/types.json'
 
-import './style.css'
+import './style.scss'
 
 function edit( { 
 	onInput, 
@@ -85,13 +85,13 @@ function edit( {
 												<Button
 													label={ __( `Edit ${ label || 'Image' }` ) }
 													onClick={ open }
-													icon={ <img src={ pencil }/> }
+													icon={ <div dangerouslySetInnerHTML={ { __html: pencil } }/> }
 												/>
 											) }
 										/>
 										<Button
 											label={ __( `Remove ${label || 'Image' }` ) }
-											icon={ <img src={ trash }/> }
+											icon={ <div dangerouslySetInnerHTML={ { __html: trash } }/> }
 											onClick={ () => removeItem(id) }
 										/>
 									</div>
@@ -107,7 +107,7 @@ function edit( {
 								value={ value.map( ( { id } ) => id ) }
 								render={ ( { open } ) => (
 									<div onClick={ open }>
-										<img src={ plus }/>
+										<div dangerouslySetInnerHTML={ { __html: plus } }/>
 									</div>
 								) }
 							/>

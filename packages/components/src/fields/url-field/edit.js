@@ -1,7 +1,7 @@
 import { URLInput } from '@wordpress/block-editor'
 import Field from '../field/index.js'
 
-import './style.css'
+import './style.scss'
 
 function edit( { 
 	onInput, 

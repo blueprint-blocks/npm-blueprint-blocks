@@ -94,17 +94,17 @@ function renderJsxArray( { blockName, attributes, setAttributes, jsx = [] } ) {
  *
  * @return {WPElement} Element to render.
  */
-function BlockEdit( blueprintMetadata ) {
+function BlockEdit( blueprint ) {
 
 	return ( { attributes, setAttributes } ) => {
-
+		
 		const blockProps = useBlockProps()
 		const blockName = blockProps['data-type']
 
-		const blockSidebar = Array.isArray(blueprintMetadata.blockSidebar) && blueprintMetadata.blockSidebar || [blueprintMetadata.blockSidebar]
-		const blockToolbar = Array.isArray(blueprintMetadata.blockToolbar) && blueprintMetadata.blockToolbar || [blueprintMetadata.blockToolbar]
+		const blockSidebar = Array.isArray(blueprint.blockSidebar) && blueprint.blockSidebar || [blueprint.blockSidebar]
+		const blockToolbar = Array.isArray(blueprint.blockToolbar) && blueprint.blockToolbar || [blueprint.blockToolbar]
 		
-		const { children = [], tagName = 'div', ...blockEdit } = ( blueprintMetadata.blockEdit || {} )
+		const { children = [], tagName = 'div', ...blockEdit } = ( blueprint.blockEdit || {} )
 		const Component = tagName
 
 		const blockClassNames = [

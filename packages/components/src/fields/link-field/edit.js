@@ -7,7 +7,7 @@ import RichTextField from '../rich-text-field/index.js'
 import Dialog from '../../dialog/index.js'
 import UrlField from '../url-field/index.js'
 
-import './style.css'
+import './style.scss'
 
 function edit( { onInput, className = [], placeholder, value = {}, ...props } ) {
 
@@ -28,7 +28,7 @@ function edit( { onInput, className = [], placeholder, value = {}, ...props } ) 
 					) }
 				/>
 				<Dialog
-					icon={ <img src={ link }/> }
+					icon={ <div dangerouslySetInnerHTML={ { __html: link } }/> }
 					label={ __( 'Edit Link Properties' ) }
 				>
 					<div className="blueprint-blocks:link-field-properties">
@@ -39,7 +39,7 @@ function edit( { onInput, className = [], placeholder, value = {}, ...props } ) 
 								Object.assign( {}, value, { href } )
 							) }
 						/>
-						<img src={ upRightFromSquare }/>
+						<div dangerouslySetInnerHTML={ { __html: upRightFromSquare } }/>
 						<BooleanField.edit
 							options={ [
 								{

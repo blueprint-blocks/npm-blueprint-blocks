@@ -3,7 +3,7 @@ import memoize from 'micro-memoize'
 import { angleLeft, angleRight } from '../../icons/index.js'
 import Field from '../field/index.js'
 
-import './style.css'
+import './style.scss'
 
 const activeIndex = memoize( ( options, activeValue ) => {
 	for ( let i = 0; i < options.length; i++ ) {
@@ -37,7 +37,7 @@ function edit( { onInput, options = [], multiple = false, disabled = false, valu
 						}
 					} }
 				>
-					<img src={ angleLeft }/>
+					<div dangerouslySetInnerHTML={ { __html: angleLeft } }/>
 				</div>
 
 				<div className={ classNames(
@@ -57,7 +57,7 @@ function edit( { onInput, options = [], multiple = false, disabled = false, valu
 						}
 					} }
 				>
-					<img src={ angleRight }/>
+					<div dangerouslySetInnerHTML={ { __html: angleRight } }/>
 				</div>
 			</div>
 		</Field.edit>

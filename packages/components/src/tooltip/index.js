@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import './style.css'
+import './style.scss'
 
 function Tooltip( { label } ) {
 

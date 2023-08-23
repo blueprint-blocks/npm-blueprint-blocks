@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components'
 
-import './style.css'
+import './style.scss'
 
 function edit( { onInput, options = [], multiple = false, disabled = false, value, ...props } ) {
 

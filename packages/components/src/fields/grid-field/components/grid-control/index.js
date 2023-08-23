@@ -3,7 +3,7 @@ import { getRowWidth } from '../../functions/index.js'
 import DecrementButton from '../decrement-button/index.js'
 import IncrementButton from '../increment-button/index.js'
 
-import './style.css'
+import './style.scss'
 
 function GridControl( {
 	columns = 6,

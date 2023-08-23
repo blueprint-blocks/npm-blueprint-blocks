@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import Field from '../field/index.js'
 import Tooltip from '../../tooltip/index.js'
 
-import './style.css'
+import './style.scss'
 
 function edit( { onInput, options = [], multiple = false, disabled = false, size = 'normal', tooltip, tooltipPosition = 'center', value, ...props } ) {
 

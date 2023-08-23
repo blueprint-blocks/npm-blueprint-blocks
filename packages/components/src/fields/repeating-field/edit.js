@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import { minus, plus } from '../../icons/index.js'
 import Field from '../field/index.js'
 
-import './style.css'
+import './style.scss'
 
 function edit( { onInput, children, min = 0, max = null, value = [], ...props } ) {
 
@@ -42,7 +42,7 @@ function edit( { onInput, children, min = 0, max = null, value = [], ...props } 
 					onInput( value.slice( 0, -1 ) )
 				} }
 			>
-				<img src={ minus }/>
+				<div dangerouslySetInnerHTML={ { __html: minus } }/>
 			</div>
 			<div
 				className={ classNames(
@@ -53,7 +53,7 @@ function edit( { onInput, children, min = 0, max = null, value = [], ...props } 
 					onInput( [ ...value, {} ] )
 				} }
 			>
-				<img src={ plus }/>
+				<div dangerouslySetInnerHTML={ { __html: plus } }/>
 			</div>
 		</Field.edit>
 	)

@@ -5,7 +5,7 @@ import { getBreakpointLabels, getGridAlign, getGridGap, getGridJustify, getGridR
 import BreakpointToggle from './components/breakpoint-toggle/index.js'
 import GridControl from './components/grid-control/index.js'
 
-import './style.css'
+import './style.scss'
 
 function edit( { 
 	onInput,

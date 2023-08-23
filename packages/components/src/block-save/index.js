@@ -77,14 +77,14 @@ function renderJsxArray( { blockName, attributes, jsx = [] } ) {
  *
  * @return {WPElement} Element to render.
  */
-function BlockSave( blueprintMetadata ) {
+function BlockSave( blueprint ) {
 	
 	return ( { attributes } ) => {
 
 		const blockProps = useBlockProps.save()
 		const blockName = blockProps.className
 
-		const { children = [], className = [], tagName = 'div', ...blockSave } = (blueprintMetadata.blockSave !== null && blueprintMetadata.blockSave || blueprintMetadata.blockEdit || {})
+		const { children = [], className = [], tagName = 'div', ...blockSave } = (blueprint.blockSave !== null && blueprint.blockSave || blueprint.blockEdit || {})
 		const Component = tagName
 
 		const blockClassNames = [

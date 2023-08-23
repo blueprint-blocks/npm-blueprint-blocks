@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { plus } from '../../../../icons/index.js'
 
-import './style.css'
+import './style.scss'
 
 function IncrementButton( {
 	onClick = () => {},
@@ -12,7 +12,7 @@ function IncrementButton( {
 			className={ classNames( 'blueprint-blocks:grid-field-plus', { 'is-disabled': disabled } ) }
 			onClick={ onClick }
 		>
-			<img src={ plus }/>
+			<div dangerouslySetInnerHTML={ { __html: plus } }/>
 		</div>
 	)
 }

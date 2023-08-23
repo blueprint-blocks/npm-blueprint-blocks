@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import memoize from 'micro-memoize'
 import Field from '../field/index.js'
 
-import './style.css'
+import './style.scss'
 
 const optionsHaveImages = memoize( ( options ) => {
 	return options.reduce((hasImages, { image }) => (

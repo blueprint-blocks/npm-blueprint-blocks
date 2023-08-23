@@ -4,7 +4,7 @@ import { createRef } from '@wordpress/element'
 import { delimiterize, replaceTokens } from '@blueprint-blocks/utility'
 import getFieldClassNames from './functions/get-field-class-names.js'
 
-import './style.css'
+import './style.scss'
 
 const selfClosingTagNames = [
 	'area',

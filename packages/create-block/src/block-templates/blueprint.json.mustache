@@ -1,3 +1,4 @@
+{{=<% %>=}}
 {
 	"$schema": "https://schemas.blueprint-blocks.com/blueprint.json",
 	"apiVersion": 1,
@@ -10,7 +11,7 @@
 				"is-hello": true
 			},
 			{
-				"is-world": "\{{ block.subtitle }}"
+				"is-world": "{{ block.subtitle }}"
 			}
 		],
 		"children": [
@@ -36,12 +37,12 @@
 						"tagName": "sl-rating",
 						"label": "Rating",
 						"disabled": true,
-						"value": "\{{ block.rating }}"
+						"value": "{{ block.rating }}"
 					},
 					{
 						"type": "html",
 						"tagName": "div",
-						"innerHtml": "\{{ block.subtitle }} \{{ block.dog }}"
+						"innerHtml": "{{ block.subtitle }} {{ block.dog }}"
 					},
 					{
 						"type": "rich-text-field",
@@ -296,3 +297,4 @@
 		}
 	]
 }
+<%={{ }}=%>

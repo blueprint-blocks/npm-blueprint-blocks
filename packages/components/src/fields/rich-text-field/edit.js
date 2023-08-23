@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { RichText } from '@wordpress/block-editor'
-import getFieldClassNames from '../field/functions/get-field-class-names'
+import getFieldClassNames from '../field/functions/get-field-class-names.js'
 
 function edit( { 
 	blockName,

@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import memoize from 'micro-memoize'
-import * as Icons from '@blueprint-blocks/icons'
-import Field from '../field'
+import * as Icons from '../../icons/index.js'
+import Field from '../field/index.js'
 
 import BOTH_AXES_OPTIONS from './data/both-axes.json'
 import X_AXIS_OPTIONS from './data/x-axis.json'

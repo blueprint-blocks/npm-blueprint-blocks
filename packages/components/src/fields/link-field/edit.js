@@ -1,11 +1,11 @@
 import classNames from 'classnames'
 import { __ } from '@wordpress/i18n'
-import { link, upRightFromSquare } from '@blueprint-blocks/icons'
-import Field from '../field'
-import BooleanField from '../boolean-field'
-import RichTextField from '../rich-text-field'
-import Dialog from '../../dialog'
-import UrlField from '../url-field'
+import { link, upRightFromSquare } from '../../icons/index.js'
+import Field from '../field/index.js'
+import BooleanField from '../boolean-field/index.js'
+import RichTextField from '../rich-text-field/index.js'
+import Dialog from '../../dialog/index.js'
+import UrlField from '../url-field/index.js'
 
 import './style.css'
 

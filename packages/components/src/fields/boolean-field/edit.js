@@ -1,6 +1,6 @@
 import classNames from 'classnames'
-import Field from '../field'
-import Tooltip from '../../tooltip'
+import Field from '../field/index.js'
+import Tooltip from '../../tooltip/index.js'
 
 import './style.css'
 

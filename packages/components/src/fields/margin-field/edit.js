@@ -1,5 +1,5 @@
-import Field from '../field'
-import IncrementField from '../increment-field'
+import Field from '../field/index.js'
+import IncrementField from '../increment-field/index.js'
 
 import MARGIN_DEFINITIONS from './data/definitions.json'
 import MARGIN_SIZES from './data/sizes.json'

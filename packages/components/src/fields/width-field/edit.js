@@ -1,5 +1,5 @@
-import Field from '../field'
-import RangeField from '../range-field'
+import Field from '../field/index.js'
+import RangeField from '../range-field/index.js'
 
 function edit( { onInput, min = 0, max = null, step = 1, disabled = false, value, ...props } ) {
 

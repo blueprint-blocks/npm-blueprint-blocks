@@ -1,6 +1,6 @@
-import Field from '../field'
+import Field from '../field/index.js'
 
-import getAllowedTypes from './functions/get-allowed-types'
+import getAllowedTypes from './functions/get-allowed-types.js'
 
 function save( { 
 	allowedTypes = [],

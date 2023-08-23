@@ -1,4 +1,4 @@
-import Field from '../field'
+import Field from '../field/index.js'
 
 function save( { placeholder = '', value, ...props } ) {
 

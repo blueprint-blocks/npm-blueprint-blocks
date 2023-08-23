@@ -1,6 +1,6 @@
 import memoize from 'micro-memoize'
 import { GradientPicker } from '@wordpress/components'
-import Field from '../field'
+import Field from '../field/index.js'
 
 const getGradient = memoize( ( slug, gradients = [] ) => {
 	for ( let i = 0; i < gradients.length; i++ ) {

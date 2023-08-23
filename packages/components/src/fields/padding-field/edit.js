@@ -1,5 +1,5 @@
-import Field from '../field'
-import IncrementField from '../increment-field'
+import Field from '../field/index.js'
+import IncrementField from '../increment-field/index.js'
 
 import PADDING_DEFINITIONS from './data/definitions.json'
 import PADDING_SIZES from './data/sizes.json'

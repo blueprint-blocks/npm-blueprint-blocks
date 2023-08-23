@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import memoize from 'micro-memoize'
-import { angleLeft, angleRight } from '@blueprint-blocks/icons'
-import Field from '../field'
+import { angleLeft, angleRight } from '../../icons/index.js'
+import Field from '../field/index.js'
 
 import './style.css'
 

@@ -1,7 +1,7 @@
 import classNames from 'classnames'
-import { getRowWidth } from '../../functions'
-import DecrementButton from '../decrement-button'
-import IncrementButton from '../increment-button'
+import { getRowWidth } from '../../functions/index.js'
+import DecrementButton from '../decrement-button/index.js'
+import IncrementButton from '../increment-button/index.js'
 
 import './style.css'
 

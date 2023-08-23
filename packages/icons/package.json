@@ -1,9 +1,0 @@
-{
-  "name": "@blueprint-blocks/icons",
-  "private": true,
-  "version": "23.2.0",
-  "main": "src/index.js",
-  "scripts": {
-    "build": "echo 'hello icons'"
-  }
-}

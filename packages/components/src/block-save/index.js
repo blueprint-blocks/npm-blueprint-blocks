@@ -13,8 +13,10 @@ import { useBlockProps } from '@wordpress/block-editor';
  *
  * @see https://www.blueprint-blocks.com/docs/
  */
+import * as Fields from '../fields/index.js';
+
  const Components = Object.fromEntries(
-	Object.values(require('../fields')).map( ( { name, edit, save } ) => [
+	Object.values(Fields).map( ( { name, edit, save } ) => [
 		name, 
 		{ edit, save },
 	] )

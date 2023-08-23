@@ -1,5 +1,5 @@
 import { TextareaControl } from '@wordpress/components'
-import Field from '../field'
+import Field from '../field/index.js'
 
 //import './style.css'
 

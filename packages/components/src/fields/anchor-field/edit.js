@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { __ } from '@wordpress/i18n'
-import Field from '../field'
-import TextField from '../text-field'
+import Field from '../field/index.js'
+import TextField from '../text-field/index.js'
 
 import './style.css'
 

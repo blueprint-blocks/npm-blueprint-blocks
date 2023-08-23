@@ -1,12 +1,12 @@
 import { __ } from '@wordpress/i18n'
-import { models } from '@wordpress/api'
+//import { models } from '@wordpress/api'
 import { MediaPlaceholder, MediaUpload } from '@wordpress/block-editor'
 import { withNotices, Button } from '@wordpress/components'
-import { pencil, plus, trash } from '@blueprint-blocks/icons'
-import Field from '../field'
+import { pencil, plus, trash } from '../../icons/index.js'
+import Field from '../field/index.js'
 
-import getAllowedTypes from './functions/get-allowed-types'
-import hasValue from './functions/has-value'
+import getAllowedTypes from './functions/get-allowed-types.js'
+import hasValue from './functions/has-value.js'
 
 import ALL_TYPES from './data/types.json'
 

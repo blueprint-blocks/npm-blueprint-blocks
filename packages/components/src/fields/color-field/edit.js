@@ -1,6 +1,6 @@
 import memoize from 'micro-memoize'
 import { ColorPalette } from '@wordpress/components'
-import Field from '../field'
+import Field from '../field/index.js'
 
 const getColor = memoize( ( slug, colors = [] ) => {
 	for ( let i = 0; i < colors.length; i++ ) {

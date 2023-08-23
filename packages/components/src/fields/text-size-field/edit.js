@@ -1,5 +1,4 @@
-import Field from '../field'
-import ToolbarField from '../toolbar-field'
+import ToolbarField from '../toolbar-field/index.js'
 
 import TEXT_SIZES from './data/text-sizes.json'
 

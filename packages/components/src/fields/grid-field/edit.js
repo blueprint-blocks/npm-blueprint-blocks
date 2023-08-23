@@ -1,9 +1,9 @@
 import classNames from 'classnames'
 import { useState } from '@wordpress/element'
-import Field from '../field'
-import { getBreakpointLabels, getGridAlign, getGridGap, getGridJustify, getGridRows } from './functions'
-import BreakpointToggle from './components/breakpoint-toggle'
-import GridControl from './components/grid-control'
+import Field from '../field/index.js'
+import { getBreakpointLabels, getGridAlign, getGridGap, getGridJustify, getGridRows } from './functions/index.js'
+import BreakpointToggle from './components/breakpoint-toggle/index.js'
+import GridControl from './components/grid-control/index.js'
 
 import './style.css'
 

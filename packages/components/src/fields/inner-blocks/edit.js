@@ -1,5 +1,5 @@
 import { InnerBlocks } from '@wordpress/block-editor'
-import Field from '../field'
+import Field from '../field/index.js'
 
 function edit( { name = 'inner-blocks', template = [], templateLock = false, ...props } ) {
 	

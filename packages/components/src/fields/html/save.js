@@ -1,5 +1,5 @@
 import { replaceTokens } from '@blueprint-blocks/utility'
-import Field from '../field'
+import Field from '../field/index.js'
 
 function save( { children, dangerouslySetInnerHTML, innerHtml = '', ...props } ) {
 

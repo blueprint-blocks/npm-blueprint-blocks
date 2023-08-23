@@ -1,4 +1,4 @@
-import ToolbarField from '../toolbar-field'
+import ToolbarField from '../toolbar-field/index.js'
 
 import ALIGN_CONTROLS from './data/controls.json'
 

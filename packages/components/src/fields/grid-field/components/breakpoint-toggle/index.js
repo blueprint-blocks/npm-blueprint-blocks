@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { getBreakpointLabels } from '../../functions'
+import { getBreakpointLabels } from '../../functions/index.js'
 
 import './style.css'
 

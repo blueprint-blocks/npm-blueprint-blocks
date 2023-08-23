@@ -1,6 +1,6 @@
 import classNames from 'classnames'
-import { minus, plus } from '@blueprint-blocks/icons'
-import Field from '../field'
+import { minus, plus } from '../../icons/index.js'
+import Field from '../field/index.js'
 
 import './style.css'
 

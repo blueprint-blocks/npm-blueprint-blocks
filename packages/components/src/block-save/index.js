@@ -84,7 +84,7 @@ function BlockSave( blueprint ) {
 		const blockProps = useBlockProps.save()
 		const blockName = blockProps.className
 
-		const { children = [], className = [], tagName = 'div', ...blockSave } = (blueprint.blockSave !== null && blueprint.blockSave || blueprint.blockEdit || {})
+		const { children = [], tagName = 'div', ...blockSave } = (blueprint.blockSave !== null && blueprint.blockSave || blueprint.blockEdit || {})
 		const Component = tagName
 
 		const blockClassNames = [

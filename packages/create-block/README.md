@@ -7,5 +7,5 @@ This is a template for [`@wordpress/create-block`](https://github.com/WordPress/
 This block template can be used by running the following command:
 
 ```bash
-npx  @wordpress/create-block --template @blueprint-blocks/create-block-template
+npx  @wordpress/create-block --template @blueprint-blocks/create-block
 ```

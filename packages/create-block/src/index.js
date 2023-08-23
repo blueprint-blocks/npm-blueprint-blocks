@@ -28,10 +28,6 @@ module.exports = {
 				type: "string",
 				default: "red"
 			},
-			gradient: {
-				type: "string",
-				default: ""
-			},
 			labels: {
 				type: "array",
 				default: []

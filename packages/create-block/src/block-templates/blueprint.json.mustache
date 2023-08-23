@@ -10,7 +10,7 @@
 				"is-hello": true
 			},
 			{
-				"is-world": "{{ block.subtitle }}"
+				"is-world": "\{{ block.subtitle }}"
 			}
 		],
 		"children": [
@@ -36,12 +36,12 @@
 						"tagName": "sl-rating",
 						"label": "Rating",
 						"disabled": true,
-						"value": "{{ block.rating }}"
+						"value": "\{{ block.rating }}"
 					},
 					{
 						"type": "html",
 						"tagName": "div",
-						"innerHtml": "{{ block.subtitle }} {{ block.dog }}"
+						"innerHtml": "\{{ block.subtitle }} \{{ block.dog }}"
 					},
 					{
 						"type": "rich-text-field",
@@ -145,30 +145,6 @@
 			],
 			"clearable": false,
 			"enableAlpha": true
-		},
-		{
-			"type": "gradient-field",
-			"name": "gradient",
-			"attributeName": "gradient",
-			"label": "Gradient",
-			"gradients": [
-				{
-                    "name": "JShine",
-                    "gradient": "linear-gradient(135deg,#12c2e9 0%,#c471ed 50%,#f64f59 100%)",
-                    "slug": "jshine"
-                },
-                {
-                    "name": "Moonlit Asteroid",
-                    "gradient": "linear-gradient(135deg,#0F2027 0%, #203A43 0%, #2c5364 100%)",
-                    "slug": "moonlit-asteroid"
-                },
-                {
-                    "name": "Rastafarie",
-                    "gradient": "linear-gradient(135deg,#1E9600 0%, #FFF200 0%, #FF0000 100%)",
-                    "slug": "rastafari"
-                }
-			],
-			"clearable": false
 		},
 		{
 			"type": "boolean-field",

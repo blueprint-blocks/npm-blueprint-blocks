@@ -4,10 +4,9 @@ Blueprint Blocks is a lightweight API abstraction for building WordPress blocks.
 
 ## Getting Started
 
-1. Follow the instructions to scaffold a new block into your theme here: https://developer.wordpress.org/block-editor/reference-guides/packages/packages-create-block/
+Follow the instructions to scaffold a new block into your theme here: https://developer.wordpress.org/block-editor/reference-guides/packages/packages-create-block/
 
-2. `npm install --save @blueprint-blocks/components @blueprint-blocks/utilities` in the newly created block folder. As this is an unpublished package, you'll need to first download this repo, and save it to a location on your machine where you can reference it to be installed from.
-
-3. Copy the example `blueprint.json` from `packages/create-block/src/lib/templates/blueprint.json` into the root of your block folder.
-
-4. Replace the default `index.js` with the version from `packages/create-block/src/lib/templates/index.js` in the root of your block folder.
+Use the create-block template for blueprint-blocks:
+```
+npx @wordpress/create-block@latest --template @blueprint-blocks/create-block-template [your-block-folder-name]
+```

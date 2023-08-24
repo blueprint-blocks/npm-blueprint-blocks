@@ -26,7 +26,7 @@ module.exports = {
 			},
 			color: {
 				type: "string",
-				default: "red"
+				default: "white"
 			},
 			labels: {
 				type: "array",

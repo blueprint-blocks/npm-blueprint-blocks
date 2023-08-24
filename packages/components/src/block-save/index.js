@@ -1,4 +1,4 @@
-import { classNames } from '@blueprint-blocks/utility'
+import { classNames, styles } from '@blueprint-blocks/utility'
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -6,7 +6,7 @@ import { classNames } from '@blueprint-blocks/utility'
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps } from '@wordpress/block-editor'
 
 /**
  * Field components from Blueprint Blocks
@@ -29,7 +29,7 @@ import * as Fields from '../fields/index.js';
  */
 function renderJsxArray( { blockName, attributes, jsx = [] } ) {
 
-	return jsx.map( ( { children = [], className = [], name = '', attributeName = '', type = '', tagName = 'div', ...props } ) => {
+	return jsx.map( ( { children = [], className = [], style = {}, name = '', attributeName = '', type = '', tagName = 'div', ...props } ) => {
 
 		let Component = tagName
 
@@ -45,6 +45,7 @@ function renderJsxArray( { blockName, attributes, jsx = [] } ) {
 					{ ...props }
 					blockName={ blockName }
 					className={ classNames( className, { block: attributes } ) }
+					styles={ styles( style, { block: attributes } ) }
 					name={ name }
 					tagName={ tagName }
 					attributes={ attributes }
@@ -59,6 +60,7 @@ function renderJsxArray( { blockName, attributes, jsx = [] } ) {
 				{ ...props } 
 				blockName={ blockName }
 				className={ classNames( className, { block: attributes } ) }
+				styles={ styles( style, { block: attributes } ) }
 			>
 				{ renderJsxArray( { blockName, attributes, jsx: children } ) }
 			</Component>
@@ -92,11 +94,14 @@ function BlockSave( blueprint ) {
 			...(Array.isArray(blockSave.className) && blockSave.className || [blockSave.className])
 		]
 
+		const blockStyles = Object.assign({}, (blockProps.style || {}), (blockSave.style || {}))
+
 		return (
 			<Component
 				{ ...blockProps }
 				{ ...blockSave }
 				className={ classNames( blockClassNames, { block: attributes } ) }
+				style={ styles( blockStyles, { block: attributes } ) }
 			>
 				{ renderJsxArray( {
 					blockName,

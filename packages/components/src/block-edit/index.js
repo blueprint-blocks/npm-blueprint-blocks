@@ -1,11 +1,11 @@
-import { classNames } from '@blueprint-blocks/utility'
+import { classNames, styles } from '@blueprint-blocks/utility'
 
 /**
  * Retrieves the translation of text.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n'
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -13,8 +13,8 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { PanelBody } from '@wordpress/components';
-import { BlockControls, InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import { PanelBody } from '@wordpress/components'
+import { BlockControls, InspectorControls, useBlockProps } from '@wordpress/block-editor'
 
 /**
  * Field components from Blueprint Blocks
@@ -37,7 +37,7 @@ const Components = Object.fromEntries(
  */
 function renderJsxArray( { blockName, attributes, setAttributes, jsx = [] } ) {
 
-	return jsx.map( ( { children = [], className = [], name = '', attributeName = '', type = '', tagName = 'div', ...props } ) => {
+	return jsx.map( ( { children = [], className = [], style = {}, name = '', attributeName = '', type = '', tagName = 'div', ...props } ) => {
 
 		let Component = tagName
 
@@ -53,6 +53,7 @@ function renderJsxArray( { blockName, attributes, setAttributes, jsx = [] } ) {
 					{ ...props }
 					blockName={ blockName }
 					className={ classNames( className, { block: attributes } ) }
+					styles={ styles( style, { block: attributes } ) }
 					name={ name }
 					attributeName={ attributeName }
 					tagName={ tagName }
@@ -77,6 +78,7 @@ function renderJsxArray( { blockName, attributes, setAttributes, jsx = [] } ) {
 				{ ...props }
 				blockName={ blockName }
 				className={ classNames( className, { block: attributes } ) }
+				styles={ styles( style, { block: attributes } ) }
 			>
 				{ renderJsxArray( { blockName, attributes, setAttributes, jsx: children } ) }
 			</Component>
@@ -112,11 +114,14 @@ function BlockEdit( blueprint ) {
 			...(Array.isArray(blockEdit.className) && blockEdit.className || [blockEdit.className])
 		]
 
+		const blockStyles = Object.assign({}, (blockProps.style || {}), (blockEdit.style || {}))
+
 		return (
 			<Component
 				{ ...blockProps }
 				{ ...blockEdit }
 				className={ classNames( blockClassNames, { block: attributes } ) }
+				style={ styles( blockStyles, { block: attributes } ) }
 			>
 				{ renderJsxArray( {
 					blockName,

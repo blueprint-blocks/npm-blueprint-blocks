@@ -1,4 +1,4 @@
-import { replaceTokens, useClickOutside, classNames as classNames$1 } from '@blueprint-blocks/utility';
+import { replaceTokens, useClickOutside, classNames as classNames$1, styles } from '@blueprint-blocks/utility';
 import { __ } from '@wordpress/i18n';
 import { ToolbarGroup, ToolbarButton, ColorPalette, GradientPicker, Button, withNotices, SelectControl, TextareaControl, PanelBody } from '@wordpress/components';
 import { useBlockProps, InnerBlocks, RichText, MediaPlaceholder, MediaUpload, InspectorControls, BlockControls } from '@wordpress/block-editor';
@@ -2762,7 +2762,7 @@ var Fields = /*#__PURE__*/Object.freeze({
 	WidthField: index
 });
 
-var _excluded$1 = ["children", "className", "name", "attributeName", "type", "tagName"],
+var _excluded$1 = ["children", "className", "style", "name", "attributeName", "type", "tagName"],
   _excluded2$1 = ["children", "tagName"],
   _excluded3 = ["label"],
   _excluded4 = ["label"];
@@ -2792,6 +2792,8 @@ function renderJsxArray$1(_ref2) {
       children = _ref3$children === void 0 ? [] : _ref3$children,
       _ref3$className = _ref3.className,
       className = _ref3$className === void 0 ? [] : _ref3$className,
+      _ref3$style = _ref3.style,
+      style = _ref3$style === void 0 ? {} : _ref3$style,
       _ref3$name = _ref3.name,
       name = _ref3$name === void 0 ? '' : _ref3$name,
       _ref3$attributeName = _ref3.attributeName,
@@ -2810,6 +2812,9 @@ function renderJsxArray$1(_ref2) {
       return /*#__PURE__*/React.createElement(Component, _extends({}, props, {
         blockName: blockName,
         className: classNames$1(className, {
+          block: attributes
+        }),
+        styles: styles(style, {
           block: attributes
         }),
         name: name,
@@ -2833,6 +2838,9 @@ function renderJsxArray$1(_ref2) {
     return /*#__PURE__*/React.createElement(Component, _extends({}, props, {
       blockName: blockName,
       className: classNames$1(className, {
+        block: attributes
+      }),
+      styles: styles(style, {
         block: attributes
       })
     }), renderJsxArray$1({
@@ -2868,8 +2876,12 @@ function BlockEdit(blueprint) {
       blockEdit = _objectWithoutProperties(_ref5, _excluded2$1);
     var Component = tagName;
     var blockClassNames = [].concat(_toConsumableArray(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]), _toConsumableArray(Array.isArray(blockEdit.className) && blockEdit.className || [blockEdit.className]));
+    var blockStyles = Object.assign({}, blockProps.style || {}, blockEdit.style || {});
     return /*#__PURE__*/React.createElement(Component, _extends({}, blockProps, blockEdit, {
       className: classNames$1(blockClassNames, {
+        block: attributes
+      }),
+      style: styles(blockStyles, {
         block: attributes
       })
     }), renderJsxArray$1({
@@ -2901,8 +2913,8 @@ function BlockEdit(blueprint) {
   };
 }
 
-var _excluded = ["children", "className", "name", "attributeName", "type", "tagName"],
-  _excluded2 = ["children", "className", "tagName"];
+var _excluded = ["children", "className", "style", "name", "attributeName", "type", "tagName"],
+  _excluded2 = ["children", "tagName"];
 var Components = Object.fromEntries(Object.values(Fields).map(function (_ref) {
   var name = _ref.name,
     edit = _ref.edit,
@@ -2928,6 +2940,8 @@ function renderJsxArray(_ref2) {
       children = _ref3$children === void 0 ? [] : _ref3$children,
       _ref3$className = _ref3.className,
       className = _ref3$className === void 0 ? [] : _ref3$className,
+      _ref3$style = _ref3.style,
+      style = _ref3$style === void 0 ? {} : _ref3$style,
       _ref3$name = _ref3.name,
       name = _ref3$name === void 0 ? '' : _ref3$name,
       _ref3$attributeName = _ref3.attributeName,
@@ -2948,6 +2962,9 @@ function renderJsxArray(_ref2) {
         className: classNames$1(className, {
           block: attributes
         }),
+        styles: styles(style, {
+          block: attributes
+        }),
         name: name,
         tagName: tagName,
         attributes: attributes
@@ -2960,6 +2977,9 @@ function renderJsxArray(_ref2) {
     return /*#__PURE__*/React.createElement(Component, _extends({}, props, {
       blockName: blockName,
       className: classNames$1(className, {
+        block: attributes
+      }),
+      styles: styles(style, {
         block: attributes
       })
     }), renderJsxArray({
@@ -2986,15 +3006,18 @@ function BlockSave(blueprint) {
     var blockName = blockProps.className;
     var _ref5 = blueprint.blockSave !== null && blueprint.blockSave || blueprint.blockEdit || {},
       _ref5$children = _ref5.children,
-      children = _ref5$children === void 0 ? [] : _ref5$children;
-      _ref5.className;
-      var _ref5$tagName = _ref5.tagName,
+      children = _ref5$children === void 0 ? [] : _ref5$children,
+      _ref5$tagName = _ref5.tagName,
       tagName = _ref5$tagName === void 0 ? 'div' : _ref5$tagName,
       blockSave = _objectWithoutProperties(_ref5, _excluded2);
     var Component = tagName;
     var blockClassNames = [].concat(_toConsumableArray(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]), _toConsumableArray(Array.isArray(blockSave.className) && blockSave.className || [blockSave.className]));
+    var blockStyles = Object.assign({}, blockProps.style || {}, blockSave.style || {});
     return /*#__PURE__*/React.createElement(Component, _extends({}, blockProps, blockSave, {
       className: classNames$1(blockClassNames, {
+        block: attributes
+      }),
+      style: styles(blockStyles, {
         block: attributes
       })
     }), renderJsxArray({

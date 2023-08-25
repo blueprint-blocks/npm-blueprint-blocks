@@ -1,7 +1,6 @@
 import classNames from 'classnames'
 import memoize from 'micro-memoize'
-import { useBlockProps } from '@wordpress/block-editor'
-import { delimiterize, replaceTokens } from '@blueprint-blocks/utility'
+import { replaceTokens } from '@blueprint-blocks/utility'
 
 const selfClosingTagNames = [
 	'area',

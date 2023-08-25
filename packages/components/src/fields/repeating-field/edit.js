@@ -35,7 +35,7 @@ function edit( { onInput, children, min = 0, max = null, value = [], ...props } 
 
 			<div
 				className={ classNames(
-					'blueprint-blocks:repeating-field-minus', 
+					'blueprint-blocks-repeating-field-minus', 
 					{ 'is-disabled': value.length <= min } 
 				) } 
 				onClick={ () => {
@@ -46,7 +46,7 @@ function edit( { onInput, children, min = 0, max = null, value = [], ...props } 
 			</div>
 			<div
 				className={ classNames(
-					'blueprint-blocks:repeating-field-minus', 
+					'blueprint-blocks:repeating-field-plus', 
 					{ 'is-disabled': max !== null && value.length >= max } 
 				) } 
 				onClick={ () => {

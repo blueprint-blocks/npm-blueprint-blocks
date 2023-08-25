@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { useBlockProps } from '@wordpress/block-editor'
 import { createRef } from '@wordpress/element'
-import { delimiterize, replaceTokens } from '@blueprint-blocks/utility'
+import { replaceTokens } from '@blueprint-blocks/utility'
 import getFieldClassNames from './functions/get-field-class-names.js'
 
 import './style.scss'

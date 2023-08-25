@@ -45,7 +45,7 @@ function renderJsxArray( { blockName, attributes, jsx = [] } ) {
 					{ ...props }
 					blockName={ blockName }
 					className={ classNames( className, { block: attributes } ) }
-					styles={ styles( style, { block: attributes } ) }
+					style={ styles( style, { block: attributes } ) }
 					name={ name }
 					tagName={ tagName }
 					attributes={ attributes }

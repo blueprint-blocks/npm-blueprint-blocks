@@ -1,33 +1,47 @@
-.blueprint-blocks\:repeating-field-wrap {
-    position: relative;
+body {
+	background: red !important;
 }
 
-.blueprint-blocks\:repeating-field-minus,
-.blueprint-blocks\:repeating-field-plus {
-    align-items: center;
-    cursor: pointer;
-    display: grid;
-    justify-content: center;
-    height: 26px;
-    transition: background 0.4s, colors 0.4s;
-    width: 26px;
+.wp-block {
+	background: green !important;
 }
 
-.blueprint-blocks\:repeating-field-minus:not(.is-disabled):hover,
-.blueprint-blocks\:repeating-field-plus:not(.is-disabled):hover {
-    background: #e5f3f8;
-    color: #0085ba;
+.blueprint-blocks-repeating-field-minus {
+	background: blue;
 }
 
-.blueprint-blocks\:repeating-field-minus.is-disabled,
-.blueprint-blocks\:repeating-field-plus.is-disabled {
-    cursor: default;
-    opacity: 0.25;
-}
+.blueprint-blocks\:repeating-field {
+	&-wrap {
+    	position: relative;
+	}
 
-.blueprint-blocks\:repeating-field-minus img,
-.blueprint-blocks\:repeating-field-plus img {
-	display: block;
-	height: 14px;
-	width: 14px;
+	&-minus,
+	&-plus {
+		align-items: center;
+		cursor: pointer;
+		display: grid;
+		justify-content: center;
+		height: 26px;
+		transition: background 0.4s, colors 0.4s;
+		width: 26px;
+	}
+
+	&-minus:not(.is-disabled):hover,
+	&-plus:not(.is-disabled):hover {
+		background: #e5f3f8;
+		color: #0085ba;
+	}
+
+	&-minus.is-disabled,
+	&-plus.is-disabled {
+		cursor: default;
+		opacity: 0.25;
+	}
+
+	&-minus img,
+	&-plus img {
+		display: block;
+		height: 14px;
+		width: 14px;
+	}
 }

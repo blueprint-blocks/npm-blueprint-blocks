@@ -1,4 +1,4 @@
-import { classNames, styles } from '@blueprint-blocks/utility'
+import { classNames, replaceTokens, styles } from '@blueprint-blocks/utility'
 
 /**
  * React hook that is used to mark the block wrapper element.
@@ -13,7 +13,7 @@ import { useBlockProps } from '@wordpress/block-editor'
  *
  * @see https://www.blueprint-blocks.com/docs/
  */
-import * as Fields from '../fields/index.js';
+import * as Fields from '../fields/index.js'
 
  const Components = Object.fromEntries(
 	Object.values(Fields).map( ( { name, edit, save } ) => [
@@ -81,7 +81,7 @@ function renderJsxArray( { blockName, attributes, jsx = [] } ) {
  */
 function BlockSave( blueprint ) {
 	
-	return ( { attributes } ) => {
+	return ( { attributes, innerBlocks } ) => {
 
 		const blockProps = useBlockProps.save()
 		const blockName = blockProps.className
@@ -94,12 +94,26 @@ function BlockSave( blueprint ) {
 			...(Array.isArray(blockSave.className) && blockSave.className || [blockSave.className])
 		]
 
-		const blockStyles = Object.assign({}, (blockProps.style || {}), (blockSave.style || {}))
+		const blockStyles = Object.assign( {}, ( blockProps.style || {} ), ( blockSave.style || {} ) )
+
+		const blockAttributes = Object.fromEntries( Object.entries( blockSave ).map( ( [ name, value ] ) => {
+			if ( typeof value === 'string' ) {
+				return [
+					name,
+					replaceTokens( value, { block: attributes, innerBlocks } ),
+				]
+			} else {
+				return [
+					name,
+					value,
+				]
+			}
+		} ) )
 
 		return (
 			<Component
 				{ ...blockProps }
-				{ ...blockSave }
+				{ ...blockAttributes }
 				className={ classNames( blockClassNames, { block: attributes } ) }
 				style={ styles( blockStyles, { block: attributes } ) }
 			>

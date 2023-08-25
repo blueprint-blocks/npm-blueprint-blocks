@@ -1,7 +1,7 @@
 {
   "name": "@blueprint-blocks/components",
   "private": false,
-  "version": "0.1.12",
+  "version": "0.1.13",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "type": "module",
@@ -11,13 +11,14 @@
     "prepublishOnly": "rm -rf ./dist && npm run build"
   },
   "dependencies": {
-    "@blueprint-blocks/utility": "^0.1.5",
+    "@blueprint-blocks/utility": "../utility",
     "classnames": "^2.3.2",
     "micro-memoize": "^4.0.14"
   },
   "peerDependencies": {
     "@wordpress/block-editor": "^12.8.0",
     "@wordpress/components": "^25.6.0",
+    "@wordpress/data": "^9.10.0",
     "@wordpress/i18n": "^4.4.0"
   },
   "devDependencies": {
@@ -28,6 +29,7 @@
     "@rollup/plugin-json": "^6.0.0",
     "@wordpress/block-editor": "^12.8.0",
     "@wordpress/components": "^25.6.0",
+    "@wordpress/data": "^9.10.0",
     "@wordpress/i18n": "^4.4.0",
     "rollup": "^3.28.1",
     "rollup-plugin-svg": "^2.0.0"

@@ -1,4 +1,4 @@
-import { classNames, styles } from '@blueprint-blocks/utility'
+import { classNames, replaceTokens, styles } from '@blueprint-blocks/utility'
 
 /**
  * Retrieves the translation of text.
@@ -15,6 +15,13 @@ import { __ } from '@wordpress/i18n'
  */
 import { PanelBody } from '@wordpress/components'
 import { BlockControls, InspectorControls, useBlockProps } from '@wordpress/block-editor'
+
+/**
+ * React hook for retrieving props from registered selectors.
+ *
+ * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/#useselect
+ */
+import { useSelect } from '@wordpress/data'
 
 /**
  * Field components from Blueprint Blocks
@@ -98,7 +105,7 @@ function renderJsxArray( { blockName, attributes, setAttributes, jsx = [] } ) {
  */
 function BlockEdit( blueprint ) {
 
-	return ( { attributes, setAttributes } ) => {
+	return ( { attributes, setAttributes, clientId } ) => {
 		
 		const blockProps = useBlockProps()
 		const blockName = blockProps['data-type']
@@ -109,17 +116,38 @@ function BlockEdit( blueprint ) {
 		const { children = [], tagName = 'div', ...blockEdit } = ( blueprint.blockEdit || {} )
 		const Component = tagName
 
+		const getInnerBlocks = ( clientId ) => {
+			const { getBlocks } = useSelect( ( select ) => ( {
+				getBlocks: select( 'core/block-editor' ).getBlocks
+			} ) )
+			return getBlocks( clientId ) || []
+		}
+
 		const blockClassNames = [
 			...(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]),
 			...(Array.isArray(blockEdit.className) && blockEdit.className || [blockEdit.className])
 		]
 
-		const blockStyles = Object.assign({}, (blockProps.style || {}), (blockEdit.style || {}))
+		const blockStyles = Object.assign( {}, ( blockProps.style || {} ), ( blockEdit.style || {} ) )
+
+		const blockAttributes = Object.fromEntries( Object.entries( blockEdit ).map( ( [ name, value ] ) => {
+			if ( typeof value === 'string' ) {
+				return [
+					name,
+					replaceTokens( value, { block: attributes, innerBlocks: getInnerBlocks( clientId ) } ),
+				]
+			} else {
+				return [
+					name,
+					value,
+				]
+			}
+		} ) )
 
 		return (
 			<Component
 				{ ...blockProps }
-				{ ...blockEdit }
+				{ ...blockAttributes }
 				className={ classNames( blockClassNames, { block: attributes } ) }
 				style={ styles( blockStyles, { block: attributes } ) }
 			>

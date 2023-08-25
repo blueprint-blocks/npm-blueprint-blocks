@@ -2,6 +2,7 @@ import { replaceTokens, useClickOutside, classNames as classNames$1, styles } fr
 import { __ } from '@wordpress/i18n';
 import { ToolbarGroup, ToolbarButton, ColorPalette, GradientPicker, Button, withNotices, SelectControl, TextareaControl, PanelBody } from '@wordpress/components';
 import { useBlockProps, InnerBlocks, RichText, MediaPlaceholder, MediaUpload, InspectorControls, BlockControls } from '@wordpress/block-editor';
+import { useSelect } from '@wordpress/data';
 import classNames from 'classnames';
 import { createRef, useState, useEffect } from '@wordpress/element';
 import memoize from 'micro-memoize';
@@ -2297,7 +2298,7 @@ var RangeField = {
   save: save$7
 };
 
-var css = "body {\n  background: red !important;\n}\n\n.wp-block {\n  background: green !important;\n}\n\n.blueprint-blocks-repeating-field-minus {\n  background: blue;\n}\n\n.blueprint-blocks\\:repeating-field-wrap {\n  position: relative;\n}\n.blueprint-blocks\\:repeating-field-minus, .blueprint-blocks\\:repeating-field-plus {\n  align-items: center;\n  cursor: pointer;\n  display: grid;\n  justify-content: center;\n  height: 26px;\n  transition: background 0.4s, colors 0.4s;\n  width: 26px;\n}\n.blueprint-blocks\\:repeating-field-minus:not(.is-disabled):hover, .blueprint-blocks\\:repeating-field-plus:not(.is-disabled):hover {\n  background: #e5f3f8;\n  color: #0085ba;\n}\n.blueprint-blocks\\:repeating-field-minus.is-disabled, .blueprint-blocks\\:repeating-field-plus.is-disabled {\n  cursor: default;\n  opacity: 0.25;\n}\n.blueprint-blocks\\:repeating-field-minus img, .blueprint-blocks\\:repeating-field-plus img {\n  display: block;\n  height: 14px;\n  width: 14px;\n}";
+var css = ".blueprint-blocks\\:repeating-field-wrap {\n  position: relative;\n}\n.blueprint-blocks\\:repeating-field-minus, .blueprint-blocks\\:repeating-field-plus {\n  align-items: center;\n  cursor: pointer;\n  display: grid;\n  justify-content: center;\n  height: 26px;\n  transition: background 0.4s, colors 0.4s;\n  width: 26px;\n}\n.blueprint-blocks\\:repeating-field-minus:not(.is-disabled):hover, .blueprint-blocks\\:repeating-field-plus:not(.is-disabled):hover {\n  background: #e5f3f8;\n  color: #0085ba;\n}\n.blueprint-blocks\\:repeating-field-minus.is-disabled, .blueprint-blocks\\:repeating-field-plus.is-disabled {\n  cursor: default;\n  opacity: 0.25;\n}\n.blueprint-blocks\\:repeating-field-minus img, .blueprint-blocks\\:repeating-field-plus img {\n  display: block;\n  height: 14px;\n  width: 14px;\n}";
 n(css,{});
 
 var _excluded$f = ["onInput", "children", "min", "max", "value"];
@@ -2984,7 +2985,8 @@ function renderJsxArray$1(_ref2) {
 function BlockEdit(blueprint) {
   return function (_ref4) {
     var attributes = _ref4.attributes,
-      setAttributes = _ref4.setAttributes;
+      setAttributes = _ref4.setAttributes,
+      clientId = _ref4.clientId;
     var blockProps = useBlockProps();
     var blockName = blockProps['data-type'];
     var blockSidebar = Array.isArray(blueprint.blockSidebar) && blueprint.blockSidebar || [blueprint.blockSidebar];
@@ -2996,9 +2998,31 @@ function BlockEdit(blueprint) {
       tagName = _ref5$tagName === void 0 ? 'div' : _ref5$tagName,
       blockEdit = _objectWithoutProperties(_ref5, _excluded2$1);
     var Component = tagName;
+    var getInnerBlocks = function getInnerBlocks(clientId) {
+      var _useSelect = useSelect(function (select) {
+          return {
+            getBlocks: select('core/block-editor').getBlocks
+          };
+        }),
+        getBlocks = _useSelect.getBlocks;
+      return getBlocks(clientId) || [];
+    };
     var blockClassNames = [].concat(_toConsumableArray(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]), _toConsumableArray(Array.isArray(blockEdit.className) && blockEdit.className || [blockEdit.className]));
     var blockStyles = Object.assign({}, blockProps.style || {}, blockEdit.style || {});
-    return /*#__PURE__*/React.createElement(Component, _extends({}, blockProps, blockEdit, {
+    var blockAttributes = Object.fromEntries(Object.entries(blockEdit).map(function (_ref6) {
+      var _ref7 = _slicedToArray(_ref6, 2),
+        name = _ref7[0],
+        value = _ref7[1];
+      if (typeof value === 'string') {
+        return [name, replaceTokens(value, {
+          block: attributes,
+          innerBlocks: getInnerBlocks(clientId)
+        })];
+      } else {
+        return [name, value];
+      }
+    }));
+    return /*#__PURE__*/React.createElement(Component, _extends({}, blockProps, blockAttributes, {
       className: classNames$1(blockClassNames, {
         block: attributes
       }),
@@ -3010,9 +3034,9 @@ function BlockEdit(blueprint) {
       attributes: attributes,
       setAttributes: setAttributes,
       jsx: children
-    }), blockSidebar.map(function (_ref6) {
-      var label = _ref6.label,
-        props = _objectWithoutProperties(_ref6, _excluded3);
+    }), blockSidebar.map(function (_ref8) {
+      var label = _ref8.label,
+        props = _objectWithoutProperties(_ref8, _excluded3);
       return /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(PanelBody, {
         title: label
       }, renderJsxArray$1({
@@ -3021,9 +3045,9 @@ function BlockEdit(blueprint) {
         setAttributes: setAttributes,
         jsx: [props]
       })));
-    }), blockToolbar.map(function (_ref7) {
-      _ref7.label;
-        var props = _objectWithoutProperties(_ref7, _excluded4);
+    }), blockToolbar.map(function (_ref9) {
+      _ref9.label;
+        var props = _objectWithoutProperties(_ref9, _excluded4);
       return /*#__PURE__*/React.createElement(BlockControls, null, renderJsxArray$1({
         blockName: blockName,
         attributes: attributes,
@@ -3122,7 +3146,8 @@ function renderJsxArray(_ref2) {
  */
 function BlockSave(blueprint) {
   return function (_ref4) {
-    var attributes = _ref4.attributes;
+    var attributes = _ref4.attributes,
+      innerBlocks = _ref4.innerBlocks;
     var blockProps = useBlockProps.save();
     var blockName = blockProps.className;
     var _ref5 = blueprint.blockSave !== null && blueprint.blockSave || blueprint.blockEdit || {},
@@ -3134,7 +3159,20 @@ function BlockSave(blueprint) {
     var Component = tagName;
     var blockClassNames = [].concat(_toConsumableArray(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]), _toConsumableArray(Array.isArray(blockSave.className) && blockSave.className || [blockSave.className]));
     var blockStyles = Object.assign({}, blockProps.style || {}, blockSave.style || {});
-    return /*#__PURE__*/React.createElement(Component, _extends({}, blockProps, blockSave, {
+    var blockAttributes = Object.fromEntries(Object.entries(blockSave).map(function (_ref6) {
+      var _ref7 = _slicedToArray(_ref6, 2),
+        name = _ref7[0],
+        value = _ref7[1];
+      if (typeof value === 'string') {
+        return [name, replaceTokens(value, {
+          block: attributes,
+          innerBlocks: innerBlocks
+        })];
+      } else {
+        return [name, value];
+      }
+    }));
+    return /*#__PURE__*/React.createElement(Component, _extends({}, blockProps, blockAttributes, {
       className: classNames$1(blockClassNames, {
         block: attributes
       }),

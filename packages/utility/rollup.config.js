@@ -1,0 +1,12 @@
+export default {
+	input: 'src/index.js',
+	output: [
+		{
+			file: 'dist/index.js',
+			format: 'esm',
+			exports: 'named',
+			sourcemap: true,
+			strict: false,
+		},
+	],
+}

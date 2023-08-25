@@ -1,10 +1,20 @@
 {
   "name": "@blueprint-blocks/utility",
   "private": false,
-  "version": "0.1.4",
-  "main": "src/index.js",
+  "version": "0.1.5",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "rollup -c -w",
+    "build": "rollup -c",
+    "prepublishOnly": "rm -rf ./dist && npm run build"
+  },
   "dependencies": {
     "classnames": "^2.3.2",
     "micro-memoize": "^4.0.14"
+  },
+  "devDependencies": {
+    "rollup": "^3.28.1"
   }
 }

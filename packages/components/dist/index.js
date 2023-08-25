@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { ToolbarGroup, ToolbarButton, ColorPalette, GradientPicker, Button, withNotices, SelectControl, TextareaControl, PanelBody } from '@wordpress/components';
 import { useBlockProps, InnerBlocks, RichText, MediaPlaceholder, MediaUpload, InspectorControls, BlockControls } from '@wordpress/block-editor';
 import classNames from 'classnames';
-import { createRef, useState } from '@wordpress/element';
+import { createRef, useState, useEffect } from '@wordpress/element';
 import memoize from 'micro-memoize';
 
 var e = [],
@@ -2653,6 +2653,11 @@ var itemDivHoverStyle = {
   borderColor: 'var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba))',
   color: 'var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba))'
 };
+var itemDivFocusStyle = {
+  background: 'var(--wp-components-color-gray-300, #ddd)',
+  borderColor: 'var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba))',
+  color: 'var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba))'
+};
 var itemDivActiveStyle = {
   background: '#0085ba',
   color: '#fff'
@@ -2706,8 +2711,12 @@ function edit$1(_ref2) {
   var hasImages = optionsHaveImages(options);
   var _useState = useState(null),
     _useState2 = _slicedToArray(_useState, 2),
-    hoverIndex = _useState2[0],
-    setHoverIndex = _useState2[1];
+    focusIndex = _useState2[0],
+    setFocusIndex = _useState2[1];
+  var _useState3 = useState(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    hoverIndex = _useState4[0],
+    setHoverIndex = _useState4[1];
   var onChooseOption = function onChooseOption(index) {
     var _options$index;
     var newValue = _toConsumableArray(value);
@@ -2726,6 +2735,15 @@ function edit$1(_ref2) {
     }
     onInput(newValue);
   };
+  var onBlur = function onBlur() {
+    setFocusIndex(null);
+    window.removeEventListener('mouseup', onBlur);
+  };
+  useEffect(function () {
+    if (focusIndex !== null) {
+      window.addEventListener('mouseup', onBlur);
+    }
+  }, [focusIndex]);
   return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "toggle",
     value: value
@@ -2748,10 +2766,13 @@ function edit$1(_ref2) {
       onMouseEnter: function onMouseEnter() {
         return setHoverIndex(index);
       },
+      onMouseDown: function onMouseDown() {
+        return setFocusIndex(index);
+      },
       onMouseLeave: function onMouseLeave() {
         return setHoverIndex(null);
       },
-      style: _objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2({}, itemDivStyle), hasImages && itemDivHasImagesStyle), index === hoverIndex && itemDivHoverStyle), (value === null || value === void 0 ? void 0 : value.indexOf(option === null || option === void 0 ? void 0 : option.value)) !== -1 && itemDivActiveStyle)
+      style: _objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2(_objectSpread2({}, itemDivStyle), hasImages && itemDivHasImagesStyle), index === hoverIndex && itemDivHoverStyle), index === focusIndex && itemDivFocusStyle), (value === null || value === void 0 ? void 0 : value.indexOf(option === null || option === void 0 ? void 0 : option.value)) !== -1 && itemDivActiveStyle)
     }, !!image && /*#__PURE__*/React.createElement("div", {
       style: imageDivStyle
     }, /*#__PURE__*/React.createElement("div", {

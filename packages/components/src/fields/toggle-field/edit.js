@@ -1,5 +1,5 @@
 import memoize from 'micro-memoize'
-import { useState } from '@wordpress/element'
+import { useEffect, useState } from '@wordpress/element'
 
 import Field from '../field/index.js'
 
@@ -64,6 +64,12 @@ const itemDivHoverStyle = {
     color: 'var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba))',
 }
 
+const itemDivFocusStyle = {
+	background: 'var(--wp-components-color-gray-300, #ddd)',
+	borderColor: 'var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba))',
+    color: 'var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba))',
+}
+
 const itemDivActiveStyle = {
 	background: '#0085ba',
 	color: '#fff',
@@ -107,14 +113,16 @@ const labelHasImagesStyle = {
 }
 
 const optionsHaveImages = memoize( ( options ) => {
-	return options.reduce((hasImages, { image }) => (
+	return options.reduce( ( hasImages, { image } ) => (
 		!!( hasImages || image )
-	), false)
+	), false )
 } )
 
 function edit( { onInput, options = [], multiple = false, disabled = false, value = [], ...props } ) {
 
 	const hasImages = optionsHaveImages( options )
+
+	const [ focusIndex, setFocusIndex ] = useState( null )
 	const [ hoverIndex, setHoverIndex ] = useState( null )
 
 	const onChooseOption = ( index ) => {
@@ -136,6 +144,17 @@ function edit( { onInput, options = [], multiple = false, disabled = false, valu
 		onInput( newValue );
     };
 
+	const onBlur = () => {
+		setFocusIndex( null )
+		window.removeEventListener( 'mouseup', onBlur )
+	}
+
+	useEffect( () => {
+		if ( focusIndex !== null ) {
+			window.addEventListener( 'mouseup', onBlur )
+		}
+	}, [ focusIndex ] )
+
 	return (
 		<Field.edit
 			{ ...props }
@@ -150,11 +169,13 @@ function edit( { onInput, options = [], multiple = false, disabled = false, valu
 								title={ !!icon && label }
 								onClick={ () => onChooseOption( index ) }
 								onMouseEnter={ () => setHoverIndex( index ) }
+								onMouseDown={ () => setFocusIndex( index ) }
 						        onMouseLeave={ () => setHoverIndex( null ) }
 								style={ { 
 									...itemDivStyle,
 									...( hasImages && itemDivHasImagesStyle ),
 									...( index === hoverIndex && itemDivHoverStyle ),
+									...( index === focusIndex && itemDivFocusStyle ),
 									...( ( value?.indexOf(option?.value) !== -1 ) && itemDivActiveStyle ),
 								} }
 							>

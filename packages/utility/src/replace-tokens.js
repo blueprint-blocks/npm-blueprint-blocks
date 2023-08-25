@@ -10,8 +10,12 @@ const valueByIdentifier = memoize( ( identifier = '', context = {} ) => {
 
 	let key = parts.shift()
 
-	if ( !( key in context ) ) {
+	if ( !context?.[key] ) {
 		return ''
+	}
+
+	if ( parts.length === 0 && key === 'length' ) {
+		return Object.values( value ).length
 	}
 
 	if ( parts.length === 0 ) {

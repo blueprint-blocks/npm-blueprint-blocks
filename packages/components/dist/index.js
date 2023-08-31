@@ -3156,9 +3156,7 @@ function getBlockContext(_ref2) {
     block: _objectSpread2({
       index: index
     }, attributes),
-    innerBlocks: innerBlocks || {
-      length: length
-    }
+    innerBlocks: (innerBlocks === null || innerBlocks === void 0 ? void 0 : innerBlocks.length) && innerBlocks || new Array(length).fill(null)
   });
 }
 

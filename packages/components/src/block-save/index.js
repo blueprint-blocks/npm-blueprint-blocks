@@ -39,9 +39,7 @@ function getBlockContext( { attributes = {}, innerBlocks = [], ...context } ) {
 			index: index,
 			...attributes,
 		},
-		innerBlocks: innerBlocks || {
-			length: length,
-		},
+		innerBlocks: innerBlocks?.length && innerBlocks || (new Array(length)).fill(null),
 	}
 
 }

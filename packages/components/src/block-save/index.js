@@ -15,7 +15,7 @@ import { useBlockProps } from '@wordpress/block-editor'
  */
 import * as Fields from '../fields/index.js'
 
- const Components = Object.fromEntries(
+const Components = Object.fromEntries(
 	Object.values(Fields).map( ( { name, edit, save } ) => [
 		name, 
 		{ edit, save },
@@ -23,13 +23,51 @@ import * as Fields from '../fields/index.js'
 )
 
 /**
+ * Returns the block context with private attributes formatted.
+ * 
+ * Note: The length of the inner blocks is saved as an attribute because 
+ * they can not be directly referenced upon initial save.
+ */
+function getBlockContext( { attributes = {}, innerBlocks = [], ...context } ) {
+
+	const index = 1 + (attributes?._index || 0)
+	const length = (attributes?._innerBlocksLength || 0)
+
+	return {
+		...context,
+		block: {
+			index: index,
+			...attributes,
+		},
+		innerBlocks: innerBlocks || {
+			length: length,
+		},
+	}
+
+}
+
+/**
  * Renders an array of JSX objects
  * 
  * @param {array} jsx 
  */
-function renderJsxArray( { blockName, attributes, jsx = [] } ) {
+function renderJsxArray( { blockName, attributes, innerBlocks, jsx = [] } ) {
 
 	return jsx.map( ( { children = [], className = [], style = {}, name = '', attributeName = '', type = '', tagName = 'div', ...props } ) => {
+
+		const jsxAttributes = Object.fromEntries( Object.entries( props ).map( ( [ name, value ] ) => {
+			if ( typeof value === 'string' ) {
+				return [
+					name,
+					replaceTokens( value, getBlockContext( { attributes, innerBlocks } ) ),
+				]
+			} else {
+				return [
+					name,
+					value,
+				]
+			}
+		} ) )
 
 		let Component = tagName
 
@@ -42,27 +80,27 @@ function renderJsxArray( { blockName, attributes, jsx = [] } ) {
 
 			return (
 				<Component
-					{ ...props }
+					{ ...jsxAttributes }
 					blockName={ blockName }
-					className={ classNames( className, { block: attributes } ) }
-					style={ styles( style, { block: attributes } ) }
+					className={ classNames( className, getBlockContext( { attributes, innerBlocks } ) ) }
+					style={ styles( style, getBlockContext( { attributes, innerBlocks } ) ) }
 					name={ name }
 					tagName={ tagName }
 					attributes={ attributes }
 				>
-					{ renderJsxArray( { blockName, attributes, jsx: children } ) }
+					{ renderJsxArray( { blockName, attributes, innerBlocks, jsx: children } ) }
 				</Component>
 			)
 		}
 
 		return (
 			<Component
-				{ ...props } 
+				{ ...jsxAttributes } 
 				blockName={ blockName }
-				className={ classNames( className, { block: attributes } ) }
-				styles={ styles( style, { block: attributes } ) }
+				className={ classNames( className, getBlockContext( { attributes, innerBlocks } ) ) }
+				styles={ styles( style, getBlockContext( { attributes, innerBlocks } ) ) }
 			>
-				{ renderJsxArray( { blockName, attributes, jsx: children } ) }
+				{ renderJsxArray( { blockName, attributes, innerBlocks, jsx: children } ) }
 			</Component>
 		)
 
@@ -100,7 +138,7 @@ function BlockSave( blueprint ) {
 			if ( typeof value === 'string' ) {
 				return [
 					name,
-					replaceTokens( value, { block: attributes, innerBlocks } ),
+					replaceTokens( value, getBlockContext( { attributes, innerBlocks } ) ),
 				]
 			} else {
 				return [
@@ -114,8 +152,8 @@ function BlockSave( blueprint ) {
 			<Component
 				{ ...blockProps }
 				{ ...blockAttributes }
-				className={ classNames( blockClassNames, { block: attributes } ) }
-				style={ styles( blockStyles, { block: attributes } ) }
+				className={ classNames( blockClassNames, getBlockContext( { attributes, innerBlocks } ) ) }
+				style={ styles( blockStyles, getBlockContext( { attributes, innerBlocks } ) ) }
 			>
 				{ renderJsxArray( {
 					blockName,

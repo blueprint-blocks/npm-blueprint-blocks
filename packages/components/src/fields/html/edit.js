@@ -1,4 +1,3 @@
-import { replaceTokens } from '@blueprint-blocks/utility'
 import Field from '../field/index.js'
 
 function edit( { children, dangerouslySetInnerHTML, innerHtml = '', ...props } ) {
@@ -9,7 +8,7 @@ function edit( { children, dangerouslySetInnerHTML, innerHtml = '', ...props } )
 				{ ...props }
 				type="html"
 				dangerouslySetInnerHTML={ { 
-					__html: replaceTokens( innerHtml, { block: props?.attributes || {}, field: {} } ) 
+					__html: innerHtml,
 				} }
 			/>
 		)

@@ -51,6 +51,9 @@ function renderJsxArray( { blockName, attributes, setAttributes = null, jsx = []
 					name={ name }
 					tagName={ tagName }
 					attributes={ attributes }
+					{ ...( attributeValue !== undefined && {
+						value: attributeValue,
+					} ) }
 					{ ...( setAttributes !== null && {
 						attributeName,
 						setAttributes,
@@ -62,7 +65,6 @@ function renderJsxArray( { blockName, attributes, setAttributes = null, jsx = []
 								[attributeName]: value,
 							} )
 						},
-						value: attributeValue,
 					} ) }
 				>
 					{ renderJsxArray( {

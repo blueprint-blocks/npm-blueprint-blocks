@@ -385,6 +385,8 @@ function renderJsxArray(_ref) {
         name: name,
         tagName: tagName,
         attributes: attributes
+      }, attributeValue !== undefined && {
+        value: attributeValue
       }, setAttributes !== null && {
         attributeName: attributeName,
         setAttributes: setAttributes,
@@ -393,8 +395,7 @@ function renderJsxArray(_ref) {
             return;
           }
           setAttributes(_defineProperty({}, attributeName, value));
-        },
-        value: attributeValue
+        }
       }), renderJsxArray({
         blockName: blockName,
         attributes: attributes,

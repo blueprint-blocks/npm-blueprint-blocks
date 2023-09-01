@@ -26,7 +26,7 @@ const fieldClassNames = memoize(( { blockName, name, type = '' } ) => {
     )
 })
 
-function save( { 
+function save( {
 	attributes,
 	blockName,
 	name,

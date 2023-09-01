@@ -1,4 +1,12 @@
-import { classNames, replaceTokens, styles } from '@blueprint-blocks/utility'
+import { 
+	classNames, 
+	getBlockContext, 
+	getBlockIndex,
+	getInnerBlocks, 
+	renderJsxArray, 
+	replaceTokens, 
+	styles,
+} from '@blueprint-blocks/utility'
 
 /**
  * Retrieves the translation of text.
@@ -17,13 +25,6 @@ import { PanelBody } from '@wordpress/components'
 import { BlockControls, InspectorControls, useBlockProps } from '@wordpress/block-editor'
 
 /**
- * React hook for retrieving props from registered selectors.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-data/#useselect
- */
-import { useSelect } from '@wordpress/data'
-
-/**
  * WordPress hooks for filtering or adding actions.
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-hooks/
@@ -38,9 +39,9 @@ import { addFilter } from '@wordpress/hooks'
 import * as Fields from '../fields/index.js'
 
 const Components = Object.fromEntries(
-	Object.values(Fields).map( ( { name, edit, save } ) => [
+	Object.values(Fields).map( ( { name, edit } ) => [
 		name, 
-		{ edit, save },
+		edit,
 	] )
 )
 
@@ -68,119 +69,6 @@ addFilter( 'blocks.registerBlockType', 'blueprint-blocks/default-attributes', ( 
 } )
 
 /**
- * Renders an array of JSX objects
- * 
- * @param {array} jsx 
- */
-function renderJsxArray( { clientId, blockName, attributes, setAttributes, jsx = [] } ) {
-
-	return jsx.map( ( { children = [], className = [], style = {}, name = '', attributeName = '', type = '', tagName = 'div', ...props } ) => {
-
-		const jsxAttributes = Object.fromEntries( Object.entries( props ).map( ( [ name, value ] ) => {
-			if ( typeof value === 'string' ) {
-				return [
-					name,
-					replaceTokens( value, getBlockContext( clientId ) ),
-				]
-			} else {
-				return [
-					name,
-					value,
-				]
-			}
-		} ) )
-
-		let Component = tagName
-
-		if ( type in Components && Components[type] ) {
-			Component = Components[type].edit
-
-			if ( typeof attributes?.[attributeName] !== 'undefined' ) {
-				props.value = attributes?.[attributeName]
-			}
-
-			return (
-				<Component
-					{ ...jsxAttributes }
-					blockName={ blockName }
-					className={ classNames( className, getBlockContext( clientId ) ) }
-					style={ styles( style, getBlockContext( clientId ) ) }
-					name={ name }
-					attributeName={ attributeName }
-					tagName={ tagName }
-					attributes={ attributes }
-					setAttributes={ setAttributes }
-					onInput={ ( value ) => {
-						if ( !attributeName ) {
-							return
-						}
-						setAttributes( { 
-							[attributeName]: value,
-						} )
-					} }
-				>
-					{ renderJsxArray( { clientId, blockName, attributes, setAttributes, jsx: children } ) }
-				</Component>
-			)
-		}
-
-		return (
-			<Component
-				{ ...jsxAttributes }
-				blockName={ blockName }
-				className={ classNames( className, getBlockContext( clientId ) ) }
-				styles={ styles( style, getBlockContext( clientId ) ) }
-			>
-				{ renderJsxArray( { clientId, blockName, attributes, setAttributes, jsx: children } ) }
-			</Component>
-		)
-
-	} )
-
-}
-
-/**
- * Returns the block context with properties formatted
- */
-function getBlockContext( clientId, context = {} ) {
-
-	const attributes = getBlockAttributes( clientId )
-	const innerBlocks = getInnerBlocks( clientId ) || []
-	const index = 1 + (attributes?._index || 0)
-
-	return {
-		...context,
-		block: {
-			index: index,
-			...attributes,
-		},
-		innerBlocks: innerBlocks,
-	}
-
-}
-
-function getBlockIndex( clientId ) {
-	const { getBlockIndex } = useSelect( ( select ) => ( {
-		getBlockIndex: select( 'core/editor' ).getBlockIndex
-	} ) )
-	return getBlockIndex( clientId ) || 0
-}
-
-function getBlockAttributes( clientId ) {
-	const { getBlockAttributes } = useSelect( ( select ) => ( {
-		getBlockAttributes: select( 'core/block-editor' ).getBlockAttributes
-	} ) )
-	return getBlockAttributes( clientId ) || []
-}
-
-function getInnerBlocks( clientId ) {
-	const { getBlocks } = useSelect( ( select ) => ( {
-		getBlocks: select( 'core/block-editor' ).getBlocks
-	} ) )
-	return getBlocks( clientId ) || []
-}
-
-/**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
  *
@@ -195,24 +83,23 @@ function BlockEdit( blueprint ) {
 		const blockProps = useBlockProps()
 		const blockName = blockProps['data-type']
 
+		const blockContext = getBlockContext( {
+			attributes,
+			innerBlocks: getInnerBlocks( clientId ) || [],
+		} )
+		blockContext.mode = 'edit'
+
 		const blockSidebar = Array.isArray(blueprint.blockSidebar) && blueprint.blockSidebar || [blueprint.blockSidebar]
 		const blockToolbar = Array.isArray(blueprint.blockToolbar) && blueprint.blockToolbar || [blueprint.blockToolbar]
 		
 		const { children = [], tagName = 'div', ...blockEdit } = ( blueprint.blockEdit || {} )
 		const Component = tagName
 
-		const blockClassNames = [
-			...(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]),
-			...(Array.isArray(blockEdit.className) && blockEdit.className || [blockEdit.className])
-		]
-
-		const blockStyles = Object.assign( {}, ( blockProps.style || {} ), ( blockEdit.style || {} ) )
-
 		const blockAttributes = Object.fromEntries( Object.entries( blockEdit ).map( ( [ name, value ] ) => {
 			if ( typeof value === 'string' ) {
 				return [
 					name,
-					replaceTokens( value, getBlockContext( clientId ) ),
+					replaceTokens( value, blockContext ),
 				]
 			} else {
 				return [
@@ -221,6 +108,17 @@ function BlockEdit( blueprint ) {
 				]
 			}
 		} ) )
+
+		const blockClassNames = classNames( [
+			...( Array.isArray( blockProps.className ) && blockProps.className || [ blockProps.className ] ),
+			...( Array.isArray( blockEdit.className ) && blockEdit.className || [ blockEdit.className ] )
+		], blockContext )
+
+		if ( blockClassNames ) {
+			blockAttributes.className = blockClassNames
+		}
+
+		const blockStyles = Object.assign( {}, ( blockProps.style || {} ), ( blockEdit.style || {} ) )
 
 		setAttributes( {
 			_index: getBlockIndex( clientId ),
@@ -231,8 +129,7 @@ function BlockEdit( blueprint ) {
 			<Component
 				{ ...blockProps }
 				{ ...blockAttributes }
-				className={ classNames( blockClassNames, getBlockContext( clientId ) ) }
-				style={ styles( blockStyles, getBlockContext( clientId ) ) }
+				style={ styles( blockStyles, blockContext ) }
 			>
 				{ renderJsxArray( {
 					clientId,
@@ -240,7 +137,8 @@ function BlockEdit( blueprint ) {
 					attributes,
 					setAttributes,
 					jsx: children,
-				} ) }
+					context: blockContext,
+				}, Components ) }
 				{ blockSidebar.map( ( { label, ...props } ) => (
 					<InspectorControls>
 						<PanelBody title={ label }>
@@ -250,7 +148,8 @@ function BlockEdit( blueprint ) {
 								attributes, 
 								setAttributes, 
 								jsx: [ props ],
-							} ) }
+								context: blockContext,
+							}, Components ) }
 						</PanelBody>
 					</InspectorControls>
 				) ) }
@@ -262,7 +161,8 @@ function BlockEdit( blueprint ) {
 							attributes, 
 							setAttributes, 
 							jsx: [ props ],
-						} ) }
+							context: blockContext,
+						}, Components ) }
 					</BlockControls>
 				) ) }
 			</Component>

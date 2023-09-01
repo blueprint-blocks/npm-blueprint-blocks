@@ -1,8 +1,7 @@
-import { replaceTokens, useClickOutside, classNames as classNames$1, styles } from '@blueprint-blocks/utility';
+import { replaceTokens, useClickOutside, getBlockContext, getInnerBlocks, classNames as classNames$1, getBlockIndex, styles, renderJsxArray } from '@blueprint-blocks/utility';
 import { __ } from '@wordpress/i18n';
 import { ToolbarGroup, ToolbarButton, ColorPalette, GradientPicker, Button, withNotices, SelectControl, TextareaControl, PanelBody } from '@wordpress/components';
 import { useBlockProps, InnerBlocks, RichText, MediaPlaceholder, MediaUpload, InspectorControls, BlockControls } from '@wordpress/block-editor';
-import { useSelect } from '@wordpress/data';
 import { addFilter } from '@wordpress/hooks';
 import classNames from 'classnames';
 import { createRef, useState, useEffect } from '@wordpress/element';
@@ -198,7 +197,7 @@ var css$g = ".components-toolbar-group .components-button.blueprint-blocks\\:too
 n(css$g,{});
 
 var _excluded$Z = ["onInput", "options", "multiple", "disabled", "value"],
-  _excluded2$4 = ["icon", "subscript", "label"];
+  _excluded2$3 = ["icon", "subscript", "label"];
 function edit$t(_ref) {
   var onInput = _ref.onInput,
     _ref$options = _ref.options,
@@ -213,7 +212,7 @@ function edit$t(_ref) {
     var icon = _ref2.icon,
       subscript = _ref2.subscript,
       label = _ref2.label,
-      option = _objectWithoutProperties(_ref2, _excluded2$4);
+      option = _objectWithoutProperties(_ref2, _excluded2$3);
     return /*#__PURE__*/React.createElement(ToolbarButton, {
       icon: icon || /*#__PURE__*/React.createElement("div", {
         className: "label"
@@ -497,11 +496,11 @@ function edit$q(_ref) {
       var _target$validity;
       var target = _ref2.target;
       if (target !== null && target !== void 0 && (_target$validity = target.validity) !== null && _target$validity !== void 0 && _target$validity.patternMismatch && customValidity) {
-        target === null || target === void 0 || target.setCustomValidity(customValidity);
+        target === null || target === void 0 ? void 0 : target.setCustomValidity(customValidity);
       } else {
-        target === null || target === void 0 || target.setCustomValidity('');
+        target === null || target === void 0 ? void 0 : target.setCustomValidity('');
       }
-      target === null || target === void 0 || target.reportValidity();
+      target === null || target === void 0 ? void 0 : target.reportValidity();
       _onInput(target.value);
     },
     placeholder: placeholder,
@@ -1683,8 +1682,8 @@ var css$2 = ".blueprint-blocks\\:media-field-wrap {\n  position: relative;\n}\n\
 n(css$2,{});
 
 var _excluded$p = ["onInput", "label", "allowedTypes", "multiple", "noticeUI", "noticeOperations", "value"],
-  _excluded2$3 = ["id", "height", "type", "url", "width"],
-  _excluded3$2 = ["id", "height", "type", "url", "width"];
+  _excluded2$2 = ["id", "height", "type", "url", "width"],
+  _excluded3$1 = ["id", "height", "type", "url", "width"];
 function edit$b(_ref) {
   var onInput = _ref.onInput,
     label = _ref.label,
@@ -1708,7 +1707,7 @@ function edit$b(_ref) {
       type = _ref2.type,
       url = _ref2.url,
       width = _ref2.width;
-      _objectWithoutProperties(_ref2, _excluded2$3);
+      _objectWithoutProperties(_ref2, _excluded2$2);
     onInput([{
       id: id,
       height: height,
@@ -1724,7 +1723,7 @@ function edit$b(_ref) {
         type = _ref3.type,
         url = _ref3.url,
         width = _ref3.width;
-        _objectWithoutProperties(_ref3, _excluded3$2);
+        _objectWithoutProperties(_ref3, _excluded3$1);
       return {
         id: id,
         height: height,
@@ -2605,7 +2604,7 @@ var index$2 = {
 };
 
 var _excluded$5 = ["onInput", "options", "multiple", "disabled", "value"],
-  _excluded2$2 = ["icon", "image", "label"];
+  _excluded2$1 = ["icon", "image", "label"];
 var wrapStyle = {
   '--grid-columns': 2,
   background: '#fff',
@@ -2763,7 +2762,7 @@ function edit$1(_ref2) {
     var icon = _ref3.icon,
       image = _ref3.image,
       label = _ref3.label,
-      option = _objectWithoutProperties(_ref3, _excluded2$2);
+      option = _objectWithoutProperties(_ref3, _excluded2$1);
     return /*#__PURE__*/React.createElement("div", {
       style: itemStyle
     }, /*#__PURE__*/React.createElement("div", {
@@ -2891,18 +2890,13 @@ var Fields = /*#__PURE__*/Object.freeze({
 	WidthField: index
 });
 
-var _excluded$1 = ["children", "className", "style", "name", "attributeName", "type", "tagName"],
-  _excluded2$1 = ["children", "tagName"],
-  _excluded3$1 = ["label"],
-  _excluded4 = ["label"];
+var _excluded$1 = ["children", "tagName"],
+  _excluded2 = ["label"],
+  _excluded3 = ["label"];
 var Components$1 = Object.fromEntries(Object.values(Fields).map(function (_ref) {
   var name = _ref.name,
-    edit = _ref.edit,
-    save = _ref.save;
-  return [name, {
-    edit: edit,
-    save: save
-  }];
+    edit = _ref.edit;
+  return [name, edit];
 }));
 
 /**
@@ -2926,130 +2920,6 @@ addFilter('blocks.registerBlockType', 'blueprint-blocks/default-attributes', fun
 });
 
 /**
- * Renders an array of JSX objects
- * 
- * @param {array} jsx 
- */
-function renderJsxArray$1(_ref2) {
-  var clientId = _ref2.clientId,
-    blockName = _ref2.blockName,
-    attributes = _ref2.attributes,
-    setAttributes = _ref2.setAttributes,
-    _ref2$jsx = _ref2.jsx,
-    jsx = _ref2$jsx === void 0 ? [] : _ref2$jsx;
-  return jsx.map(function (_ref3) {
-    var _ref3$children = _ref3.children,
-      children = _ref3$children === void 0 ? [] : _ref3$children,
-      _ref3$className = _ref3.className,
-      className = _ref3$className === void 0 ? [] : _ref3$className,
-      _ref3$style = _ref3.style,
-      style = _ref3$style === void 0 ? {} : _ref3$style,
-      _ref3$name = _ref3.name,
-      name = _ref3$name === void 0 ? '' : _ref3$name,
-      _ref3$attributeName = _ref3.attributeName,
-      attributeName = _ref3$attributeName === void 0 ? '' : _ref3$attributeName,
-      _ref3$type = _ref3.type,
-      type = _ref3$type === void 0 ? '' : _ref3$type,
-      _ref3$tagName = _ref3.tagName,
-      tagName = _ref3$tagName === void 0 ? 'div' : _ref3$tagName,
-      props = _objectWithoutProperties(_ref3, _excluded$1);
-    var jsxAttributes = Object.fromEntries(Object.entries(props).map(function (_ref4) {
-      var _ref5 = _slicedToArray(_ref4, 2),
-        name = _ref5[0],
-        value = _ref5[1];
-      if (typeof value === 'string') {
-        return [name, replaceTokens(value, getBlockContext$1(clientId))];
-      } else {
-        return [name, value];
-      }
-    }));
-    var Component = tagName;
-    if (type in Components$1 && Components$1[type]) {
-      Component = Components$1[type].edit;
-      if (typeof (attributes === null || attributes === void 0 ? void 0 : attributes[attributeName]) !== 'undefined') {
-        props.value = attributes === null || attributes === void 0 ? void 0 : attributes[attributeName];
-      }
-      return /*#__PURE__*/React.createElement(Component, _extends({}, jsxAttributes, {
-        blockName: blockName,
-        className: classNames$1(className, getBlockContext$1(clientId)),
-        style: styles(style, getBlockContext$1(clientId)),
-        name: name,
-        attributeName: attributeName,
-        tagName: tagName,
-        attributes: attributes,
-        setAttributes: setAttributes,
-        onInput: function onInput(value) {
-          if (!attributeName) {
-            return;
-          }
-          setAttributes(_defineProperty({}, attributeName, value));
-        }
-      }), renderJsxArray$1({
-        clientId: clientId,
-        blockName: blockName,
-        attributes: attributes,
-        setAttributes: setAttributes,
-        jsx: children
-      }));
-    }
-    return /*#__PURE__*/React.createElement(Component, _extends({}, jsxAttributes, {
-      blockName: blockName,
-      className: classNames$1(className, getBlockContext$1(clientId)),
-      styles: styles(style, getBlockContext$1(clientId))
-    }), renderJsxArray$1({
-      clientId: clientId,
-      blockName: blockName,
-      attributes: attributes,
-      setAttributes: setAttributes,
-      jsx: children
-    }));
-  });
-}
-
-/**
- * Returns the block context with properties formatted
- */
-function getBlockContext$1(clientId) {
-  var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var attributes = getBlockAttributes(clientId);
-  var innerBlocks = getInnerBlocks(clientId) || [];
-  var index = 1 + ((attributes === null || attributes === void 0 ? void 0 : attributes._index) || 0);
-  return _objectSpread2(_objectSpread2({}, context), {}, {
-    block: _objectSpread2({
-      index: index
-    }, attributes),
-    innerBlocks: innerBlocks
-  });
-}
-function getBlockIndex(clientId) {
-  var _useSelect = useSelect(function (select) {
-      return {
-        getBlockIndex: select('core/editor').getBlockIndex
-      };
-    }),
-    getBlockIndex = _useSelect.getBlockIndex;
-  return getBlockIndex(clientId) || 0;
-}
-function getBlockAttributes(clientId) {
-  var _useSelect2 = useSelect(function (select) {
-      return {
-        getBlockAttributes: select('core/block-editor').getBlockAttributes
-      };
-    }),
-    getBlockAttributes = _useSelect2.getBlockAttributes;
-  return getBlockAttributes(clientId) || [];
-}
-function getInnerBlocks(clientId) {
-  var _useSelect3 = useSelect(function (select) {
-      return {
-        getBlocks: select('core/block-editor').getBlocks
-      };
-    }),
-    getBlocks = _useSelect3.getBlocks;
-  return getBlocks(clientId) || [];
-}
-
-/**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
  *
@@ -3058,192 +2928,89 @@ function getInnerBlocks(clientId) {
  * @return {WPElement} Element to render.
  */
 function BlockEdit(blueprint) {
-  return function (_ref6) {
+  return function (_ref2) {
     var _getInnerBlocks;
-    var attributes = _ref6.attributes,
-      setAttributes = _ref6.setAttributes,
-      clientId = _ref6.clientId;
+    var attributes = _ref2.attributes,
+      setAttributes = _ref2.setAttributes,
+      clientId = _ref2.clientId;
     var blockProps = useBlockProps();
     var blockName = blockProps['data-type'];
+    var blockContext = getBlockContext({
+      attributes: attributes,
+      innerBlocks: getInnerBlocks(clientId) || []
+    });
+    blockContext.mode = 'edit';
     var blockSidebar = Array.isArray(blueprint.blockSidebar) && blueprint.blockSidebar || [blueprint.blockSidebar];
     var blockToolbar = Array.isArray(blueprint.blockToolbar) && blueprint.blockToolbar || [blueprint.blockToolbar];
-    var _ref7 = blueprint.blockEdit || {},
-      _ref7$children = _ref7.children,
-      children = _ref7$children === void 0 ? [] : _ref7$children,
-      _ref7$tagName = _ref7.tagName,
-      tagName = _ref7$tagName === void 0 ? 'div' : _ref7$tagName,
-      blockEdit = _objectWithoutProperties(_ref7, _excluded2$1);
+    var _ref3 = blueprint.blockEdit || {},
+      _ref3$children = _ref3.children,
+      children = _ref3$children === void 0 ? [] : _ref3$children,
+      _ref3$tagName = _ref3.tagName,
+      tagName = _ref3$tagName === void 0 ? 'div' : _ref3$tagName,
+      blockEdit = _objectWithoutProperties(_ref3, _excluded$1);
     var Component = tagName;
-    var blockClassNames = [].concat(_toConsumableArray(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]), _toConsumableArray(Array.isArray(blockEdit.className) && blockEdit.className || [blockEdit.className]));
-    var blockStyles = Object.assign({}, blockProps.style || {}, blockEdit.style || {});
-    var blockAttributes = Object.fromEntries(Object.entries(blockEdit).map(function (_ref8) {
-      var _ref9 = _slicedToArray(_ref8, 2),
-        name = _ref9[0],
-        value = _ref9[1];
+    var blockAttributes = Object.fromEntries(Object.entries(blockEdit).map(function (_ref4) {
+      var _ref5 = _slicedToArray(_ref4, 2),
+        name = _ref5[0],
+        value = _ref5[1];
       if (typeof value === 'string') {
-        return [name, replaceTokens(value, getBlockContext$1(clientId))];
+        return [name, replaceTokens(value, blockContext)];
       } else {
         return [name, value];
       }
     }));
+    var blockClassNames = classNames$1([].concat(_toConsumableArray(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]), _toConsumableArray(Array.isArray(blockEdit.className) && blockEdit.className || [blockEdit.className])), blockContext);
+    if (blockClassNames) {
+      blockAttributes.className = blockClassNames;
+    }
+    var blockStyles = Object.assign({}, blockProps.style || {}, blockEdit.style || {});
     setAttributes({
       _index: getBlockIndex(clientId),
       _innerBlocksLength: ((_getInnerBlocks = getInnerBlocks(clientId)) === null || _getInnerBlocks === void 0 ? void 0 : _getInnerBlocks.length) || 0
     });
     return /*#__PURE__*/React.createElement(Component, _extends({}, blockProps, blockAttributes, {
-      className: classNames$1(blockClassNames, getBlockContext$1(clientId)),
-      style: styles(blockStyles, getBlockContext$1(clientId))
-    }), renderJsxArray$1({
+      style: styles(blockStyles, blockContext)
+    }), renderJsxArray({
       clientId: clientId,
       blockName: blockName,
       attributes: attributes,
       setAttributes: setAttributes,
-      jsx: children
-    }), blockSidebar.map(function (_ref10) {
-      var label = _ref10.label,
-        props = _objectWithoutProperties(_ref10, _excluded3$1);
+      jsx: children,
+      context: blockContext
+    }, Components$1), blockSidebar.map(function (_ref6) {
+      var label = _ref6.label,
+        props = _objectWithoutProperties(_ref6, _excluded2);
       return /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(PanelBody, {
         title: label
-      }, renderJsxArray$1({
+      }, renderJsxArray({
         clientId: clientId,
         blockName: blockName,
         attributes: attributes,
         setAttributes: setAttributes,
-        jsx: [props]
-      })));
-    }), blockToolbar.map(function (_ref11) {
-      _ref11.label;
-        var props = _objectWithoutProperties(_ref11, _excluded4);
-      return /*#__PURE__*/React.createElement(BlockControls, null, renderJsxArray$1({
+        jsx: [props],
+        context: blockContext
+      }, Components$1)));
+    }), blockToolbar.map(function (_ref7) {
+      _ref7.label;
+        var props = _objectWithoutProperties(_ref7, _excluded3);
+      return /*#__PURE__*/React.createElement(BlockControls, null, renderJsxArray({
         clientId: clientId,
         blockName: blockName,
         attributes: attributes,
         setAttributes: setAttributes,
-        jsx: [props]
-      }));
+        jsx: [props],
+        context: blockContext
+      }, Components$1));
     }));
   };
 }
 
-var _excluded = ["attributes", "innerBlocks"],
-  _excluded2 = ["children", "className", "style", "name", "attributeName", "type", "tagName"],
-  _excluded3 = ["children", "tagName"];
+var _excluded = ["children", "tagName"];
 var Components = Object.fromEntries(Object.values(Fields).map(function (_ref) {
   var name = _ref.name,
-    edit = _ref.edit,
     save = _ref.save;
-  return [name, {
-    edit: edit,
-    save: save
-  }];
+  return [name, save];
 }));
-
-/**
- * Returns the block context with private attributes formatted.
- * 
- * Note: The length of the inner blocks is saved as an attribute because 
- * they can not be directly referenced upon initial save.
- */
-function getBlockContext(_ref2) {
-  var _ref2$attributes = _ref2.attributes,
-    attributes = _ref2$attributes === void 0 ? {} : _ref2$attributes,
-    _ref2$innerBlocks = _ref2.innerBlocks,
-    innerBlocks = _ref2$innerBlocks === void 0 ? [] : _ref2$innerBlocks,
-    context = _objectWithoutProperties(_ref2, _excluded);
-  var index = 1 + ((attributes === null || attributes === void 0 ? void 0 : attributes._index) || 0);
-  var length = (attributes === null || attributes === void 0 ? void 0 : attributes._innerBlocksLength) || 0;
-  return _objectSpread2(_objectSpread2({}, context), {}, {
-    block: _objectSpread2({
-      index: index
-    }, attributes),
-    innerBlocks: (innerBlocks === null || innerBlocks === void 0 ? void 0 : innerBlocks.length) && innerBlocks || new Array(length).fill(null)
-  });
-}
-
-/**
- * Renders an array of JSX objects
- * 
- * @param {array} jsx 
- */
-function renderJsxArray(_ref3) {
-  var blockName = _ref3.blockName,
-    attributes = _ref3.attributes,
-    innerBlocks = _ref3.innerBlocks,
-    _ref3$jsx = _ref3.jsx,
-    jsx = _ref3$jsx === void 0 ? [] : _ref3$jsx;
-  return jsx.map(function (_ref4) {
-    var _ref4$children = _ref4.children,
-      children = _ref4$children === void 0 ? [] : _ref4$children,
-      _ref4$className = _ref4.className,
-      className = _ref4$className === void 0 ? [] : _ref4$className,
-      _ref4$style = _ref4.style,
-      style = _ref4$style === void 0 ? {} : _ref4$style,
-      _ref4$name = _ref4.name,
-      name = _ref4$name === void 0 ? '' : _ref4$name,
-      _ref4$attributeName = _ref4.attributeName,
-      attributeName = _ref4$attributeName === void 0 ? '' : _ref4$attributeName,
-      _ref4$type = _ref4.type,
-      type = _ref4$type === void 0 ? '' : _ref4$type,
-      _ref4$tagName = _ref4.tagName,
-      tagName = _ref4$tagName === void 0 ? 'div' : _ref4$tagName,
-      props = _objectWithoutProperties(_ref4, _excluded2);
-    var jsxAttributes = Object.fromEntries(Object.entries(props).map(function (_ref5) {
-      var _ref6 = _slicedToArray(_ref5, 2),
-        name = _ref6[0],
-        value = _ref6[1];
-      if (typeof value === 'string') {
-        return [name, replaceTokens(value, getBlockContext({
-          attributes: attributes,
-          innerBlocks: innerBlocks
-        }))];
-      } else {
-        return [name, value];
-      }
-    }));
-    var Component = tagName;
-    if (type in Components && Components[type]) {
-      Component = Components[type].save;
-      if (typeof (attributes === null || attributes === void 0 ? void 0 : attributes[attributeName]) !== 'undefined') {
-        props.value = attributes === null || attributes === void 0 ? void 0 : attributes[attributeName];
-      }
-      return /*#__PURE__*/React.createElement(Component, _extends({}, jsxAttributes, {
-        blockName: blockName,
-        className: classNames$1(className, getBlockContext({
-          attributes: attributes,
-          innerBlocks: innerBlocks
-        })),
-        style: styles(style, getBlockContext({
-          attributes: attributes,
-          innerBlocks: innerBlocks
-        })),
-        name: name,
-        tagName: tagName,
-        attributes: attributes
-      }), renderJsxArray({
-        blockName: blockName,
-        attributes: attributes,
-        innerBlocks: innerBlocks,
-        jsx: children
-      }));
-    }
-    return /*#__PURE__*/React.createElement(Component, _extends({}, jsxAttributes, {
-      blockName: blockName,
-      className: classNames$1(className, getBlockContext({
-        attributes: attributes,
-        innerBlocks: innerBlocks
-      })),
-      styles: styles(style, getBlockContext({
-        attributes: attributes,
-        innerBlocks: innerBlocks
-      }))
-    }), renderJsxArray({
-      blockName: blockName,
-      attributes: attributes,
-      innerBlocks: innerBlocks,
-      jsx: children
-    }));
-  });
-}
 
 /**
  * The save function defines the way in which the different attributes should
@@ -3255,47 +3022,47 @@ function renderJsxArray(_ref3) {
  * @return {WPElement} Element to render.
  */
 function BlockSave(blueprint) {
-  return function (_ref7) {
-    var attributes = _ref7.attributes,
-      innerBlocks = _ref7.innerBlocks;
+  return function (_ref2) {
+    var attributes = _ref2.attributes,
+      innerBlocks = _ref2.innerBlocks;
     var blockProps = useBlockProps.save();
     var blockName = blockProps.className;
-    var _ref8 = blueprint.blockSave !== null && blueprint.blockSave || blueprint.blockEdit || {},
-      _ref8$children = _ref8.children,
-      children = _ref8$children === void 0 ? [] : _ref8$children,
-      _ref8$tagName = _ref8.tagName,
-      tagName = _ref8$tagName === void 0 ? 'div' : _ref8$tagName,
-      blockSave = _objectWithoutProperties(_ref8, _excluded3);
+    var blockContext = getBlockContext({
+      attributes: attributes,
+      innerBlocks: innerBlocks
+    });
+    blockContext.mode = 'save';
+    var _ref3 = blueprint.blockSave !== null && blueprint.blockSave || blueprint.blockEdit || {},
+      _ref3$children = _ref3.children,
+      children = _ref3$children === void 0 ? [] : _ref3$children,
+      _ref3$tagName = _ref3.tagName,
+      tagName = _ref3$tagName === void 0 ? 'div' : _ref3$tagName,
+      blockSave = _objectWithoutProperties(_ref3, _excluded);
     var Component = tagName;
-    var blockClassNames = [].concat(_toConsumableArray(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]), _toConsumableArray(Array.isArray(blockSave.className) && blockSave.className || [blockSave.className]));
-    var blockStyles = Object.assign({}, blockProps.style || {}, blockSave.style || {});
-    var blockAttributes = Object.fromEntries(Object.entries(blockSave).map(function (_ref9) {
-      var _ref10 = _slicedToArray(_ref9, 2),
-        name = _ref10[0],
-        value = _ref10[1];
+    var blockAttributes = Object.fromEntries(Object.entries(blockSave).map(function (_ref4) {
+      var _ref5 = _slicedToArray(_ref4, 2),
+        name = _ref5[0],
+        value = _ref5[1];
       if (typeof value === 'string') {
-        return [name, replaceTokens(value, getBlockContext({
-          attributes: attributes,
-          innerBlocks: innerBlocks
-        }))];
+        return [name, replaceTokens(value, blockContext)];
       } else {
         return [name, value];
       }
     }));
+    var blockClassNames = classNames$1([].concat(_toConsumableArray(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]), _toConsumableArray(Array.isArray(blockSave.className) && blockSave.className || [blockSave.className])), blockContext);
+    if (blockClassNames) {
+      blockAttributes.className = blockClassNames;
+    }
+    var blockStyles = Object.assign({}, blockProps.style || {}, blockSave.style || {});
     return /*#__PURE__*/React.createElement(Component, _extends({}, blockProps, blockAttributes, {
-      className: classNames$1(blockClassNames, getBlockContext({
-        attributes: attributes,
-        innerBlocks: innerBlocks
-      })),
-      style: styles(blockStyles, getBlockContext({
-        attributes: attributes,
-        innerBlocks: innerBlocks
-      }))
+      className: classNames$1(blockClassNames, blockContext),
+      style: styles(blockStyles, blockContext)
     }), renderJsxArray({
       blockName: blockName,
       attributes: attributes,
-      jsx: children
-    }));
+      jsx: children,
+      context: blockContext
+    }, Components));
   };
 }
 

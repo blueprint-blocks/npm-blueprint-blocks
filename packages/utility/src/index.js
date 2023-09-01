@@ -1,14 +1,22 @@
-import camelize from './camelize'
-import classNames from './class-names'
-import delimiterize from './delimiterize'
-import replaceTokens from './replace-tokens'
-import styles from './styles'
-import useClickOutside from './use-click-outside'
+import camelize from './camelize.js'
+import classNames from './class-names.js'
+import delimiterize from './delimiterize.js'
+import getBlockContext from './get-block-context.js'
+import getBlockIndex from './get-block-index.js'
+import getInnerBlocks from './get-inner-blocks.js'
+import renderJsxArray from './render-jsx-array.js'
+import replaceTokens from './replace-tokens.js'
+import styles from './styles.js'
+import useClickOutside from './use-click-outside.js'
 
 export {
 	camelize,
 	classNames,
 	delimiterize,
+	getBlockContext,
+	getBlockIndex,
+	getInnerBlocks,
+	renderJsxArray,
 	replaceTokens,
 	styles,
 	useClickOutside,

@@ -1,7 +1,7 @@
-import { replaceTokens, useClickOutside, getBlockContext, getInnerBlocks, classNames as classNames$1, getBlockIndex, styles, renderJsxArray } from '@blueprint-blocks/utility';
+import { replaceTokens, useClickOutside, getBlockIndex, getInnerBlocks, getBlockContext, classNames as classNames$1, styles, renderJsxArray } from '@blueprint-blocks/utility';
 import { __ } from '@wordpress/i18n';
 import { ToolbarGroup, ToolbarButton, ColorPalette, GradientPicker, Button, withNotices, SelectControl, TextareaControl, PanelBody } from '@wordpress/components';
-import { useBlockProps, InnerBlocks, RichText, MediaPlaceholder, MediaUpload, InspectorControls, BlockControls } from '@wordpress/block-editor';
+import { InnerBlocks, RichText, MediaPlaceholder, MediaUpload, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
 import { addFilter } from '@wordpress/hooks';
 import classNames from 'classnames';
 import { createRef, useState, useEffect } from '@wordpress/element';
@@ -228,18 +228,6 @@ function edit$t(_ref) {
   }));
 }
 
-var getFieldClassNames = memoize(function (_ref) {
-  var blockName = _ref.blockName,
-    _ref$type = _ref.type,
-    type = _ref$type === void 0 ? '' : _ref$type,
-    name = _ref.name,
-    _ref$value = _ref.value,
-    value = _ref$value === void 0 ? '' : _ref$value;
-  return classNames(_defineProperty({}, "block:".concat(name), name === null || name === void 0 ? void 0 : name.length), _defineProperty({}, "".concat(blockName, ":").concat(name), name === null || name === void 0 ? void 0 : name.length), 'blueprint-blocks:component', 'blueprint-blocks:field', "blueprint-blocks:".concat(type, "-field"), {
-    'has-value': value
-  });
-});
-
 var css$f = ".components-panel__body .blueprint-blocks\\:field {\n  margin: 0 0 16px;\n}\n\n.components-panel__body .blueprint-blocks\\:field:last-child {\n  margin-bottom: 0;\n}\n\n.blueprint-blocks\\:field-label {\n  margin-bottom: 8px;\n}";
 n(css$f,{});
 
@@ -251,11 +239,9 @@ function preventEventPropagation(event) {
   event.nativeEvent.stopImmediatePropagation();
 }
 function edit$s(_ref) {
-  var _props3;
-  var _ref$attributes = _ref.attributes,
-    attributes = _ref$attributes === void 0 ? {} : _ref$attributes,
-    blockName = _ref.blockName,
-    name = _ref.name;
+  _ref.attributes;
+    _ref.blockName;
+    _ref.name;
     _ref.attributeName;
     var _ref$children = _ref.children,
     children = _ref$children === void 0 ? [] : _ref$children,
@@ -266,33 +252,19 @@ function edit$s(_ref) {
     _ref$label = _ref.label,
     label = _ref$label === void 0 ? '' : _ref$label,
     _ref$tagName = _ref.tagName,
-    tagName = _ref$tagName === void 0 ? 'div' : _ref$tagName,
-    _ref$type = _ref.type,
-    type = _ref$type === void 0 ? 'field' : _ref$type;
+    tagName = _ref$tagName === void 0 ? 'div' : _ref$tagName;
+    _ref.type;
     _ref.onInput;
     var props = _objectWithoutProperties(_ref, _excluded$Y);
-  useBlockProps();
-  var Component = tagName;
   var ref = createRef();
-  props = Object.fromEntries(Object.entries(props).map(function (_ref2) {
-    var _ref3 = _slicedToArray(_ref2, 2),
-      attributeName = _ref3[0],
-      attributeValue = _ref3[1];
-    return [attributeName, replaceTokens(attributeValue, {
-      block: attributes,
-      field: {}
-    })];
-  }));
+  var fieldProps = Object.assign({}, props);
+  if (className) {
+    fieldProps.className = className;
+  }
+  var Component = tagName;
   if (selfClosingTagNames$1.includes(tagName) === false && dangerouslySetInnerHTML) {
-    var _props;
     return /*#__PURE__*/React.createElement(Component, _extends({}, props, {
       ref: ref,
-      className: classNames.apply(void 0, [getFieldClassNames({
-        blockName: blockName,
-        name: name,
-        type: type,
-        value: (_props = props) === null || _props === void 0 ? void 0 : _props.value
-      })].concat(_toConsumableArray(Array.isArray(className) && className || [className]))),
       onClick: preventEventPropagation,
       onInput: preventEventPropagation,
       onKeydown: preventEventPropagation,
@@ -300,15 +272,8 @@ function edit$s(_ref) {
     }));
   }
   if (selfClosingTagNames$1.includes(tagName) === true || children.length === 0 && label.length === 0) {
-    var _props2;
     return /*#__PURE__*/React.createElement(Component, _extends({}, props, {
       ref: ref,
-      className: classNames.apply(void 0, [getFieldClassNames({
-        blockName: blockName,
-        name: name,
-        type: type,
-        value: (_props2 = props) === null || _props2 === void 0 ? void 0 : _props2.value
-      })].concat(_toConsumableArray(Array.isArray(className) && className || [className]))),
       onClick: preventEventPropagation,
       onInput: preventEventPropagation,
       onKeydown: preventEventPropagation
@@ -316,12 +281,6 @@ function edit$s(_ref) {
   }
   return /*#__PURE__*/React.createElement(Component, _extends({}, props, {
     ref: ref,
-    className: classNames.apply(void 0, [getFieldClassNames({
-      blockName: blockName,
-      name: name,
-      type: type,
-      value: (_props3 = props) === null || _props3 === void 0 ? void 0 : _props3.value
-    })].concat(_toConsumableArray(Array.isArray(className) && className || [className]))),
     onClick: preventEventPropagation,
     onInput: preventEventPropagation,
     onKeydown: preventEventPropagation
@@ -332,52 +291,27 @@ function edit$s(_ref) {
 
 var _excluded$X = ["attributes", "blockName", "name", "label", "children", "innerHtml", "className", "tagName", "type"];
 var selfClosingTagNames = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
-var fieldClassNames = memoize(function (_ref) {
-  var blockName = _ref.blockName,
-    name = _ref.name;
+function save$s(_ref) {
+  _ref.attributes;
+    _ref.blockName;
+    _ref.name;
+    _ref.label;
+    var _ref$children = _ref.children,
+    children = _ref$children === void 0 ? [] : _ref$children;
+    _ref.innerHtml;
+    var _ref$className = _ref.className,
+    className = _ref$className === void 0 ? '' : _ref$className,
+    _ref$tagName = _ref.tagName,
+    tagName = _ref$tagName === void 0 ? 'div' : _ref$tagName;
     _ref.type;
-  return classNames(_defineProperty({}, "block:".concat(name), name === null || name === void 0 ? void 0 : name.length), _defineProperty({}, "".concat(blockName, ":").concat(name), name === null || name === void 0 ? void 0 : name.length));
-});
-function save$s(_ref2) {
-  var attributes = _ref2.attributes,
-    blockName = _ref2.blockName,
-    name = _ref2.name;
-    _ref2.label;
-    var _ref2$children = _ref2.children,
-    children = _ref2$children === void 0 ? [] : _ref2$children;
-    _ref2.innerHtml;
-    var _ref2$className = _ref2.className,
-    className = _ref2$className === void 0 ? '' : _ref2$className,
-    _ref2$tagName = _ref2.tagName,
-    tagName = _ref2$tagName === void 0 ? 'div' : _ref2$tagName,
-    _ref2$type = _ref2.type,
-    type = _ref2$type === void 0 ? 'field' : _ref2$type,
-    props = _objectWithoutProperties(_ref2, _excluded$X);
-  var Component = tagName;
-  props = Object.fromEntries(Object.entries(props).map(function (_ref3) {
-    var _ref4 = _slicedToArray(_ref3, 2),
-      attributeName = _ref4[0],
-      attributeValue = _ref4[1];
-    return [attributeName, replaceTokens(attributeValue, {
-      block: attributes,
-      field: {}
-    })];
-  }));
-  if (selfClosingTagNames.includes(tagName) === true || children.length === 0 || props.dangerouslySetInnerHTML) {
-    /*#__PURE__*/React.createElement(Component, _extends({}, props, {
-      className: classNames.apply(void 0, [fieldClassNames({
-        blockName: blockName,
-        name: name,
-        type: type
-      })].concat(_toConsumableArray(Array.isArray(className) && className || [className])))
-    }));
+    var props = _objectWithoutProperties(_ref, _excluded$X);
+  var fieldProps = Object.assign({}, props);
+  if (className) {
+    fieldProps.className = className;
   }
-  return /*#__PURE__*/React.createElement(Component, _extends({}, props, {
-    className: classNames.apply(void 0, [fieldClassNames({
-      blockName: blockName,
-      name: name,
-      type: type
-    })].concat(_toConsumableArray(Array.isArray(className) && className || [className]))),
+  var Component = tagName;
+  if (selfClosingTagNames.includes(tagName) === true || children.length === 0 || props.dangerouslySetInnerHTML) ;
+  return /*#__PURE__*/React.createElement(Component, _extends({}, fieldProps, {
     children: children
   }));
 }
@@ -1138,6 +1072,8 @@ function edit$j(_ref) {
     var _ref$innerHtml = _ref.innerHtml,
     innerHtml = _ref$innerHtml === void 0 ? '' : _ref$innerHtml,
     props = _objectWithoutProperties(_ref, _excluded$E);
+  console.log(props === null || props === void 0 ? void 0 : props.className);
+  debugger;
   if (innerHtml.length > 0) {
     return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
       type: "html",
@@ -1294,6 +1230,18 @@ var index$d = {
   edit: edit$h,
   save: save$g
 };
+
+var getFieldClassNames = memoize(function (_ref) {
+  var blockName = _ref.blockName,
+    _ref$type = _ref.type,
+    type = _ref$type === void 0 ? '' : _ref$type,
+    name = _ref.name,
+    _ref$value = _ref.value,
+    value = _ref$value === void 0 ? '' : _ref$value;
+  return classNames(_defineProperty({}, "block:".concat(name), name === null || name === void 0 ? void 0 : name.length), _defineProperty({}, "".concat(blockName, ":").concat(name), name === null || name === void 0 ? void 0 : name.length), 'blueprint-blocks:component', 'blueprint-blocks:field', "blueprint-blocks:".concat(type, "-field"), {
+    'has-value': value
+  });
+});
 
 var _excluded$y = ["blockName", "name", "placeholder", "allowedFormats", "disabled", "tagName", "className", "value", "onInput"];
 function edit$g(_ref) {
@@ -2933,13 +2881,16 @@ function BlockEdit(blueprint) {
     var attributes = _ref2.attributes,
       setAttributes = _ref2.setAttributes,
       clientId = _ref2.clientId;
+    setAttributes({
+      _index: getBlockIndex(clientId),
+      _innerBlocksLength: ((_getInnerBlocks = getInnerBlocks(clientId)) === null || _getInnerBlocks === void 0 ? void 0 : _getInnerBlocks.length) || 0
+    });
     var blockProps = useBlockProps();
     var blockName = blockProps['data-type'];
     var blockContext = getBlockContext({
       attributes: attributes,
       innerBlocks: getInnerBlocks(clientId) || []
     });
-    blockContext.mode = 'edit';
     var blockSidebar = Array.isArray(blueprint.blockSidebar) && blueprint.blockSidebar || [blueprint.blockSidebar];
     var blockToolbar = Array.isArray(blueprint.blockToolbar) && blueprint.blockToolbar || [blueprint.blockToolbar];
     var _ref3 = blueprint.blockEdit || {},
@@ -2948,7 +2899,6 @@ function BlockEdit(blueprint) {
       _ref3$tagName = _ref3.tagName,
       tagName = _ref3$tagName === void 0 ? 'div' : _ref3$tagName,
       blockEdit = _objectWithoutProperties(_ref3, _excluded$1);
-    var Component = tagName;
     var blockAttributes = Object.fromEntries(Object.entries(blockEdit).map(function (_ref4) {
       var _ref5 = _slicedToArray(_ref4, 2),
         name = _ref5[0],
@@ -2964,14 +2914,11 @@ function BlockEdit(blueprint) {
       blockAttributes.className = blockClassNames;
     }
     var blockStyles = Object.assign({}, blockProps.style || {}, blockEdit.style || {});
-    setAttributes({
-      _index: getBlockIndex(clientId),
-      _innerBlocksLength: ((_getInnerBlocks = getInnerBlocks(clientId)) === null || _getInnerBlocks === void 0 ? void 0 : _getInnerBlocks.length) || 0
-    });
-    return /*#__PURE__*/React.createElement(Component, _extends({}, blockProps, blockAttributes, {
-      style: styles(blockStyles, blockContext)
-    }), renderJsxArray({
-      clientId: clientId,
+    if (Object.values(blockStyles).length > 0) {
+      blockAttributes.style = styles(blockStyles, blockContext);
+    }
+    var Component = tagName;
+    return /*#__PURE__*/React.createElement(Component, _extends({}, blockProps, blockAttributes), renderJsxArray({
       blockName: blockName,
       attributes: attributes,
       setAttributes: setAttributes,
@@ -2983,7 +2930,6 @@ function BlockEdit(blueprint) {
       return /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(PanelBody, {
         title: label
       }, renderJsxArray({
-        clientId: clientId,
         blockName: blockName,
         attributes: attributes,
         setAttributes: setAttributes,
@@ -3031,14 +2977,12 @@ function BlockSave(blueprint) {
       attributes: attributes,
       innerBlocks: innerBlocks
     });
-    blockContext.mode = 'save';
     var _ref3 = blueprint.blockSave !== null && blueprint.blockSave || blueprint.blockEdit || {},
       _ref3$children = _ref3.children,
       children = _ref3$children === void 0 ? [] : _ref3$children,
       _ref3$tagName = _ref3.tagName,
       tagName = _ref3$tagName === void 0 ? 'div' : _ref3$tagName,
       blockSave = _objectWithoutProperties(_ref3, _excluded);
-    var Component = tagName;
     var blockAttributes = Object.fromEntries(Object.entries(blockSave).map(function (_ref4) {
       var _ref5 = _slicedToArray(_ref4, 2),
         name = _ref5[0],
@@ -3054,10 +2998,11 @@ function BlockSave(blueprint) {
       blockAttributes.className = blockClassNames;
     }
     var blockStyles = Object.assign({}, blockProps.style || {}, blockSave.style || {});
-    return /*#__PURE__*/React.createElement(Component, _extends({}, blockProps, blockAttributes, {
-      className: classNames$1(blockClassNames, blockContext),
-      style: styles(blockStyles, blockContext)
-    }), renderJsxArray({
+    if (Object.values(blockStyles).length > 0) {
+      blockAttributes.style = styles(blockStyles, blockContext);
+    }
+    var Component = tagName;
+    return /*#__PURE__*/React.createElement(Component, _extends({}, blockProps, blockAttributes), renderJsxArray({
       blockName: blockName,
       attributes: attributes,
       jsx: children,

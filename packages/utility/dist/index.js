@@ -323,7 +323,8 @@ var _excluded = ["children", "className", "style", "name", "attributeName", "typ
 function renderJsxArray(_ref) {
   var blockName = _ref.blockName,
     attributes = _ref.attributes,
-    setAttributes = _ref.setAttributes,
+    _ref$setAttributes = _ref.setAttributes,
+    setAttributes = _ref$setAttributes === void 0 ? null : _ref$setAttributes,
     _ref$jsx = _ref.jsx,
     jsx = _ref$jsx === void 0 ? [] : _ref$jsx,
     _ref$context = _ref.context,
@@ -345,33 +346,46 @@ function renderJsxArray(_ref) {
       _ref2$tagName = _ref2.tagName,
       tagName = _ref2$tagName === void 0 ? 'div' : _ref2$tagName,
       props = _objectWithoutProperties(_ref2, _excluded);
+    var attributeValue = attributes === null || attributes === void 0 ? void 0 : attributes[attributeName];
     var jsxAttributes = Object.fromEntries(Object.entries(props).map(function (_ref3) {
       var _ref4 = _slicedToArray(_ref3, 2),
         name = _ref4[0],
         value = _ref4[1];
       if (typeof value === 'string') {
-        return [name, replaceTokens(value, context)];
+        return [name, replaceTokens(value, _objectSpread2(_objectSpread2({}, context), {}, {
+          attribute: {
+            value: attributeValue
+          }
+        }))];
       } else {
         return [name, value];
       }
     }));
-    var jsxClassNames = classNames(className, context);
+    var jsxClassNames = classNames(className, _objectSpread2(_objectSpread2({}, context), {}, {
+      attribute: {
+        value: attributeValue
+      }
+    }));
     if (jsxClassNames) {
       jsxAttributes.className = jsxClassNames;
+    }
+    var jsxStyles = styles(style, _objectSpread2(_objectSpread2({}, context), {}, {
+      attribute: {
+        value: attributeValue
+      }
+    }));
+    if (Object.values(jsxStyles).length > 0) {
+      jsxAttributes.style = jsxStyles;
     }
     var Component = tagName;
     if (type in Components && Components[type]) {
       Component = Components[type];
-      if (typeof (attributes === null || attributes === void 0 ? void 0 : attributes[attributeName]) !== 'undefined') {
-        props.value = attributes === null || attributes === void 0 ? void 0 : attributes[attributeName];
-      }
       return /*#__PURE__*/React.createElement(Component, _extends({}, jsxAttributes, {
         blockName: blockName,
-        style: styles(style, context),
         name: name,
         tagName: tagName,
         attributes: attributes
-      }, (context === null || context === void 0 ? void 0 : context.mode) !== 'save' && {
+      }, setAttributes !== null && {
         attributeName: attributeName,
         setAttributes: setAttributes,
         onInput: function onInput(value) {
@@ -389,8 +403,7 @@ function renderJsxArray(_ref) {
       }, Components));
     }
     return /*#__PURE__*/React.createElement(Component, _extends({}, jsxAttributes, {
-      blockName: blockName,
-      styles: styles(style, context)
+      blockName: blockName
     }), renderJsxArray({
       blockName: blockName,
       attributes: attributes,

@@ -7,15 +7,17 @@ import styles from './styles.js'
  * 
  * @param {array} jsx 
  */
-function renderJsxArray( { blockName, attributes, setAttributes, jsx = [], context = {} }, Components = {} ) {
+function renderJsxArray( { blockName, attributes, setAttributes = null, jsx = [], context = {} }, Components = {} ) {
 
 	return jsx.map( ( { children = [], className = [], style = {}, name = '', attributeName = '', type = '', tagName = 'div', ...props } ) => {
+
+		const attributeValue = attributes?.[ attributeName ]
 
 		const jsxAttributes = Object.fromEntries( Object.entries( props ).map( ( [ name, value ] ) => {
 			if ( typeof value === 'string' ) {
 				return [
 					name,
-					replaceTokens( value, context ),
+					replaceTokens( value, { ...context, attribute: { value: attributeValue } } ),
 				]
 			} else {
 				return [
@@ -25,10 +27,16 @@ function renderJsxArray( { blockName, attributes, setAttributes, jsx = [], conte
 			}
 		} ) )
 
-		const jsxClassNames = classNames( className, context )
+		const jsxClassNames = classNames( className, { ...context, attribute: { value: attributeValue } } )
 
 		if ( jsxClassNames ) {
 			jsxAttributes.className = jsxClassNames
+		}
+
+		const jsxStyles = styles( style, { ...context, attribute: { value: attributeValue } } )
+
+		if ( Object.values( jsxStyles ).length > 0 ) {
+			jsxAttributes.style = jsxStyles
 		}
 
 		let Component = tagName
@@ -36,19 +44,14 @@ function renderJsxArray( { blockName, attributes, setAttributes, jsx = [], conte
 		if ( type in Components && Components[ type ] ) {
 			Component = Components[ type ]
 
-			if ( typeof attributes?.[ attributeName ] !== 'undefined' ) {
-				props.value = attributes?.[ attributeName ]
-			}
-
 			return (
 				<Component
 					{ ...jsxAttributes }
 					blockName={ blockName }
-					style={ styles( style, context ) }
 					name={ name }
 					tagName={ tagName }
 					attributes={ attributes }
-					{ ...( context?.mode !== 'save' && {
+					{ ...( setAttributes !== null && {
 						attributeName,
 						setAttributes,
 						onInput: ( value ) => {
@@ -76,7 +79,6 @@ function renderJsxArray( { blockName, attributes, setAttributes, jsx = [], conte
 			<Component
 				{ ...jsxAttributes }
 				blockName={ blockName }
-				styles={ styles( style, context ) }
 			>
 				{ renderJsxArray( {
 					blockName,

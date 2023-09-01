@@ -44,11 +44,16 @@ function BlockSave( blueprint ) {
 		const blockProps = useBlockProps.save()
 		const blockName = blockProps.className
 
-		const blockContext = getBlockContext( { attributes, innerBlocks } )
-		blockContext.mode = 'save'
+		const blockContext = getBlockContext( { 
+			attributes, 
+			innerBlocks,
+		} )
 
-		const { children = [], tagName = 'div', ...blockSave } = (blueprint.blockSave !== null && blueprint.blockSave || blueprint.blockEdit || {})
-		const Component = tagName
+		const { 
+			children = [], 
+			tagName = 'div', 
+			...blockSave 
+		} = (blueprint.blockSave !== null && blueprint.blockSave || blueprint.blockEdit || {})
 
 		const blockAttributes = Object.fromEntries( Object.entries( blockSave ).map( ( [ name, value ] ) => {
 			if ( typeof value === 'string' ) {
@@ -75,12 +80,16 @@ function BlockSave( blueprint ) {
 
 		const blockStyles = Object.assign( {}, ( blockProps.style || {} ), ( blockSave.style || {} ) )
 
+		if ( Object.values( blockStyles ).length > 0 ) {
+			blockAttributes.style = styles( blockStyles, blockContext )
+		}
+
+		const Component = tagName
+
 		return (
 			<Component
 				{ ...blockProps }
 				{ ...blockAttributes }
-				className={ classNames( blockClassNames, blockContext ) }
-				style={ styles( blockStyles, blockContext ) }
 			>
 				{ renderJsxArray( {
 					blockName,

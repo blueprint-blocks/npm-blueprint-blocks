@@ -1,5 +1,3 @@
-import classNames from 'classnames'
-import memoize from 'micro-memoize'
 import { replaceTokens } from '@blueprint-blocks/utility'
 
 const selfClosingTagNames = [
@@ -19,13 +17,6 @@ const selfClosingTagNames = [
 	'wbr',
 ]
 
-const fieldClassNames = memoize(( { blockName, name, type = '' } ) => {
-    return classNames(
-		{ [`block:${ name }`]: name?.length },
-		{ [`${ blockName }:${ name }`]: name?.length }
-    )
-})
-
 function save( {
 	attributes,
 	blockName,
@@ -38,33 +29,22 @@ function save( {
 	type = 'field', 
 	...props 
 } ) {
+
+	const fieldProps = Object.assign( {}, props )
+
+	if ( className ) {
+		fieldProps.className = className
+	}
 	
 	const Component = tagName
 
-	props = Object.fromEntries(
-		Object.entries(props).map( ( [ attributeName, attributeValue ] ) => ( [
-			attributeName,
-			replaceTokens( attributeValue, { block: attributes, field: {} } )
-		] ) )
-	)
-
 	if ( selfClosingTagNames.includes(tagName) === true || children.length === 0 || props.dangerouslySetInnerHTML ) {
-		<Component
-			{ ...props }
-			className={ classNames(
-				fieldClassNames( { blockName, name, type } ),
-				...( Array.isArray( className ) && className || [ className ] )
-			) }
-		/>
+		<Component { ...fieldProps }/>
 	}
 
 	return (
 		<Component
-			{ ...props }
-			className={ classNames(
-				fieldClassNames( { blockName, name, type } ),
-				...( Array.isArray( className ) && className || [ className ] )
-			) }
+			{ ...fieldProps }
 			children={ children }
 		/>
 	)

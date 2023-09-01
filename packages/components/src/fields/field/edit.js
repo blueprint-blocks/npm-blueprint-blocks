@@ -1,8 +1,4 @@
-import classNames from 'classnames'
-import { useBlockProps } from '@wordpress/block-editor'
 import { createRef } from '@wordpress/element'
-import { replaceTokens } from '@blueprint-blocks/utility'
-import getFieldClassNames from './functions/get-field-class-names.js'
 
 import './style.scss'
 
@@ -45,31 +41,21 @@ function edit( {
 	...props
 } ) {
 
-	const blockProps = useBlockProps()
-	const Component = tagName
 	const ref = createRef()
 
-	props = Object.fromEntries(
-		Object.entries(props).map( ( [ attributeName, attributeValue ] ) => ( [
-			attributeName,
-			replaceTokens( attributeValue, { block: attributes, field: {} } )
-		] ) )
-	)
+	const fieldProps = Object.assign( {}, props )
+
+	if ( className ) {
+		fieldProps.className = className
+	}
+
+	const Component = tagName
 
 	if ( selfClosingTagNames.includes(tagName) === false && dangerouslySetInnerHTML ) {
 		return (
 			<Component
 				{ ...props }
 				ref={ ref }
-				className={ classNames(
-					getFieldClassNames( {
-						blockName,
-						name,
-						type,
-						value: props?.value,
-					} ),
-					...( Array.isArray( className ) && className || [ className ] )
-				) }
 				onClick={ preventEventPropagation }
 				onInput={ preventEventPropagation }
 				onKeydown={ preventEventPropagation }
@@ -83,15 +69,6 @@ function edit( {
 			<Component
 				{ ...props }
 				ref={ ref }
-				className={ classNames(
-					getFieldClassNames( {
-						blockName,
-						name,
-						type,
-						value: props?.value,
-					} ),
-					...( Array.isArray( className ) && className || [ className ] )
-				) }
 				onClick={ preventEventPropagation }
 				onInput={ preventEventPropagation }
 				onKeydown={ preventEventPropagation }
@@ -103,15 +80,6 @@ function edit( {
 		<Component
 			{ ...props }
 			ref={ ref }
-			className={ classNames(
-				getFieldClassNames({ 
-					blockName,
-					name, 
-					type, 
-					value: props?.value,
-				}),
-				...( Array.isArray( className ) && className || [ className ] )
-			) }
 			onClick={ preventEventPropagation }
 			onInput={ preventEventPropagation }
 			onKeydown={ preventEventPropagation }

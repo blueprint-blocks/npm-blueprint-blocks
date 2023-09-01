@@ -79,6 +79,11 @@ addFilter( 'blocks.registerBlockType', 'blueprint-blocks/default-attributes', ( 
 function BlockEdit( blueprint ) {
 
 	return ( { attributes, setAttributes, clientId } ) => {
+
+		setAttributes( {
+			_index: getBlockIndex( clientId ),
+			_innerBlocksLength: ( getInnerBlocks( clientId )?.length || 0 ),
+		} )
 		
 		const blockProps = useBlockProps()
 		const blockName = blockProps['data-type']
@@ -87,13 +92,15 @@ function BlockEdit( blueprint ) {
 			attributes,
 			innerBlocks: getInnerBlocks( clientId ) || [],
 		} )
-		blockContext.mode = 'edit'
 
 		const blockSidebar = Array.isArray(blueprint.blockSidebar) && blueprint.blockSidebar || [blueprint.blockSidebar]
 		const blockToolbar = Array.isArray(blueprint.blockToolbar) && blueprint.blockToolbar || [blueprint.blockToolbar]
 		
-		const { children = [], tagName = 'div', ...blockEdit } = ( blueprint.blockEdit || {} )
-		const Component = tagName
+		const { 
+			children = [], 
+			tagName = 'div', 
+			...blockEdit 
+		} = ( blueprint.blockEdit || {} )
 
 		const blockAttributes = Object.fromEntries( Object.entries( blockEdit ).map( ( [ name, value ] ) => {
 			if ( typeof value === 'string' ) {
@@ -120,19 +127,18 @@ function BlockEdit( blueprint ) {
 
 		const blockStyles = Object.assign( {}, ( blockProps.style || {} ), ( blockEdit.style || {} ) )
 
-		setAttributes( {
-			_index: getBlockIndex( clientId ),
-			_innerBlocksLength: ( getInnerBlocks( clientId )?.length || 0 ),
-		} )
+		if ( Object.values( blockStyles ).length > 0 ) {
+			blockAttributes.style = styles( blockStyles, blockContext )
+		}
+
+		const Component = tagName
 
 		return (
 			<Component
 				{ ...blockProps }
 				{ ...blockAttributes }
-				style={ styles( blockStyles, blockContext ) }
 			>
 				{ renderJsxArray( {
-					clientId,
 					blockName,
 					attributes,
 					setAttributes,
@@ -143,7 +149,6 @@ function BlockEdit( blueprint ) {
 					<InspectorControls>
 						<PanelBody title={ label }>
 							{ renderJsxArray( {
-								clientId,
 								blockName,
 								attributes, 
 								setAttributes, 

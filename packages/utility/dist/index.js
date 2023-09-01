@@ -393,7 +393,8 @@ function renderJsxArray(_ref) {
             return;
           }
           setAttributes(_defineProperty({}, attributeName, value));
-        }
+        },
+        value: attributeValue
       }), renderJsxArray({
         blockName: blockName,
         attributes: attributes,

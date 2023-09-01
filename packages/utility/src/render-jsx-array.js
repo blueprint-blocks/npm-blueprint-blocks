@@ -62,6 +62,7 @@ function renderJsxArray( { blockName, attributes, setAttributes = null, jsx = []
 								[attributeName]: value,
 							} )
 						},
+						value: attributeValue,
 					} ) }
 				>
 					{ renderJsxArray( {

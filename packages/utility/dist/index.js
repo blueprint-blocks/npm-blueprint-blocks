@@ -298,6 +298,10 @@ function getInnerBlocks(clientId) {
   return getBlocks(clientId) || [];
 }
 
+function isExternalUrl(url) {
+  return new URL(url).origin !== location.origin;
+}
+
 function styles() {
   var _styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -430,5 +434,5 @@ function useClickOutside(ref, callback) {
   }, [ref]);
 }
 
-export { camelize, classNames, delimiterize, getBlockContext, getBlockIndex, getInnerBlocks, renderJsxArray, replaceTokens, styles, useClickOutside };
+export { camelize, classNames, delimiterize, getBlockContext, getBlockIndex, getInnerBlocks, isExternalUrl, renderJsxArray, replaceTokens, styles, useClickOutside };
 //# sourceMappingURL=index.js.map

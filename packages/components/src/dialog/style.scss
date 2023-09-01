@@ -1,12 +1,3 @@
-.blueprint-blocks\:dialog {
-	align-items: start;
-	display: inline-grid;
-	height: 16px;
-	justify-content: center;
-	position: relative;
-	width: 16px;
-}
-
 .blueprint-blocks\:dialog-toggle img {
 	grid-column: 1;
 	grid-row: 1;
@@ -19,30 +10,4 @@
 	grid-row: 1;
 	position: relative;
 	transform: translateY(-100%);
-	
-}
-
-.blueprint-blocks\:dialog-wrap {
-    background: #fff;
-    box-shadow: var(--blueprint-blocks-box-shadow);
-    border-radius: 4px;
-	bottom: calc(100% + 7px);
-	left: 50%;
-    padding: 8px;
-	position: absolute;
-	transform: translateX(-50%);
-	width: min(240px, calc(100vw - 16px));
-	z-index: 100;
-}
-
-.blueprint-blocks\:dialog-wrap:after {
-	border-left: 6px solid transparent;
-	border-right: 6px solid transparent;
-	border-top: 6px solid #fff;
-	bottom: -6px;
-	content: '';
-	display: block;
-	left: 50%;
-	position: absolute;
-	transform: translateX(-50%);
 }

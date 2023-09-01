@@ -1,3 +1,4 @@
+import { createRef } from '@wordpress/element'
 import Field from '../field/index.js'
 
 import './style.scss'
@@ -9,6 +10,8 @@ function edit( {
 	value, 
 	...props 
 } ) {
+
+	const ref = createRef()
 
 	return (
 		<Field.edit
@@ -23,6 +26,7 @@ function edit( {
                 placeholder={ placeholder }
 				required={ required }
                 value={ value }
+				ref={ ref }
             />
 		</Field.edit>
 	)

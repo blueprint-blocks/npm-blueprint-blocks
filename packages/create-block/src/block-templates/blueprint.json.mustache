@@ -7,11 +7,9 @@
 		"className": [
 			"hello",
 			"world",
+			"color-{{ block.color }}",
 			{
-				"is-hello": true
-			},
-			{
-				"is-world": "{{ block.subtitle }}"
+				"has-subtitle": "{{ block.subtitle }}"
 			}
 		],
 		"style": {
@@ -19,98 +17,33 @@
 		},
 		"children": [
 			{
-				"type": "html",
-				"tagName": "div",
+				"type": "rich-text-field",
+				"name": "title",
+				"attributeName": "title",
+				"tagName": "h2",
+				"placeholder": "Enter a title...",
 				"className": [
-					"wrap"
-				],
-				"children": [
-					{
-						"type": "rich-text-field",
-						"name": "title",
-						"attributeName": "title",
-						"tagName": "h1",
-						"placeholder": "Enter a title...",
-						"className": [
-							"hello",
-							"{{ block.textSize }}"
-						]
-					},
-					{
-						"type": "html",
-						"tagName": "sl-rating",
-						"label": "Rating",
-						"disabled": true,
-						"value": "{{ block.rating }}"
-					},
-					{
-						"type": "html",
-						"tagName": "div",
-						"innerHtml": "{{ block.subtitle }} {{ block.dog }}"
-					},
-					{
-						"type": "rich-text-field",
-						"name": "cta",
-						"attributeName": "cta",
-						"tagName": "sl-button",
-						"className": [
-							"button"
-						],
-						"placeholder": "Enter a label..."
-					},
-					{
-						"type": "inner-blocks"
-					}
+					"{{ block.textSize }}"
 				]
 			},
 			{
-				"type": "media-field",
-				"label": "Media Label",
-				"name": "image",
-				"attributeName": "image",
-				"multiple": false
+				"type": "html",
+				"tagName": "p",
+				"innerHtml": "{{ block.subtitle }}"
 			},
 			{
 				"type": "link-field",
 				"name": "link",
 				"attributeName": "link",
 				"placeholder": "Enter a label..."
+			},
+			{
+				"type": "inner-blocks"
 			}
 		]
 	},
 	"blockSave": null,
 	"blockSidebar": [
-		{
-			"type": "grid-field",
-			"label": "Columns",
-			"name": "columns",
-			"attributeName": "columns"
-		},
-		{
-			"type": "toggle-field",
-			"label": "Toggle",
-			"name": "toggle",
-			"attributeName": "toggle",
-			"multiple": true,
-			"options": [
-				{
-					"label": "Abc",
-					"value": "abc"
-				},
-				{
-					"label": "Def",
-					"value": "def"
-				},
-				{
-					"label": "Ghi",
-					"value": "ghi"
-				},
-				{
-					"label": "Jlk",
-					"value": "jlk"
-				}
-			]
-		},
 		{
 			"type": "color-field",
 			"name": "color",
@@ -142,132 +75,11 @@
 			"enableAlpha": true
 		},
 		{
-			"type": "boolean-field",
-			"label": "Boolean",
-			"name": "truefalse",
-			"attributeName": "truefalse"
-		},
-		{
-			"type": "anchor-field",
-			"label": "Anchor",
-			"name": "anchor",
-			"attributeName": "anchor"
-		},
-		{
 			"type": "text-field",
-			"label": "Subtitle in Sidebar",
+			"label": "Subtitle",
 			"name": "subtitle",
 			"attributeName": "subtitle",
 			"placeholder": "Enter a subtitle..."
-		},
-		{
-			"type": "textarea-field",
-			"label": "Subtitle in Sidebar",
-			"name": "subtitle",
-			"attributeName": "subtitle",
-			"placeholder": "Enter a subtitle..."
-		},
-		{
-			"type": "url-field",
-			"label": "URL in Sidebar",
-			"name": "url",
-			"attributeName": "url",
-			"placeholder": "Enter a url..."
-		},
-		{
-			"type": "number-field",
-			"label": "A Number Field",
-			"name": "number",
-			"attributeName": "number",
-			"min": 0,
-			"max": 10,
-			"step": 2
-		},
-		{
-			"type": "number-field",
-			"label": "Rating",
-			"name": "number",
-			"attributeName": "rating",
-			"min": 1,
-			"max": 5
-		},
-		{
-			"type": "range-field",
-			"label": "A Range Field",
-			"name": "number",
-			"attributeName": "number",
-			"min": 0,
-			"max": 10,
-			"step": 2
-		},
-		{
-			"type": "select-field",
-			"label": "A Select Field",
-			"name": "dog",
-			"attributeName": "dog",
-			"options": [
-				{
-					"label": "Poodle",
-					"value": "poodle"
-				},
-				{
-					"label": "Golden Retriever",
-					"value": "golden-retriever"
-				},
-				{
-					"label": "German Shepherd",
-					"value": "german-shepherd"
-				}
-			]
-		},
-		{
-			"type": "increment-field",
-			"label": "An Increment Field",
-			"name": "dog",
-			"attributeName": "dog",
-			"options": [
-				{
-					"label": "Poodle",
-					"value": "poodle"
-				},
-				{
-					"label": "Golden Retriever",
-					"value": "golden-retriever"
-				},
-				{
-					"label": "German Shepherd",
-					"value": "german-shepherd"
-				}
-			]
-		},
-		{
-			"type": "width-field",
-			"label": "Width",
-			"name": "width",
-			"attributeName": "width",
-			"min": 240,
-			"max": 1240,
-			"step": 20
-		},
-		{
-			"type": "margin-field",
-			"label": "Margin",
-			"name": "margin",
-			"attributeName": "margin"
-		},
-		{
-			"type": "email-field",
-			"label": "Email",
-			"name": "email",
-			"attributeName": "email",
-			"placeholder": "john.smith@gmail.com"
-		},
-		{
-			"type": "position-field",
-			"label": "Position",
-			"name": "position",
-			"attributeName": "position",
-			"axis": "both"
 		}
 	],
 	"blockToolbar": [
@@ -276,12 +88,6 @@
 			"label": "Text Size",
 			"name": "textSize",
 			"attributeName": "textSize"
-		},
-		{
-			"type": "align-field",
-			"label": "Align",
-			"name": "align",
-			"attributeName": "align"
 		},
 		{
 			"type": "text-align-field",

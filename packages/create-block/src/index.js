@@ -5,156 +5,53 @@ const { join } = require( 'path' );
 
 module.exports = {
 	defaultValues: {
-		slug: 'gutenpride',
+		namespace: 'blueprint-blocks',
+		slug: 'my-block',
 		category: 'text',
-		title: 'Gutenpride',
+		title: 'My Block',
 		description:
-			'A Gutenberg block to show your pride! This block enables you to type text and style it with the color font Gilbert from Type with Pride.',
-		dashicon: 'flag',
+			'A blueprint-based block that can be built with only JSON.',
+		dashicon: 'grid-view',
 		attributes: {
 			title: {
-				type: "string",
-				default: ""
+				type: 'string',
+				default: ''
 			},
 			subtitle: {
-				type: "string",
-				default: ""
-			},
-			anchor: {
-				type: "string",
-				default: ""
-			},
-			color: {
-				type: "string",
-				default: "white"
-			},
-			labels: {
-				type: "array",
-				default: []
-			},
-			columns: {
-				type: "object",
-				default: {
-					desktop: {
-						rows: [
-							[2, 2, 2]
-						],
-						gap: "normal",
-						align: "top",
-						justify: "left"
-					},
-					laptop: {
-						rows: [
-							[2, 2, 2]
-						],
-						gap: "normal",
-						align: "top",
-						justify: "left"
-					},
-					tablet: {
-						rows: [
-							[3, 3],
-							[3]
-						],
-						gap: "normal",
-						align: "top",
-						justify: "left"
-					},
-					mobile: {
-						rows: [
-							[6],
-							[6],
-							[6]
-						],
-						gap: "normal",
-						align: "top",
-						justify: "left"
-					}
-				}
-			},
-			number: {
-				type: "number",
-				default: 0
-			},
-			rating: {
-				type: "number",
-				default: 0
-			},
-			url: {
-				type: "string",
-				default: ""
-			},
-			cta: {
-				type: "string",
-				default: ""
-			},
-			dog: {
-				type: "string",
-				default: "german-shepherd"
-			},
-			width: {
-				type: "number",
-				default: 1240
-			},
-			textSize: {
-				type: "string",
-				default: "h1"
-			},
-			align: {
-				type: "string",
-				default: "center"
-			},
-			textAlign: {
-				type: "string",
-				default: "left"
-			},
-			email: {
-				type: "string",
-				default: ""
+				type: 'string',
+				default: ''
 			},
 			link: {
-				type: "object",
+				type: 'object',
 				default: {
-					href: "{{ wp.home_url }}",
-					label: "Learn More",
-					target: "_self"
+					href: '#',
+					label: 'Learn More',
+					target: '_self'
 				}
 			},
-			truefalse: {
-				type: "boolean",
-				default: false
+			color: {
+				type: 'string',
+				default: 'white'
 			},
-			toggle: {
-				type: "array",
-				default: []
+			textSize: {
+				type: 'string',
+				default: 'h1'
 			},
-			position: {
-				type: "array",
-				default: [
-					"left",
-					"top"
-				]
-			},
-			image: {
-				type: "array",
-				default: []
+			textAlign: {
+				type: 'string',
+				default: 'left'
 			}
 		},
 		supports: {
 			html: false,
 		},
 		npmDependencies: [
-			"@blueprint-blocks/components"
+			'@blueprint-blocks/components'
 		],
 	},
 	variants: {
 		static: {},
 		dynamic: {
-			attributes: {
-				message: {
-					type: 'string',
-				},
-			},
 			render: 'file:./render.php',
 		},
 	},

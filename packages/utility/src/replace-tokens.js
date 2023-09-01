@@ -30,8 +30,8 @@ function replaceTokens( string = '', context = {} ) {
 		return string
 	}
 	
-	return string.replaceAll( /\{\{\s(.*?)\s\}\}/g, ( match, p1 ) => {
-		return valueByIdentifier( p1, context )
+	return string.replaceAll( /\{\{(.*?)\}\}/g, ( match, p1 ) => {
+		return valueByIdentifier( p1.trim(), context )
 	} )
 }
 

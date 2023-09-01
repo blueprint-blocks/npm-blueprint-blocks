@@ -204,8 +204,8 @@ function replaceTokens() {
   if (typeof string !== 'string') {
     return string;
   }
-  return string.replaceAll(/\{\{\s(.*?)\s\}\}/g, function (match, p1) {
-    return valueByIdentifier(p1, context);
+  return string.replaceAll(/\{\{(.*?)\}\}/g, function (match, p1) {
+    return valueByIdentifier(p1.trim(), context);
   });
 }
 

@@ -52,6 +52,7 @@ function edit( { onInput, className = [], placeholder, value = {}, ...props } ) 
 	return (
 		<Field.edit
 			{ ...props }
+			tagName="a"
 			type="link"
 			value={ value }
 		>

@@ -1504,6 +1504,7 @@ function edit$f(_ref) {
     props = _objectWithoutProperties(_ref, _excluded$v);
   var ref = createRef();
   return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
+    tagName: "a",
     type: "link",
     value: value
   }), /*#__PURE__*/React.createElement("div", {

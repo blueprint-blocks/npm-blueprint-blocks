@@ -1,7 +1,23 @@
 import { createRef } from '@wordpress/element'
 import Field from '../field/index.js'
 
-//import './style.scss'
+const inputStyle = {
+	background: '#fff',
+	border: '1px solid #8c8f94',
+	borderRadius: '4px',
+	color: '#2c3338',
+	display: 'block',
+	fontFamily: 'var(--wp--preset--font-family--system-font)',
+	fontSize: '14px',
+	fontWeight: 'normal',
+	height: '30px',
+	lineHeight: '28px',
+	maxWidth: '400px',
+	padding: '0 8px',
+    textAlign: 'inherit',
+    transition: 'none',
+	width: '100%',
+}
 
 function edit( { 
 	onInput, 
@@ -39,6 +55,7 @@ function edit( {
                 disabled={ disabled }
 				required={ required }
                 value={ value }
+				style={ inputStyle }
             />
 		</Field.edit>
 	)

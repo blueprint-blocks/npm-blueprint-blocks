@@ -1,7 +1,9 @@
 import { SelectControl } from '@wordpress/components'
 import Field from '../field/index.js'
 
-//import './style.scss'
+const fieldStyle = {
+	maxWidth: '400px',
+}
 
 function edit( { onInput, options = [], multiple = false, disabled = false, value, ...props } ) {
 
@@ -10,6 +12,7 @@ function edit( { onInput, options = [], multiple = false, disabled = false, valu
 			{ ...props }
 			type="select"
 			value={ value }
+			style={ fieldStyle }
 		>
 			<SelectControl
 				disabled={ disabled }

@@ -2456,9 +2456,9 @@ var index$7 = {
 };
 
 var _excluded$f = ["onInput", "options", "multiple", "disabled", "value"];
-
-//import './style.scss'
-
+var fieldStyle = {
+  maxWidth: '400px'
+};
 function edit$6(_ref) {
   var _ref2;
   var onInput = _ref.onInput,
@@ -2472,7 +2472,8 @@ function edit$6(_ref) {
     props = _objectWithoutProperties(_ref, _excluded$f);
   return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "select",
-    value: value
+    value: value,
+    style: fieldStyle
   }), /*#__PURE__*/React.createElement(SelectControl, {
     disabled: disabled,
     onChange: onInput,

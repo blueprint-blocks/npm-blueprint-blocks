@@ -1,7 +1,14 @@
 import { InnerBlocks } from '@wordpress/block-editor'
 import Field from '../field/index.js'
 
-function save( { template = [], templateLock = false, ...props } ) {
+function save( {
+	allowedBlocks,
+	orientation,
+	template,
+	templateLock,
+	max,
+	...props
+} ) {
 
 	return (
 		<Field.save

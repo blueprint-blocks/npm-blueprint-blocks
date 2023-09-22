@@ -1,12 +1,12 @@
 import classNames from 'classnames'
-import { ToolbarGroup, ToolbarButton } from '@wordpress/components'
+import { ToolbarButton } from '@wordpress/components'
 
 import './style.scss'
 
 function edit( { onInput, options = [], multiple = false, disabled = false, value, ...props } ) {
 
 	return (
-		<ToolbarGroup className={ classNames( 'blueprint-blocks:toolbar-field' ) }>
+		<div className={ classNames( 'blueprint-blocks:toolbar-field' ) }>
 			{ options.map( ( { icon, subscript, label, ...option } ) => (
 				<ToolbarButton
 					icon={ icon || <div className="label">{ label }</div> }
@@ -17,7 +17,7 @@ function edit( { onInput, options = [], multiple = false, disabled = false, valu
 					onClick={ () => onInput( option.value ) }
 				/>
 			) ) }
-		</ToolbarGroup>
+		</div>
 	)
 
 }

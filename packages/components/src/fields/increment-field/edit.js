@@ -15,9 +15,30 @@ const activeIndex = memoize( ( options, activeValue ) => {
 	return 0
 } )
 
-function edit( { onInput, options = [], multiple = false, disabled = false, value, ...props } ) {
+const getMinMaxOptions = memoize( ( min, max, step ) => {
+	return Array.from( { length: ( 1 + parseInt( max ) - parseInt( min ) ) }, ( value, index ) => ( {
+		value: ( ( index + parseInt( min ) ) * parseInt( step ) ),
+	} ) )
+} )
 
-	const index = activeIndex(options, value)
+function edit( {
+	onInput,
+	label,
+	options = [],
+	min = 1,
+	max = 1,
+	step = 1,
+	value,
+	...props
+} ) {
+
+	let incrementOptions = options
+
+	if ( options.length === 0 && parseInt( min ) !== parseInt( max ) ) {
+		incrementOptions = getMinMaxOptions( parseInt( min ), parseInt( max ), parseInt( step ) )
+	}
+
+	const index = activeIndex( incrementOptions, value )
 
 	return (
 		<Field.edit
@@ -28,12 +49,12 @@ function edit( { onInput, options = [], multiple = false, disabled = false, valu
 			<div className="blueprint-blocks:increment-field-wrap">
 				<div
 					className={ classNames(
-						'blueprint-blocks:increment-field-minus', 
-						{ 'is-disabled': index === 0 } 
-					) } 
+						'blueprint-blocks:increment-field-minus',
+						{ 'is-disabled': index === 0 }
+					) }
 					onClick={ () => {
-						if ( index > 0 ) { 
-							onInput(options?.[ index - 1 ]?.value)
+						if ( index > 0 ) {
+							onInput( incrementOptions?.[ index - 1 ]?.value )
 						}
 					} }
 				>
@@ -43,17 +64,18 @@ function edit( { onInput, options = [], multiple = false, disabled = false, valu
 				<div className={ classNames(
 					'blueprint-blocks:increment-field-label'
 				) }>
-					{ options?.[ index ]?.label }
+					{ label && <span>{ label } </span> }
+					<span>{ incrementOptions?.[ index ]?.label || incrementOptions?.[ index ]?.value }</span>
 				</div>
 
 				<div
 					className={ classNames(
 						'blueprint-blocks:increment-field-plus',
-						{ 'is-disabled': index === options.length - 1 }
+						{ 'is-disabled': index === incrementOptions.length - 1 }
 					) }
 					onClick={ () => {
-						if ( index < options.length - 1 ) { 
-							onInput(options?.[ index + 1 ]?.value)
+						if ( index < incrementOptions.length - 1 ) {
+							onInput( incrementOptions?.[ index + 1 ]?.value )
 						}
 					} }
 				>

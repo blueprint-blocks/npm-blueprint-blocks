@@ -1,10 +1,10 @@
-import { 
-	classNames, 
-	getBlockContext, 
+import {
+	classNames,
+	getBlockContext,
 	getBlockIndex,
-	getInnerBlocks, 
-	renderJsxArray, 
-	replaceTokens, 
+	getInnerBlocks,
+	renderJsxArray,
+	replaceTokens,
 	styles,
 } from '@blueprint-blocks/utility'
 
@@ -23,6 +23,14 @@ import { __ } from '@wordpress/i18n'
  */
 import { PanelBody } from '@wordpress/components'
 import { BlockControls, InspectorControls, useBlockProps } from '@wordpress/block-editor'
+import { ToolbarGroup } from '@wordpress/components'
+
+/**
+ * React hooks for managing elements.
+ *
+ * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-element/#usestate
+ */
+import { useState } from '@wordpress/element'
 
 /**
  * WordPress hooks for filtering or adding actions.
@@ -40,7 +48,7 @@ import * as Fields from '../fields/index.js'
 
 const Components = Object.fromEntries(
 	Object.values(Fields).map( ( { name, edit } ) => [
-		name, 
+		name,
 		edit,
 	] )
 )
@@ -78,28 +86,48 @@ addFilter( 'blocks.registerBlockType', 'blueprint-blocks/default-attributes', ( 
  */
 function BlockEdit( blueprint ) {
 
-	return ( { attributes, setAttributes, clientId } ) => {
+	return ( { clientId, ...props } ) => {
 
-		setAttributes( {
+		const [ attributes, setStateAttributes ] = useState( props?.attributes || {} )
+
+		props?.setAttributes( {
 			_index: getBlockIndex( clientId ),
 			_innerBlocksLength: ( getInnerBlocks( clientId )?.length || 0 ),
 		} )
-		
+
+		/**
+		 * Overrides the default setAttributes to also save attributes in
+		 * the state of the component for state change when not saved to
+		 * the block attributes.
+		 *
+		 * @param {object} newAttributeValues
+		 */
+		const setAttributes = ( newAttributeValues, persist = true ) => {
+
+			if ( props?.setAttributes && persist === true ) {
+				props.setAttributes( newAttributeValues )
+			}
+
+			setStateAttributes( Object.assign( {}, attributes, newAttributeValues ) )
+
+		}
+
 		const blockProps = useBlockProps()
 		const blockName = blockProps['data-type']
 
 		const blockContext = getBlockContext( {
+			mode: 'edit',
 			attributes,
 			innerBlocks: getInnerBlocks( clientId ) || [],
 		} )
 
-		const blockSidebar = Array.isArray(blueprint.blockSidebar) && blueprint.blockSidebar || [blueprint.blockSidebar]
-		const blockToolbar = Array.isArray(blueprint.blockToolbar) && blueprint.blockToolbar || [blueprint.blockToolbar]
-		
-		const { 
-			children = [], 
-			tagName = 'div', 
-			...blockEdit 
+		const blockSidebar = Array.isArray( blueprint.blockSidebar ) && blueprint.blockSidebar || [ blueprint.blockSidebar ]
+		const blockToolbar = Array.isArray( blueprint.blockToolbar ) && blueprint.blockToolbar || [ blueprint.blockToolbar ]
+
+		const {
+			children = [],
+			tagName = 'div',
+			...blockEdit
 		} = ( blueprint.blockEdit || {} )
 
 		const blockAttributes = Object.fromEntries( Object.entries( blockEdit ).map( ( [ name, value ] ) => {
@@ -118,7 +146,8 @@ function BlockEdit( blueprint ) {
 
 		const blockClassNames = classNames( [
 			...( Array.isArray( blockProps.className ) && blockProps.className || [ blockProps.className ] ),
-			...( Array.isArray( blockEdit.className ) && blockEdit.className || [ blockEdit.className ] )
+			...( Array.isArray( blockEdit.className ) && blockEdit.className || [ blockEdit.className ] ),
+			...( Array.isArray( blockEdit.editorClassName ) && blockEdit.editorClassName || [ blockEdit.editorClassName ] )
 		], blockContext )
 
 		if ( blockClassNames ) {
@@ -139,6 +168,7 @@ function BlockEdit( blueprint ) {
 				{ ...blockAttributes }
 			>
 				{ renderJsxArray( {
+					clientId,
 					blockName,
 					attributes,
 					setAttributes,
@@ -149,32 +179,35 @@ function BlockEdit( blueprint ) {
 					<InspectorControls>
 						<PanelBody title={ label }>
 							{ renderJsxArray( {
+								clientId,
 								blockName,
-								attributes, 
-								setAttributes, 
+								attributes,
+								setAttributes,
 								jsx: [ props ],
 								context: blockContext,
 							}, Components ) }
 						</PanelBody>
 					</InspectorControls>
 				) ) }
-				{ blockToolbar.map( ( { label, ...props } ) => (
+				{ blockToolbar.map( ( props ) => (
 					<BlockControls>
-						{ renderJsxArray( {
-							clientId,
-							blockName,
-							attributes, 
-							setAttributes, 
-							jsx: [ props ],
-							context: blockContext,
-						}, Components ) }
+						<ToolbarGroup>
+							{ renderJsxArray( {
+								clientId,
+								blockName,
+								attributes,
+								setAttributes,
+								jsx: [ props ],
+								context: blockContext,
+							}, Components ) }
+						</ToolbarGroup>
 					</BlockControls>
 				) ) }
 			</Component>
 		)
-		
+
 	}
-	
+
 }
 
 export default BlockEdit

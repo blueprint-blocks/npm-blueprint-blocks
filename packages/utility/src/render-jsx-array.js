@@ -4,14 +4,36 @@ import styles from './styles.js'
 
 /**
  * Renders an array of JSX objects
- * 
- * @param {array} jsx 
+ *
+ * @param {array} jsx
  */
-function renderJsxArray( { blockName, attributes, setAttributes = null, jsx = [], context = {} }, Components = {} ) {
+function renderJsxArray( {
+	clientId,
+	blockName,
+	attributes,
+	setAttributes = null,
+	jsx = [],
+	context = {}
+}, Components = {} ) {
 
-	return jsx.map( ( { children = [], className = [], style = {}, name = '', attributeName = '', type = '', tagName = 'div', ...props } ) => {
+	return jsx.map( ( {
+		children = [],
+		className = [],
+		editorClassName = [],
+		viewClassName = [],
+		style = {},
+		attributeName = '',
+		type = '',
+		tagName = 'div',
+		persist = true,
+		...props
+	} ) => {
 
-		const attributeValue = attributes?.[ attributeName ]
+		let attributeValue = attributes?.[ attributeName ]
+
+		if ( attributeValue === undefined ) {
+			attributeValue = props?.value
+		}
 
 		const jsxAttributes = Object.fromEntries( Object.entries( props ).map( ( [ name, value ] ) => {
 			if ( typeof value === 'string' ) {
@@ -27,7 +49,15 @@ function renderJsxArray( { blockName, attributes, setAttributes = null, jsx = []
 			}
 		} ) )
 
-		const jsxClassNames = classNames( className, { ...context, attribute: { value: attributeValue } } )
+		const jsxClassNames = classNames( [
+			...( Array.isArray( className ) && className || [ className ] ),
+			...( context?.mode === 'edit' && (
+				Array.isArray( editorClassName ) && editorClassName || [ editorClassName ]
+			) || [] ),
+			...( context?.mode === 'save' && (
+				Array.isArray( viewClassName ) && viewClassName || [ viewClassName ]
+			) || [] ),
+		], { ...context, attribute: { value: attributeValue } } )
 
 		if ( jsxClassNames ) {
 			jsxAttributes.className = jsxClassNames
@@ -47,8 +77,8 @@ function renderJsxArray( { blockName, attributes, setAttributes = null, jsx = []
 			return (
 				<Component
 					{ ...jsxAttributes }
+					clientId={ clientId }
 					blockName={ blockName }
-					name={ name }
 					tagName={ tagName }
 					attributes={ attributes }
 					{ ...( attributeValue !== undefined && {
@@ -61,13 +91,14 @@ function renderJsxArray( { blockName, attributes, setAttributes = null, jsx = []
 							if ( !attributeName ) {
 								return
 							}
-							setAttributes( { 
+							setAttributes( {
 								[attributeName]: value,
-							} )
+							}, persist )
 						},
 					} ) }
 				>
 					{ renderJsxArray( {
+						clientId,
 						blockName,
 						attributes,
 						setAttributes,
@@ -84,6 +115,7 @@ function renderJsxArray( { blockName, attributes, setAttributes = null, jsx = []
 				blockName={ blockName }
 			>
 				{ renderJsxArray( {
+					clientId,
 					blockName,
 					attributes,
 					setAttributes,

@@ -1,5 +1,5 @@
+import { useState } from '@wordpress/element'
 import { __ } from '@wordpress/i18n'
-//import { models } from '@wordpress/api'
 import { MediaPlaceholder, MediaUpload } from '@wordpress/block-editor'
 import { withNotices, Button } from '@wordpress/components'
 import { pencil, plus, trash } from '../../icons/index.js'
@@ -10,18 +10,75 @@ import hasValue from './functions/has-value.js'
 
 import ALL_TYPES from './data/types.json'
 
-import './style.scss'
+const wrapStyle = {
+	position: 'relative',
+}
 
-function edit( { 
-	onInput, 
+const itemsStyle = {
+	position: 'relative',
+}
+
+const itemStyle = {
+	position: 'relative',
+	width: 'fit-content',
+}
+
+const imgStyle = {
+	display: 'block',
+}
+
+const optionsStyle = {
+	alignItems: 'center',
+    background: 'rgba(0, 0, 0, 0.5)',
+    bottom: '0',
+    display: 'flex',
+    left: '0',
+    justifyContent: 'center',
+    opacity: '0',
+    position: 'absolute',
+    right: '0',
+    top: '0',
+    transition: 'opacity 0.4s',
+}
+
+const optionsHoverStyle = {
+	opacity: '1',
+}
+
+const optionsDivStyle = {
+	alignItems: 'center',
+    background: '#fff',
+    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+    borderRadius: '4px',
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '4px',
+}
+
+const optionsButtonStyle = {
+	height: '32px',
+	borderRadius: '4px',
+    justifyContent: 'center',
+	width: '32px',
+}
+
+const optionsButtonHoverStyle = {
+	background: '#eee',
+}
+
+function edit( {
+	onInput,
 	label,
 	allowedTypes = [],
 	multiple = false,
 	noticeUI,
     noticeOperations,
-	value = [], 
+	value = [],
 	...props
 } ) {
+
+	const [ itemHoverIndex, setItemHoverIndex ] = useState( null )
+	const [ optionHover, setOptionHover ] = useState( null )
 
 	const removeItem = ( id ) => {
 		onInput(
@@ -31,7 +88,7 @@ function edit( {
 		)
 	}
 
-	const selectItem = ( { id, height, type, url, width, ...item } ) => {					
+	const selectItem = ( { id, height, type, url, width, ...item } ) => {
 		onInput( [
 			{ id, height, width, type, url }
 		] )
@@ -51,7 +108,7 @@ function edit( {
 			type="media"
 			value={ value }
 		>
-			<div className="blueprint-blocks:media-field-wrap">
+			<div style={ wrapStyle }>
 				{ !hasValue( value ) && (
 					<MediaPlaceholder
 						icon="format-image"
@@ -64,17 +121,24 @@ function edit( {
 					/>
 				) }
 				{ hasValue( value ) && (
-					<div className="blueprint-blocks:media-field-items">
-						{ (value || []).map( ( { id, height, type, url, width } ) => (
-							<div className="blueprint-blocks:media-field-item">
+					<div style={ itemsStyle }>
+						{ (value || []).map( ( { id, height, type, url, width }, index ) => (
+							<div
+								style={ itemStyle }
+								onMouseEnter={ () => setItemHoverIndex( index ) }
+								onMouseLeave={ () => setItemHoverIndex( null ) }
+							>
 								{ type === 'image' && getAllowedTypes( allowedTypes ).includes( 'image' ) && (
-									<img src={ url }/>
+									<img src={ url } style={ imgStyle }/>
 								) }
 								{ type === 'pdf' && getAllowedTypes( allowedTypes ).includes( 'pdf' ) && (
 									<span className="fa-solid fa-file-pdf"/>
 								) }
-								<div className="blueprint-blocks:media-field-item-options">
-									<div>
+								<div style={ {
+									...optionsStyle,
+									...( itemHoverIndex === index && optionsHoverStyle ),
+								} }>
+									<div style={ optionsDivStyle }>
 										<MediaUpload
 											allowedTypes={ ALL_TYPES }
 											gallery={ multiple }
@@ -86,6 +150,12 @@ function edit( {
 													label={ __( `Edit ${ label || 'Image' }` ) }
 													onClick={ open }
 													icon={ <div dangerouslySetInnerHTML={ { __html: pencil } }/> }
+													style={ {
+														...optionsButtonStyle,
+														...( optionHover === 'edit' && optionsButtonHoverStyle ),
+													} }
+													onMouseEnter={ () => setOptionHover( 'edit' ) }
+													onMouseLeave={ () => setOptionHover( null ) }
 												/>
 											) }
 										/>
@@ -93,6 +163,12 @@ function edit( {
 											label={ __( `Remove ${label || 'Image' }` ) }
 											icon={ <div dangerouslySetInnerHTML={ { __html: trash } }/> }
 											onClick={ () => removeItem(id) }
+											style={ {
+												...optionsButtonStyle,
+												...( optionHover === 'remove' && optionsButtonHoverStyle ),
+											} }
+											onMouseEnter={ () => setOptionHover( 'remove' ) }
+											onMouseLeave={ () => setOptionHover( null ) }
 										/>
 									</div>
 								</div>

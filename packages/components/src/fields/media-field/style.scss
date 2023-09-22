@@ -1,56 +1,35 @@
 .blueprint-blocks\:media-field-wrap {
-	position: relative;
+
 }
 
 .blueprint-blocks\:media-field-item {
-	position: relative;
-	width: fit-content;
+
 }
 
 .blueprint-blocks\:media-field-item img {
-	display: block;
+
 }
 
 .blueprint-blocks\:media-field-item-options {
-	align-items: center;
-    background: rgba(0, 0, 0, 0.5);
-    bottom: 0;
-    display: flex;
-    left: 0;
-    justify-content: center;
-    opacity: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transition: opacity 0.4s;
+
 }
 
 .blueprint-blocks\:media-field-item-options > div {
-    align-items: center;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    display: flex;
-    justify-content: center;
-    padding: 4px;
+
 }
 
 .blueprint-blocks\:media-field-item-options button {
-	height: 32px;
-	border-radius: 4px;
-    justify-content: center;
-	width: 32px;
+
 }
 
 .blueprint-blocks\:media-field-item-options button:hover {
-	background: #eee;
+
 }
 
 .blueprint-blocks\:media-field-item-options svg {
-	height: 16px;
-	width: 16px;
+
 }
 
 .blueprint-blocks\:media-field-item:hover .blueprint-blocks\:media-field-item-options {
-    opacity: 1;
+
 }

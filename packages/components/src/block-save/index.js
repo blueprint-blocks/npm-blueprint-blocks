@@ -1,8 +1,8 @@
-import { 
-	classNames, 
-	getBlockContext, 
-	renderJsxArray, 
-	replaceTokens, 
+import {
+	classNames,
+	getBlockContext,
+	renderJsxArray,
+	replaceTokens,
 	styles,
 } from '@blueprint-blocks/utility'
 
@@ -23,7 +23,7 @@ import * as Fields from '../fields/index.js'
 
 const Components = Object.fromEntries(
 	Object.values(Fields).map( ( { name, save } ) => [
-		name, 
+		name,
 		save,
 	] )
 )
@@ -38,21 +38,22 @@ const Components = Object.fromEntries(
  * @return {WPElement} Element to render.
  */
 function BlockSave( blueprint ) {
-	
+
 	return ( { attributes, innerBlocks } ) => {
 
 		const blockProps = useBlockProps.save()
 		const blockName = blockProps.className
 
-		const blockContext = getBlockContext( { 
-			attributes, 
+		const blockContext = getBlockContext( {
+			mode: 'save',
+			attributes,
 			innerBlocks,
 		} )
 
-		const { 
-			children = [], 
-			tagName = 'div', 
-			...blockSave 
+		const {
+			children = [],
+			tagName = 'div',
+			...blockSave
 		} = (blueprint.blockSave !== null && blueprint.blockSave || blueprint.blockEdit || {})
 
 		const blockAttributes = Object.fromEntries( Object.entries( blockSave ).map( ( [ name, value ] ) => {
@@ -71,7 +72,8 @@ function BlockSave( blueprint ) {
 
 		const blockClassNames = classNames( [
 			...( Array.isArray( blockProps.className ) && blockProps.className || [ blockProps.className ] ),
-			...( Array.isArray( blockSave.className ) && blockSave.className || [ blockSave.className ] )
+			...( Array.isArray( blockSave.className ) && blockSave.className || [ blockSave.className ] ),
+			...( Array.isArray( blockSave.viewClassName ) && blockSave.viewClassName || [ blockSave.viewClassName ] )
 		], blockContext )
 
 		if ( blockClassNames ) {

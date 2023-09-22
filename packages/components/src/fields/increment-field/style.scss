@@ -1,9 +1,11 @@
 .blueprint-blocks\:increment-field-wrap {
+	--height: 28px;
+	align-items: center;
     border: 1px solid #8d96a0;
     border-radius: 4px;
     display: grid;
-	grid-template-columns: 27px 1fr 27px;
-    height: 28px;
+	grid-template-columns: calc(var(--height) - 1px) 1fr calc(var(--height) - 1px);
+    height: var(--height);
     overflow: hidden;
     position: relative;
     user-select: none;
@@ -15,9 +17,9 @@
     cursor: pointer;
     display: grid;
     justify-content: center;
-    height: 26px;
+    height: min(calc(var(--height) - 2px), 34px);
     transition: background 0.4s, colors 0.4s;
-    width: 27px;
+    width: min(calc(var(--height) - 1px), 35px);
 }
 
 .blueprint-blocks\:increment-field-minus {
@@ -31,7 +33,7 @@
 .blueprint-blocks\:increment-field-minus:not(.is-disabled):hover,
 .blueprint-blocks\:increment-field-plus:not(.is-disabled):hover {
     background: #e5f3f8;
-    color: #0085ba;
+    color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));
 }
 
 .blueprint-blocks\:increment-field-minus.is-disabled,
@@ -43,13 +45,37 @@
 .blueprint-blocks\:increment-field-minus svg,
 .blueprint-blocks\:increment-field-plus svg {
 	display: block;
-	height: 14px;
-	width: 14px;
+	height: min(calc(var(--height) / 2), 18px);
+	width: min(calc(var(--height) / 2), 18px);
 }
 
 .blueprint-blocks\:increment-field-label {
-    height: 26px;
-    line-height: 26px;
+	font-size: 13px;
+    height: calc(var(--height) - 2px);
+    line-height: calc(var(--height) - 2px);
     text-align: center;
-    width: calc(100% - 54px);
+    width: calc(100% - (var(--height) * 2) - 2px);
+}
+
+.block-editor-block-toolbar .blueprint-blocks\:increment-field-wrap {
+	--height: 48px !important;
+	border: 0 !important;
+	grid-gap: 8px !important;
+	grid-template-columns: max-content max-content max-content !important;
+}
+
+.block-editor-block-toolbar .blueprint-blocks\:increment-field-minus,
+.block-editor-block-toolbar .blueprint-blocks\:increment-field-plus {
+	border: 0 !important;
+}
+
+.block-editor-block-toolbar .blueprint-blocks\:increment-field-minus:not(.is-disabled):hover,
+.block-editor-block-toolbar .blueprint-blocks\:increment-field-plus:not(.is-disabled):hover {
+	background: none !important;
+}
+
+.block-editor-block-toolbar .blueprint-blocks\:increment-field-label {
+	font-size: 18px !important;
+	font-weight: bold;
+	width: auto !important;
 }

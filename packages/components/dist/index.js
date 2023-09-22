@@ -1,11 +1,12 @@
 import { replaceTokens, useClickOutside, isExternalUrl, getBlockIndex, getInnerBlocks, getBlockContext, classNames as classNames$1, styles, renderJsxArray } from '@blueprint-blocks/utility';
 import { __ } from '@wordpress/i18n';
-import { ToolbarGroup, ToolbarButton, ColorPalette, GradientPicker, Button, withNotices, SelectControl, TextareaControl, PanelBody } from '@wordpress/components';
+import { ToolbarButton, ColorPalette, GradientPicker, Button, withNotices, SelectControl, TextareaControl, PanelBody, ToolbarGroup } from '@wordpress/components';
 import { InnerBlocks, RichText, MediaPlaceholder, MediaUpload, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
+import { createRef, useState, useEffect } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
 import classNames from 'classnames';
-import { createRef, useState, useEffect } from '@wordpress/element';
 import memoize from 'micro-memoize';
+import { useSelect } from '@wordpress/data';
 
 var e = [],
   t = [];
@@ -29,65 +30,65 @@ function n(n, r) {
   }
 }
 
-var css$e = ":root {\n  --blueprint-blocks-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n  --blueprint-blocks-border: 1px solid var(--blueprint-blocks-color-gray);\n  --blueprint-blocks-border-radius: 2px;\n  --blueprint-blocks-color: #2c3338;\n  --blueprint-blocks-color-accent: var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba));\n  --blueprint-blocks-color-gray: #949494;\n  --blueprint-blocks-color-light-gray: var(--wp-components-color-gray-300, #ddd);\n  --blueprint-blocks-color-lightest-gray: #e6eaf0;\n  --blueprint-blocks-color-white: #fff;\n  --blueprint-blocks-font-size: 13px;\n}";
-n(css$e,{});
+var css$d = ":root {\n  --blueprint-blocks-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n  --blueprint-blocks-border: 1px solid var(--blueprint-blocks-color-gray);\n  --blueprint-blocks-border-radius: 2px;\n  --blueprint-blocks-color: #2c3338;\n  --blueprint-blocks-color-accent: var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba));\n  --blueprint-blocks-color-gray: #949494;\n  --blueprint-blocks-color-light-gray: var(--wp-components-color-gray-300, #ddd);\n  --blueprint-blocks-color-lightest-gray: #e6eaf0;\n  --blueprint-blocks-color-white: #fff;\n  --blueprint-blocks-font-size: 13px;\n}";
+n(css$d,{});
 
-function _iterableToArrayLimit(arr, i) {
-  var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"];
-  if (null != _i) {
-    var _s,
-      _e,
-      _x,
-      _r,
-      _arr = [],
-      _n = !0,
-      _d = !1;
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
     try {
-      if (_x = (_i = _i.call(arr)).next, 0 === i) {
-        if (Object(_i) !== _i) return;
-        _n = !1;
-      } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0);
-    } catch (err) {
-      _d = !0, _e = err;
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = !0, n = r;
     } finally {
       try {
-        if (!_n && null != _i.return && (_r = _i.return(), Object(_r) !== _r)) return;
+        if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return;
       } finally {
-        if (_d) throw _e;
+        if (o) throw n;
       }
     }
-    return _arr;
+    return a;
   }
 }
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
+function ownKeys(e, r) {
+  var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    enumerableOnly && (symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    })), keys.push.apply(keys, symbols);
+    var o = Object.getOwnPropertySymbols(e);
+    r && (o = o.filter(function (r) {
+      return Object.getOwnPropertyDescriptor(e, r).enumerable;
+    })), t.push.apply(t, o);
   }
-  return keys;
+  return t;
 }
-function _objectSpread2(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = null != arguments[i] ? arguments[i] : {};
-    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
-      _defineProperty(target, key, source[key]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
-      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+function _objectSpread2(e) {
+  for (var r = 1; r < arguments.length; r++) {
+    var t = null != arguments[r] ? arguments[r] : {};
+    r % 2 ? ownKeys(Object(t), !0).forEach(function (r) {
+      _defineProperty(e, r, t[r]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) {
+      Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
     });
   }
-  return target;
+  return e;
 }
-function _typeof(obj) {
+function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  }, _typeof(obj);
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, _typeof(o);
 }
 function _defineProperty(obj, key, value) {
   key = _toPropertyKey(key);
@@ -193,8 +194,8 @@ function _toPropertyKey(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 
-var css$d = ".components-toolbar-group .components-button.blueprint-blocks\\:toolbar-field-button[subscript],\n.components-toolbar-group .components-button.has-icon.blueprint-blocks\\:toolbar-field-button[subscript] {\n  padding-right: 16px;\n}\n\n.components-toolbar-group .components-button.blueprint-blocks\\:toolbar-field-button[subscript]::after,\n.components-toolbar-group .components-button.has-icon.blueprint-blocks\\:toolbar-field-button[subscript]::after {\n  bottom: calc(50% - 9px);\n  content: attr(subscript);\n  font-size: 12px;\n  font-weight: bold;\n  left: calc(100% - 17px);\n  line-height: 12px;\n  position: absolute;\n  transform: translateX(-50%);\n}";
-n(css$d,{});
+var css$c = ".components-toolbar-group .components-button.blueprint-blocks\\:toolbar-field-button[subscript],\n.components-toolbar-group .components-button.has-icon.blueprint-blocks\\:toolbar-field-button[subscript] {\n  padding-right: 16px;\n}\n\n.components-toolbar-group .components-button.blueprint-blocks\\:toolbar-field-button[subscript]::after,\n.components-toolbar-group .components-button.has-icon.blueprint-blocks\\:toolbar-field-button[subscript]::after {\n  bottom: calc(50% - 9px);\n  content: attr(subscript);\n  font-size: 12px;\n  font-weight: bold;\n  left: calc(100% - 17px);\n  line-height: 12px;\n  position: absolute;\n  transform: translateX(-50%);\n}";
+n(css$c,{});
 
 var _excluded$Z = ["onInput", "options", "multiple", "disabled", "value"],
   _excluded2$3 = ["icon", "subscript", "label"];
@@ -206,7 +207,7 @@ function edit$t(_ref) {
     _ref.disabled;
     var value = _ref.value;
     _objectWithoutProperties(_ref, _excluded$Z);
-  return /*#__PURE__*/React.createElement(ToolbarGroup, {
+  return /*#__PURE__*/React.createElement("div", {
     className: classNames('blueprint-blocks:toolbar-field')
   }, options.map(function (_ref2) {
     var icon = _ref2.icon,
@@ -228,10 +229,10 @@ function edit$t(_ref) {
   }));
 }
 
-var css$c = ".components-panel__body .blueprint-blocks\\:field {\n  margin: 0 0 16px;\n}\n\n.components-panel__body .blueprint-blocks\\:field:last-child {\n  margin-bottom: 0;\n}\n\n.blueprint-blocks\\:field-label {\n  margin-bottom: 8px;\n}";
-n(css$c,{});
+var css$b = ".components-panel__body .blueprint-blocks\\:field {\n  margin: 0 0 16px;\n}\n\n.components-panel__body .blueprint-blocks\\:field:last-child {\n  margin-bottom: 0;\n}\n\n.blueprint-blocks\\:field-label {\n  margin-bottom: 8px;\n}";
+n(css$b,{});
 
-var _excluded$Y = ["attributes", "blockName", "name", "attributeName", "children", "dangerouslySetInnerHTML", "innerHtml", "className", "label", "tagName", "type", "onInput"];
+var _excluded$Y = ["attributes", "clientId", "blockName", "name", "attributeName", "children", "dangerouslySetInnerHTML", "innerHtml", "className", "label", "tagName", "type", "value", "onInput"];
 var selfClosingTagNames$1 = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
 function preventEventPropagation(event) {
   event.stopPropagation();
@@ -240,6 +241,7 @@ function preventEventPropagation(event) {
 }
 function edit$s(_ref) {
   _ref.attributes;
+    _ref.clientId;
     _ref.blockName;
     _ref.name;
     _ref.attributeName;
@@ -254,6 +256,7 @@ function edit$s(_ref) {
     _ref$tagName = _ref.tagName,
     tagName = _ref$tagName === void 0 ? 'div' : _ref$tagName;
     _ref.type;
+    _ref.value;
     _ref.onInput;
     var props = _objectWithoutProperties(_ref, _excluded$Y);
   var ref = createRef();
@@ -444,11 +447,11 @@ function edit$q(_ref) {
       var _target$validity;
       var target = _ref2.target;
       if (target !== null && target !== void 0 && (_target$validity = target.validity) !== null && _target$validity !== void 0 && _target$validity.patternMismatch && customValidity) {
-        target === null || target === void 0 ? void 0 : target.setCustomValidity(customValidity);
+        target === null || target === void 0 || target.setCustomValidity(customValidity);
       } else {
-        target === null || target === void 0 ? void 0 : target.setCustomValidity('');
+        target === null || target === void 0 || target.setCustomValidity('');
       }
-      target === null || target === void 0 ? void 0 : target.reportValidity();
+      target === null || target === void 0 || target.reportValidity();
       _onInput(target.value);
     },
     placeholder: placeholder,
@@ -482,8 +485,8 @@ var TextField = {
   save: save$p
 };
 
-var css$b = ".blueprint-blocks\\:link-field-wrap {\n  position: relative;\n}\n\n.blueprint-blocks\\:link-field-properties {\n  align-items: center;\n  display: grid;\n  grid-gap: 8px;\n  grid-template-columns: 1fr 12px 34px;\n  row-gap: 4px;\n}\n\n.blueprint-blocks\\:link-field-properties:after {\n  background: var(--blueprint-blocks-color-gray);\n  content: \"\";\n  display: block;\n  height: 2px;\n  grid-column: 1/span 3;\n}\n\n.blueprint-blocks\\:link-field-properties .blueprint-blocks\\:url-field input[type=text] {\n  border: 0;\n  line-height: 32px;\n  padding: 0;\n}\n\n.blueprint-blocks\\:link-field-properties .blueprint-blocks\\:url-field input[type=text]:focus,\n.blueprint-blocks\\:link-field-properties .blueprint-blocks\\:url-field input[type=text]:hover {\n  border: 0;\n  box-shadow: none;\n  outline: none;\n}";
-n(css$b,{});
+var css$a = ".blueprint-blocks\\:link-field-wrap {\n  position: relative;\n}\n\n.blueprint-blocks\\:link-field-properties {\n  align-items: center;\n  display: grid;\n  grid-gap: 8px;\n  grid-template-columns: 1fr 12px 34px;\n  row-gap: 4px;\n}\n\n.blueprint-blocks\\:link-field-properties:after {\n  background: var(--blueprint-blocks-color-gray);\n  content: \"\";\n  display: block;\n  height: 2px;\n  grid-column: 1/span 3;\n}\n\n.blueprint-blocks\\:link-field-properties .blueprint-blocks\\:url-field input[type=text] {\n  border: 0;\n  line-height: 32px;\n  padding: 0;\n}\n\n.blueprint-blocks\\:link-field-properties .blueprint-blocks\\:url-field input[type=text]:focus,\n.blueprint-blocks\\:link-field-properties .blueprint-blocks\\:url-field input[type=text]:hover {\n  border: 0;\n  box-shadow: none;\n  outline: none;\n}";
+n(css$a,{});
 
 var _excluded$R = ["onInput", "className", "customValidity", "placeholder", "value"];
 function edit$p(_ref) {
@@ -584,7 +587,7 @@ var elStyle$1 = {
 var elSmallStyle = {
   '--size': '14px'
 };
-var wrapStyle$3 = {
+var wrapStyle$4 = {
   border: '1px solid #8d96a0',
   borderRadius: 'calc(2px + var(--size) + (var(--padding) * 2))',
   boxSizing: 'border-box',
@@ -646,7 +649,7 @@ function edit$o(_ref) {
       return setHasHover(false);
     }
   }), /*#__PURE__*/React.createElement("div", {
-    style: wrapStyle$3,
+    style: wrapStyle$4,
     onClick: function onClick() {
       return onInput(!value);
     }
@@ -942,8 +945,8 @@ var getRowWidth = memoize(function (row) {
   }, 0);
 });
 
-var css$a = ".blueprint-blocks\\:grid-field-breakpoint-toggle {\n  display: grid;\n  gap: 2px;\n  grid-auto-columns: 1fr;\n  grid-auto-flow: column;\n}\n\n.blueprint-blocks\\:grid-field-breakpoint-toggle > div {\n  align-items: center;\n  border: 1px solid transparent;\n  border-radius: var(--blueprint-blocks-border-radius);\n  cursor: pointer;\n  display: grid;\n  justify-content: center;\n  height: 26px;\n  line-height: 24px;\n  text-align: center;\n  transition: border 0.4s, colors 0.4s;\n}\n\n.blueprint-blocks\\:grid-field-breakpoint-toggle > div:hover {\n  border-color: var(--blueprint-blocks-color-accent);\n  color: var(--blueprint-blocks-color-accent);\n}\n\n.blueprint-blocks\\:grid-field-breakpoint-toggle > div:active {\n  background: var(--blueprint-blocks-color-light-gray);\n}\n\n.blueprint-blocks\\:grid-field-breakpoint-toggle > div.is-active {\n  background-color: var(--blueprint-blocks-color-accent);\n  color: var(--blueprint-blocks-color-white);\n}";
-n(css$a,{});
+var css$9 = ".blueprint-blocks\\:grid-field-breakpoint-toggle {\n  display: grid;\n  gap: 2px;\n  grid-auto-columns: 1fr;\n  grid-auto-flow: column;\n}\n\n.blueprint-blocks\\:grid-field-breakpoint-toggle > div {\n  align-items: center;\n  border: 1px solid transparent;\n  border-radius: var(--blueprint-blocks-border-radius);\n  cursor: pointer;\n  display: grid;\n  justify-content: center;\n  height: 26px;\n  line-height: 24px;\n  text-align: center;\n  transition: border 0.4s, colors 0.4s;\n}\n\n.blueprint-blocks\\:grid-field-breakpoint-toggle > div:hover {\n  border-color: var(--blueprint-blocks-color-accent);\n  color: var(--blueprint-blocks-color-accent);\n}\n\n.blueprint-blocks\\:grid-field-breakpoint-toggle > div:active {\n  background: var(--blueprint-blocks-color-light-gray);\n}\n\n.blueprint-blocks\\:grid-field-breakpoint-toggle > div.is-active {\n  background-color: var(--blueprint-blocks-color-accent);\n  color: var(--blueprint-blocks-color-white);\n}";
+n(css$9,{});
 
 var _excluded$H = ["onChange", "currentBreakpoint", "breakpoints"];
 function BreakpointToggle(_ref) {
@@ -1025,8 +1028,8 @@ var Icons = /*#__PURE__*/Object.freeze({
 	upRightFromSquare: upRightFromSquare
 });
 
-var css$9 = ".blueprint-blocks\\:grid-field-minus {\n  align-items: center;\n  border: 1px solid transparent;\n  border-radius: var(--blueprint-blocks-border-radius);\n  cursor: pointer;\n  display: grid;\n  justify-content: center;\n  height: 26px;\n  transition: border 0.4s, colors 0.4s;\n  width: 26px;\n}\n\n.blueprint-blocks\\:grid-field-minus:not(.is-disabled):hover {\n  border-color: var(--blueprint-blocks-color-accent);\n  color: var(--blueprint-blocks-color-accent);\n}\n\n.blueprint-blocks\\:grid-field-minus:not(.is-disabled):active {\n  background: var(--blueprint-blocks-color-light-gray);\n}\n\n.blueprint-blocks\\:grid-field-minus.is-disabled {\n  cursor: default;\n  opacity: 0.25;\n}\n\n.blueprint-blocks\\:grid-field-minus svg {\n  display: block;\n  height: 12px;\n  width: 12px;\n}";
-n(css$9,{});
+var css$8 = ".blueprint-blocks\\:grid-field-minus {\n  align-items: center;\n  border: 1px solid transparent;\n  border-radius: var(--blueprint-blocks-border-radius);\n  cursor: pointer;\n  display: grid;\n  justify-content: center;\n  height: 26px;\n  transition: border 0.4s, colors 0.4s;\n  width: 26px;\n}\n\n.blueprint-blocks\\:grid-field-minus:not(.is-disabled):hover {\n  border-color: var(--blueprint-blocks-color-accent);\n  color: var(--blueprint-blocks-color-accent);\n}\n\n.blueprint-blocks\\:grid-field-minus:not(.is-disabled):active {\n  background: var(--blueprint-blocks-color-light-gray);\n}\n\n.blueprint-blocks\\:grid-field-minus.is-disabled {\n  cursor: default;\n  opacity: 0.25;\n}\n\n.blueprint-blocks\\:grid-field-minus svg {\n  display: block;\n  height: 12px;\n  width: 12px;\n}";
+n(css$8,{});
 
 function DecrementButton(_ref) {
   var _ref$onClick = _ref.onClick,
@@ -1045,8 +1048,8 @@ function DecrementButton(_ref) {
   }));
 }
 
-var css$8 = ".blueprint-blocks\\:grid-field-plus {\n  align-items: center;\n  border: 1px solid transparent;\n  border-radius: var(--blueprint-blocks-border-radius);\n  cursor: pointer;\n  display: grid;\n  justify-content: center;\n  height: 26px;\n  transition: border 0.4s, colors 0.4s;\n  width: 26px;\n}\n\n.blueprint-blocks\\:grid-field-plus:not(.is-disabled):hover {\n  border-color: var(--blueprint-blocks-color-accent);\n  color: var(--blueprint-blocks-color-accent);\n}\n\n.blueprint-blocks\\:grid-field-plus:not(.is-disabled):active {\n  background: var(--blueprint-blocks-color-light-gray);\n}\n\n.blueprint-blocks\\:grid-field-plus.is-disabled {\n  cursor: default;\n  opacity: 0.25;\n}\n\n.blueprint-blocks\\:grid-field-plus svg {\n  display: block;\n  height: 12px;\n  width: 12px;\n}";
-n(css$8,{});
+var css$7 = ".blueprint-blocks\\:grid-field-plus {\n  align-items: center;\n  border: 1px solid transparent;\n  border-radius: var(--blueprint-blocks-border-radius);\n  cursor: pointer;\n  display: grid;\n  justify-content: center;\n  height: 26px;\n  transition: border 0.4s, colors 0.4s;\n  width: 26px;\n}\n\n.blueprint-blocks\\:grid-field-plus:not(.is-disabled):hover {\n  border-color: var(--blueprint-blocks-color-accent);\n  color: var(--blueprint-blocks-color-accent);\n}\n\n.blueprint-blocks\\:grid-field-plus:not(.is-disabled):active {\n  background: var(--blueprint-blocks-color-light-gray);\n}\n\n.blueprint-blocks\\:grid-field-plus.is-disabled {\n  cursor: default;\n  opacity: 0.25;\n}\n\n.blueprint-blocks\\:grid-field-plus svg {\n  display: block;\n  height: 12px;\n  width: 12px;\n}";
+n(css$7,{});
 
 function IncrementButton(_ref) {
   var _ref$onClick = _ref.onClick,
@@ -1065,8 +1068,8 @@ function IncrementButton(_ref) {
   }));
 }
 
-var css$7 = ".blueprint-blocks\\:grid-field-grid {\n  border: 1px solid var(--blueprint-blocks-color-gray);\n  border-radius: var(--blueprint-blocks-border-radius);\n  display: grid;\n  gap: 2px;\n  grid-template-columns: 1fr;\n  justify-content: stretch;\n  padding: 2px;\n}\n\n.blueprint-blocks\\:grid-field-grid > .blueprint-blocks\\:grid-field-plus,\n.blueprint-blocks\\:grid-field-grid > .blueprint-blocks\\:grid-field-minus {\n  width: auto;\n}\n\n.blueprint-blocks\\:grid-field-grid-row-wrap {\n  align-items: stretch;\n  display: grid;\n  gap: 2px;\n  grid-template-columns: 26px 1fr 26px;\n}\n\n.blueprint-blocks\\:grid-field-grid-row-wrap > .blueprint-blocks\\:grid-field-plus,\n.blueprint-blocks\\:grid-field-grid-row-wrap > .blueprint-blocks\\:grid-field-minus {\n  height: auto;\n}\n\n.blueprint-blocks\\:grid-field-grid-row {\n  align-items: stretch;\n  border: 1px solid var(--blueprint-blocks-color-light-gray);\n  border-radius: var(--blueprint-blocks-border-radius);\n  display: grid;\n  gap: 2px;\n  grid-template-columns: repeat(var(--columns, 1), 1fr);\n  height: 80px;\n  padding: 2px;\n}\n\n.blueprint-blocks\\:grid-field-grid-column {\n  background: var(--blueprint-blocks-color-lightest-gray);\n  grid-column-end: span var(--column, 1);\n}";
-n(css$7,{});
+var css$6 = ".blueprint-blocks\\:grid-field-grid {\n  border: 1px solid var(--blueprint-blocks-color-gray);\n  border-radius: var(--blueprint-blocks-border-radius);\n  display: grid;\n  gap: 2px;\n  grid-template-columns: 1fr;\n  justify-content: stretch;\n  padding: 2px;\n}\n\n.blueprint-blocks\\:grid-field-grid > .blueprint-blocks\\:grid-field-plus,\n.blueprint-blocks\\:grid-field-grid > .blueprint-blocks\\:grid-field-minus {\n  width: auto;\n}\n\n.blueprint-blocks\\:grid-field-grid-row-wrap {\n  align-items: stretch;\n  display: grid;\n  gap: 2px;\n  grid-template-columns: 26px 1fr 26px;\n}\n\n.blueprint-blocks\\:grid-field-grid-row-wrap > .blueprint-blocks\\:grid-field-plus,\n.blueprint-blocks\\:grid-field-grid-row-wrap > .blueprint-blocks\\:grid-field-minus {\n  height: auto;\n}\n\n.blueprint-blocks\\:grid-field-grid-row {\n  align-items: stretch;\n  border: 1px solid var(--blueprint-blocks-color-light-gray);\n  border-radius: var(--blueprint-blocks-border-radius);\n  display: grid;\n  gap: 2px;\n  grid-template-columns: repeat(var(--columns, 1), 1fr);\n  height: 80px;\n  padding: 2px;\n}\n\n.blueprint-blocks\\:grid-field-grid-column {\n  background: var(--blueprint-blocks-color-lightest-gray);\n  grid-column-end: span var(--column, 1);\n}";
+n(css$6,{});
 
 function GridControl(_ref) {
   var _ref$columns = _ref.columns,
@@ -1098,8 +1101,8 @@ function GridControl(_ref) {
   }), /*#__PURE__*/React.createElement(IncrementButton, null));
 }
 
-var css$6 = ".blueprint-blocks\\:grid-field-wrap {\n  display: grid;\n  gap: 2px;\n}";
-n(css$6,{});
+var css$5 = ".blueprint-blocks\\:grid-field-wrap {\n  display: grid;\n  gap: 2px;\n}";
+n(css$5,{});
 
 var _excluded$G = ["onInput", "columns", "breakpoints", "gaps", "align", "justify", "enableUniqueColumnWidths", "value"];
 function edit$k(_ref) {
@@ -1207,10 +1210,10 @@ var index$f = {
   save: save$i
 };
 
-var css$5 = ".blueprint-blocks\\:increment-field-wrap {\n  border: 1px solid #8d96a0;\n  border-radius: 4px;\n  display: grid;\n  grid-template-columns: 27px 1fr 27px;\n  height: 28px;\n  overflow: hidden;\n  position: relative;\n  user-select: none;\n}\n\n.blueprint-blocks\\:increment-field-minus,\n.blueprint-blocks\\:increment-field-plus {\n  align-items: center;\n  cursor: pointer;\n  display: grid;\n  justify-content: center;\n  height: 26px;\n  transition: background 0.4s, colors 0.4s;\n  width: 27px;\n}\n\n.blueprint-blocks\\:increment-field-minus {\n  border-right: 1px solid #e2e4e7;\n}\n\n.blueprint-blocks\\:increment-field-plus {\n  border-left: 1px solid #e2e4e7;\n}\n\n.blueprint-blocks\\:increment-field-minus:not(.is-disabled):hover,\n.blueprint-blocks\\:increment-field-plus:not(.is-disabled):hover {\n  background: #e5f3f8;\n  color: #0085ba;\n}\n\n.blueprint-blocks\\:increment-field-minus.is-disabled,\n.blueprint-blocks\\:increment-field-plus.is-disabled {\n  cursor: default;\n  opacity: 0.25;\n}\n\n.blueprint-blocks\\:increment-field-minus svg,\n.blueprint-blocks\\:increment-field-plus svg {\n  display: block;\n  height: 14px;\n  width: 14px;\n}\n\n.blueprint-blocks\\:increment-field-label {\n  height: 26px;\n  line-height: 26px;\n  text-align: center;\n  width: calc(100% - 54px);\n}";
-n(css$5,{});
+var css$4 = ".blueprint-blocks\\:increment-field-wrap {\n  --height: 28px;\n  align-items: center;\n  border: 1px solid #8d96a0;\n  border-radius: 4px;\n  display: grid;\n  grid-template-columns: calc(var(--height) - 1px) 1fr calc(var(--height) - 1px);\n  height: var(--height);\n  overflow: hidden;\n  position: relative;\n  user-select: none;\n}\n\n.blueprint-blocks\\:increment-field-minus,\n.blueprint-blocks\\:increment-field-plus {\n  align-items: center;\n  cursor: pointer;\n  display: grid;\n  justify-content: center;\n  height: min(var(--height) - 2px, 34px);\n  transition: background 0.4s, colors 0.4s;\n  width: min(var(--height) - 1px, 35px);\n}\n\n.blueprint-blocks\\:increment-field-minus {\n  border-right: 1px solid #e2e4e7;\n}\n\n.blueprint-blocks\\:increment-field-plus {\n  border-left: 1px solid #e2e4e7;\n}\n\n.blueprint-blocks\\:increment-field-minus:not(.is-disabled):hover,\n.blueprint-blocks\\:increment-field-plus:not(.is-disabled):hover {\n  background: #e5f3f8;\n  color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9));\n}\n\n.blueprint-blocks\\:increment-field-minus.is-disabled,\n.blueprint-blocks\\:increment-field-plus.is-disabled {\n  cursor: default;\n  opacity: 0.25;\n}\n\n.blueprint-blocks\\:increment-field-minus svg,\n.blueprint-blocks\\:increment-field-plus svg {\n  display: block;\n  height: min(var(--height) / 2, 18px);\n  width: min(var(--height) / 2, 18px);\n}\n\n.blueprint-blocks\\:increment-field-label {\n  font-size: 13px;\n  height: calc(var(--height) - 2px);\n  line-height: calc(var(--height) - 2px);\n  text-align: center;\n  width: calc(100% - var(--height) * 2 - 2px);\n}\n\n.block-editor-block-toolbar .blueprint-blocks\\:increment-field-wrap {\n  --height: 48px !important;\n  border: 0 !important;\n  grid-gap: 8px !important;\n  grid-template-columns: max-content max-content max-content !important;\n}\n\n.block-editor-block-toolbar .blueprint-blocks\\:increment-field-minus,\n.block-editor-block-toolbar .blueprint-blocks\\:increment-field-plus {\n  border: 0 !important;\n}\n\n.block-editor-block-toolbar .blueprint-blocks\\:increment-field-minus:not(.is-disabled):hover,\n.block-editor-block-toolbar .blueprint-blocks\\:increment-field-plus:not(.is-disabled):hover {\n  background: none !important;\n}\n\n.block-editor-block-toolbar .blueprint-blocks\\:increment-field-label {\n  font-size: 18px !important;\n  font-weight: bold;\n  width: auto !important;\n}";
+n(css$4,{});
 
-var _excluded$C = ["onInput", "options", "multiple", "disabled", "value"];
+var _excluded$C = ["onInput", "label", "options", "min", "max", "step", "value"];
 var activeIndex = memoize(function (options, activeValue) {
   for (var i = 0; i < options.length; i++) {
     var _options$i;
@@ -1220,16 +1223,34 @@ var activeIndex = memoize(function (options, activeValue) {
   }
   return 0;
 });
+var getMinMaxOptions = memoize(function (min, max, step) {
+  return Array.from({
+    length: 1 + parseInt(max) - parseInt(min)
+  }, function (value, index) {
+    return {
+      value: (index + parseInt(min)) * parseInt(step)
+    };
+  });
+});
 function edit$i(_ref) {
-  var _options$index;
+  var _incrementOptions2, _incrementOptions3;
   var onInput = _ref.onInput,
+    label = _ref.label,
     _ref$options = _ref.options,
-    options = _ref$options === void 0 ? [] : _ref$options;
-    _ref.multiple;
-    _ref.disabled;
-    var value = _ref.value,
+    options = _ref$options === void 0 ? [] : _ref$options,
+    _ref$min = _ref.min,
+    min = _ref$min === void 0 ? 1 : _ref$min,
+    _ref$max = _ref.max,
+    max = _ref$max === void 0 ? 1 : _ref$max,
+    _ref$step = _ref.step,
+    step = _ref$step === void 0 ? 1 : _ref$step,
+    value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$C);
-  var index = activeIndex(options, value);
+  var incrementOptions = options;
+  if (options.length === 0 && parseInt(min) !== parseInt(max)) {
+    incrementOptions = getMinMaxOptions(parseInt(min), parseInt(max), parseInt(step));
+  }
+  var index = activeIndex(incrementOptions, value);
   return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "increment",
     value: value
@@ -1241,8 +1262,8 @@ function edit$i(_ref) {
     }),
     onClick: function onClick() {
       if (index > 0) {
-        var _options;
-        onInput(options === null || options === void 0 || (_options = options[index - 1]) === null || _options === void 0 ? void 0 : _options.value);
+        var _incrementOptions;
+        onInput((_incrementOptions = incrementOptions) === null || _incrementOptions === void 0 || (_incrementOptions = _incrementOptions[index - 1]) === null || _incrementOptions === void 0 ? void 0 : _incrementOptions.value);
       }
     }
   }, /*#__PURE__*/React.createElement("div", {
@@ -1251,14 +1272,14 @@ function edit$i(_ref) {
     }
   })), /*#__PURE__*/React.createElement("div", {
     className: classNames('blueprint-blocks:increment-field-label')
-  }, options === null || options === void 0 || (_options$index = options[index]) === null || _options$index === void 0 ? void 0 : _options$index.label), /*#__PURE__*/React.createElement("div", {
+  }, label && /*#__PURE__*/React.createElement("span", null, label, " "), /*#__PURE__*/React.createElement("span", null, ((_incrementOptions2 = incrementOptions) === null || _incrementOptions2 === void 0 || (_incrementOptions2 = _incrementOptions2[index]) === null || _incrementOptions2 === void 0 ? void 0 : _incrementOptions2.label) || ((_incrementOptions3 = incrementOptions) === null || _incrementOptions3 === void 0 || (_incrementOptions3 = _incrementOptions3[index]) === null || _incrementOptions3 === void 0 ? void 0 : _incrementOptions3.value))), /*#__PURE__*/React.createElement("div", {
     className: classNames('blueprint-blocks:increment-field-plus', {
-      'is-disabled': index === options.length - 1
+      'is-disabled': index === incrementOptions.length - 1
     }),
     onClick: function onClick() {
-      if (index < options.length - 1) {
-        var _options2;
-        onInput(options === null || options === void 0 || (_options2 = options[index + 1]) === null || _options2 === void 0 ? void 0 : _options2.value);
+      if (index < incrementOptions.length - 1) {
+        var _incrementOptions4;
+        onInput((_incrementOptions4 = incrementOptions) === null || _incrementOptions4 === void 0 || (_incrementOptions4 = _incrementOptions4[index + 1]) === null || _incrementOptions4 === void 0 ? void 0 : _incrementOptions4.value);
       }
     }
   }, /*#__PURE__*/React.createElement("div", {
@@ -1286,28 +1307,41 @@ var IncrementField = {
   save: save$h
 };
 
-var _excluded$A = ["name", "template", "templateLock"];
+var _excluded$A = ["name", "allowedBlocks", "orientation", "template", "templateLock", "max"];
 function edit$h(_ref) {
-  var _ref$name = _ref.name,
-    name = _ref$name === void 0 ? 'inner-blocks' : _ref$name,
+  _ref.name;
+    var allowedBlocks = _ref.allowedBlocks,
+    _ref$orientation = _ref.orientation,
+    orientation = _ref$orientation === void 0 ? 'vertical' : _ref$orientation,
     _ref$template = _ref.template,
     template = _ref$template === void 0 ? [] : _ref$template,
     _ref$templateLock = _ref.templateLock,
     templateLock = _ref$templateLock === void 0 ? false : _ref$templateLock,
+    _ref$max = _ref.max,
+    max = _ref$max === void 0 ? null : _ref$max,
     props = _objectWithoutProperties(_ref, _excluded$A);
-  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
-    type: "inner-blocks",
-    name: name
-  }), /*#__PURE__*/React.createElement(InnerBlocks, _extends({
+  var clientId = props.clientId;
+  var innerBlocksLength = useSelect(function (select) {
+    return select('core/block-editor').getBlock(clientId).innerBlocks.length;
+  });
+  return /*#__PURE__*/React.createElement(InnerBlocks, _extends({
+    allowedBlocks: allowedBlocks,
+    orientation: orientation === 'horizontal' && 'horizontal' || 'vertical',
     template: template,
-    templateLock: templateLock
-  }, props)));
+    templateLock: templateLock,
+    renderAppender: function renderAppender() {
+      return (max === null || innerBlocksLength < max) && /*#__PURE__*/React.createElement(InnerBlocks.DefaultBlockAppender, null) || false;
+    }
+  }, props));
 }
 
-var _excluded$z = ["template", "templateLock"];
+var _excluded$z = ["allowedBlocks", "orientation", "template", "templateLock", "max"];
 function save$g(_ref) {
-  _ref.template;
+  _ref.allowedBlocks;
+    _ref.orientation;
+    _ref.template;
     _ref.templateLock;
+    _ref.max;
     var props = _objectWithoutProperties(_ref, _excluded$z);
   return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "inner-blocks"
@@ -1401,8 +1435,8 @@ var RichTextField = {
   save: save$f
 };
 
-var css$4 = ".blueprint-blocks\\:dialog-toggle img {\n  grid-column: 1;\n  grid-row: 1;\n  height: 16px;\n  width: 16px;\n}\n\n.blueprint-blocks\\:dialog.is-open .blueprint-blocks\\:dialog-toggle:after {\n  grid-column: 1;\n  grid-row: 1;\n  position: relative;\n  transform: translateY(-100%);\n}";
-n(css$4,{});
+var css$3 = ".blueprint-blocks\\:dialog-toggle img {\n  grid-column: 1;\n  grid-row: 1;\n  height: 16px;\n  width: 16px;\n}\n\n.blueprint-blocks\\:dialog.is-open .blueprint-blocks\\:dialog-toggle:after {\n  grid-column: 1;\n  grid-row: 1;\n  position: relative;\n  transform: translateY(-100%);\n}";
+n(css$3,{});
 
 var _excluded$w = ["icon", "label", "children", "style"];
 var elStyle = {
@@ -1424,7 +1458,7 @@ var toggleStyle = {
   padding: '0',
   width: '16px'
 };
-var wrapStyle$2 = {
+var wrapStyle$3 = {
   background: '#fff',
   boxShadow: 'var(--blueprint-blocks-box-shadow)',
   borderRadius: '4px',
@@ -1474,14 +1508,14 @@ function Dialog(_ref) {
       return openDialog(!isDialogOpen);
     }
   }), isDialogOpen && /*#__PURE__*/React.createElement("div", {
-    style: wrapStyle$2
+    style: wrapStyle$3
   }, children, /*#__PURE__*/React.createElement("div", {
     style: wrapAfterStyle
   })));
 }
 
 var _excluded$v = ["onInput", "className", "placeholder", "value"];
-var wrapStyle$1 = {
+var wrapStyle$2 = {
   position: 'relative'
 };
 var propertiesStyle = {
@@ -1523,7 +1557,7 @@ function edit$f(_ref) {
     type: "link",
     value: value
   }), /*#__PURE__*/React.createElement("div", {
-    style: wrapStyle$1
+    style: wrapStyle$2
   }, /*#__PURE__*/React.createElement(RichTextField.edit, {
     tagName: "span",
     placeholder: placeholder,
@@ -1756,12 +1790,56 @@ var hasValue = memoize(function (value) {
   return !value;
 });
 
-var css$3 = ".blueprint-blocks\\:media-field-wrap {\n  position: relative;\n}\n\n.blueprint-blocks\\:media-field-item {\n  position: relative;\n  width: fit-content;\n}\n\n.blueprint-blocks\\:media-field-item img {\n  display: block;\n}\n\n.blueprint-blocks\\:media-field-item-options {\n  align-items: center;\n  background: rgba(0, 0, 0, 0.5);\n  bottom: 0;\n  display: flex;\n  left: 0;\n  justify-content: center;\n  opacity: 0;\n  position: absolute;\n  right: 0;\n  top: 0;\n  transition: opacity 0.4s;\n}\n\n.blueprint-blocks\\:media-field-item-options > div {\n  align-items: center;\n  background: #fff;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n  border-radius: 4px;\n  display: flex;\n  justify-content: center;\n  padding: 4px;\n}\n\n.blueprint-blocks\\:media-field-item-options button {\n  height: 32px;\n  border-radius: 4px;\n  justify-content: center;\n  width: 32px;\n}\n\n.blueprint-blocks\\:media-field-item-options button:hover {\n  background: #eee;\n}\n\n.blueprint-blocks\\:media-field-item-options svg {\n  height: 16px;\n  width: 16px;\n}\n\n.blueprint-blocks\\:media-field-item:hover .blueprint-blocks\\:media-field-item-options {\n  opacity: 1;\n}";
-n(css$3,{});
-
 var _excluded$r = ["onInput", "label", "allowedTypes", "multiple", "noticeUI", "noticeOperations", "value"],
   _excluded2$2 = ["id", "height", "type", "url", "width"],
   _excluded3$1 = ["id", "height", "type", "url", "width"];
+var wrapStyle$1 = {
+  position: 'relative'
+};
+var itemsStyle$1 = {
+  position: 'relative'
+};
+var itemStyle$1 = {
+  position: 'relative',
+  width: 'fit-content'
+};
+var imgStyle = {
+  display: 'block'
+};
+var optionsStyle = {
+  alignItems: 'center',
+  background: 'rgba(0, 0, 0, 0.5)',
+  bottom: '0',
+  display: 'flex',
+  left: '0',
+  justifyContent: 'center',
+  opacity: '0',
+  position: 'absolute',
+  right: '0',
+  top: '0',
+  transition: 'opacity 0.4s'
+};
+var optionsHoverStyle = {
+  opacity: '1'
+};
+var optionsDivStyle = {
+  alignItems: 'center',
+  background: '#fff',
+  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+  borderRadius: '4px',
+  display: 'flex',
+  justifyContent: 'center',
+  padding: '4px'
+};
+var optionsButtonStyle = {
+  height: '32px',
+  borderRadius: '4px',
+  justifyContent: 'center',
+  width: '32px'
+};
+var optionsButtonHoverStyle = {
+  background: '#eee'
+};
 function edit$c(_ref) {
   var onInput = _ref.onInput,
     label = _ref.label,
@@ -1774,6 +1852,14 @@ function edit$c(_ref) {
     _ref$value = _ref.value,
     value = _ref$value === void 0 ? [] : _ref$value,
     props = _objectWithoutProperties(_ref, _excluded$r);
+  var _useState = useState(null),
+    _useState2 = _slicedToArray(_useState, 2),
+    itemHoverIndex = _useState2[0],
+    setItemHoverIndex = _useState2[1];
+  var _useState3 = useState(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    optionHover = _useState4[0],
+    setOptionHover = _useState4[1];
   var removeItem = function removeItem(id) {
     onInput(Object.values(value).filter(function (item) {
       return item.id !== id;
@@ -1815,7 +1901,7 @@ function edit$c(_ref) {
     type: "media",
     value: value
   }), /*#__PURE__*/React.createElement("div", {
-    className: "blueprint-blocks:media-field-wrap"
+    style: wrapStyle$1
   }, !hasValue(value) && /*#__PURE__*/React.createElement(MediaPlaceholder, {
     icon: "format-image",
     labels: {
@@ -1827,22 +1913,31 @@ function edit$c(_ref) {
     notices: noticeUI,
     onError: noticeOperations.createErrorNotice
   }), hasValue(value) && /*#__PURE__*/React.createElement("div", {
-    className: "blueprint-blocks:media-field-items"
-  }, (value || []).map(function (_ref4) {
+    style: itemsStyle$1
+  }, (value || []).map(function (_ref4, index) {
     var id = _ref4.id;
       _ref4.height;
       var type = _ref4.type,
       url = _ref4.url;
       _ref4.width;
     return /*#__PURE__*/React.createElement("div", {
-      className: "blueprint-blocks:media-field-item"
+      style: itemStyle$1,
+      onMouseEnter: function onMouseEnter() {
+        return setItemHoverIndex(index);
+      },
+      onMouseLeave: function onMouseLeave() {
+        return setItemHoverIndex(null);
+      }
     }, type === 'image' && getAllowedTypes(allowedTypes).includes('image') && /*#__PURE__*/React.createElement("img", {
-      src: url
+      src: url,
+      style: imgStyle
     }), type === 'pdf' && getAllowedTypes(allowedTypes).includes('pdf') && /*#__PURE__*/React.createElement("span", {
       className: "fa-solid fa-file-pdf"
     }), /*#__PURE__*/React.createElement("div", {
-      className: "blueprint-blocks:media-field-item-options"
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(MediaUpload, {
+      style: _objectSpread2(_objectSpread2({}, optionsStyle), itemHoverIndex === index && optionsHoverStyle)
+    }, /*#__PURE__*/React.createElement("div", {
+      style: optionsDivStyle
+    }, /*#__PURE__*/React.createElement(MediaUpload, {
       allowedTypes: ALL_TYPES,
       gallery: multiple,
       multiple: multiple,
@@ -1860,7 +1955,14 @@ function edit$c(_ref) {
             dangerouslySetInnerHTML: {
               __html: pencil
             }
-          })
+          }),
+          style: _objectSpread2(_objectSpread2({}, optionsButtonStyle), optionHover === 'edit' && optionsButtonHoverStyle),
+          onMouseEnter: function onMouseEnter() {
+            return setOptionHover('edit');
+          },
+          onMouseLeave: function onMouseLeave() {
+            return setOptionHover(null);
+          }
         });
       }
     }), /*#__PURE__*/React.createElement(Button, {
@@ -1872,6 +1974,13 @@ function edit$c(_ref) {
       }),
       onClick: function onClick() {
         return removeItem(id);
+      },
+      style: _objectSpread2(_objectSpread2({}, optionsButtonStyle), optionHover === 'remove' && optionsButtonHoverStyle),
+      onMouseEnter: function onMouseEnter() {
+        return setOptionHover('remove');
+      },
+      onMouseLeave: function onMouseLeave() {
+        return setOptionHover(null);
       }
     }))));
   }), multiple && /*#__PURE__*/React.createElement(MediaUpload, {
@@ -3019,8 +3128,8 @@ var Fields = /*#__PURE__*/Object.freeze({
 	WidthField: index
 });
 
-var _excluded$1 = ["children", "tagName"],
-  _excluded2 = ["label"],
+var _excluded$1 = ["clientId"],
+  _excluded2 = ["children", "tagName"],
   _excluded3 = ["label"];
 var Components$1 = Object.fromEntries(Object.values(Fields).map(function (_ref) {
   var name = _ref.name,
@@ -3059,16 +3168,35 @@ addFilter('blocks.registerBlockType', 'blueprint-blocks/default-attributes', fun
 function BlockEdit(blueprint) {
   return function (_ref2) {
     var _getInnerBlocks;
-    var attributes = _ref2.attributes,
-      setAttributes = _ref2.setAttributes,
-      clientId = _ref2.clientId;
-    setAttributes({
+    var clientId = _ref2.clientId,
+      props = _objectWithoutProperties(_ref2, _excluded$1);
+    var _useState = useState((props === null || props === void 0 ? void 0 : props.attributes) || {}),
+      _useState2 = _slicedToArray(_useState, 2),
+      attributes = _useState2[0],
+      setStateAttributes = _useState2[1];
+    props === null || props === void 0 || props.setAttributes({
       _index: getBlockIndex(clientId),
       _innerBlocksLength: ((_getInnerBlocks = getInnerBlocks(clientId)) === null || _getInnerBlocks === void 0 ? void 0 : _getInnerBlocks.length) || 0
     });
+
+    /**
+     * Overrides the default setAttributes to also save attributes in
+     * the state of the component for state change when not saved to
+     * the block attributes.
+     *
+     * @param {object} newAttributeValues
+     */
+    var setAttributes = function setAttributes(newAttributeValues) {
+      var persist = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+      if (props !== null && props !== void 0 && props.setAttributes && persist === true) {
+        props.setAttributes(newAttributeValues);
+      }
+      setStateAttributes(Object.assign({}, attributes, newAttributeValues));
+    };
     var blockProps = useBlockProps();
     var blockName = blockProps['data-type'];
     var blockContext = getBlockContext({
+      mode: 'edit',
       attributes: attributes,
       innerBlocks: getInnerBlocks(clientId) || []
     });
@@ -3079,7 +3207,7 @@ function BlockEdit(blueprint) {
       children = _ref3$children === void 0 ? [] : _ref3$children,
       _ref3$tagName = _ref3.tagName,
       tagName = _ref3$tagName === void 0 ? 'div' : _ref3$tagName,
-      blockEdit = _objectWithoutProperties(_ref3, _excluded$1);
+      blockEdit = _objectWithoutProperties(_ref3, _excluded2);
     var blockAttributes = Object.fromEntries(Object.entries(blockEdit).map(function (_ref4) {
       var _ref5 = _slicedToArray(_ref4, 2),
         name = _ref5[0],
@@ -3090,7 +3218,7 @@ function BlockEdit(blueprint) {
         return [name, value];
       }
     }));
-    var blockClassNames = classNames$1([].concat(_toConsumableArray(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]), _toConsumableArray(Array.isArray(blockEdit.className) && blockEdit.className || [blockEdit.className])), blockContext);
+    var blockClassNames = classNames$1([].concat(_toConsumableArray(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]), _toConsumableArray(Array.isArray(blockEdit.className) && blockEdit.className || [blockEdit.className]), _toConsumableArray(Array.isArray(blockEdit.editorClassName) && blockEdit.editorClassName || [blockEdit.editorClassName])), blockContext);
     if (blockClassNames) {
       blockAttributes.className = blockClassNames;
     }
@@ -3100,6 +3228,7 @@ function BlockEdit(blueprint) {
     }
     var Component = tagName;
     return /*#__PURE__*/React.createElement(Component, _extends({}, blockProps, blockAttributes), renderJsxArray({
+      clientId: clientId,
       blockName: blockName,
       attributes: attributes,
       setAttributes: setAttributes,
@@ -3107,27 +3236,26 @@ function BlockEdit(blueprint) {
       context: blockContext
     }, Components$1), blockSidebar.map(function (_ref6) {
       var label = _ref6.label,
-        props = _objectWithoutProperties(_ref6, _excluded2);
+        props = _objectWithoutProperties(_ref6, _excluded3);
       return /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(PanelBody, {
         title: label
       }, renderJsxArray({
-        blockName: blockName,
-        attributes: attributes,
-        setAttributes: setAttributes,
-        jsx: [props],
-        context: blockContext
-      }, Components$1)));
-    }), blockToolbar.map(function (_ref7) {
-      _ref7.label;
-        var props = _objectWithoutProperties(_ref7, _excluded3);
-      return /*#__PURE__*/React.createElement(BlockControls, null, renderJsxArray({
         clientId: clientId,
         blockName: blockName,
         attributes: attributes,
         setAttributes: setAttributes,
         jsx: [props],
         context: blockContext
-      }, Components$1));
+      }, Components$1)));
+    }), blockToolbar.map(function (props) {
+      return /*#__PURE__*/React.createElement(BlockControls, null, /*#__PURE__*/React.createElement(ToolbarGroup, null, renderJsxArray({
+        clientId: clientId,
+        blockName: blockName,
+        attributes: attributes,
+        setAttributes: setAttributes,
+        jsx: [props],
+        context: blockContext
+      }, Components$1)));
     }));
   };
 }
@@ -3155,6 +3283,7 @@ function BlockSave(blueprint) {
     var blockProps = useBlockProps.save();
     var blockName = blockProps.className;
     var blockContext = getBlockContext({
+      mode: 'save',
       attributes: attributes,
       innerBlocks: innerBlocks
     });
@@ -3174,7 +3303,7 @@ function BlockSave(blueprint) {
         return [name, value];
       }
     }));
-    var blockClassNames = classNames$1([].concat(_toConsumableArray(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]), _toConsumableArray(Array.isArray(blockSave.className) && blockSave.className || [blockSave.className])), blockContext);
+    var blockClassNames = classNames$1([].concat(_toConsumableArray(Array.isArray(blockProps.className) && blockProps.className || [blockProps.className]), _toConsumableArray(Array.isArray(blockSave.className) && blockSave.className || [blockSave.className]), _toConsumableArray(Array.isArray(blockSave.viewClassName) && blockSave.viewClassName || [blockSave.viewClassName])), blockContext);
     if (blockClassNames) {
       blockAttributes.className = blockClassNames;
     }

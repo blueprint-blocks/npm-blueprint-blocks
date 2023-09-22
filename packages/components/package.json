@@ -34,6 +34,7 @@
     "@wordpress/hooks": "^3.41.0",
     "@wordpress/i18n": "^4.4.0",
     "rollup": "^3.28.1",
-    "rollup-plugin-svg": "^2.0.0"
+    "rollup-plugin-svg": "^2.0.0",
+    "sass": "^1.68.0"
   }
 }

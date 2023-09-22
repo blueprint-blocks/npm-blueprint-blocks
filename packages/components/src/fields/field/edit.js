@@ -25,18 +25,20 @@ function preventEventPropagation( event ) {
 	event.nativeEvent.stopImmediatePropagation()
 }
 
-function edit( { 
+function edit( {
 	attributes = {},
-	blockName, 
-	name, 
+	clientId,
+	blockName,
+	name,
 	attributeName,
-	children = [], 
+	children = [],
 	dangerouslySetInnerHTML,
-	innerHtml = '', 
-	className = [], 
+	innerHtml = '',
+	className = [],
 	label = '',
-	tagName = 'div', 
-	type = 'field', 
+	tagName = 'div',
+	type = 'field',
+	value,
 	onInput,
 	...props
 } ) {

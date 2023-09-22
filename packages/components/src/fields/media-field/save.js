@@ -2,27 +2,24 @@ import Field from '../field/index.js'
 
 import getAllowedTypes from './functions/get-allowed-types.js'
 
-function save( { 
+function save( {
 	allowedTypes = [],
 	multiple = false,
-	value = [], 
-	...props 
+	value = [],
+	...props
 } ) {
+
+	if ( getAllowedTypes( allowedTypes ).includes( 'image' ) === false ) {
+		return null
+	}
 
 	return (
 		<Field.save
 			{ ...props }
 			type="media"
 		>
-			{ (value || []).map( ( { id, height, type, url, width } ) => (
-				<div>
-					{ type === 'image' && getAllowedTypes( allowedTypes ).includes( 'image' ) && (
-						<img src={ url }/>
-					) }
-					{ type === 'pdf' && getAllowedTypes( allowedTypes ).includes( 'pdf' ) && (
-						<span className="fa-solid fa-file-pdf"/>
-					) }
-				</div>
+			{ (value || []).filter( ( { type } ) => type === 'image' ).map( ( { url } ) => (
+				<img src={ url }/>
 			) ) }
 		</Field.save>
 	)

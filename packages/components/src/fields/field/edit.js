@@ -66,7 +66,7 @@ function edit( {
 		)
 	}
 
-	if ( selfClosingTagNames.includes(tagName) === true || (children.length === 0 && label.length === 0) ) {
+	if ( selfClosingTagNames.includes(tagName) === true || ((children?.length || 0) === 0 && (label?.length || 0) === 0) ) {
 		return (
 			<Component
 				{ ...props }

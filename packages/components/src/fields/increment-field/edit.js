@@ -46,6 +46,7 @@ function edit( {
 			type="increment"
 			value={ value }
 		>
+			{ 'incrementfield34ewdsxa' }
 			<div className="blueprint-blocks:increment-field-wrap">
 				<div
 					className={ classNames(

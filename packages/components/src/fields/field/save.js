@@ -22,12 +22,12 @@ function save( {
 	blockName,
 	name,
 	label,
-	children = [], 
+	children = [],
 	innerHtml = '',
-	className = '', 
-	tagName = 'div', 
-	type = 'field', 
-	...props 
+	className = '',
+	tagName = 'div',
+	type = 'field',
+	...props
 } ) {
 
 	const fieldProps = Object.assign( {}, props )
@@ -35,10 +35,10 @@ function save( {
 	if ( className ) {
 		fieldProps.className = className
 	}
-	
+
 	const Component = tagName
 
-	if ( selfClosingTagNames.includes(tagName) === true || children.length === 0 || props.dangerouslySetInnerHTML ) {
+	if ( selfClosingTagNames.includes(tagName) === true || (children?.length || 0) === 0 || props.dangerouslySetInnerHTML ) {
 		<Component { ...fieldProps }/>
 	}
 

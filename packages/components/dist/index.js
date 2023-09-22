@@ -1,7 +1,7 @@
 import { replaceTokens, useClickOutside, isExternalUrl, getBlockIndex, getInnerBlocks, getBlockContext, classNames as classNames$1, styles, renderJsxArray } from '@blueprint-blocks/utility';
 import { __ } from '@wordpress/i18n';
-import { ToolbarButton, ColorPalette, GradientPicker, Button, withNotices, SelectControl, TextareaControl, PanelBody, ToolbarGroup } from '@wordpress/components';
-import { InnerBlocks, RichText, MediaPlaceholder, MediaUpload, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
+import { ToolbarButton, ColorPalette, GradientPicker, withNotices, Button, SelectControl, TextareaControl, PanelBody, ToolbarGroup } from '@wordpress/components';
+import { MediaPlaceholder, MediaUpload, InnerBlocks, RichText, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
 import { createRef, useState, useEffect } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
 import classNames from 'classnames';
@@ -197,23 +197,23 @@ function _toPropertyKey(arg) {
 var css$c = ".components-toolbar-group .components-button.blueprint-blocks\\:toolbar-field-button[subscript],\n.components-toolbar-group .components-button.has-icon.blueprint-blocks\\:toolbar-field-button[subscript] {\n  padding-right: 16px;\n}\n\n.components-toolbar-group .components-button.blueprint-blocks\\:toolbar-field-button[subscript]::after,\n.components-toolbar-group .components-button.has-icon.blueprint-blocks\\:toolbar-field-button[subscript]::after {\n  bottom: calc(50% - 9px);\n  content: attr(subscript);\n  font-size: 12px;\n  font-weight: bold;\n  left: calc(100% - 17px);\n  line-height: 12px;\n  position: absolute;\n  transform: translateX(-50%);\n}";
 n(css$c,{});
 
-var _excluded$Z = ["onInput", "options", "multiple", "disabled", "value"],
-  _excluded2$3 = ["icon", "subscript", "label"];
-function edit$t(_ref) {
+var _excluded$$ = ["onInput", "options", "multiple", "disabled", "value"],
+  _excluded2$4 = ["icon", "subscript", "label"];
+function edit$v(_ref) {
   var onInput = _ref.onInput,
     _ref$options = _ref.options,
     options = _ref$options === void 0 ? [] : _ref$options;
     _ref.multiple;
     _ref.disabled;
     var value = _ref.value;
-    _objectWithoutProperties(_ref, _excluded$Z);
+    _objectWithoutProperties(_ref, _excluded$$);
   return /*#__PURE__*/React.createElement("div", {
     className: classNames('blueprint-blocks:toolbar-field')
   }, options.map(function (_ref2) {
     var icon = _ref2.icon,
       subscript = _ref2.subscript,
       label = _ref2.label,
-      option = _objectWithoutProperties(_ref2, _excluded2$3);
+      option = _objectWithoutProperties(_ref2, _excluded2$4);
     return /*#__PURE__*/React.createElement(ToolbarButton, {
       icon: icon || /*#__PURE__*/React.createElement("div", {
         className: "label"
@@ -232,14 +232,14 @@ function edit$t(_ref) {
 var css$b = ".components-panel__body .blueprint-blocks\\:field {\n  margin: 0 0 16px;\n}\n\n.components-panel__body .blueprint-blocks\\:field:last-child {\n  margin-bottom: 0;\n}\n\n.blueprint-blocks\\:field-label {\n  margin-bottom: 8px;\n}";
 n(css$b,{});
 
-var _excluded$Y = ["attributes", "clientId", "blockName", "name", "attributeName", "children", "dangerouslySetInnerHTML", "innerHtml", "className", "label", "tagName", "type", "value", "onInput"];
+var _excluded$_ = ["attributes", "clientId", "blockName", "name", "attributeName", "children", "dangerouslySetInnerHTML", "innerHtml", "className", "label", "tagName", "type", "value", "onInput"];
 var selfClosingTagNames$1 = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
 function preventEventPropagation(event) {
   event.stopPropagation();
   event.nativeEvent.stopPropagation();
   event.nativeEvent.stopImmediatePropagation();
 }
-function edit$s(_ref) {
+function edit$u(_ref) {
   _ref.attributes;
     _ref.clientId;
     _ref.blockName;
@@ -258,7 +258,7 @@ function edit$s(_ref) {
     _ref.type;
     _ref.value;
     _ref.onInput;
-    var props = _objectWithoutProperties(_ref, _excluded$Y);
+    var props = _objectWithoutProperties(_ref, _excluded$_);
   var ref = createRef();
   var fieldProps = Object.assign({}, props);
   if (className) {
@@ -274,7 +274,7 @@ function edit$s(_ref) {
       dangerouslySetInnerHTML: dangerouslySetInnerHTML
     }));
   }
-  if (selfClosingTagNames$1.includes(tagName) === true || children.length === 0 && label.length === 0) {
+  if (selfClosingTagNames$1.includes(tagName) === true || ((children === null || children === void 0 ? void 0 : children.length) || 0) === 0 && ((label === null || label === void 0 ? void 0 : label.length) || 0) === 0) {
     return /*#__PURE__*/React.createElement(Component, _extends({}, props, {
       ref: ref,
       onClick: preventEventPropagation,
@@ -292,9 +292,9 @@ function edit$s(_ref) {
   }, label), children);
 }
 
-var _excluded$X = ["attributes", "blockName", "name", "label", "children", "innerHtml", "className", "tagName", "type"];
+var _excluded$Z = ["attributes", "blockName", "name", "label", "children", "innerHtml", "className", "tagName", "type"];
 var selfClosingTagNames = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
-function save$s(_ref) {
+function save$t(_ref) {
   _ref.attributes;
     _ref.blockName;
     _ref.name;
@@ -307,27 +307,27 @@ function save$s(_ref) {
     _ref$tagName = _ref.tagName,
     tagName = _ref$tagName === void 0 ? 'div' : _ref$tagName;
     _ref.type;
-    var props = _objectWithoutProperties(_ref, _excluded$X);
+    var props = _objectWithoutProperties(_ref, _excluded$Z);
   var fieldProps = Object.assign({}, props);
   if (className) {
     fieldProps.className = className;
   }
   var Component = tagName;
-  if (selfClosingTagNames.includes(tagName) === true || children.length === 0 || props.dangerouslySetInnerHTML) ;
+  if (selfClosingTagNames.includes(tagName) === true || ((children === null || children === void 0 ? void 0 : children.length) || 0) === 0 || props.dangerouslySetInnerHTML) ;
   return /*#__PURE__*/React.createElement(Component, _extends({}, fieldProps, {
     children: children
   }));
 }
 
 var Field = {
-  edit: edit$s,
-  save: save$s
+  edit: edit$u,
+  save: save$t
 };
 
-var _excluded$W = ["value"];
-function save$r(_ref) {
+var _excluded$Y = ["value"];
+function save$s(_ref) {
   var value = _ref.value,
-    props = _objectWithoutProperties(_ref, _excluded$W);
+    props = _objectWithoutProperties(_ref, _excluded$Y);
   return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "toolbar",
     dangerouslySetInnerHTML: {
@@ -338,8 +338,8 @@ function save$r(_ref) {
 
 var ToolbarField = {
   name: 'toolbar-field',
-  edit: edit$t,
-  save: save$r
+  edit: edit$v,
+  save: save$s
 };
 
 var full = {
@@ -370,13 +370,13 @@ var ALIGN_CONTROLS = {
 	right: right$3
 };
 
-var _excluded$V = ["onInput", "controls", "value"];
-function edit$r(_ref) {
+var _excluded$X = ["onInput", "controls", "value"];
+function edit$t(_ref) {
   var onInput = _ref.onInput,
     _ref$controls = _ref.controls,
     controls = _ref$controls === void 0 ? ['left', 'center', 'right'] : _ref$controls,
     value = _ref.value,
-    props = _objectWithoutProperties(_ref, _excluded$V);
+    props = _objectWithoutProperties(_ref, _excluded$X);
   return /*#__PURE__*/React.createElement(ToolbarField.edit, _extends({}, props, {
     type: "align",
     value: value,
@@ -387,10 +387,10 @@ function edit$r(_ref) {
   }));
 }
 
-var _excluded$U = ["value"];
-function save$q(_ref) {
+var _excluded$W = ["value"];
+function save$r(_ref) {
   var value = _ref.value,
-    props = _objectWithoutProperties(_ref, _excluded$U);
+    props = _objectWithoutProperties(_ref, _excluded$W);
   return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "align",
     dangerouslySetInnerHTML: {
@@ -399,13 +399,13 @@ function save$q(_ref) {
   }));
 }
 
-var index$l = {
+var index$m = {
   name: 'align-field',
-  edit: edit$r,
-  save: save$q
+  edit: edit$t,
+  save: save$r
 };
 
-var _excluded$T = ["onInput", "placeholder", "pattern", "customValidity", "disabled", "required", "value"];
+var _excluded$V = ["onInput", "placeholder", "pattern", "customValidity", "disabled", "required", "value"];
 var inputStyle = {
   background: '#fff',
   border: '1px solid #8c8f94',
@@ -423,7 +423,7 @@ var inputStyle = {
   transition: 'none',
   width: '100%'
 };
-function edit$q(_ref) {
+function edit$s(_ref) {
   var _onInput = _ref.onInput,
     placeholder = _ref.placeholder,
     _ref$pattern = _ref.pattern,
@@ -435,7 +435,7 @@ function edit$q(_ref) {
     _ref$required = _ref.required,
     required = _ref$required === void 0 ? false : _ref$required,
     value = _ref.value,
-    props = _objectWithoutProperties(_ref, _excluded$T);
+    props = _objectWithoutProperties(_ref, _excluded$V);
   var ref = createRef();
   return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "text",
@@ -463,14 +463,14 @@ function edit$q(_ref) {
   }));
 }
 
-var _excluded$S = ["placeholder", "pattern", "disabled", "required", "value"];
-function save$p(_ref) {
+var _excluded$U = ["placeholder", "pattern", "disabled", "required", "value"];
+function save$q(_ref) {
   _ref.placeholder;
     _ref.pattern;
     _ref.disabled;
     _ref.required;
     var value = _ref.value,
-    props = _objectWithoutProperties(_ref, _excluded$S);
+    props = _objectWithoutProperties(_ref, _excluded$U);
   return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "text",
     dangerouslySetInnerHTML: {
@@ -481,15 +481,15 @@ function save$p(_ref) {
 
 var TextField = {
   name: 'text-field',
-  edit: edit$q,
-  save: save$p
+  edit: edit$s,
+  save: save$q
 };
 
 var css$a = ".blueprint-blocks\\:link-field-wrap {\n  position: relative;\n}\n\n.blueprint-blocks\\:link-field-properties {\n  align-items: center;\n  display: grid;\n  grid-gap: 8px;\n  grid-template-columns: 1fr 12px 34px;\n  row-gap: 4px;\n}\n\n.blueprint-blocks\\:link-field-properties:after {\n  background: var(--blueprint-blocks-color-gray);\n  content: \"\";\n  display: block;\n  height: 2px;\n  grid-column: 1/span 3;\n}\n\n.blueprint-blocks\\:link-field-properties .blueprint-blocks\\:url-field input[type=text] {\n  border: 0;\n  line-height: 32px;\n  padding: 0;\n}\n\n.blueprint-blocks\\:link-field-properties .blueprint-blocks\\:url-field input[type=text]:focus,\n.blueprint-blocks\\:link-field-properties .blueprint-blocks\\:url-field input[type=text]:hover {\n  border: 0;\n  box-shadow: none;\n  outline: none;\n}";
 n(css$a,{});
 
-var _excluded$R = ["onInput", "className", "customValidity", "placeholder", "value"];
-function edit$p(_ref) {
+var _excluded$T = ["onInput", "className", "customValidity", "placeholder", "value"];
+function edit$r(_ref) {
   var _onInput = _ref.onInput,
     _ref$className = _ref.className,
     className = _ref$className === void 0 ? [] : _ref$className,
@@ -499,7 +499,7 @@ function edit$p(_ref) {
     placeholder = _ref$placeholder === void 0 ? '#anchor-name' : _ref$placeholder,
     _ref$value = _ref.value,
     value = _ref$value === void 0 ? {} : _ref$value,
-    props = _objectWithoutProperties(_ref, _excluded$R);
+    props = _objectWithoutProperties(_ref, _excluded$T);
   return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     description: (props === null || props === void 0 ? void 0 : props.description) || __('Enter an id for the anchor to this element on the page.'),
     className: classNames(Array.isArray(className) && className || [className]),
@@ -522,10 +522,10 @@ function edit$p(_ref) {
   })));
 }
 
-var _excluded$Q = ["value"];
-function save$o(_ref) {
+var _excluded$S = ["value"];
+function save$p(_ref) {
   var value = _ref.value,
-    props = _objectWithoutProperties(_ref, _excluded$Q);
+    props = _objectWithoutProperties(_ref, _excluded$S);
   return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "anchor",
     dangerouslySetInnerHTML: {
@@ -534,10 +534,10 @@ function save$o(_ref) {
   }));
 }
 
-var index$k = {
+var index$l = {
   name: 'anchor-field',
-  edit: edit$p,
-  save: save$o
+  edit: edit$r,
+  save: save$p
 };
 
 var elStyle$2 = {
@@ -579,7 +579,7 @@ function Tooltip(_ref) {
   }));
 }
 
-var _excluded$P = ["onInput", "options", "multiple", "disabled", "size", "tooltip", "tooltipPosition", "value"];
+var _excluded$R = ["onInput", "options", "multiple", "disabled", "size", "tooltip", "tooltipPosition", "value"];
 var elStyle$1 = {
   '--padding': '2px',
   '--size': '22px'
@@ -587,7 +587,7 @@ var elStyle$1 = {
 var elSmallStyle = {
   '--size': '14px'
 };
-var wrapStyle$4 = {
+var wrapStyle$3 = {
   border: '1px solid #8d96a0',
   borderRadius: 'calc(2px + var(--size) + (var(--padding) * 2))',
   boxSizing: 'border-box',
@@ -623,7 +623,7 @@ var toggleStyle$1 = {
 var toggleTrueStyle = {
   background: 'var(--wp-admin-theme-color)'
 };
-function edit$o(_ref) {
+function edit$q(_ref) {
   var onInput = _ref.onInput;
     _ref.options;
     _ref.multiple;
@@ -633,7 +633,7 @@ function edit$o(_ref) {
     tooltip = _ref.tooltip;
     _ref.tooltipPosition;
     var value = _ref.value,
-    props = _objectWithoutProperties(_ref, _excluded$P);
+    props = _objectWithoutProperties(_ref, _excluded$R);
   var _useState = useState(false),
     _useState2 = _slicedToArray(_useState, 2),
     hasHover = _useState2[0],
@@ -649,7 +649,7 @@ function edit$o(_ref) {
       return setHasHover(false);
     }
   }), /*#__PURE__*/React.createElement("div", {
-    style: wrapStyle$4,
+    style: wrapStyle$3,
     onClick: function onClick() {
       return onInput(!value);
     }
@@ -665,10 +665,10 @@ function edit$o(_ref) {
   })));
 }
 
-var _excluded$O = ["value"];
-function save$n(_ref) {
+var _excluded$Q = ["value"];
+function save$o(_ref) {
   var value = _ref.value,
-    props = _objectWithoutProperties(_ref, _excluded$O);
+    props = _objectWithoutProperties(_ref, _excluded$Q);
   return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "select",
     dangerouslySetInnerHTML: {
@@ -679,11 +679,11 @@ function save$n(_ref) {
 
 var BooleanField = {
   name: 'boolean-field',
-  edit: edit$o,
-  save: save$n
+  edit: edit$q,
+  save: save$o
 };
 
-var _excluded$N = ["blockName", "name", "colors", "clearable", "enableCustomColors", "enableAlpha", "value", "onInput"];
+var _excluded$P = ["blockName", "name", "colors", "clearable", "enableCustomColors", "enableAlpha", "value", "onInput"];
 var getColor = memoize(function (slug) {
   var colors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   for (var i = 0; i < colors.length; i++) {
@@ -702,7 +702,7 @@ var getSlug$1 = memoize(function (color) {
   }
   return color;
 });
-function edit$n(_ref) {
+function edit$p(_ref) {
   _ref.blockName;
     _ref.name;
     var _ref$colors = _ref.colors,
@@ -715,7 +715,7 @@ function edit$n(_ref) {
     enableAlpha = _ref$enableAlpha === void 0 ? false : _ref$enableAlpha,
     value = _ref.value,
     onInput = _ref.onInput,
-    props = _objectWithoutProperties(_ref, _excluded$N);
+    props = _objectWithoutProperties(_ref, _excluded$P);
   return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "color",
     value: value
@@ -731,10 +731,10 @@ function edit$n(_ref) {
   }));
 }
 
-var _excluded$M = ["value"];
-function save$m(_ref) {
+var _excluded$O = ["value"];
+function save$n(_ref) {
   var value = _ref.value,
-    props = _objectWithoutProperties(_ref, _excluded$M);
+    props = _objectWithoutProperties(_ref, _excluded$O);
   return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "color",
     dangerouslySetInnerHTML: {
@@ -743,17 +743,17 @@ function save$m(_ref) {
   }));
 }
 
-var index$j = {
+var index$k = {
   name: 'color-field',
-  edit: edit$n,
-  save: save$m
+  edit: edit$p,
+  save: save$n
 };
 
-var _excluded$L = ["onInput", "placeholder", "pattern", "disabled", "multiple", "required", "value"];
+var _excluded$N = ["onInput", "placeholder", "pattern", "disabled", "multiple", "required", "value"];
 
 //import './style.scss'
 
-function edit$m(_ref) {
+function edit$o(_ref) {
   var onInput = _ref.onInput,
     placeholder = _ref.placeholder,
     _ref$pattern = _ref.pattern,
@@ -765,7 +765,7 @@ function edit$m(_ref) {
     _ref$required = _ref.required,
     required = _ref$required === void 0 ? false : _ref$required,
     value = _ref.value,
-    props = _objectWithoutProperties(_ref, _excluded$L);
+    props = _objectWithoutProperties(_ref, _excluded$N);
   var ref = createRef();
   return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "email",
@@ -790,15 +790,15 @@ function edit$m(_ref) {
   }));
 }
 
-var _excluded$K = ["placeholder", "pattern", "disabled", "multiple", "required", "value"];
-function save$l(_ref) {
+var _excluded$M = ["placeholder", "pattern", "disabled", "multiple", "required", "value"];
+function save$m(_ref) {
   _ref.placeholder;
     _ref.pattern;
     _ref.disabled;
     _ref.multiple;
     _ref.required;
     var value = _ref.value,
-    props = _objectWithoutProperties(_ref, _excluded$K);
+    props = _objectWithoutProperties(_ref, _excluded$M);
   return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "email",
     dangerouslySetInnerHTML: {
@@ -807,13 +807,13 @@ function save$l(_ref) {
   }));
 }
 
-var index$i = {
+var index$j = {
   name: 'email-field',
-  edit: edit$m,
-  save: save$l
+  edit: edit$o,
+  save: save$m
 };
 
-var _excluded$J = ["blockName", "name", "gradients", "clearable", "enableCustomGradients", "value", "onInput"];
+var _excluded$L = ["blockName", "name", "gradients", "clearable", "enableCustomGradients", "value", "onInput"];
 var getGradient = memoize(function (slug) {
   var gradients = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   for (var i = 0; i < gradients.length; i++) {
@@ -832,7 +832,7 @@ var getSlug = memoize(function (gradient) {
   }
   return gradient;
 });
-function edit$l(_ref) {
+function edit$n(_ref) {
   _ref.blockName;
     _ref.name;
     var _ref$gradients = _ref.gradients,
@@ -843,7 +843,7 @@ function edit$l(_ref) {
     enableCustomGradients = _ref$enableCustomGrad === void 0 ? true : _ref$enableCustomGrad,
     value = _ref.value,
     onInput = _ref.onInput,
-    props = _objectWithoutProperties(_ref, _excluded$J);
+    props = _objectWithoutProperties(_ref, _excluded$L);
   return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "gradient",
     value: value
@@ -858,10 +858,10 @@ function edit$l(_ref) {
   }));
 }
 
-var _excluded$I = ["value"];
-function save$k(_ref) {
+var _excluded$K = ["value"];
+function save$l(_ref) {
   var value = _ref.value,
-    props = _objectWithoutProperties(_ref, _excluded$I);
+    props = _objectWithoutProperties(_ref, _excluded$K);
   return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "gradient",
     dangerouslySetInnerHTML: {
@@ -870,10 +870,10 @@ function save$k(_ref) {
   }));
 }
 
-var index$h = {
+var index$i = {
   name: 'gradient-field',
-  edit: edit$l,
-  save: save$k
+  edit: edit$n,
+  save: save$l
 };
 
 var desktop = {
@@ -948,13 +948,13 @@ var getRowWidth = memoize(function (row) {
 var css$9 = ".blueprint-blocks\\:grid-field-breakpoint-toggle {\n  display: grid;\n  gap: 2px;\n  grid-auto-columns: 1fr;\n  grid-auto-flow: column;\n}\n\n.blueprint-blocks\\:grid-field-breakpoint-toggle > div {\n  align-items: center;\n  border: 1px solid transparent;\n  border-radius: var(--blueprint-blocks-border-radius);\n  cursor: pointer;\n  display: grid;\n  justify-content: center;\n  height: 26px;\n  line-height: 24px;\n  text-align: center;\n  transition: border 0.4s, colors 0.4s;\n}\n\n.blueprint-blocks\\:grid-field-breakpoint-toggle > div:hover {\n  border-color: var(--blueprint-blocks-color-accent);\n  color: var(--blueprint-blocks-color-accent);\n}\n\n.blueprint-blocks\\:grid-field-breakpoint-toggle > div:active {\n  background: var(--blueprint-blocks-color-light-gray);\n}\n\n.blueprint-blocks\\:grid-field-breakpoint-toggle > div.is-active {\n  background-color: var(--blueprint-blocks-color-accent);\n  color: var(--blueprint-blocks-color-white);\n}";
 n(css$9,{});
 
-var _excluded$H = ["onChange", "currentBreakpoint", "breakpoints"];
+var _excluded$J = ["onChange", "currentBreakpoint", "breakpoints"];
 function BreakpointToggle(_ref) {
   var onChange = _ref.onChange,
     currentBreakpoint = _ref.currentBreakpoint,
     _ref$breakpoints = _ref.breakpoints,
     breakpoints = _ref$breakpoints === void 0 ? ['desktop', 'laptop', 'tablet', 'mobile'] : _ref$breakpoints;
-    _objectWithoutProperties(_ref, _excluded$H);
+    _objectWithoutProperties(_ref, _excluded$J);
   var breakpointLabels = getBreakpointLabels(breakpoints);
   return /*#__PURE__*/React.createElement("div", {
     className: "blueprint-blocks:grid-field-breakpoint-toggle"
@@ -1104,8 +1104,8 @@ function GridControl(_ref) {
 var css$5 = ".blueprint-blocks\\:grid-field-wrap {\n  display: grid;\n  gap: 2px;\n}";
 n(css$5,{});
 
-var _excluded$G = ["onInput", "columns", "breakpoints", "gaps", "align", "justify", "enableUniqueColumnWidths", "value"];
-function edit$k(_ref) {
+var _excluded$I = ["onInput", "columns", "breakpoints", "gaps", "align", "justify", "enableUniqueColumnWidths", "value"];
+function edit$m(_ref) {
   var _breakpointLabels$;
   _ref.onInput;
     var _ref$columns = _ref.columns,
@@ -1117,7 +1117,7 @@ function edit$k(_ref) {
     _ref.justify;
     _ref.enableUniqueColumnWidths;
     var value = _ref.value,
-    props = _objectWithoutProperties(_ref, _excluded$G);
+    props = _objectWithoutProperties(_ref, _excluded$I);
   var breakpointLabels = getBreakpointLabels(breakpoints);
   var _useState = useState(breakpointLabels === null || breakpointLabels === void 0 || (_breakpointLabels$ = breakpointLabels[0]) === null || _breakpointLabels$ === void 0 ? void 0 : _breakpointLabels$.value),
     _useState2 = _slicedToArray(_useState, 2),
@@ -1141,10 +1141,10 @@ function edit$k(_ref) {
   })));
 }
 
-var _excluded$F = ["value"];
-function save$j(_ref) {
+var _excluded$H = ["value"];
+function save$k(_ref) {
   var value = _ref.value,
-    props = _objectWithoutProperties(_ref, _excluded$F);
+    props = _objectWithoutProperties(_ref, _excluded$H);
   return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "grid",
     dangerouslySetInnerHTML: {
@@ -1153,19 +1153,19 @@ function save$j(_ref) {
   }));
 }
 
-var index$g = {
+var index$h = {
   name: 'grid-field',
-  edit: edit$k,
-  save: save$j
+  edit: edit$m,
+  save: save$k
 };
 
-var _excluded$E = ["children", "dangerouslySetInnerHTML", "innerHtml"];
-function edit$j(_ref) {
+var _excluded$G = ["children", "dangerouslySetInnerHTML", "innerHtml"];
+function edit$l(_ref) {
   var children = _ref.children;
     _ref.dangerouslySetInnerHTML;
     var _ref$innerHtml = _ref.innerHtml,
     innerHtml = _ref$innerHtml === void 0 ? '' : _ref$innerHtml,
-    props = _objectWithoutProperties(_ref, _excluded$E);
+    props = _objectWithoutProperties(_ref, _excluded$G);
   if (innerHtml.length > 0) {
     return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
       type: "html",
@@ -1180,13 +1180,13 @@ function edit$j(_ref) {
   }));
 }
 
-var _excluded$D = ["children", "dangerouslySetInnerHTML", "innerHtml"];
-function save$i(_ref) {
+var _excluded$F = ["children", "dangerouslySetInnerHTML", "innerHtml"];
+function save$j(_ref) {
   var children = _ref.children;
     _ref.dangerouslySetInnerHTML;
     var _ref$innerHtml = _ref.innerHtml,
     innerHtml = _ref$innerHtml === void 0 ? '' : _ref$innerHtml,
-    props = _objectWithoutProperties(_ref, _excluded$D);
+    props = _objectWithoutProperties(_ref, _excluded$F);
   if (innerHtml.length > 0) {
     return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
       type: "html",
@@ -1204,9 +1204,173 @@ function save$i(_ref) {
   }));
 }
 
-var index$f = {
+var index$g = {
   name: 'html',
-  edit: edit$j,
+  edit: edit$l,
+  save: save$j
+};
+
+var _excluded$E = ["onInput", "label", "noticeUI", "noticeOperations", "value"],
+  _excluded2$3 = ["id", "height", "type", "url", "width"];
+var divStyle = {
+  position: 'relative',
+  width: 'fit-content'
+};
+var imgStyle$1 = {
+  display: 'block'
+};
+var optionsStyle$1 = {
+  alignItems: 'center',
+  background: 'rgba(0, 0, 0, 0.5)',
+  bottom: '0',
+  display: 'flex',
+  left: '0',
+  justifyContent: 'center',
+  opacity: '0',
+  position: 'absolute',
+  right: '0',
+  top: '0',
+  transition: 'opacity 0.4s'
+};
+var optionsHoverStyle$1 = {
+  opacity: '1'
+};
+var optionsDivStyle$1 = {
+  alignItems: 'center',
+  background: '#fff',
+  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+  borderRadius: '4px',
+  display: 'flex',
+  justifyContent: 'center',
+  padding: '4px'
+};
+var optionsButtonStyle$1 = {
+  height: '32px',
+  borderRadius: '4px',
+  justifyContent: 'center',
+  width: '32px'
+};
+var optionsButtonHoverStyle$1 = {
+  background: '#eee'
+};
+function edit$j(_ref) {
+  var onInput = _ref.onInput,
+    label = _ref.label,
+    noticeUI = _ref.noticeUI,
+    noticeOperations = _ref.noticeOperations,
+    _ref$value = _ref.value,
+    value = _ref$value === void 0 ? null : _ref$value,
+    props = _objectWithoutProperties(_ref, _excluded$E);
+  var _useState = useState(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    hasHover = _useState2[0],
+    setHasHover = _useState2[1];
+  var _useState3 = useState(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    optionHover = _useState4[0],
+    setOptionHover = _useState4[1];
+  var onRemove = function onRemove() {
+    onInput(null);
+  };
+  var onSelect = function onSelect(_ref2) {
+    var id = _ref2.id,
+      height = _ref2.height,
+      type = _ref2.type,
+      url = _ref2.url,
+      width = _ref2.width;
+      _objectWithoutProperties(_ref2, _excluded2$3);
+    onInput({
+      id: id,
+      height: height,
+      width: width,
+      type: type,
+      url: url
+    });
+  };
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
+    type: "image",
+    value: value
+  }), value === null && /*#__PURE__*/React.createElement(MediaPlaceholder, {
+    icon: "format-image",
+    labels: {
+      title: label
+    },
+    allowedTypes: ['image'],
+    multiple: false,
+    onSelect: onSelect,
+    notices: noticeUI,
+    onError: noticeOperations.createErrorNotice
+  }), value !== null && /*#__PURE__*/React.createElement("div", {
+    style: divStyle,
+    onMouseEnter: function onMouseEnter() {
+      return setHasHover(true);
+    },
+    onMouseLeave: function onMouseLeave() {
+      return setHasHover(false);
+    }
+  }, /*#__PURE__*/React.createElement("img", {
+    src: value === null || value === void 0 ? void 0 : value.url,
+    style: imgStyle$1
+  }), /*#__PURE__*/React.createElement("div", {
+    style: _objectSpread2(_objectSpread2({}, optionsStyle$1), hasHover === true && optionsHoverStyle$1)
+  }, /*#__PURE__*/React.createElement("div", {
+    style: optionsDivStyle$1
+  }, /*#__PURE__*/React.createElement(MediaUpload, {
+    allowedTypes: ['image'],
+    gallery: false,
+    multiple: false,
+    onSelect: onSelect,
+    value: (value === null || value === void 0 ? void 0 : value.id) || null,
+    render: function render(_ref3) {
+      var open = _ref3.open;
+      return /*#__PURE__*/React.createElement(Button, {
+        label: __("Edit ".concat(label || 'Image')),
+        onClick: open,
+        icon: /*#__PURE__*/React.createElement("span", {
+          className: "dashicons dashicons-edit"
+        }),
+        style: _objectSpread2(_objectSpread2({}, optionsButtonStyle$1), optionHover === 'edit' && optionsButtonHoverStyle$1),
+        onMouseEnter: function onMouseEnter() {
+          return setOptionHover('edit');
+        },
+        onMouseLeave: function onMouseLeave() {
+          return setOptionHover(null);
+        }
+      });
+    }
+  }), /*#__PURE__*/React.createElement(Button, {
+    label: __("Remove ".concat(label || 'Image')),
+    icon: /*#__PURE__*/React.createElement("span", {
+      className: "dashicons dashicons-trash"
+    }),
+    onClick: onRemove,
+    style: _objectSpread2(_objectSpread2({}, optionsButtonStyle$1), optionHover === 'remove' && optionsButtonHoverStyle$1),
+    onMouseEnter: function onMouseEnter() {
+      return setOptionHover('remove');
+    },
+    onMouseLeave: function onMouseLeave() {
+      return setOptionHover(null);
+    }
+  })))));
+}
+var edit$k = withNotices(edit$j);
+
+var _excluded$D = ["allowedTypes", "value"];
+function save$i(_ref) {
+  _ref.allowedTypes;
+    var _ref$value = _ref.value,
+    value = _ref$value === void 0 ? [] : _ref$value,
+    props = _objectWithoutProperties(_ref, _excluded$D);
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
+    tagName: "img",
+    type: "image",
+    src: value === null || value === void 0 ? void 0 : value.url
+  }));
+}
+
+var index$f = {
+  name: 'image-field',
+  edit: edit$k,
   save: save$i
 };
 
@@ -1254,7 +1418,7 @@ function edit$i(_ref) {
   return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "increment",
     value: value
-  }), /*#__PURE__*/React.createElement("div", {
+  }), 'incrementfield34ewdsxa', /*#__PURE__*/React.createElement("div", {
     className: "blueprint-blocks:increment-field-wrap"
   }, /*#__PURE__*/React.createElement("div", {
     className: classNames('blueprint-blocks:increment-field-minus', {
@@ -1458,7 +1622,7 @@ var toggleStyle = {
   padding: '0',
   width: '16px'
 };
-var wrapStyle$3 = {
+var wrapStyle$2 = {
   background: '#fff',
   boxShadow: 'var(--blueprint-blocks-box-shadow)',
   borderRadius: '4px',
@@ -1508,14 +1672,14 @@ function Dialog(_ref) {
       return openDialog(!isDialogOpen);
     }
   }), isDialogOpen && /*#__PURE__*/React.createElement("div", {
-    style: wrapStyle$3
+    style: wrapStyle$2
   }, children, /*#__PURE__*/React.createElement("div", {
     style: wrapAfterStyle
   })));
 }
 
 var _excluded$v = ["onInput", "className", "placeholder", "value"];
-var wrapStyle$2 = {
+var wrapStyle$1 = {
   position: 'relative'
 };
 var propertiesStyle = {
@@ -1557,7 +1721,7 @@ function edit$f(_ref) {
     type: "link",
     value: value
   }), /*#__PURE__*/React.createElement("div", {
-    style: wrapStyle$2
+    style: wrapStyle$1
   }, /*#__PURE__*/React.createElement(RichTextField.edit, {
     tagName: "span",
     placeholder: placeholder,
@@ -1793,9 +1957,6 @@ var hasValue = memoize(function (value) {
 var _excluded$r = ["onInput", "label", "allowedTypes", "multiple", "noticeUI", "noticeOperations", "value"],
   _excluded2$2 = ["id", "height", "type", "url", "width"],
   _excluded3$1 = ["id", "height", "type", "url", "width"];
-var wrapStyle$1 = {
-  position: 'relative'
-};
 var itemsStyle$1 = {
   position: 'relative'
 };
@@ -1897,24 +2058,7 @@ function edit$c(_ref) {
       };
     }));
   };
-  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
-    type: "media",
-    value: value
-  }), /*#__PURE__*/React.createElement("div", {
-    style: wrapStyle$1
-  }, !hasValue(value) && /*#__PURE__*/React.createElement(MediaPlaceholder, {
-    icon: "format-image",
-    labels: {
-      title: label
-    },
-    allowedTypes: ALL_TYPES,
-    multiple: multiple,
-    onSelect: multiple && selectMultiple || selectItem,
-    notices: noticeUI,
-    onError: noticeOperations.createErrorNotice
-  }), hasValue(value) && /*#__PURE__*/React.createElement("div", {
-    style: itemsStyle$1
-  }, (value || []).map(function (_ref4, index) {
+  var imagesJsx = (value || []).map(function (_ref4, index) {
     var id = _ref4.id;
       _ref4.height;
       var type = _ref4.type,
@@ -1951,10 +2095,8 @@ function edit$c(_ref) {
         return /*#__PURE__*/React.createElement(Button, {
           label: __("Edit ".concat(label || 'Image')),
           onClick: open,
-          icon: /*#__PURE__*/React.createElement("div", {
-            dangerouslySetInnerHTML: {
-              __html: pencil
-            }
+          icon: /*#__PURE__*/React.createElement("span", {
+            className: "dashicons dashicons-edit"
           }),
           style: _objectSpread2(_objectSpread2({}, optionsButtonStyle), optionHover === 'edit' && optionsButtonHoverStyle),
           onMouseEnter: function onMouseEnter() {
@@ -1967,10 +2109,8 @@ function edit$c(_ref) {
       }
     }), /*#__PURE__*/React.createElement(Button, {
       label: __("Remove ".concat(label || 'Image')),
-      icon: /*#__PURE__*/React.createElement("div", {
-        dangerouslySetInnerHTML: {
-          __html: trash
-        }
+      icon: /*#__PURE__*/React.createElement("span", {
+        className: "dashicons dashicons-trash"
       }),
       onClick: function onClick() {
         return removeItem(id);
@@ -1983,7 +2123,23 @@ function edit$c(_ref) {
         return setOptionHover(null);
       }
     }))));
-  }), multiple && /*#__PURE__*/React.createElement(MediaUpload, {
+  });
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
+    type: "media",
+    value: value
+  }), !hasValue(value) && /*#__PURE__*/React.createElement(MediaPlaceholder, {
+    icon: "format-image",
+    labels: {
+      title: label
+    },
+    allowedTypes: ALL_TYPES,
+    multiple: multiple,
+    onSelect: multiple && selectMultiple || selectItem,
+    notices: noticeUI,
+    onError: noticeOperations.createErrorNotice
+  }), hasValue(value) && multiple === true && /*#__PURE__*/React.createElement("div", {
+    style: itemsStyle$1
+  }, imagesJsx, /*#__PURE__*/React.createElement(MediaUpload, {
     allowedTypes: ALL_TYPES,
     gallery: multiple,
     multiple: multiple,
@@ -2002,7 +2158,7 @@ function edit$c(_ref) {
         }
       }));
     }
-  }))));
+  })), hasValue(value) && multiple !== true && imagesJsx);
 }
 var edit$d = withNotices(edit$c);
 
@@ -2014,19 +2170,19 @@ function save$c(_ref) {
     var _ref$value = _ref.value,
     value = _ref$value === void 0 ? [] : _ref$value,
     props = _objectWithoutProperties(_ref, _excluded$q);
+  if (getAllowedTypes(allowedTypes).includes('image') === false) {
+    return null;
+  }
   return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "media"
-  }), (value || []).map(function (_ref2) {
-    _ref2.id;
-      _ref2.height;
-      var type = _ref2.type,
-      url = _ref2.url;
-      _ref2.width;
-    return /*#__PURE__*/React.createElement("div", null, type === 'image' && getAllowedTypes(allowedTypes).includes('image') && /*#__PURE__*/React.createElement("img", {
+  }), (value || []).filter(function (_ref2) {
+    var type = _ref2.type;
+    return type === 'image';
+  }).map(function (_ref3) {
+    var url = _ref3.url;
+    return /*#__PURE__*/React.createElement("img", {
       src: url
-    }), type === 'pdf' && getAllowedTypes(allowedTypes).includes('pdf') && /*#__PURE__*/React.createElement("span", {
-      className: "fa-solid fa-file-pdf"
-    }));
+    });
   }));
 }
 
@@ -3098,14 +3254,15 @@ var index = {
 
 var Fields = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	AlignField: index$l,
-	AnchorField: index$k,
+	AlignField: index$m,
+	AnchorField: index$l,
 	BooleanField: BooleanField,
-	ColorField: index$j,
-	EmailField: index$i,
-	GradientField: index$h,
-	GridField: index$g,
-	Html: index$f,
+	ColorField: index$k,
+	EmailField: index$j,
+	GradientField: index$i,
+	GridField: index$h,
+	Html: index$g,
+	ImageField: index$f,
 	IncrementField: IncrementField,
 	InnerBlocks: index$e,
 	LinkField: index$d,
@@ -3321,5 +3478,5 @@ function BlockSave(blueprint) {
   };
 }
 
-export { index$l as AlignField, index$k as AnchorField, BlockEdit, BlockSave, BooleanField, index$j as ColorField, index$i as EmailField, index$h as GradientField, index$g as GridField, index$f as Html, IncrementField, index$e as InnerBlocks, index$d as LinkField, index$c as MarginField, index$b as MediaField, index$a as NumberField, index$9 as PaddingField, index$8 as PositionField, RangeField, index$7 as RepeatingField, RichTextField, index$6 as SelectField, index$4 as TextAlignField, TextField, index$3 as TextSizeField, index$5 as TextareaField, index$2 as ToggleField, ToolbarField, index$1 as UrlField, index as WidthField };
+export { index$m as AlignField, index$l as AnchorField, BlockEdit, BlockSave, BooleanField, index$k as ColorField, index$j as EmailField, index$i as GradientField, index$h as GridField, index$g as Html, index$f as ImageField, IncrementField, index$e as InnerBlocks, index$d as LinkField, index$c as MarginField, index$b as MediaField, index$a as NumberField, index$9 as PaddingField, index$8 as PositionField, RangeField, index$7 as RepeatingField, RichTextField, index$6 as SelectField, index$4 as TextAlignField, TextField, index$3 as TextSizeField, index$5 as TextareaField, index$2 as ToggleField, ToolbarField, index$1 as UrlField, index as WidthField };
 //# sourceMappingURL=index.js.map

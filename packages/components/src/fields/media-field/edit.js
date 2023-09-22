@@ -10,10 +10,6 @@ import hasValue from './functions/has-value.js'
 
 import ALL_TYPES from './data/types.json'
 
-const wrapStyle = {
-	position: 'relative',
-}
-
 const itemsStyle = {
 	position: 'relative',
 }
@@ -102,95 +98,96 @@ function edit( {
 		)
 	}
 
+	const imagesJsx = ( value || [] ).map( ( { id, height, type, url, width }, index ) => (
+		<div
+			style={ itemStyle }
+			onMouseEnter={ () => setItemHoverIndex( index ) }
+			onMouseLeave={ () => setItemHoverIndex( null ) }
+		>
+			{ type === 'image' && getAllowedTypes( allowedTypes ).includes( 'image' ) && (
+				<img src={ url } style={ imgStyle }/>
+			) }
+			{ type === 'pdf' && getAllowedTypes( allowedTypes ).includes( 'pdf' ) && (
+				<span className="fa-solid fa-file-pdf"/>
+			) }
+			<div style={ {
+				...optionsStyle,
+				...( itemHoverIndex === index && optionsHoverStyle ),
+			} }>
+				<div style={ optionsDivStyle }>
+					<MediaUpload
+						allowedTypes={ ALL_TYPES }
+						gallery={ multiple }
+						multiple={ multiple }
+						onSelect={ multiple && selectMultiple || selectItem }
+						value={ value.map( ( { id } ) => id ) }
+						render={ ( { open } ) => (
+							<Button
+								label={ __( `Edit ${ label || 'Image' }` ) }
+								onClick={ open }
+								icon={ <span className="dashicons dashicons-edit"></span> }
+								style={ {
+									...optionsButtonStyle,
+									...( optionHover === 'edit' && optionsButtonHoverStyle ),
+								} }
+								onMouseEnter={ () => setOptionHover( 'edit' ) }
+								onMouseLeave={ () => setOptionHover( null ) }
+							/>
+						) }
+					/>
+					<Button
+						label={ __( `Remove ${label || 'Image' }` ) }
+						icon={ <span className="dashicons dashicons-trash"></span> }
+						onClick={ () => removeItem(id) }
+						style={ {
+							...optionsButtonStyle,
+							...( optionHover === 'remove' && optionsButtonHoverStyle ),
+						} }
+						onMouseEnter={ () => setOptionHover( 'remove' ) }
+						onMouseLeave={ () => setOptionHover( null ) }
+					/>
+				</div>
+			</div>
+		</div>
+	) )
+
 	return (
 		<Field.edit
 			{ ...props }
 			type="media"
 			value={ value }
 		>
-			<div style={ wrapStyle }>
-				{ !hasValue( value ) && (
-					<MediaPlaceholder
-						icon="format-image"
-						labels={ { title: label } }
+			{ !hasValue( value ) && (
+				<MediaPlaceholder
+					icon="format-image"
+					labels={ { title: label } }
+					allowedTypes={ ALL_TYPES }
+					multiple={ multiple }
+					onSelect={ multiple && selectMultiple || selectItem }
+					notices={ noticeUI }
+					onError={ noticeOperations.createErrorNotice }
+				/>
+			) }
+			{ hasValue( value ) && multiple === true && (
+				<div style={ itemsStyle }>
+					{ imagesJsx }
+					<MediaUpload
 						allowedTypes={ ALL_TYPES }
+						gallery={ multiple }
 						multiple={ multiple }
 						onSelect={ multiple && selectMultiple || selectItem }
-						notices={ noticeUI }
-						onError={ noticeOperations.createErrorNotice }
-					/>
-				) }
-				{ hasValue( value ) && (
-					<div style={ itemsStyle }>
-						{ (value || []).map( ( { id, height, type, url, width }, index ) => (
-							<div
-								style={ itemStyle }
-								onMouseEnter={ () => setItemHoverIndex( index ) }
-								onMouseLeave={ () => setItemHoverIndex( null ) }
-							>
-								{ type === 'image' && getAllowedTypes( allowedTypes ).includes( 'image' ) && (
-									<img src={ url } style={ imgStyle }/>
-								) }
-								{ type === 'pdf' && getAllowedTypes( allowedTypes ).includes( 'pdf' ) && (
-									<span className="fa-solid fa-file-pdf"/>
-								) }
-								<div style={ {
-									...optionsStyle,
-									...( itemHoverIndex === index && optionsHoverStyle ),
-								} }>
-									<div style={ optionsDivStyle }>
-										<MediaUpload
-											allowedTypes={ ALL_TYPES }
-											gallery={ multiple }
-											multiple={ multiple }
-											onSelect={ multiple && selectMultiple || selectItem }
-											value={ value.map( ( { id } ) => id ) }
-											render={ ( { open } ) => (
-												<Button
-													label={ __( `Edit ${ label || 'Image' }` ) }
-													onClick={ open }
-													icon={ <div dangerouslySetInnerHTML={ { __html: pencil } }/> }
-													style={ {
-														...optionsButtonStyle,
-														...( optionHover === 'edit' && optionsButtonHoverStyle ),
-													} }
-													onMouseEnter={ () => setOptionHover( 'edit' ) }
-													onMouseLeave={ () => setOptionHover( null ) }
-												/>
-											) }
-										/>
-										<Button
-											label={ __( `Remove ${label || 'Image' }` ) }
-											icon={ <div dangerouslySetInnerHTML={ { __html: trash } }/> }
-											onClick={ () => removeItem(id) }
-											style={ {
-												...optionsButtonStyle,
-												...( optionHover === 'remove' && optionsButtonHoverStyle ),
-											} }
-											onMouseEnter={ () => setOptionHover( 'remove' ) }
-											onMouseLeave={ () => setOptionHover( null ) }
-										/>
-									</div>
-								</div>
+						value={ value.map( ( { id } ) => id ) }
+						render={ ( { open } ) => (
+							<div onClick={ open }>
+								<div dangerouslySetInnerHTML={ { __html: plus } }/>
 							</div>
-						) ) }
-						{ multiple && (
-							<MediaUpload
-								allowedTypes={ ALL_TYPES }
-								gallery={ multiple }
-								multiple={ multiple }
-								onSelect={ multiple && selectMultiple || selectItem }
-								value={ value.map( ( { id } ) => id ) }
-								render={ ( { open } ) => (
-									<div onClick={ open }>
-										<div dangerouslySetInnerHTML={ { __html: plus } }/>
-									</div>
-								) }
-							/>
 						) }
-					</div>
-				) }
-			</div>
+					/>
+				</div>
+			) }
+			{ hasValue( value ) && multiple !== true && (
+				imagesJsx
+			) }
 		</Field.edit>
 	)
 }

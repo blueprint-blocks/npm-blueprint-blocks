@@ -1,5 +1,3 @@
-import { replaceTokens } from '@blueprint-blocks/utility'
-
 const selfClosingTagNames = [
 	'area',
 	'base',

@@ -6,13 +6,13 @@
 import { useSelect } from '@wordpress/data'
 
 /**
- * 
- * @param {*} clientId 
- * @returns 
+ *
+ * @param {*} clientId
+ * @returns
  */
 function getBlockIndex( clientId ) {
 	const { getBlockIndex } = useSelect( ( select ) => ( {
-		getBlockIndex: select( 'core/editor' ).getBlockIndex
+		getBlockIndex: select( 'core/block-editor' )?.getBlockIndex
 	} ) )
 	return getBlockIndex( clientId ) || 0
 }

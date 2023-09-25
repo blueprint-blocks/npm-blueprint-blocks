@@ -263,14 +263,15 @@ function getBlockContext() {
  */
 
 /**
- * 
- * @param {*} clientId 
- * @returns 
+ *
+ * @param {*} clientId
+ * @returns
  */
 function getBlockIndex(clientId) {
   var _useSelect = useSelect(function (select) {
+      var _select;
       return {
-        getBlockIndex: select('core/editor').getBlockIndex
+        getBlockIndex: (_select = select('core/block-editor')) === null || _select === void 0 ? void 0 : _select.getBlockIndex
       };
     }),
     getBlockIndex = _useSelect.getBlockIndex;
@@ -284,14 +285,15 @@ function getBlockIndex(clientId) {
  */
 
 /**
- * 
- * @param {*} clientId 
- * @returns 
+ *
+ * @param {*} clientId
+ * @returns
  */
 function getInnerBlocks(clientId) {
   var _useSelect = useSelect(function (select) {
+      var _select;
       return {
-        getBlocks: select('core/block-editor').getBlocks
+        getBlocks: (_select = select('core/block-editor')) === null || _select === void 0 ? void 0 : _select.getBlocks
       };
     }),
     getBlocks = _useSelect.getBlocks;

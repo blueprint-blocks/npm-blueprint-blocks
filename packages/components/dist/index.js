@@ -1486,7 +1486,8 @@ function edit$h(_ref) {
     props = _objectWithoutProperties(_ref, _excluded$A);
   var clientId = props.clientId;
   var innerBlocksLength = useSelect(function (select) {
-    return select('core/block-editor').getBlock(clientId).innerBlocks.length;
+    var _select$getBlock;
+    return ((_select$getBlock = select('core/block-editor').getBlock(clientId)) === null || _select$getBlock === void 0 || (_select$getBlock = _select$getBlock.innerBlocks) === null || _select$getBlock === void 0 ? void 0 : _select$getBlock.length) || 0;
   });
   return /*#__PURE__*/React.createElement(InnerBlocks, _extends({
     allowedBlocks: allowedBlocks,
@@ -3324,7 +3325,6 @@ addFilter('blocks.registerBlockType', 'blueprint-blocks/default-attributes', fun
  */
 function BlockEdit(blueprint) {
   return function (_ref2) {
-    var _getInnerBlocks;
     var clientId = _ref2.clientId,
       props = _objectWithoutProperties(_ref2, _excluded$1);
     var _useState = useState((props === null || props === void 0 ? void 0 : props.attributes) || {}),
@@ -3333,7 +3333,7 @@ function BlockEdit(blueprint) {
       setStateAttributes = _useState2[1];
     props === null || props === void 0 || props.setAttributes({
       _index: getBlockIndex(clientId),
-      _innerBlocksLength: ((_getInnerBlocks = getInnerBlocks(clientId)) === null || _getInnerBlocks === void 0 ? void 0 : _getInnerBlocks.length) || 0
+      _innerBlocksLength: getInnerBlocks(clientId).length || 0
     });
 
     /**

@@ -92,7 +92,7 @@ function BlockEdit( blueprint ) {
 
 		props?.setAttributes( {
 			_index: getBlockIndex( clientId ),
-			_innerBlocksLength: ( getInnerBlocks( clientId )?.length || 0 ),
+			_innerBlocksLength: ( getInnerBlocks( clientId ).length || 0 ),
 		} )
 
 		/**

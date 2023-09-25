@@ -6,13 +6,13 @@
 import { useSelect } from '@wordpress/data'
 
 /**
- * 
- * @param {*} clientId 
- * @returns 
+ *
+ * @param {*} clientId
+ * @returns
  */
 function getInnerBlocks( clientId ) {
 	const { getBlocks } = useSelect( ( select ) => ( {
-		getBlocks: select( 'core/block-editor' ).getBlocks
+		getBlocks: select( 'core/block-editor' )?.getBlocks
 	} ) )
 	return getBlocks( clientId ) || []
 }

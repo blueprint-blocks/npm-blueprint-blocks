@@ -13,7 +13,7 @@ function edit( {
 
 	const { clientId } = props
 	const innerBlocksLength = useSelect( ( select ) => (
-		select( 'core/block-editor' ).getBlock( clientId ).innerBlocks.length
+		select( 'core/block-editor' ).getBlock( clientId )?.innerBlocks?.length || 0
 	) )
 
 	return (

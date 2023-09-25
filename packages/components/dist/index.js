@@ -292,7 +292,7 @@ function edit$u(_ref) {
   }, label), children);
 }
 
-var _excluded$Z = ["attributes", "blockName", "name", "label", "children", "innerHtml", "className", "tagName", "type", "render"];
+var _excluded$Z = ["attributes", "blockName", "name", "label", "children", "innerHtml", "className", "tagName", "type", "display"];
 var selfClosingTagNames = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
 function save$t(_ref) {
   _ref.attributes;
@@ -307,10 +307,10 @@ function save$t(_ref) {
     _ref$tagName = _ref.tagName,
     tagName = _ref$tagName === void 0 ? 'div' : _ref$tagName;
     _ref.type;
-    var _ref$render = _ref.render,
-    render = _ref$render === void 0 ? true : _ref$render,
+    var _ref$display = _ref.display,
+    display = _ref$display === void 0 ? true : _ref$display,
     props = _objectWithoutProperties(_ref, _excluded$Z);
-  if (render !== true && Boolean(render) === false) {
+  if (display !== true && Boolean(display) === false) {
     return;
   }
   var fieldProps = Object.assign({}, props);

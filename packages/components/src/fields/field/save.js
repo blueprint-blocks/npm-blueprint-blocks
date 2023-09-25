@@ -27,11 +27,11 @@ function save( {
 	className = '',
 	tagName = 'div',
 	type = 'field',
-	render = true,
+	display = true,
 	...props
 } ) {
 
-	if ( render !== true && Boolean( render ) === false ) {
+	if ( display !== true && Boolean( display ) === false ) {
 		return
 	}
 

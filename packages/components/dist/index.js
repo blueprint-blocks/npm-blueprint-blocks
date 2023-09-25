@@ -1,7 +1,7 @@
 import { isExternalUrl, isFragmentUrl, replaceTokens, useClickOutside, getBlockIndex, getInnerBlocks, getBlockContext, classNames as classNames$1, styles, renderJsxArray } from '@blueprint-blocks/utility';
 import { __ } from '@wordpress/i18n';
 import { ToolbarButton, ColorPalette, GradientPicker, withNotices, Button, SelectControl, TextareaControl, PanelBody, ToolbarGroup } from '@wordpress/components';
-import { MediaPlaceholder, MediaUpload, InnerBlocks, RichText, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
+import { MediaPlaceholder, MediaUpload, InnerBlocks, RichText, URLInput, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
 import { createRef, useState, useEffect } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
 import classNames from 'classnames';
@@ -292,7 +292,7 @@ function edit$u(_ref) {
   }, label), children);
 }
 
-var _excluded$Z = ["attributes", "blockName", "name", "label", "children", "innerHtml", "className", "tagName", "type"];
+var _excluded$Z = ["attributes", "blockName", "name", "label", "children", "innerHtml", "className", "tagName", "type", "render"];
 var selfClosingTagNames = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
 function save$t(_ref) {
   _ref.attributes;
@@ -307,12 +307,17 @@ function save$t(_ref) {
     _ref$tagName = _ref.tagName,
     tagName = _ref$tagName === void 0 ? 'div' : _ref$tagName;
     _ref.type;
-    var props = _objectWithoutProperties(_ref, _excluded$Z);
+    var _ref$render = _ref.render,
+    render = _ref$render === void 0 ? true : _ref$render,
+    props = _objectWithoutProperties(_ref, _excluded$Z);
+  if (render !== true && Boolean(render) === false) {
+    return;
+  }
   var fieldProps = Object.assign({}, props);
   if (className) {
     fieldProps.className = className;
   }
-  if (tagName === 'a' && 'href' in fieldProps && !('rel' in fieldProps) && (isExternalUrl(href) || isFragmentUrl(href))) {
+  if (tagName === 'a' && 'href' in fieldProps && !('rel' in fieldProps) && (isExternalUrl(fieldProps.href) || isFragmentUrl(fieldProps.href))) {
     fieldProps.rel = 'noopener';
   }
   var Component = tagName;
@@ -1588,6 +1593,9 @@ function save$f(_ref) {
     tagName = _ref$tagName === void 0 ? 'p' : _ref$tagName,
     value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$x);
+  if (value === '' || value === null) {
+    return;
+  }
   return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     tagName: tagName,
     type: "rich-text",
@@ -3163,32 +3171,21 @@ var index$2 = {
 var css = ".blueprint-blocks\\:url-field input[type=text] {\n  border: var(--blueprint-blocks-border);\n  border-radius: var(--blueprint-blocks-border-radius);\n  color: var(--blueprint-blocks-color);\n  display: block;\n  font-size: var(--blueprint-blocks-font-size) !important;\n  height: 32px !important;\n  line-height: 30px !important;\n  padding: 0 8px;\n  text-align: inherit;\n  transition: none;\n  width: 100% !important;\n}\n\n.blueprint-blocks\\:url-field input[type=text]::placeholder,\n.blueprint-blocks\\:url-field input[type=text]:focus::placeholder,\n.blueprint-blocks\\:url-field input[type=text]:hover::placeholder {\n  color: var(--blueprint-blocks-color);\n  opacity: 0.5;\n}";
 n(css,{});
 
-var _excluded$5 = ["onInput", "placeholder", "required", "value"];
+var _excluded$5 = ["onInput", "placeholder", "value"];
 function edit$1(_ref) {
   var onInput = _ref.onInput,
     placeholder = _ref.placeholder,
-    _ref$required = _ref.required,
-    required = _ref$required === void 0 ? false : _ref$required,
     value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$5);
-  var ref = createRef();
   return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "url",
     value: value
-  }), /*#__PURE__*/React.createElement("input", {
-    type: "text",
-    onBlur: function onBlur() {
-      var _ref$current;
-      return ref === null || ref === void 0 || (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.reportValidity();
-    },
-    onChange: function onChange(_ref2) {
-      var target = _ref2.target;
-      return onInput(target.value);
+  }), '', /*#__PURE__*/React.createElement(URLInput, {
+    onChange: function onChange(url) {
+      return onInput(url);
     },
     placeholder: placeholder,
-    required: required,
-    value: value,
-    ref: ref
+    value: value
   }));
 }
 
@@ -3197,7 +3194,7 @@ function save$1(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$4);
   return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
-    type: "number",
+    type: "url",
     dangerouslySetInnerHTML: {
       __html: value
     }

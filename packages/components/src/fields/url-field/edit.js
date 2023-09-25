@@ -1,17 +1,14 @@
-import { createRef } from '@wordpress/element'
+import { URLInput } from '@wordpress/block-editor'
 import Field from '../field/index.js'
 
 import './style.scss'
 
-function edit( { 
-	onInput, 
-	placeholder, 
-	required = false, 
-	value, 
-	...props 
+function edit( {
+	onInput,
+	placeholder,
+	value,
+	...props
 } ) {
-
-	const ref = createRef()
 
 	return (
 		<Field.edit
@@ -19,14 +16,11 @@ function edit( {
 			type="url"
 			value={ value }
 		>
-			<input
-				type="text"
-				onBlur={ () => ref?.current?.reportValidity() }
-                onChange={ ( { target } ) => onInput(target.value) }
+			{ '' }
+			<URLInput
+				onChange={ ( url ) => onInput( url ) }
                 placeholder={ placeholder }
-				required={ required }
                 value={ value }
-				ref={ ref }
             />
 		</Field.edit>
 	)

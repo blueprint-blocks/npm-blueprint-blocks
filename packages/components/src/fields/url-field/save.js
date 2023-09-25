@@ -5,7 +5,7 @@ function save( { value, ...props } ) {
 	return (
 		<Field.save
 			{ ...props }
-			type="number"
+			type="url"
 			dangerouslySetInnerHTML={ { __html: value } }
 		/>
 	)

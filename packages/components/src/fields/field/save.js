@@ -27,8 +27,13 @@ function save( {
 	className = '',
 	tagName = 'div',
 	type = 'field',
+	render = true,
 	...props
 } ) {
+
+	if ( render !== true && Boolean( render ) === false ) {
+		return
+	}
 
 	const fieldProps = Object.assign( {}, props )
 
@@ -36,7 +41,7 @@ function save( {
 		fieldProps.className = className
 	}
 
-	if ( tagName === 'a' && 'href' in fieldProps && !( 'rel' in fieldProps ) && ( isExternalUrl( href ) || isFragmentUrl( href ) ) ) {
+	if ( tagName === 'a' && 'href' in fieldProps && !( 'rel' in fieldProps ) && ( isExternalUrl( fieldProps.href ) || isFragmentUrl( fieldProps.href ) ) ) {
 		fieldProps.rel = 'noopener'
 	}
 

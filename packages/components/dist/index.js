@@ -1,4 +1,4 @@
-import { replaceTokens, useClickOutside, isExternalUrl, getBlockIndex, getInnerBlocks, getBlockContext, classNames as classNames$1, styles, renderJsxArray } from '@blueprint-blocks/utility';
+import { replaceTokens, useClickOutside, isExternalUrl, isFragmentUrl, getBlockIndex, getInnerBlocks, getBlockContext, classNames as classNames$1, styles, renderJsxArray } from '@blueprint-blocks/utility';
 import { __ } from '@wordpress/i18n';
 import { ToolbarButton, ColorPalette, GradientPicker, withNotices, Button, SelectControl, TextareaControl, PanelBody, ToolbarGroup } from '@wordpress/components';
 import { MediaPlaceholder, MediaUpload, InnerBlocks, RichText, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
@@ -1794,7 +1794,7 @@ function save$e(_ref) {
   var href = value.href,
     target = value.target,
     label = value.label;
-  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, isExternalUrl(href) && {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, (isExternalUrl(href) || isFragmentUrl(href)) && {
     rel: 'noopener'
   }, {
     href: href,

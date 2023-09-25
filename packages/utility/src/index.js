@@ -5,6 +5,7 @@ import getBlockContext from './get-block-context.js'
 import getBlockIndex from './get-block-index.js'
 import getInnerBlocks from './get-inner-blocks.js'
 import isExternalUrl from './is-external-url.js'
+import isFragmentUrl from './is-fragment-url.js'
 import renderJsxArray from './render-jsx-array.js'
 import replaceTokens from './replace-tokens.js'
 import styles from './styles.js'
@@ -18,6 +19,7 @@ export {
 	getBlockIndex,
 	getInnerBlocks,
 	isExternalUrl,
+	isFragmentUrl,
 	renderJsxArray,
 	replaceTokens,
 	styles,

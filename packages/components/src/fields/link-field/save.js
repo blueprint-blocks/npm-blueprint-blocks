@@ -1,4 +1,3 @@
-import { isExternalUrl, isFragmentUrl } from '@blueprint-blocks/utility'
 import Field from '../field/index.js'
 
 function save( { placeholder, value, ...props } ) {
@@ -12,9 +11,6 @@ function save( { placeholder, value, ...props } ) {
 	return (
 		<Field.save
 			{ ...props }
-			{ ...( ( isExternalUrl( href ) || isFragmentUrl( href ) ) && {
-				rel: 'noopener',
-			} ) }
 			href={ href }
 			target={ target }
 			tagName="a"

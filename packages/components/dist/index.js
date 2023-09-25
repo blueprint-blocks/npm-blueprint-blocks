@@ -1,4 +1,4 @@
-import { replaceTokens, useClickOutside, isExternalUrl, isFragmentUrl, getBlockIndex, getInnerBlocks, getBlockContext, classNames as classNames$1, styles, renderJsxArray } from '@blueprint-blocks/utility';
+import { isExternalUrl, isFragmentUrl, replaceTokens, useClickOutside, getBlockIndex, getInnerBlocks, getBlockContext, classNames as classNames$1, styles, renderJsxArray } from '@blueprint-blocks/utility';
 import { __ } from '@wordpress/i18n';
 import { ToolbarButton, ColorPalette, GradientPicker, withNotices, Button, SelectControl, TextareaControl, PanelBody, ToolbarGroup } from '@wordpress/components';
 import { MediaPlaceholder, MediaUpload, InnerBlocks, RichText, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
@@ -311,6 +311,9 @@ function save$t(_ref) {
   var fieldProps = Object.assign({}, props);
   if (className) {
     fieldProps.className = className;
+  }
+  if (tagName === 'a' && 'href' in fieldProps && !('rel' in fieldProps) && (isExternalUrl(href) || isFragmentUrl(href))) {
+    fieldProps.rel = 'noopener';
   }
   var Component = tagName;
   if (selfClosingTagNames.includes(tagName) === true || ((children === null || children === void 0 ? void 0 : children.length) || 0) === 0 || props.dangerouslySetInnerHTML) ;
@@ -1794,9 +1797,7 @@ function save$e(_ref) {
   var href = value.href,
     target = value.target,
     label = value.label;
-  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, (isExternalUrl(href) || isFragmentUrl(href)) && {
-    rel: 'noopener'
-  }, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     href: href,
     target: target,
     tagName: "a",

@@ -1,3 +1,5 @@
+import { isExternalUrl, isFragmentUrl } from '@blueprint-blocks/utility'
+
 const selfClosingTagNames = [
 	'area',
 	'base',
@@ -32,6 +34,10 @@ function save( {
 
 	if ( className ) {
 		fieldProps.className = className
+	}
+
+	if ( tagName === 'a' && 'href' in fieldProps && !( 'rel' in fieldProps ) && ( isExternalUrl( href ) || isFragmentUrl( href ) ) ) {
+		fieldProps.rel = 'noopener'
 	}
 
 	const Component = tagName

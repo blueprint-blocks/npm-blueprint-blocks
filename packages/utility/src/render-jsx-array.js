@@ -17,7 +17,11 @@ function renderJsxArray( {
 	context = {}
 }, Components = {} ) {
 
-	return jsx.map( ( {
+	if ( Array.isArray( jsx ) === false || jsx.length === 0 ) {
+		return null
+	}
+
+	const jsxComponents = jsx.map( ( {
 		children = [],
 		className = [],
 		editorClassName = [],
@@ -52,10 +56,6 @@ function renderJsxArray( {
 
 		if ( 'display' in jsxAttributes ) {
 			jsxAttributes.display = evaluateConditionalString( props.display, context )
-
-			if (context?.context === 'save') {
-				console.log(jsxAttributes.display)
-			}
 		}
 
 		const jsxClassNames = classNames( [
@@ -135,6 +135,12 @@ function renderJsxArray( {
 		)
 
 	} )
+
+	if ( jsxComponents.length === 1 ) {
+		return jsxComponents[ 0 ]
+	}
+
+	return jsxComponents
 
 }
 

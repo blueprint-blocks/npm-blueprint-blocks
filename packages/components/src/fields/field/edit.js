@@ -29,7 +29,6 @@ function edit( {
 	attributes = {},
 	clientId,
 	blockName,
-	name,
 	attributeName,
 	children = [],
 	dangerouslySetInnerHTML,
@@ -71,7 +70,7 @@ function edit( {
 		)
 	}
 
-	if ( selfClosingTagNames.includes(tagName) === true || ((children?.length || 0) === 0 && (label?.length || 0) === 0) ) {
+	if ( selfClosingTagNames.includes( tagName ) === true || ( Boolean( children ) === false && ( label?.length || 0 ) === 0) ) {
 		return (
 			<Component
 				{ ...props }

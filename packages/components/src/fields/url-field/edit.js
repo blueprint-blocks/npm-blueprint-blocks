@@ -16,7 +16,6 @@ function edit( {
 			type="url"
 			value={ value }
 		>
-			{ '' }
 			<URLInput
 				onChange={ ( url ) => onInput( url ) }
                 placeholder={ placeholder }

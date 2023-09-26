@@ -232,7 +232,7 @@ function edit$v(_ref) {
 var css$b = ".components-panel__body .blueprint-blocks\\:field {\n  margin: 0 0 16px;\n}\n\n.components-panel__body .blueprint-blocks\\:field:last-child {\n  margin-bottom: 0;\n}\n\n.blueprint-blocks\\:field-label {\n  margin-bottom: 8px;\n}";
 n(css$b,{});
 
-var _excluded$_ = ["attributes", "clientId", "blockName", "name", "attributeName", "children", "dangerouslySetInnerHTML", "innerHtml", "className", "label", "tagName", "type", "display", "value", "onInput"];
+var _excluded$_ = ["attributes", "clientId", "blockName", "attributeName", "children", "dangerouslySetInnerHTML", "innerHtml", "className", "label", "tagName", "type", "display", "value", "onInput"];
 var selfClosingTagNames$1 = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
 function preventEventPropagation(event) {
   event.stopPropagation();
@@ -243,7 +243,6 @@ function edit$u(_ref) {
   _ref.attributes;
     _ref.clientId;
     _ref.blockName;
-    _ref.name;
     _ref.attributeName;
     var _ref$children = _ref.children,
     children = _ref$children === void 0 ? [] : _ref$children,
@@ -279,7 +278,7 @@ function edit$u(_ref) {
       dangerouslySetInnerHTML: dangerouslySetInnerHTML
     }));
   }
-  if (selfClosingTagNames$1.includes(tagName) === true || ((children === null || children === void 0 ? void 0 : children.length) || 0) === 0 && ((label === null || label === void 0 ? void 0 : label.length) || 0) === 0) {
+  if (selfClosingTagNames$1.includes(tagName) === true || Boolean(children) === false && ((label === null || label === void 0 ? void 0 : label.length) || 0) === 0) {
     return /*#__PURE__*/React.createElement(Component, _extends({}, props, {
       ref: ref,
       onClick: preventEventPropagation,
@@ -3190,7 +3189,7 @@ function edit$1(_ref) {
   return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "url",
     value: value
-  }), '', /*#__PURE__*/React.createElement(URLInput, {
+  }), /*#__PURE__*/React.createElement(URLInput, {
     onChange: function onChange(url) {
       return onInput(url);
     },

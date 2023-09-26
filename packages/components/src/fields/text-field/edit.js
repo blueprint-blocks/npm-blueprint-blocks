@@ -19,14 +19,14 @@ const inputStyle = {
 	width: '100%',
 }
 
-function edit( { 
-	onInput, 
-	placeholder, 
-	pattern = '', 
+function edit( {
+	onInput,
+	placeholder,
+	pattern = '',
 	customValidity = '',
-	disabled = false, 
-	required = false, 
-	value, 
+	disabled = false,
+	required = false,
+	value,
 	...props
 } ) {
 

@@ -441,7 +441,10 @@ function renderJsxArray(_ref) {
     _ref$context = _ref.context,
     context = _ref$context === void 0 ? {} : _ref$context;
   var Components = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return jsx.map(function (_ref2) {
+  if (Array.isArray(jsx) === false || jsx.length === 0) {
+    return null;
+  }
+  var jsxComponents = jsx.map(function (_ref2) {
     var _ref2$children = _ref2.children,
       children = _ref2$children === void 0 ? [] : _ref2$children,
       _ref2$className = _ref2.className,
@@ -481,9 +484,6 @@ function renderJsxArray(_ref) {
     }));
     if ('display' in jsxAttributes) {
       jsxAttributes.display = evaluateConditionalString(props.display, context);
-      if ((context === null || context === void 0 ? void 0 : context.context) === 'save') {
-        console.log(jsxAttributes.display);
-      }
     }
     var jsxClassNames = classNames([].concat(_toConsumableArray(Array.isArray(className) && className || [className]), _toConsumableArray((context === null || context === void 0 ? void 0 : context.context) === 'edit' && (Array.isArray(editorClassName) && editorClassName || [editorClassName]) || []), _toConsumableArray((context === null || context === void 0 ? void 0 : context.context) === 'save' && (Array.isArray(viewClassName) && viewClassName || [viewClassName]) || [])), _objectSpread2(_objectSpread2({}, context), {}, {
       attribute: {
@@ -540,6 +540,10 @@ function renderJsxArray(_ref) {
       context: context
     }, Components));
   });
+  if (jsxComponents.length === 1) {
+    return jsxComponents[0];
+  }
+  return jsxComponents;
 }
 
 function useClickOutside(ref, callback) {

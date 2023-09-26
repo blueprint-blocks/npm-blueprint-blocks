@@ -1,4 +1,5 @@
 import classNames from './class-names.js'
+import evaluateConditionalString from './evaluate-conditional-string.js'
 import replaceTokens from './replace-tokens.js'
 import styles from './styles.js'
 
@@ -49,12 +50,20 @@ function renderJsxArray( {
 			}
 		} ) )
 
+		if ( 'display' in jsxAttributes ) {
+			jsxAttributes.display = evaluateConditionalString( props.display, context )
+
+			if (context?.context === 'save') {
+				console.log(jsxAttributes.display)
+			}
+		}
+
 		const jsxClassNames = classNames( [
 			...( Array.isArray( className ) && className || [ className ] ),
-			...( context?.mode === 'edit' && (
+			...( context?.context === 'edit' && (
 				Array.isArray( editorClassName ) && editorClassName || [ editorClassName ]
 			) || [] ),
-			...( context?.mode === 'save' && (
+			...( context?.context === 'save' && (
 				Array.isArray( viewClassName ) && viewClassName || [ viewClassName ]
 			) || [] ),
 		], { ...context, attribute: { value: attributeValue } } )

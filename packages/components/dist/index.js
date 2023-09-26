@@ -232,7 +232,7 @@ function edit$v(_ref) {
 var css$b = ".components-panel__body .blueprint-blocks\\:field {\n  margin: 0 0 16px;\n}\n\n.components-panel__body .blueprint-blocks\\:field:last-child {\n  margin-bottom: 0;\n}\n\n.blueprint-blocks\\:field-label {\n  margin-bottom: 8px;\n}";
 n(css$b,{});
 
-var _excluded$_ = ["attributes", "clientId", "blockName", "name", "attributeName", "children", "dangerouslySetInnerHTML", "innerHtml", "className", "label", "tagName", "type", "value", "onInput"];
+var _excluded$_ = ["attributes", "clientId", "blockName", "name", "attributeName", "children", "dangerouslySetInnerHTML", "innerHtml", "className", "label", "tagName", "type", "display", "value", "onInput"];
 var selfClosingTagNames$1 = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
 function preventEventPropagation(event) {
   event.stopPropagation();
@@ -256,9 +256,14 @@ function edit$u(_ref) {
     _ref$tagName = _ref.tagName,
     tagName = _ref$tagName === void 0 ? 'div' : _ref$tagName;
     _ref.type;
+    var _ref$display = _ref.display,
+    display = _ref$display === void 0 ? true : _ref$display;
     _ref.value;
     _ref.onInput;
     var props = _objectWithoutProperties(_ref, _excluded$_);
+  if (display !== true && Boolean(display) === false) {
+    return;
+  }
   var ref = createRef();
   var fieldProps = Object.assign({}, props);
   if (className) {
@@ -1539,7 +1544,7 @@ var getFieldClassNames = memoize(function (_ref) {
   });
 });
 
-var _excluded$y = ["blockName", "name", "placeholder", "allowedFormats", "disabled", "tagName", "className", "value", "onInput"];
+var _excluded$y = ["blockName", "name", "placeholder", "allowedFormats", "disabled", "tagName", "className", "display", "value", "onInput"];
 function edit$g(_ref) {
   var blockName = _ref.blockName,
     name = _ref.name,
@@ -1552,9 +1557,14 @@ function edit$g(_ref) {
     tagName = _ref$tagName === void 0 ? 'p' : _ref$tagName,
     _ref$className = _ref.className,
     className = _ref$className === void 0 ? [] : _ref$className,
+    _ref$display = _ref.display,
+    display = _ref$display === void 0 ? true : _ref$display,
     value = _ref.value,
     onInput = _ref.onInput;
     _objectWithoutProperties(_ref, _excluded$y);
+  if (display !== true && Boolean(display) === false) {
+    return;
+  }
   if (disabled === true) {
     var Component = tagName;
     return /*#__PURE__*/React.createElement(Component, {
@@ -3351,7 +3361,7 @@ function BlockEdit(blueprint) {
     var blockProps = useBlockProps();
     var blockName = blockProps['data-type'];
     var blockContext = getBlockContext({
-      mode: 'edit',
+      context: 'edit',
       attributes: attributes,
       innerBlocks: getInnerBlocks(clientId) || []
     });
@@ -3438,7 +3448,7 @@ function BlockSave(blueprint) {
     var blockProps = useBlockProps.save();
     var blockName = blockProps.className;
     var blockContext = getBlockContext({
-      mode: 'save',
+      context: 'save',
       attributes: attributes,
       innerBlocks: innerBlocks
     });

@@ -1,6 +1,7 @@
 import camelize from './camelize.js'
 import classNames from './class-names.js'
 import delimiterize from './delimiterize.js'
+import evaluateConditionalString from './evaluate-conditional-string.js'
 import getBlockContext from './get-block-context.js'
 import getBlockIndex from './get-block-index.js'
 import getInnerBlocks from './get-inner-blocks.js'
@@ -15,6 +16,7 @@ export {
 	camelize,
 	classNames,
 	delimiterize,
+	evaluateConditionalString,
 	getBlockContext,
 	getBlockIndex,
 	getInnerBlocks,

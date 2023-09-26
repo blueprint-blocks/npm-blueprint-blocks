@@ -2,18 +2,23 @@ import classNames from 'classnames'
 import { RichText } from '@wordpress/block-editor'
 import getFieldClassNames from '../field/functions/get-field-class-names.js'
 
-function edit( { 
+function edit( {
 	blockName,
 	name,
-	placeholder, 
-	allowedFormats = [], 
-	disabled = false, 
-	tagName = 'p', 
+	placeholder,
+	allowedFormats = [],
+	disabled = false,
+	tagName = 'p',
 	className = [],
-	value, 
-	onInput, 
+	display = true,
+	value,
+	onInput,
 	...props
 } ) {
+
+	if ( display !== true && Boolean( display ) === false ) {
+		return
+	}
 
 	if ( disabled === true ) {
 		const Component = tagName

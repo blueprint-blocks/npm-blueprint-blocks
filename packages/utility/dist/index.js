@@ -233,6 +233,100 @@ function classNames() {
   return replaceTokens(npmClassNames.apply(void 0, _toConsumableArray(classNameArray)), context);
 }
 
+var OPERANDS = ['==', '!=', '<', '<=', '>', '>='];
+function evaluateCondition() {
+  var string = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var operand = null;
+  OPERANDS.forEach(function (OPERAND) {
+    if (string.indexOf(OPERAND) !== -1) {
+      operand = OPERAND;
+    }
+  });
+  if (operand === null) {
+    return Boolean(replaceTokens(string, context));
+  }
+  var before = replaceTokens(string.slice(0, string.indexOf(operand)).trim(), context);
+  var after = replaceTokens(string.slice(string.indexOf(operand) + operand.length).trim(), context);
+  if (before.slice(0, 1) === "'" && before.slice(-1) === "'" || before.slice(0, 1) === '"' && before.slice(-1) === '"') {
+    before = before.slice(1, -1);
+  }
+  if (after.slice(0, 1) === "'" && after.slice(-1) === "'" || after.slice(0, 1) === '"' && after.slice(-1) === '"') {
+    after = after.slice(1, -1);
+  }
+  if (operand === '==') {
+    return before == after;
+  }
+  if (operand === '!=') {
+    return before != after;
+  }
+  if (operand === '<') {
+    return before < after;
+  }
+  if (operand === '<=') {
+    return before <= after;
+  }
+  if (operand === '>') {
+    return before > after;
+  }
+  if (operand === '>=') {
+    return before >= after;
+  }
+  return false;
+}
+function evaluateConditionalString() {
+  var string = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  if (typeof string !== 'string' || string === '') {
+    return string;
+  }
+  var open = null;
+  var close = null;
+  var evaluatedString = string;
+  do {
+    for (var i = 0; i < string.length; i++) {
+      if (string[i] === '(') {
+        open = i;
+      }
+      if (open !== null && string[i] === ')') {
+        close = i;
+        break;
+      }
+    }
+    var conditional = void 0,
+      before = void 0,
+      after = void 0;
+    if (open === null && close === null) {
+      conditional = string;
+      before = '';
+      after = '';
+    } else {
+      conditional = string.slice(open + 1, close - 1);
+      before = string.slice(0, open - 1);
+      after = string.slice(close + 1);
+    }
+    var ands = conditional.split('&&');
+    var result = ands.reduce(function (result, and) {
+      var ors = and.trim().split('||');
+      return result && ors.reduce(function (reducedOr, or) {
+        return reducedOr || evaluateCondition(or.trim(), context);
+      }, null);
+    }, true);
+    if (before === '' && after === '') {
+      evaluatedString = result && '1' || '0';
+    } else {
+      evaluatedString = before + (result && 'true' || 'false') + after;
+    }
+  } while (open !== null && close !== null);
+  if (evaluatedString === '1' || evaluatedString === 'true') {
+    return true;
+  }
+  if (evaluatedString === '0' || evaluatedString === 'false') {
+    return false;
+  }
+  return Boolean(evaluatedString);
+}
+
 var _excluded$1 = ["clientId", "attributes", "innerBlocks"];
 /**
  * Returns the block context with private attributes formatted.
@@ -385,7 +479,13 @@ function renderJsxArray(_ref) {
         return [name, value];
       }
     }));
-    var jsxClassNames = classNames([].concat(_toConsumableArray(Array.isArray(className) && className || [className]), _toConsumableArray((context === null || context === void 0 ? void 0 : context.mode) === 'edit' && (Array.isArray(editorClassName) && editorClassName || [editorClassName]) || []), _toConsumableArray((context === null || context === void 0 ? void 0 : context.mode) === 'save' && (Array.isArray(viewClassName) && viewClassName || [viewClassName]) || [])), _objectSpread2(_objectSpread2({}, context), {}, {
+    if ('display' in jsxAttributes) {
+      jsxAttributes.display = evaluateConditionalString(props.display, context);
+      if ((context === null || context === void 0 ? void 0 : context.context) === 'save') {
+        console.log(jsxAttributes.display);
+      }
+    }
+    var jsxClassNames = classNames([].concat(_toConsumableArray(Array.isArray(className) && className || [className]), _toConsumableArray((context === null || context === void 0 ? void 0 : context.context) === 'edit' && (Array.isArray(editorClassName) && editorClassName || [editorClassName]) || []), _toConsumableArray((context === null || context === void 0 ? void 0 : context.context) === 'save' && (Array.isArray(viewClassName) && viewClassName || [viewClassName]) || [])), _objectSpread2(_objectSpread2({}, context), {}, {
       attribute: {
         value: attributeValue
       }
@@ -456,5 +556,5 @@ function useClickOutside(ref, callback) {
   }, [ref]);
 }
 
-export { camelize, classNames, delimiterize, getBlockContext, getBlockIndex, getInnerBlocks, isExternalUrl, isFragmentUrl, renderJsxArray, replaceTokens, styles, useClickOutside };
+export { camelize, classNames, delimiterize, evaluateConditionalString, getBlockContext, getBlockIndex, getInnerBlocks, isExternalUrl, isFragmentUrl, renderJsxArray, replaceTokens, styles, useClickOutside };
 //# sourceMappingURL=index.js.map

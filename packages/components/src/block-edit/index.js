@@ -116,7 +116,7 @@ function BlockEdit( blueprint ) {
 		const blockName = blockProps['data-type']
 
 		const blockContext = getBlockContext( {
-			mode: 'edit',
+			context: 'edit',
 			attributes,
 			innerBlocks: getInnerBlocks( clientId ) || [],
 		} )

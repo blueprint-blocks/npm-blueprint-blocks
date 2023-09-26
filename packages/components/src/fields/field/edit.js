@@ -38,10 +38,15 @@ function edit( {
 	label = '',
 	tagName = 'div',
 	type = 'field',
+	display = true,
 	value,
 	onInput,
 	...props
 } ) {
+
+	if ( display !== true && Boolean( display ) === false ) {
+		return
+	}
 
 	const ref = createRef()
 

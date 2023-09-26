@@ -45,7 +45,7 @@ function BlockSave( blueprint ) {
 		const blockName = blockProps.className
 
 		const blockContext = getBlockContext( {
-			mode: 'save',
+			context: 'save',
 			attributes,
 			innerBlocks,
 		} )

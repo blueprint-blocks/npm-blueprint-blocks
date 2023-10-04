@@ -33,7 +33,7 @@ function edit( {
 	children = [],
 	dangerouslySetInnerHTML,
 	innerHtml = '',
-	className = [],
+	className = '',
 	label = '',
 	tagName = 'div',
 	type = 'field',
@@ -60,7 +60,7 @@ function edit( {
 	if ( selfClosingTagNames.includes(tagName) === false && dangerouslySetInnerHTML ) {
 		return (
 			<Component
-				{ ...props }
+				{ ...fieldProps }
 				ref={ ref }
 				onClick={ preventEventPropagation }
 				onInput={ preventEventPropagation }
@@ -73,7 +73,7 @@ function edit( {
 	if ( selfClosingTagNames.includes( tagName ) === true || ( Boolean( children ) === false && ( label?.length || 0 ) === 0) ) {
 		return (
 			<Component
-				{ ...props }
+				{ ...fieldProps }
 				ref={ ref }
 				onClick={ preventEventPropagation }
 				onInput={ preventEventPropagation }
@@ -84,7 +84,7 @@ function edit( {
 
 	return (
 		<Component
-			{ ...props }
+			{ ...fieldProps }
 			ref={ ref }
 			onClick={ preventEventPropagation }
 			onInput={ preventEventPropagation }

@@ -249,7 +249,7 @@ function edit$u(_ref) {
     dangerouslySetInnerHTML = _ref.dangerouslySetInnerHTML;
     _ref.innerHtml;
     var _ref$className = _ref.className,
-    className = _ref$className === void 0 ? [] : _ref$className,
+    className = _ref$className === void 0 ? '' : _ref$className,
     _ref$label = _ref.label,
     label = _ref$label === void 0 ? '' : _ref$label,
     _ref$tagName = _ref.tagName,
@@ -270,7 +270,7 @@ function edit$u(_ref) {
   }
   var Component = tagName;
   if (selfClosingTagNames$1.includes(tagName) === false && dangerouslySetInnerHTML) {
-    return /*#__PURE__*/React.createElement(Component, _extends({}, props, {
+    return /*#__PURE__*/React.createElement(Component, _extends({}, fieldProps, {
       ref: ref,
       onClick: preventEventPropagation,
       onInput: preventEventPropagation,
@@ -279,14 +279,14 @@ function edit$u(_ref) {
     }));
   }
   if (selfClosingTagNames$1.includes(tagName) === true || Boolean(children) === false && ((label === null || label === void 0 ? void 0 : label.length) || 0) === 0) {
-    return /*#__PURE__*/React.createElement(Component, _extends({}, props, {
+    return /*#__PURE__*/React.createElement(Component, _extends({}, fieldProps, {
       ref: ref,
       onClick: preventEventPropagation,
       onInput: preventEventPropagation,
       onKeydown: preventEventPropagation
     }));
   }
-  return /*#__PURE__*/React.createElement(Component, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Component, _extends({}, fieldProps, {
     ref: ref,
     onClick: preventEventPropagation,
     onInput: preventEventPropagation,
@@ -1430,7 +1430,7 @@ function edit$i(_ref) {
   return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "increment",
     value: value
-  }), 'incrementfield34ewdsxa', /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/React.createElement("div", {
     className: "blueprint-blocks:increment-field-wrap"
   }, /*#__PURE__*/React.createElement("div", {
     className: classNames('blueprint-blocks:increment-field-minus', {
@@ -1549,7 +1549,7 @@ function edit$g(_ref) {
     name = _ref.name,
     placeholder = _ref.placeholder,
     _ref$allowedFormats = _ref.allowedFormats,
-    allowedFormats = _ref$allowedFormats === void 0 ? [] : _ref$allowedFormats,
+    allowedFormats = _ref$allowedFormats === void 0 ? null : _ref$allowedFormats,
     _ref$disabled = _ref.disabled,
     disabled = _ref$disabled === void 0 ? false : _ref$disabled,
     _ref$tagName = _ref.tagName,

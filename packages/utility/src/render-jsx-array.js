@@ -28,7 +28,7 @@ function renderJsxArray( {
 		viewClassName = [],
 		style = {},
 		attributeName = '',
-		type = '',
+		type = 'html',
 		tagName = 'div',
 		persist = true,
 		...props

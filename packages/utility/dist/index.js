@@ -209,30 +209,6 @@ function replaceTokens() {
   });
 }
 
-/**
- * Wraps the default classNames function to provide 
- * contextual token replacement
- */
-function classNames() {
-  var _classNames = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var classNameArray = Array.isArray(_classNames) && _classNames || [_classNames];
-  classNameArray = classNameArray.map(function (className) {
-    if (typeof className === 'array') {
-      return classNames(className, context);
-    } else if (_typeof(className) === 'object') {
-      return Object.fromEntries(Object.entries(className).map(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-          key = _ref2[0],
-          value = _ref2[1];
-        return [replaceTokens(key, context), typeof value === 'boolean' ? value : classNames(value, context)];
-      }));
-    }
-    return className;
-  });
-  return replaceTokens(npmClassNames.apply(void 0, _toConsumableArray(classNameArray)), context);
-}
-
 var OPERANDS = ['==', '!=', '<', '<=', '>', '>='];
 function evaluateCondition() {
   var string = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
@@ -325,6 +301,30 @@ function evaluateConditionalString() {
     return false;
   }
   return Boolean(evaluatedString);
+}
+
+/**
+ * Wraps the default classNames function to provide
+ * contextual token replacement
+ */
+function classNames() {
+  var _classNames = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var classNameArray = Array.isArray(_classNames) && _classNames || [_classNames];
+  classNameArray = classNameArray.map(function (className) {
+    if (typeof className === 'array') {
+      return classNames(className, context);
+    } else if (_typeof(className) === 'object') {
+      return Object.fromEntries(Object.entries(className).map(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+          key = _ref2[0],
+          value = _ref2[1];
+        return [replaceTokens(key, context), typeof value === 'boolean' ? value : evaluateConditionalString(value, context)];
+      }));
+    }
+    return className;
+  });
+  return replaceTokens(npmClassNames.apply(void 0, _toConsumableArray(classNameArray)), context);
 }
 
 var _excluded$1 = ["clientId", "attributes", "innerBlocks"];
@@ -458,7 +458,7 @@ function renderJsxArray(_ref) {
       _ref2$attributeName = _ref2.attributeName,
       attributeName = _ref2$attributeName === void 0 ? '' : _ref2$attributeName,
       _ref2$type = _ref2.type,
-      type = _ref2$type === void 0 ? '' : _ref2$type,
+      type = _ref2$type === void 0 ? 'html' : _ref2$type,
       _ref2$tagName = _ref2.tagName,
       tagName = _ref2$tagName === void 0 ? 'div' : _ref2$tagName,
       _ref2$persist = _ref2.persist,

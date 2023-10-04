@@ -6,7 +6,7 @@ function edit( {
 	blockName,
 	name,
 	placeholder,
-	allowedFormats = [],
+	allowedFormats = null,
 	disabled = false,
 	tagName = 'p',
 	className = [],

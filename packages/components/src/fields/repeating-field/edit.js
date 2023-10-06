@@ -28,7 +28,10 @@ function edit( { onInput, children = [], count = null, min = 0, max = null, valu
 									return
 								}
 
-								const newValue = [ ...value ]
+								const newValue = [ ...Array( rowCount ).keys() ].map( ( index ) => (
+									Object.assign( {}, value[ index ] || {} )
+								 ) )
+
 								newValue[ index ][ props.attributeName ] = childValue
 
 								onInput( newValue )

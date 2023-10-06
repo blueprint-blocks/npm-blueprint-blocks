@@ -2700,7 +2700,9 @@ function edit$7(_ref) {
           if (!(props !== null && props !== void 0 && props.attributeName)) {
             return;
           }
-          var newValue = _toConsumableArray(value);
+          var newValue = _toConsumableArray(Array(rowCount).keys()).map(function (index) {
+            return Object.assign({}, value[index] || {});
+          });
           newValue[index][props.attributeName] = childValue;
           _onInput(newValue);
         },

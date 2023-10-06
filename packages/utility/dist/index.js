@@ -507,6 +507,7 @@ function renderJsxArray(_ref) {
       return /*#__PURE__*/React.createElement(Component, _extends({}, jsxAttributes, {
         clientId: clientId,
         blockName: blockName,
+        attributeName: attributeName,
         tagName: tagName,
         attributes: attributes
       }, attributeValue !== undefined && {
@@ -515,7 +516,7 @@ function renderJsxArray(_ref) {
         attributeName: attributeName,
         setAttributes: setAttributes,
         onInput: function onInput(value) {
-          if (!attributeName) {
+          if ((context === null || context === void 0 ? void 0 : context.context) === 'save') {
             return;
           }
           setAttributes(_defineProperty({}, attributeName, value), persist);

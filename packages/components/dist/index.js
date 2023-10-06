@@ -296,12 +296,12 @@ function edit$u(_ref) {
   }, label), children);
 }
 
-var _excluded$Z = ["attributes", "blockName", "name", "label", "children", "innerHtml", "className", "tagName", "type", "display"];
+var _excluded$Z = ["attributes", "blockName", "attributeName", "label", "children", "innerHtml", "className", "tagName", "type", "display"];
 var selfClosingTagNames = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
 function save$t(_ref) {
   _ref.attributes;
     _ref.blockName;
-    _ref.name;
+    _ref.attributeName;
     _ref.label;
     var _ref$children = _ref.children,
     children = _ref$children === void 0 ? [] : _ref$children;
@@ -1543,11 +1543,11 @@ var getFieldClassNames = memoize(function (_ref) {
   });
 });
 
-var _excluded$y = ["blockName", "name", "placeholder", "allowedFormats", "disabled", "tagName", "className", "display", "value", "onInput"];
+var _excluded$y = ["blockName", "attributeName", "placeholder", "allowedFormats", "disabled", "tagName", "className", "display", "value", "onInput"];
 function edit$g(_ref) {
-  var blockName = _ref.blockName,
-    name = _ref.name,
-    placeholder = _ref.placeholder,
+  var blockName = _ref.blockName;
+    _ref.attributeName;
+    var placeholder = _ref.placeholder,
     _ref$allowedFormats = _ref.allowedFormats,
     allowedFormats = _ref$allowedFormats === void 0 ? null : _ref$allowedFormats,
     _ref$disabled = _ref.disabled,
@@ -2706,7 +2706,7 @@ function edit$7(_ref) {
           newValue[index][props.attributeName] = childValue;
           _onInput(newValue);
         },
-        value: value === null || value === void 0 || (_value$index = value[index]) === null || _value$index === void 0 ? void 0 : _value$index[props.attributeName]
+        value: value === null || value === void 0 || (_value$index = value[index]) === null || _value$index === void 0 ? void 0 : _value$index[props === null || props === void 0 ? void 0 : props.attributeName]
       }));
     });
   }), count === null && /*#__PURE__*/React.createElement("div", {
@@ -2734,12 +2734,32 @@ function edit$7(_ref) {
   })));
 }
 
-var _excluded$g = ["value"];
+var _excluded$g = ["children", "count", "min", "max", "value"];
 function save$7(_ref) {
-  _ref.value;
-    var props = _objectWithoutProperties(_ref, _excluded$g);
+  var children = _ref.children,
+    _ref$count = _ref.count,
+    count = _ref$count === void 0 ? null : _ref$count;
+    _ref.min;
+    _ref.max;
+    var _ref$value = _ref.value,
+    value = _ref$value === void 0 ? [] : _ref$value,
+    props = _objectWithoutProperties(_ref, _excluded$g);
+  var rowCount = value.length;
+  if (count !== null) {
+    rowCount = parseInt(count);
+  }
   return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "repeating"
+  }), _toConsumableArray(Array(rowCount).keys()).map(function (index) {
+    return (Array.isArray(children) && children || [children]).map(function (_ref2) {
+      var _value$index;
+      var props = _ref2.props,
+        type = _ref2.type;
+      var Component = type;
+      return /*#__PURE__*/React.createElement(Component, _extends({}, props, {
+        value: value === null || value === void 0 || (_value$index = value[index]) === null || _value$index === void 0 ? void 0 : _value$index[props === null || props === void 0 ? void 0 : props.attributeName]
+      }));
+    });
   }));
 }
 

@@ -54,7 +54,7 @@ function BlockSave( blueprint ) {
 			children = [],
 			tagName = 'div',
 			...blockSave
-		} = (blueprint.blockSave !== null && blueprint.blockSave || blueprint.blockEdit || {})
+		} = ( blueprint.blockSave !== null && blueprint.blockSave || blueprint.blockEdit || {} )
 
 		const blockAttributes = Object.fromEntries( Object.entries( blockSave ).map( ( [ name, value ] ) => {
 			if ( typeof value === 'string' ) {

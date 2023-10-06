@@ -88,6 +88,7 @@ function renderJsxArray( {
 					{ ...jsxAttributes }
 					clientId={ clientId }
 					blockName={ blockName }
+					attributeName={ attributeName }
 					tagName={ tagName }
 					attributes={ attributes }
 					{ ...( attributeValue !== undefined && {
@@ -97,7 +98,7 @@ function renderJsxArray( {
 						attributeName,
 						setAttributes,
 						onInput: ( value ) => {
-							if ( !attributeName ) {
+							if ( context?.context === 'save' ) {
 								return
 							}
 							setAttributes( {

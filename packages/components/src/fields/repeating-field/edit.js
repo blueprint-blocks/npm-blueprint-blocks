@@ -36,7 +36,7 @@ function edit( { onInput, children = [], count = null, min = 0, max = null, valu
 
 								onInput( newValue )
 							} }
-							value={ value?.[ index ]?.[ props.attributeName ] }
+							value={ value?.[ index ]?.[ props?.attributeName ] }
 						/>
 					)
 				} )

@@ -20,7 +20,7 @@ const selfClosingTagNames = [
 function save( {
 	attributes,
 	blockName,
-	name,
+	attributeName,
 	label,
 	children = [],
 	innerHtml = '',

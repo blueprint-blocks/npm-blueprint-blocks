@@ -4,7 +4,7 @@ import getFieldClassNames from '../field/functions/get-field-class-names.js'
 
 function edit( {
 	blockName,
-	name,
+	attributeName,
 	placeholder,
 	allowedFormats = null,
 	disabled = false,

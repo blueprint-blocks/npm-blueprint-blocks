@@ -4,15 +4,21 @@ import Field from '../field/index.js'
 
 import './style.scss'
 
-function edit( { onInput, children, min = 0, max = null, value = [], ...props } ) {
+function edit( { onInput, children = [], count = null, min = 0, max = null, value = [], ...props } ) {
+
+	let rowCount = value.length
+
+	if ( count !== null ) {
+		rowCount = parseInt( count )
+	}
 
 	return (
 		<Field.edit
 			{ ...props }
 			type="repeating"
 		>
-			{ value.map( ( row, index ) => (
-				children.map( ( { props, type } ) => {
+			{ [ ...Array( rowCount ).keys() ].map( ( index ) => (
+				( Array.isArray( children ) && children || [ children ] ).map( ( { props, type } ) => {
 					const Component = type
 					return (
 						<Component
@@ -27,34 +33,38 @@ function edit( { onInput, children, min = 0, max = null, value = [], ...props } 
 
 								onInput( newValue )
 							} }
-							value={ row?.[ props.attributeName ] }
+							value={ value?.[ index ]?.[ props.attributeName ] }
 						/>
 					)
 				} )
 			) ) }
 
-			<div
-				className={ classNames(
-					'blueprint-blocks-repeating-field-minus', 
-					{ 'is-disabled': value.length <= min } 
-				) } 
-				onClick={ () => {
-					onInput( value.slice( 0, -1 ) )
-				} }
-			>
-				<div dangerouslySetInnerHTML={ { __html: minus } }/>
-			</div>
-			<div
-				className={ classNames(
-					'blueprint-blocks:repeating-field-plus', 
-					{ 'is-disabled': max !== null && value.length >= max } 
-				) } 
-				onClick={ () => {
-					onInput( [ ...value, {} ] )
-				} }
-			>
-				<div dangerouslySetInnerHTML={ { __html: plus } }/>
-			</div>
+			{ count === null && (
+				<div
+					className={ classNames(
+						'blueprint-blocks-repeating-field-minus',
+						{ 'is-disabled': value.length <= min }
+					) }
+					onClick={ () => {
+						onInput( value.slice( 0, -1 ) )
+					} }
+				>
+					<div dangerouslySetInnerHTML={ { __html: minus } }/>
+				</div>
+			) }
+			{ count === null && (
+				<div
+					className={ classNames(
+						'blueprint-blocks:repeating-field-plus',
+						{ 'is-disabled': max !== null && value.length >= max }
+					) }
+					onClick={ () => {
+						onInput( [ ...value, {} ] )
+					} }
+				>
+					<div dangerouslySetInnerHTML={ { __html: plus } }/>
+				</div>
+			) }
 		</Field.edit>
 	)
 }

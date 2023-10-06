@@ -2669,10 +2669,13 @@ var RangeField = {
 var css$1 = ".blueprint-blocks\\:repeating-field-wrap {\n  position: relative;\n}\n.blueprint-blocks\\:repeating-field-minus, .blueprint-blocks\\:repeating-field-plus {\n  align-items: center;\n  cursor: pointer;\n  display: grid;\n  justify-content: center;\n  height: 26px;\n  transition: background 0.4s, colors 0.4s;\n  width: 26px;\n}\n.blueprint-blocks\\:repeating-field-minus:not(.is-disabled):hover, .blueprint-blocks\\:repeating-field-plus:not(.is-disabled):hover {\n  background: #e5f3f8;\n  color: #0085ba;\n}\n.blueprint-blocks\\:repeating-field-minus.is-disabled, .blueprint-blocks\\:repeating-field-plus.is-disabled {\n  cursor: default;\n  opacity: 0.25;\n}\n.blueprint-blocks\\:repeating-field-minus img, .blueprint-blocks\\:repeating-field-plus img {\n  display: block;\n  height: 14px;\n  width: 14px;\n}";
 n(css$1,{});
 
-var _excluded$h = ["onInput", "children", "min", "max", "value"];
+var _excluded$h = ["onInput", "children", "count", "min", "max", "value"];
 function edit$7(_ref) {
   var _onInput = _ref.onInput,
-    children = _ref.children,
+    _ref$children = _ref.children,
+    children = _ref$children === void 0 ? [] : _ref$children,
+    _ref$count = _ref.count,
+    count = _ref$count === void 0 ? null : _ref$count,
     _ref$min = _ref.min,
     min = _ref$min === void 0 ? 0 : _ref$min,
     _ref$max = _ref.max,
@@ -2680,10 +2683,15 @@ function edit$7(_ref) {
     _ref$value = _ref.value,
     value = _ref$value === void 0 ? [] : _ref$value,
     props = _objectWithoutProperties(_ref, _excluded$h);
+  var rowCount = value.length;
+  if (count !== null) {
+    rowCount = parseInt(count);
+  }
   return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "repeating"
-  }), value.map(function (row, index) {
-    return children.map(function (_ref2) {
+  }), _toConsumableArray(Array(rowCount).keys()).map(function (index) {
+    return (Array.isArray(children) && children || [children]).map(function (_ref2) {
+      var _value$index;
       var props = _ref2.props,
         type = _ref2.type;
       var Component = type;
@@ -2696,10 +2704,10 @@ function edit$7(_ref) {
           newValue[index][props.attributeName] = childValue;
           _onInput(newValue);
         },
-        value: row === null || row === void 0 ? void 0 : row[props.attributeName]
+        value: value === null || value === void 0 || (_value$index = value[index]) === null || _value$index === void 0 ? void 0 : _value$index[props.attributeName]
       }));
     });
-  }), /*#__PURE__*/React.createElement("div", {
+  }), count === null && /*#__PURE__*/React.createElement("div", {
     className: classNames('blueprint-blocks-repeating-field-minus', {
       'is-disabled': value.length <= min
     }),
@@ -2710,7 +2718,7 @@ function edit$7(_ref) {
     dangerouslySetInnerHTML: {
       __html: minus
     }
-  })), /*#__PURE__*/React.createElement("div", {
+  })), count === null && /*#__PURE__*/React.createElement("div", {
     className: classNames('blueprint-blocks:repeating-field-plus', {
       'is-disabled': max !== null && value.length >= max
     }),

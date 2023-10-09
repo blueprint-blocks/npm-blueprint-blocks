@@ -19,7 +19,12 @@ const getColor = memoize( ( { color, name, slug }, colors = [] ) => {
 } )
 
 const getSavedAsToken = memoize( ( saveAs ) => {
-	if ( saveAs.indexOf( '{{ color.color }}' ) !== -1 ) {
+	if ( saveAs.indexOf( '{{ color.slug }}' ) !== -1 ) {
+		return [
+			'slug',
+			saveAs.indexOf( '{{ color.slug }}' )
+		]
+	} else if ( saveAs.indexOf( '{{ color.color }}' ) !== -1 ) {
 		return [
 			'color',
 			saveAs.indexOf( '{{ color.color }}' )
@@ -28,11 +33,6 @@ const getSavedAsToken = memoize( ( saveAs ) => {
 		return [
 			'name',
 			saveAs.indexOf( '{{ color.name }}' )
-		]
-	} else if ( saveAs.indexOf( '{{ color.slug }}' ) !== -1 ) {
-		return [
-			'slug',
-			saveAs.indexOf( '{{ color.slug }}' )
 		]
 	}
 

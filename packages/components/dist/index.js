@@ -714,12 +714,12 @@ var getColor = memoize(function (_ref) {
   };
 });
 var getSavedAsToken = memoize(function (saveAs) {
-  if (saveAs.indexOf('{{ color.color }}') !== -1) {
+  if (saveAs.indexOf('{{ color.slug }}') !== -1) {
+    return ['slug', saveAs.indexOf('{{ color.slug }}')];
+  } else if (saveAs.indexOf('{{ color.color }}') !== -1) {
     return ['color', saveAs.indexOf('{{ color.color }}')];
   } else if (saveAs.indexOf('{{ color.name }}') !== -1) {
     return ['name', saveAs.indexOf('{{ color.name }}')];
-  } else if (saveAs.indexOf('{{ color.slug }}') !== -1) {
-    return ['slug', saveAs.indexOf('{{ color.slug }}')];
   }
   return [null, null];
 });
@@ -1569,7 +1569,7 @@ var index$e = {
   save: save$g
 };
 
-var getFieldClassNames = memoize(function (_ref) {
+memoize(function (_ref) {
   var blockName = _ref.blockName,
     _ref$type = _ref.type,
     type = _ref$type === void 0 ? '' : _ref$type,
@@ -1583,7 +1583,7 @@ var getFieldClassNames = memoize(function (_ref) {
 
 var _excluded$y = ["blockName", "attributeName", "placeholder", "allowedFormats", "disabled", "tagName", "className", "display", "value", "onInput"];
 function edit$g(_ref) {
-  var blockName = _ref.blockName;
+  _ref.blockName;
     _ref.attributeName;
     var placeholder = _ref.placeholder,
     _ref$allowedFormats = _ref.allowedFormats,
@@ -1597,39 +1597,31 @@ function edit$g(_ref) {
     _ref$display = _ref.display,
     display = _ref$display === void 0 ? true : _ref$display,
     value = _ref.value,
-    onInput = _ref.onInput;
-    _objectWithoutProperties(_ref, _excluded$y);
+    onInput = _ref.onInput,
+    props = _objectWithoutProperties(_ref, _excluded$y);
   if (display !== true && Boolean(display) === false) {
     return;
   }
+  var fieldProps = Object.assign({}, props);
+  if (className) {
+    fieldProps.className = className;
+  }
   if (disabled === true) {
     var Component = tagName;
-    return /*#__PURE__*/React.createElement(Component, {
-      className: classNames.apply(void 0, [getFieldClassNames({
-        blockName: blockName,
-        name: name,
-        type: 'rich-text',
-        value: value
-      })].concat(_toConsumableArray(Array.isArray(className) && className || [className]))),
+    return /*#__PURE__*/React.createElement(Component, _extends({}, fieldProps, {
       dangerouslySetInnerHTML: {
         __html: value
       }
-    });
+    }));
   }
-  return /*#__PURE__*/React.createElement(RichText, {
-    className: classNames.apply(void 0, [getFieldClassNames({
-      blockName: blockName,
-      name: name,
-      type: 'rich-text',
-      value: value
-    })].concat(_toConsumableArray(Array.isArray(className) && className || [className]))),
+  return /*#__PURE__*/React.createElement(RichText, _extends({}, fieldProps, {
     onChange: onInput,
     tagName: tagName,
     allowedFormats: allowedFormats,
     keepPlaceholderOnFocus: true,
     placeholder: placeholder,
     value: value
-  });
+  }));
 }
 
 var _excluded$x = ["multiLine", "placeholder", "tagName", "value"];

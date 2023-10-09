@@ -20,33 +20,23 @@ function edit( {
 		return
 	}
 
+	const fieldProps = Object.assign( {}, props )
+
+	if ( className ) {
+		fieldProps.className = className
+	}
+
 	if ( disabled === true ) {
 		const Component = tagName
 		return <Component
-			className={ classNames(
-				getFieldClassNames( {
-					blockName,
-					name,
-					type: 'rich-text',
-					value,
-				} ),
-				...( Array.isArray( className ) && className || [ className ] )
-			) }
+			{ ...fieldProps }
 			dangerouslySetInnerHTML={ { __html: value } }
 		/>
 	}
 
 	return (
 		<RichText
-			className={ classNames(
-				getFieldClassNames( {
-					blockName,
-					name,
-					type: 'rich-text',
-					value,
-				} ),
-				...( Array.isArray( className ) && className || [ className ] )
-			) }
+			{ ...fieldProps }
 			onChange={ onInput }
 			tagName={ tagName }
 			allowedFormats={ allowedFormats }

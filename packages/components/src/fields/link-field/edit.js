@@ -45,7 +45,7 @@ const urlInputFocusStyle = {
 	outline: 'none',
 }
 
-function edit( { onInput, className = [], placeholder, value = {}, ...props } ) {
+function edit( { onInput, placeholder, value = {}, ...props } ) {
 
 	const ref = createRef()
 
@@ -99,7 +99,7 @@ function edit( { onInput, className = [], placeholder, value = {}, ...props } ) 
 							size="small"
 							value={ value?.target === '_blank' }
 							onInput={ ( newWindow ) => onInput(
-								Object.assign( {}, value, { 
+								Object.assign( {}, value, {
 									target: ( newWindow && '_blank' || '_self' ),
 								} )
 							) }

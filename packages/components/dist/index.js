@@ -1729,7 +1729,7 @@ function Dialog(_ref) {
   })));
 }
 
-var _excluded$v = ["onInput", "className", "placeholder", "value"];
+var _excluded$v = ["onInput", "placeholder", "value"];
 var wrapStyle$1 = {
   position: 'relative'
 };
@@ -1760,9 +1760,8 @@ var urlInputStyle = {
   width: '100% !important'
 };
 function edit$f(_ref) {
-  var _onInput = _ref.onInput;
-    _ref.className;
-    var placeholder = _ref.placeholder,
+  var _onInput = _ref.onInput,
+    placeholder = _ref.placeholder,
     _ref$value = _ref.value,
     value = _ref$value === void 0 ? {} : _ref$value,
     props = _objectWithoutProperties(_ref, _excluded$v);

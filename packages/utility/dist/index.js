@@ -408,6 +408,10 @@ function isFragmentUrl(url) {
   return false;
 }
 
+var EXCLUDED_ATTRIBUTES = [
+	"saveAs"
+];
+
 function styles() {
   var _styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -472,7 +476,7 @@ function renderJsxArray(_ref) {
       var _ref4 = _slicedToArray(_ref3, 2),
         name = _ref4[0],
         value = _ref4[1];
-      if (typeof value === 'string') {
+      if (typeof value === 'string' && EXCLUDED_ATTRIBUTES.includes(name) === false) {
         return [name, replaceTokens(value, _objectSpread2(_objectSpread2({}, context), {}, {
           attribute: {
             value: attributeValue

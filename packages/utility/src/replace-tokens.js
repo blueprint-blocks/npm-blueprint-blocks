@@ -29,7 +29,7 @@ function replaceTokens( string = '', context = {} ) {
 	if ( typeof string !== 'string' ) {
 		return string
 	}
-	
+
 	return string.replaceAll( /\{\{(.*?)\}\}/g, ( match, p1 ) => {
 		return valueByIdentifier( p1.trim(), context )
 	} )

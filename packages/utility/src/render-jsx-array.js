@@ -1,3 +1,4 @@
+import EXCLUDED_ATTRIBUTES from './data/excluded-attributes.json'
 import classNames from './class-names.js'
 import evaluateConditionalString from './evaluate-conditional-string.js'
 import replaceTokens from './replace-tokens.js'
@@ -41,7 +42,7 @@ function renderJsxArray( {
 		}
 
 		const jsxAttributes = Object.fromEntries( Object.entries( props ).map( ( [ name, value ] ) => {
-			if ( typeof value === 'string' ) {
+			if ( typeof value === 'string' && EXCLUDED_ATTRIBUTES.includes( name ) === false ) {
 				return [
 					name,
 					replaceTokens( value, { ...context, attribute: { value: attributeValue } } ),

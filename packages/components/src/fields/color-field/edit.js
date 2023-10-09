@@ -1,36 +1,83 @@
 import memoize from 'micro-memoize'
+import { useSetting } from '@wordpress/block-editor'
 import { ColorPalette } from '@wordpress/components'
+import { replaceTokens } from '@blueprint-blocks/utility'
 import Field from '../field/index.js'
 
-const getColor = memoize( ( slug, colors = [] ) => {
+const getColor = memoize( ( { color, name, slug }, colors = [] ) => {
 	for ( let i = 0; i < colors.length; i++ ) {
-		if ( colors[i].slug === slug ) {
-			return colors[i].color
+		if ( colors[ i ]?.color === color || colors[ i ]?.name === name || colors[ i ]?.slug === slug ) {
+			return colors[ i ]
 		}
 	}
-	return slug
+
+	return {
+		color: color,
+		name: name || 'Custom',
+		slug: slug || 'custom',
+	}
 } )
 
-const getSlug = memoize( ( color, colors = [] ) => {
+const getSavedAsToken = memoize( ( saveAs ) => {
+	if ( saveAs.indexOf( '{{ color.color }}' ) !== -1 ) {
+		return [
+			'color',
+			saveAs.indexOf( '{{ color.color }}' )
+		]
+	} else if ( saveAs.indexOf( '{{ color.name }}' ) !== -1 ) {
+		return [
+			'name',
+			saveAs.indexOf( '{{ color.name }}' )
+		]
+	} else if ( saveAs.indexOf( '{{ color.slug }}' ) !== -1 ) {
+		return [
+			'slug',
+			saveAs.indexOf( '{{ color.slug }}' )
+		]
+	}
+
+	return [
+		null,
+		null
+	]
+} )
+
+const getColorFromSavedAsValue = memoize( ( value, saveAs, colors = [] ) => {
+	const [ key, index ] = getSavedAsToken( saveAs )
+
+	if ( key === null ) {
+		return null
+	}
+
 	for ( let i = 0; i < colors.length; i++ ) {
-		if ( colors[i].color === color ) {
-			return colors[i].slug
+		if ( value.indexOf( colors[ i ][ key ] ) !== -1 ) {
+			return colors[ i ]
 		}
 	}
-	return color
+
+	return value
 } )
 
-function edit( { 
+function edit( {
 	blockName,
 	name,
-	colors = [],
+	colors = null,
 	clearable = true,
-	enableCustomColors = true,
+	disableCustomColors = false,
 	enableAlpha = false,
-	value, 
-	onInput, 
+	value,
+	saveAs = '{{ color.color }}',
+	onInput,
 	...props
 } ) {
+
+	const palette = ( colors === null && useSetting( 'color.palette' ) || colors ) || []
+	let colorValue = value
+
+	if ( saveAs !== '{{ color.color }}' ) {
+		colorValue = getColorFromSavedAsValue( value, saveAs, palette )
+	}
+
 	return (
 		<Field.edit
 			{ ...props }
@@ -38,12 +85,15 @@ function edit( {
 			value={ value }
 		>
 			<ColorPalette
-				colors={ colors }
+				colors={ palette }
 				clearable={ clearable }
-				disableCustomColors={ !enableCustomColors }
+				disableCustomColors={ disableCustomColors }
 				enableAlpha={ enableAlpha }
-				value={ getColor( value, colors ) }
-				onChange={ ( value ) => onInput( getSlug( value, colors ) ) }
+				value={ colorValue?.color || colorValue }
+				onChange={ ( hex ) => {
+					const color = getColor( { color: hex }, palette )
+					return onInput( color?.slug === "custom" && color.color || replaceTokens( saveAs, { color } ) )
+				} }
 			/>
 		</Field.edit>
 	)

@@ -1,7 +1,7 @@
 import { isExternalUrl, isFragmentUrl, replaceTokens, useClickOutside, getBlockIndex, getInnerBlocks, getBlockContext, classNames as classNames$1, styles, renderJsxArray } from '@blueprint-blocks/utility';
 import { __ } from '@wordpress/i18n';
 import { ToolbarButton, ColorPalette, GradientPicker, withNotices, Button, SelectControl, TextareaControl, PanelBody, ToolbarGroup } from '@wordpress/components';
-import { MediaPlaceholder, MediaUpload, InnerBlocks, RichText, URLInput, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
+import { useSetting, MediaPlaceholder, MediaUpload, InnerBlocks, RichText, URLInput, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
 import { createRef, useState, useEffect } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
 import classNames from 'classnames';
@@ -695,50 +695,88 @@ var BooleanField = {
   save: save$o
 };
 
-var _excluded$P = ["blockName", "name", "colors", "clearable", "enableCustomColors", "enableAlpha", "value", "onInput"];
-var getColor = memoize(function (slug) {
+var _excluded$P = ["blockName", "name", "colors", "clearable", "disableCustomColors", "enableAlpha", "value", "saveAs", "onInput"];
+var getColor = memoize(function (_ref) {
+  var color = _ref.color,
+    name = _ref.name,
+    slug = _ref.slug;
   var colors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   for (var i = 0; i < colors.length; i++) {
-    if (colors[i].slug === slug) {
-      return colors[i].color;
+    var _colors$i, _colors$i2, _colors$i3;
+    if (((_colors$i = colors[i]) === null || _colors$i === void 0 ? void 0 : _colors$i.color) === color || ((_colors$i2 = colors[i]) === null || _colors$i2 === void 0 ? void 0 : _colors$i2.name) === name || ((_colors$i3 = colors[i]) === null || _colors$i3 === void 0 ? void 0 : _colors$i3.slug) === slug) {
+      return colors[i];
     }
   }
-  return slug;
+  return {
+    color: color,
+    name: name || 'Custom',
+    slug: slug || 'custom'
+  };
 });
-var getSlug$1 = memoize(function (color) {
-  var colors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+var getSavedAsToken = memoize(function (saveAs) {
+  if (saveAs.indexOf('{{ color.color }}') !== -1) {
+    return ['color', saveAs.indexOf('{{ color.color }}')];
+  } else if (saveAs.indexOf('{{ color.name }}') !== -1) {
+    return ['name', saveAs.indexOf('{{ color.name }}')];
+  } else if (saveAs.indexOf('{{ color.slug }}') !== -1) {
+    return ['slug', saveAs.indexOf('{{ color.slug }}')];
+  }
+  return [null, null];
+});
+var getColorFromSavedAsValue = memoize(function (value, saveAs) {
+  var colors = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+  var _getSavedAsToken = getSavedAsToken(saveAs),
+    _getSavedAsToken2 = _slicedToArray(_getSavedAsToken, 2),
+    key = _getSavedAsToken2[0];
+    _getSavedAsToken2[1];
+  if (key === null) {
+    return null;
+  }
   for (var i = 0; i < colors.length; i++) {
-    if (colors[i].color === color) {
-      return colors[i].slug;
+    if (value.indexOf(colors[i][key]) !== -1) {
+      return colors[i];
     }
   }
-  return color;
+  return value;
 });
-function edit$p(_ref) {
-  _ref.blockName;
-    _ref.name;
-    var _ref$colors = _ref.colors,
-    colors = _ref$colors === void 0 ? [] : _ref$colors,
-    _ref$clearable = _ref.clearable,
-    clearable = _ref$clearable === void 0 ? true : _ref$clearable,
-    _ref$enableCustomColo = _ref.enableCustomColors,
-    enableCustomColors = _ref$enableCustomColo === void 0 ? true : _ref$enableCustomColo,
-    _ref$enableAlpha = _ref.enableAlpha,
-    enableAlpha = _ref$enableAlpha === void 0 ? false : _ref$enableAlpha,
-    value = _ref.value,
-    onInput = _ref.onInput,
-    props = _objectWithoutProperties(_ref, _excluded$P);
+function edit$p(_ref2) {
+  var _colorValue;
+  _ref2.blockName;
+    _ref2.name;
+    var _ref2$colors = _ref2.colors,
+    colors = _ref2$colors === void 0 ? null : _ref2$colors,
+    _ref2$clearable = _ref2.clearable,
+    clearable = _ref2$clearable === void 0 ? true : _ref2$clearable,
+    _ref2$disableCustomCo = _ref2.disableCustomColors,
+    disableCustomColors = _ref2$disableCustomCo === void 0 ? false : _ref2$disableCustomCo,
+    _ref2$enableAlpha = _ref2.enableAlpha,
+    enableAlpha = _ref2$enableAlpha === void 0 ? false : _ref2$enableAlpha,
+    value = _ref2.value,
+    _ref2$saveAs = _ref2.saveAs,
+    saveAs = _ref2$saveAs === void 0 ? '{{ color.color }}' : _ref2$saveAs,
+    onInput = _ref2.onInput,
+    props = _objectWithoutProperties(_ref2, _excluded$P);
+  var palette = colors === null && useSetting('color.palette') || colors || [];
+  var colorValue = value;
+  if (saveAs !== '{{ color.color }}') {
+    colorValue = getColorFromSavedAsValue(value, saveAs, palette);
+  }
   return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "color",
     value: value
   }), /*#__PURE__*/React.createElement(ColorPalette, {
-    colors: colors,
+    colors: palette,
     clearable: clearable,
-    disableCustomColors: !enableCustomColors,
+    disableCustomColors: disableCustomColors,
     enableAlpha: enableAlpha,
-    value: getColor(value, colors),
-    onChange: function onChange(value) {
-      return onInput(getSlug$1(value, colors));
+    value: ((_colorValue = colorValue) === null || _colorValue === void 0 ? void 0 : _colorValue.color) || colorValue,
+    onChange: function onChange(hex) {
+      var color = getColor({
+        color: hex
+      }, palette);
+      return onInput((color === null || color === void 0 ? void 0 : color.slug) === "custom" && color.color || replaceTokens(saveAs, {
+        color: color
+      }));
     }
   }));
 }

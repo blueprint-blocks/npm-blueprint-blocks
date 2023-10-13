@@ -60,6 +60,13 @@ function edit( { onInput, placeholder, value = {}, ...props } ) {
 				<RichTextField.edit
 					tagName="span"
 					placeholder={ placeholder }
+					allowedFormats={ [
+						"core/bold",
+						"core/italic",
+						"core/strikethrough",
+						"core/subscript",
+						"core/superscript"
+					] }
 					value={ value?.label || '' }
 					onInput={ ( label ) => onInput(
 						Object.assign( {}, value, { label } )

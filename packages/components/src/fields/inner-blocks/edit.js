@@ -8,6 +8,7 @@ function edit( {
 	template = [],
 	templateLock = false,
 	max = null,
+	className = [],
 	...props
 } ) {
 
@@ -16,17 +17,41 @@ function edit( {
 		select( 'core/block-editor' ).getBlock( clientId )?.innerBlocks?.length || 0
 	) )
 
+	const fieldProps = Object.assign( {}, props )
+
+	if ( className ) {
+		fieldProps.className = className
+	}
+
+	if ( props?.tagName === false ) {
+		return (
+			<InnerBlocks
+				allowedBlocks={ allowedBlocks }
+				orientation={ orientation === 'horizontal' && 'horizontal' || 'vertical' }
+				template={ template }
+				templateLock={ templateLock }
+				renderAppender={ () => (
+					( max === null || innerBlocksLength < max ) && <InnerBlocks.DefaultBlockAppender/> || false
+				) }
+			/>
+		)
+	}
+
 	return (
-		<InnerBlocks
-			allowedBlocks={ allowedBlocks }
-			orientation={ orientation === 'horizontal' && 'horizontal' || 'vertical' }
-			template={ template }
-			templateLock={ templateLock }
-			renderAppender={ () => (
-				( max === null || innerBlocksLength < max ) && <InnerBlocks.DefaultBlockAppender/> || false
-			) }
-			{ ...props }
-		/>
+		<Field.edit
+			{ ...fieldProps }
+			type="inner-blocks"
+		>
+			<InnerBlocks
+				allowedBlocks={ allowedBlocks }
+				orientation={ orientation === 'horizontal' && 'horizontal' || 'vertical' }
+				template={ template }
+				templateLock={ templateLock }
+				renderAppender={ () => (
+					( max === null || innerBlocksLength < max ) && <InnerBlocks.DefaultBlockAppender/> || false
+				) }
+			/>
+		</Field.edit>
 	)
 
 }

@@ -6,7 +6,7 @@ import './style.scss'
 
 function edit( { onInput, children = [], count = null, min = 0, max = null, value = [], ...props } ) {
 
-	let rowCount = value.length
+	let rowCount = ( value?.length || 0 )
 
 	if ( count !== null ) {
 		rowCount = parseInt( count )
@@ -17,29 +17,31 @@ function edit( { onInput, children = [], count = null, min = 0, max = null, valu
 			{ ...props }
 			type="repeating"
 		>
-			{ [ ...Array( rowCount ).keys() ].map( ( index ) => (
-				( Array.isArray( children ) && children || [ children ] ).map( ( { props, type } ) => {
-					const Component = type
-					return (
-						<Component
-							{ ...props }
-							onInput={ ( childValue ) => {
-								if ( !props?.attributeName ) {
-									return
-								}
+			{ rowCount > 0 && [ ...Array( rowCount ).keys() ].map( ( index ) => (
+				<div>
+					{ children !== null && ( Array.isArray( children ) && children || [ children ] ).map( ( { props, type } ) => {
+						const Component = type
+						return (
+							<Component
+								{ ...props }
+								onInput={ ( childValue ) => {
+									if ( !props?.attributeName ) {
+										return
+									}
 
-								const newValue = [ ...Array( rowCount ).keys() ].map( ( index ) => (
-									Object.assign( {}, value[ index ] || {} )
-								 ) )
+									const newValue = [ ...Array( rowCount ).keys() ].map( ( index ) => (
+										Object.assign( {}, value[ index ] || {} )
+									) )
 
-								newValue[ index ][ props.attributeName ] = childValue
+									newValue[ index ][ props.attributeName ] = childValue
 
-								onInput( newValue )
-							} }
-							value={ value?.[ index ]?.[ props?.attributeName ] }
-						/>
-					)
-				} )
+									onInput( newValue )
+								} }
+								value={ value?.[ index ]?.[ props?.attributeName ] }
+							/>
+						)
+					} ) }
+				</div>
 			) ) }
 
 			{ count === null && (

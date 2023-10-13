@@ -331,7 +331,7 @@ function save$t(_ref) {
   }));
 }
 
-var Field$1 = {
+var Field = {
   edit: edit$u,
   save: save$t
 };
@@ -340,7 +340,7 @@ var _excluded$Y = ["value"];
 function save$s(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$Y);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "toolbar",
     dangerouslySetInnerHTML: {
       __html: value
@@ -403,7 +403,7 @@ var _excluded$W = ["value"];
 function save$r(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$W);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "align",
     dangerouslySetInnerHTML: {
       __html: value
@@ -449,7 +449,7 @@ function edit$s(_ref) {
     value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$V);
   var ref = createRef();
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "text",
     value: value
   }), /*#__PURE__*/React.createElement("input", {
@@ -483,7 +483,7 @@ function save$q(_ref) {
     _ref.required;
     var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$U);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "text",
     dangerouslySetInnerHTML: {
       __html: value
@@ -512,7 +512,7 @@ function edit$r(_ref) {
     _ref$value = _ref.value,
     value = _ref$value === void 0 ? {} : _ref$value,
     props = _objectWithoutProperties(_ref, _excluded$T);
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     description: (props === null || props === void 0 ? void 0 : props.description) || __('Enter an id for the anchor to this element on the page.'),
     className: classNames(Array.isArray(className) && className || [className]),
     type: "anchor",
@@ -538,7 +538,7 @@ var _excluded$S = ["value"];
 function save$p(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$S);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "anchor",
     dangerouslySetInnerHTML: {
       __html: value
@@ -650,7 +650,7 @@ function edit$q(_ref) {
     _useState2 = _slicedToArray(_useState, 2),
     hasHover = _useState2[0],
     setHasHover = _useState2[1];
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "boolean",
     value: value,
     style: _objectSpread2(_objectSpread2({}, elStyle$1), size === 'small' && elSmallStyle),
@@ -681,7 +681,7 @@ var _excluded$Q = ["value"];
 function save$o(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$Q);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "select",
     dangerouslySetInnerHTML: {
       __html: value && 'true' || 'false'
@@ -761,7 +761,7 @@ function edit$p(_ref2) {
   if (saveAs !== '{{ color.color }}') {
     colorValue = getColorFromSavedAsValue(value, saveAs, palette);
   }
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "color",
     value: value
   }), /*#__PURE__*/React.createElement(ColorPalette, {
@@ -785,7 +785,7 @@ var _excluded$O = ["value"];
 function save$n(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$O);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "color",
     dangerouslySetInnerHTML: {
       __html: value
@@ -817,7 +817,7 @@ function edit$o(_ref) {
     value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$N);
   var ref = createRef();
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "email",
     value: value
   }), /*#__PURE__*/React.createElement("input", {
@@ -849,7 +849,7 @@ function save$m(_ref) {
     _ref.required;
     var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$M);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "email",
     dangerouslySetInnerHTML: {
       __html: value
@@ -894,7 +894,7 @@ function edit$n(_ref) {
     value = _ref.value,
     onInput = _ref.onInput,
     props = _objectWithoutProperties(_ref, _excluded$L);
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "gradient",
     value: value
   }), /*#__PURE__*/React.createElement(GradientPicker, {
@@ -912,7 +912,7 @@ var _excluded$K = ["value"];
 function save$l(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$K);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "gradient",
     dangerouslySetInnerHTML: {
       __html: value
@@ -1173,7 +1173,7 @@ function edit$m(_ref) {
     _useState2 = _slicedToArray(_useState, 2),
     currentBreakpoint = _useState2[0],
     setCurrentBreakpoint = _useState2[1];
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "grid",
     value: value
   }), /*#__PURE__*/React.createElement("div", {
@@ -1195,7 +1195,7 @@ var _excluded$H = ["value"];
 function save$k(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$H);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "grid",
     dangerouslySetInnerHTML: {
       __html: (Array.isArray(value) && value || [value]).join(',')
@@ -1217,14 +1217,14 @@ function edit$l(_ref) {
     innerHtml = _ref$innerHtml === void 0 ? '' : _ref$innerHtml,
     props = _objectWithoutProperties(_ref, _excluded$G);
   if (innerHtml.length > 0) {
-    return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+    return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
       type: "html",
       dangerouslySetInnerHTML: {
         __html: innerHtml
       }
     }));
   }
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "html",
     children: children
   }));
@@ -1238,7 +1238,7 @@ function save$j(_ref) {
     innerHtml = _ref$innerHtml === void 0 ? '' : _ref$innerHtml,
     props = _objectWithoutProperties(_ref, _excluded$F);
   if (innerHtml.length > 0) {
-    return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+    return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
       type: "html",
       dangerouslySetInnerHTML: {
         __html: replaceTokens(innerHtml, {
@@ -1248,7 +1248,7 @@ function save$j(_ref) {
       }
     }));
   }
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "html",
     children: children
   }));
@@ -1337,7 +1337,7 @@ function edit$j(_ref) {
       url: url
     });
   };
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "image",
     value: value
   }), value === null && /*#__PURE__*/React.createElement(MediaPlaceholder, {
@@ -1411,7 +1411,7 @@ function save$i(_ref) {
     var _ref$value = _ref.value,
     value = _ref$value === void 0 ? [] : _ref$value,
     props = _objectWithoutProperties(_ref, _excluded$D);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     tagName: "img",
     type: "image",
     src: value === null || value === void 0 ? void 0 : value.url
@@ -1465,7 +1465,7 @@ function edit$i(_ref) {
     incrementOptions = getMinMaxOptions(parseInt(min), parseInt(max), parseInt(step));
   }
   var index = activeIndex(incrementOptions, value);
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "increment",
     value: value
   }), /*#__PURE__*/React.createElement("div", {
@@ -1507,7 +1507,7 @@ var _excluded$B = ["value"];
 function save$h(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$B);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "increment",
     dangerouslySetInnerHTML: {
       __html: (Array.isArray(value) && value || [value]).join(',')
@@ -1580,7 +1580,7 @@ function save$g(_ref) {
   if ((props === null || props === void 0 ? void 0 : props.tagName) === false) {
     return /*#__PURE__*/React.createElement(InnerBlocks.Content, null);
   }
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "inner-blocks"
   }), /*#__PURE__*/React.createElement(InnerBlocks.Content, null));
 }
@@ -1657,7 +1657,7 @@ function save$f(_ref) {
   if (value === '' || value === null) {
     return;
   }
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     tagName: tagName,
     type: "rich-text",
     dangerouslySetInnerHTML: {
@@ -1788,7 +1788,7 @@ function edit$f(_ref) {
     value = _ref$value === void 0 ? {} : _ref$value,
     props = _objectWithoutProperties(_ref, _excluded$v);
   var ref = createRef();
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     tagName: "a",
     type: "link",
     value: value
@@ -1866,7 +1866,7 @@ function save$e(_ref) {
   var href = value.href,
     target = value.target,
     label = value.label;
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     href: href,
     target: target,
     tagName: "a",
@@ -1962,7 +1962,7 @@ function edit$e(_ref) {
     _ref$value = _ref.value,
     value = _ref$value === void 0 ? {} : _ref$value,
     props = _objectWithoutProperties(_ref, _excluded$t);
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "margin",
     value: value
   }), definitions.map(function (definition) {
@@ -1986,7 +1986,7 @@ var _excluded$s = ["value"];
 function save$d(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$s);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "margin",
     dangerouslySetInnerHTML: {
       __html: value
@@ -2195,7 +2195,7 @@ function edit$c(_ref) {
       }
     }))));
   });
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "media",
     value: value
   }), !hasValue(value) && /*#__PURE__*/React.createElement(MediaPlaceholder, {
@@ -2244,7 +2244,7 @@ function save$c(_ref) {
   if (getAllowedTypes(allowedTypes).includes('image') === false) {
     return null;
   }
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "media"
   }), (value || []).filter(function (_ref2) {
     var type = _ref2.type;
@@ -2279,7 +2279,7 @@ function edit$b(_ref) {
     disabled = _ref$disabled === void 0 ? false : _ref$disabled,
     value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$p);
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "number",
     value: value
   }), /*#__PURE__*/React.createElement("input", {
@@ -2299,7 +2299,7 @@ var _excluded$o = ["value"];
 function save$b(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$o);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "number",
     dangerouslySetInnerHTML: {
       __html: value
@@ -2395,7 +2395,7 @@ function edit$a(_ref) {
     _ref$value = _ref.value,
     value = _ref$value === void 0 ? {} : _ref$value,
     props = _objectWithoutProperties(_ref, _excluded$n);
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "padding",
     value: value
   }), definitions.map(function (definition) {
@@ -2419,7 +2419,7 @@ var _excluded$m = ["value"];
 function save$a(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$m);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "padding",
     dangerouslySetInnerHTML: {
       __html: value
@@ -2613,7 +2613,7 @@ function edit$9(_ref2) {
       onInput([horizontal, vertical]);
     }
   };
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "position",
     value: value
   }), /*#__PURE__*/React.createElement("div", {
@@ -2646,7 +2646,7 @@ var _excluded$k = ["value"];
 function save$9(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$k);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "select",
     dangerouslySetInnerHTML: {
       __html: (Array.isArray(value) && value || [value]).join(',')
@@ -2675,7 +2675,7 @@ function edit$8(_ref) {
     _ref.disabled;
     var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$j);
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "text",
     value: value
   }), /*#__PURE__*/React.createElement("input", {
@@ -2704,7 +2704,7 @@ function save$8(_ref) {
   _ref.placeholder;
     var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$i);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "range",
     dangerouslySetInnerHTML: {
       __html: value
@@ -2739,7 +2739,7 @@ function edit$7(_ref) {
   if (count !== null) {
     rowCount = parseInt(count);
   }
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "repeating"
   }), rowCount > 0 && _toConsumableArray(Array(rowCount).keys()).map(function (index) {
     return /*#__PURE__*/React.createElement("div", null, children !== null && (Array.isArray(children) && children || [children]).map(function (_ref2) {
@@ -2800,7 +2800,7 @@ function save$7(_ref) {
   if (count !== null) {
     rowCount = parseInt(count);
   }
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "repeating"
   }), rowCount > 0 && _toConsumableArray(Array(rowCount).keys()).map(function (index) {
     return /*#__PURE__*/React.createElement("div", null, children !== null && (Array.isArray(children) && children || [children]).map(function (_ref2) {
@@ -2836,7 +2836,7 @@ function edit$6(_ref) {
     disabled = _ref$disabled === void 0 ? false : _ref$disabled,
     value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$f);
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "select",
     value: value,
     style: fieldStyle
@@ -2853,7 +2853,7 @@ var _excluded$e = ["value"];
 function save$6(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$e);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "select",
     dangerouslySetInnerHTML: {
       __html: (Array.isArray(value) && value || [value]).join(',')
@@ -2880,7 +2880,7 @@ function edit$5(_ref) {
     rows = _ref$rows === void 0 ? 8 : _ref$rows,
     value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$d);
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "text",
     value: value
   }), /*#__PURE__*/React.createElement(TextareaControl, {
@@ -2896,7 +2896,7 @@ var _excluded$c = ["value"];
 function save$5(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$c);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "textarea",
     dangerouslySetInnerHTML: {
       __html: value
@@ -2949,7 +2949,7 @@ var _excluded$a = ["value"];
 function save$4(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$a);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "align",
     dangerouslySetInnerHTML: {
       __html: value
@@ -3034,7 +3034,7 @@ var _excluded$8 = ["value"];
 function save$3(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$8);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "text-size",
     dangerouslySetInnerHTML: {
       __html: value
@@ -3196,7 +3196,7 @@ function edit$2(_ref2) {
       window.addEventListener('mouseup', onBlur);
     }
   }, [focusIndex]);
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "toggle",
     value: value
   }), /*#__PURE__*/React.createElement("div", {
@@ -3245,7 +3245,7 @@ var _excluded$6 = ["value"];
 function save$2(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$6);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "toggle",
     dangerouslySetInnerHTML: {
       __html: (Array.isArray(value) && value || [value]).join(',')
@@ -3268,7 +3268,7 @@ function edit$1(_ref) {
     placeholder = _ref.placeholder,
     value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$5);
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "url",
     value: value
   }), /*#__PURE__*/React.createElement(URLInput, {
@@ -3284,7 +3284,7 @@ var _excluded$4 = ["value"];
 function save$1(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$4);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "url",
     dangerouslySetInnerHTML: {
       __html: value
@@ -3311,7 +3311,7 @@ function edit(_ref) {
     disabled = _ref$disabled === void 0 ? false : _ref$disabled,
     value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$3);
-  return /*#__PURE__*/React.createElement(Field$1.edit, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
     type: "width",
     value: value
   }), /*#__PURE__*/React.createElement(RangeField.edit, {
@@ -3328,7 +3328,7 @@ var _excluded$2 = ["value"];
 function save(_ref) {
   var value = _ref.value,
     props = _objectWithoutProperties(_ref, _excluded$2);
-  return /*#__PURE__*/React.createElement(Field$1.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
     type: "number",
     dangerouslySetInnerHTML: {
       __html: value

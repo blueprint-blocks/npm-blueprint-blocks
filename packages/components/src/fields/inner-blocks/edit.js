@@ -1,5 +1,6 @@
 import { InnerBlocks } from '@wordpress/block-editor'
 import { useSelect } from '@wordpress/data'
+import Field from '../field/index.js'
 
 function edit( {
 	name = 'inner-blocks',

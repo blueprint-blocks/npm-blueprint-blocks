@@ -1216,6 +1216,7 @@ function edit$l(_ref) {
     var _ref$innerHtml = _ref.innerHtml,
     innerHtml = _ref$innerHtml === void 0 ? '' : _ref$innerHtml,
     props = _objectWithoutProperties(_ref, _excluded$G);
+  console.log(_typeof(innerHtml), innerHtml);
   if (innerHtml.length > 0) {
     return /*#__PURE__*/React.createElement(Field.edit, _extends({}, props, {
       type: "html",

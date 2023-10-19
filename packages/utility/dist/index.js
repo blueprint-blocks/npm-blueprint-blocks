@@ -427,115 +427,97 @@ function styles() {
   return Object.fromEntries(stylesArray);
 }
 
-var _excluded = ["children", "className", "editorClassName", "viewClassName", "style", "attributeName", "type", "tagName", "persist"];
+var _excluded = ["children", "className", "editorClassName", "viewClassName", "style", "attributeName", "type", "tagName", "persist"],
+  _excluded2 = ["jsx"];
 
 /**
- * Renders an array of JSX objects
- *
- * @param {array} jsx
+ * Renders an item inside a JSX objects array
  */
-function renderJsxArray(_ref) {
-  var clientId = _ref.clientId,
-    blockName = _ref.blockName,
-    attributes = _ref.attributes,
-    _ref$setAttributes = _ref.setAttributes,
-    setAttributes = _ref$setAttributes === void 0 ? null : _ref$setAttributes,
-    _ref$jsx = _ref.jsx,
-    jsx = _ref$jsx === void 0 ? [] : _ref$jsx,
-    _ref$context = _ref.context,
-    context = _ref$context === void 0 ? {} : _ref$context;
-  var Components = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  if (Array.isArray(jsx) === false || jsx.length === 0) {
-    return null;
+function render(_ref, _ref2) {
+  var _ref$children = _ref.children,
+    children = _ref$children === void 0 ? [] : _ref$children,
+    _ref$className = _ref.className,
+    className = _ref$className === void 0 ? [] : _ref$className,
+    _ref$editorClassName = _ref.editorClassName,
+    editorClassName = _ref$editorClassName === void 0 ? [] : _ref$editorClassName,
+    _ref$viewClassName = _ref.viewClassName,
+    viewClassName = _ref$viewClassName === void 0 ? [] : _ref$viewClassName,
+    _ref$style = _ref.style,
+    style = _ref$style === void 0 ? {} : _ref$style,
+    _ref$attributeName = _ref.attributeName,
+    attributeName = _ref$attributeName === void 0 ? '' : _ref$attributeName,
+    _ref$type = _ref.type,
+    type = _ref$type === void 0 ? 'html' : _ref$type,
+    _ref$tagName = _ref.tagName,
+    tagName = _ref$tagName === void 0 ? 'div' : _ref$tagName,
+    _ref$persist = _ref.persist,
+    persist = _ref$persist === void 0 ? true : _ref$persist,
+    props = _objectWithoutProperties(_ref, _excluded);
+  var clientId = _ref2.clientId,
+    blockName = _ref2.blockName,
+    attributes = _ref2.attributes,
+    _ref2$setAttributes = _ref2.setAttributes,
+    setAttributes = _ref2$setAttributes === void 0 ? null : _ref2$setAttributes,
+    _ref2$context = _ref2.context,
+    context = _ref2$context === void 0 ? {} : _ref2$context;
+  var Components = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var attributeValue = attributes === null || attributes === void 0 ? void 0 : attributes[attributeName];
+  if (attributeValue === undefined) {
+    attributeValue = props === null || props === void 0 ? void 0 : props.value;
   }
-  var jsxComponents = jsx.map(function (_ref2) {
-    var _ref2$children = _ref2.children,
-      children = _ref2$children === void 0 ? [] : _ref2$children,
-      _ref2$className = _ref2.className,
-      className = _ref2$className === void 0 ? [] : _ref2$className,
-      _ref2$editorClassName = _ref2.editorClassName,
-      editorClassName = _ref2$editorClassName === void 0 ? [] : _ref2$editorClassName,
-      _ref2$viewClassName = _ref2.viewClassName,
-      viewClassName = _ref2$viewClassName === void 0 ? [] : _ref2$viewClassName,
-      _ref2$style = _ref2.style,
-      style = _ref2$style === void 0 ? {} : _ref2$style,
-      _ref2$attributeName = _ref2.attributeName,
-      attributeName = _ref2$attributeName === void 0 ? '' : _ref2$attributeName,
-      _ref2$type = _ref2.type,
-      type = _ref2$type === void 0 ? 'html' : _ref2$type,
-      _ref2$tagName = _ref2.tagName,
-      tagName = _ref2$tagName === void 0 ? 'div' : _ref2$tagName,
-      _ref2$persist = _ref2.persist,
-      persist = _ref2$persist === void 0 ? true : _ref2$persist,
-      props = _objectWithoutProperties(_ref2, _excluded);
-    var attributeValue = attributes === null || attributes === void 0 ? void 0 : attributes[attributeName];
-    if (attributeValue === undefined) {
-      attributeValue = props === null || props === void 0 ? void 0 : props.value;
-    }
-    var jsxAttributes = Object.fromEntries(Object.entries(props).map(function (_ref3) {
-      var _ref4 = _slicedToArray(_ref3, 2),
-        name = _ref4[0],
-        value = _ref4[1];
-      if (typeof value === 'string' && EXCLUDED_ATTRIBUTES.includes(name) === false) {
-        return [name, replaceTokens(value, _objectSpread2(_objectSpread2({}, context), {}, {
-          attribute: {
-            value: attributeValue
-          }
-        }))];
-      } else {
-        return [name, value];
-      }
-    }));
-    if ('display' in jsxAttributes) {
-      jsxAttributes.display = evaluateConditionalString(props.display, context);
-    }
-    var jsxClassNames = classNames([].concat(_toConsumableArray(Array.isArray(className) && className || [className]), _toConsumableArray((context === null || context === void 0 ? void 0 : context.context) === 'edit' && (Array.isArray(editorClassName) && editorClassName || [editorClassName]) || []), _toConsumableArray((context === null || context === void 0 ? void 0 : context.context) === 'save' && (Array.isArray(viewClassName) && viewClassName || [viewClassName]) || [])), _objectSpread2(_objectSpread2({}, context), {}, {
-      attribute: {
-        value: attributeValue
-      }
-    }));
-    if (jsxClassNames) {
-      jsxAttributes.className = jsxClassNames;
-    }
-    var jsxStyles = styles(style, _objectSpread2(_objectSpread2({}, context), {}, {
-      attribute: {
-        value: attributeValue
-      }
-    }));
-    if (Object.values(jsxStyles).length > 0) {
-      jsxAttributes.style = jsxStyles;
-    }
-    var Component = tagName;
-    if (type in Components && Components[type]) {
-      Component = Components[type];
-      return /*#__PURE__*/React.createElement(Component, _extends({}, jsxAttributes, {
-        clientId: clientId,
-        blockName: blockName,
-        attributeName: attributeName,
-        tagName: tagName,
-        attributes: attributes
-      }, attributeValue !== undefined && {
-        value: attributeValue
-      }, setAttributes !== null && {
-        attributeName: attributeName,
-        setAttributes: setAttributes,
-        onInput: function onInput(value) {
-          if ((context === null || context === void 0 ? void 0 : context.context) === 'save') {
-            return;
-          }
-          setAttributes(_defineProperty({}, attributeName, value), persist);
+  var jsxAttributes = Object.fromEntries(Object.entries(props).map(function (_ref3) {
+    var _ref4 = _slicedToArray(_ref3, 2),
+      name = _ref4[0],
+      value = _ref4[1];
+    if (typeof value === 'string' && EXCLUDED_ATTRIBUTES.includes(name) === false) {
+      return [name, replaceTokens(value, _objectSpread2(_objectSpread2({}, context), {}, {
+        attribute: {
+          value: attributeValue
         }
-      }), renderJsxArray({
-        clientId: clientId,
-        blockName: blockName,
-        attributes: attributes,
-        setAttributes: setAttributes,
-        jsx: children,
-        context: context
-      }, Components));
+      }))];
+    } else {
+      return [name, value];
     }
+  }));
+  if ('display' in jsxAttributes) {
+    jsxAttributes.display = evaluateConditionalString(props.display, context);
+  }
+  var jsxClassNames = classNames([].concat(_toConsumableArray(Array.isArray(className) && className || [className]), _toConsumableArray((context === null || context === void 0 ? void 0 : context.context) === 'edit' && (Array.isArray(editorClassName) && editorClassName || [editorClassName]) || []), _toConsumableArray((context === null || context === void 0 ? void 0 : context.context) === 'save' && (Array.isArray(viewClassName) && viewClassName || [viewClassName]) || [])), _objectSpread2(_objectSpread2({}, context), {}, {
+    attribute: {
+      value: attributeValue
+    }
+  }));
+  if (jsxClassNames) {
+    jsxAttributes.className = jsxClassNames;
+  }
+  var jsxStyles = styles(style, _objectSpread2(_objectSpread2({}, context), {}, {
+    attribute: {
+      value: attributeValue
+    }
+  }));
+  if (Object.values(jsxStyles).length > 0) {
+    jsxAttributes.style = jsxStyles;
+  }
+  var Component = tagName;
+  if (type in Components && Components[type]) {
+    Component = Components[type];
     return /*#__PURE__*/React.createElement(Component, _extends({}, jsxAttributes, {
-      blockName: blockName
+      clientId: clientId,
+      blockName: blockName,
+      attributeName: attributeName,
+      tagName: tagName,
+      attributes: attributes
+    }, attributeValue !== undefined && {
+      value: attributeValue
+    }, setAttributes !== null && {
+      attributeName: attributeName,
+      setAttributes: setAttributes,
+      onInput: function onInput(value) {
+        if ((context === null || context === void 0 ? void 0 : context.context) === 'save') {
+          return;
+        }
+        setAttributes(_defineProperty({}, attributeName, value), persist);
+      }
     }), renderJsxArray({
       clientId: clientId,
       blockName: blockName,
@@ -544,6 +526,37 @@ function renderJsxArray(_ref) {
       jsx: children,
       context: context
     }, Components));
+  }
+  return /*#__PURE__*/React.createElement(Component, _extends({}, jsxAttributes, {
+    blockName: blockName
+  }), renderJsxArray({
+    clientId: clientId,
+    blockName: blockName,
+    attributes: attributes,
+    setAttributes: setAttributes,
+    jsx: children,
+    context: context
+  }, Components));
+}
+
+/**
+ * Renders an array of JSX objects
+ *
+ * @param {array} jsx
+ */
+function renderJsxArray(_ref5) {
+  var _ref5$jsx = _ref5.jsx,
+    jsx = _ref5$jsx === void 0 ? [] : _ref5$jsx,
+    blockProps = _objectWithoutProperties(_ref5, _excluded2);
+  var Components = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  if (Array.isArray(jsx) === false || jsx.length === 0) {
+    return null;
+  }
+  var jsxComponents = jsx.map(function (jsxComponent) {
+    if (typeof jsxComponent === 'function') {
+      return jsxComponent();
+    }
+    return render(jsxComponent, blockProps, Components);
   });
   if (jsxComponents.length === 1) {
     return jsxComponents[0];

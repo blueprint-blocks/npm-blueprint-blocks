@@ -146,7 +146,7 @@ function renderJsxArray( {
 	const jsxComponents = jsx.map( ( jsxComponent ) => {
 
 		if ( typeof jsxComponent === 'function' ) {
-			return jsxComponent()
+			return jsxComponent( blockProps )
 		}
 
 		return render( jsxComponent, blockProps, Components )

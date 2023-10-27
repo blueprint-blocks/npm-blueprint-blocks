@@ -2,8 +2,6 @@ import Field from '../field/index.js'
 
 function edit( { children, dangerouslySetInnerHTML, innerHtml = '', ...props } ) {
 
-	console.log(typeof innerHtml, innerHtml);
-
 	if ( innerHtml.length > 0 ) {
 		return (
 			<Field.edit

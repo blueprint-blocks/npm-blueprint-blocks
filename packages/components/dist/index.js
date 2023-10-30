@@ -1,4 +1,4 @@
-import { isExternalUrl, isFragmentUrl, replaceTokens, useClickOutside, getBlockIndex, getInnerBlocks, getBlockContext, classNames as classNames$1, styles, renderJsxArray } from '@blueprint-blocks/utility';
+import { isExternalUrl, isFragmentUrl, replaceTokens, useClickOutside, throttle, getBlockIndex, getInnerBlocks, getBlockContext, classNames as classNames$1, styles, renderJsxArray } from '@blueprint-blocks/utility';
 import { __ } from '@wordpress/i18n';
 import { ToolbarButton, ColorPalette, GradientPicker, withNotices, Button, SelectControl, TextareaControl, PanelBody, ToolbarGroup } from '@wordpress/components';
 import { useSetting, MediaPlaceholder, MediaUpload, InnerBlocks, RichText, URLInput, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
@@ -3420,10 +3420,19 @@ function BlockEdit(blueprint) {
       _useState2 = _slicedToArray(_useState, 2),
       attributes = _useState2[0],
       setStateAttributes = _useState2[1];
-    props === null || props === void 0 || props.setAttributes({
-      _index: getBlockIndex(clientId),
-      _innerBlocksLength: getInnerBlocks(clientId).length || 0
-    });
+
+    /**
+     * Sets the default block attributes for index and length. This is
+     * throttled to prevent recursive updates.
+     */
+    throttle(function () {
+      if ((attributes === null || attributes === void 0 ? void 0 : attributes._index) !== getBlockIndex(clientId) || attributes._innerBlocksLength !== (getInnerBlocks(clientId).length || 0)) {
+        props === null || props === void 0 || props.setAttributes({
+          _index: getBlockIndex(clientId),
+          _innerBlocksLength: getInnerBlocks(clientId).length || 0
+        });
+      }
+    }, 500)();
 
     /**
      * Overrides the default setAttributes to also save attributes in

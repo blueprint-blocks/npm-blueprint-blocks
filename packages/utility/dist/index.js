@@ -564,6 +564,38 @@ function renderJsxArray(_ref5) {
   return jsxComponents;
 }
 
+/**
+ *
+ *
+ * @param {*} callback
+ * @returns
+ */
+function throttle(callback, delay) {
+  var wait = false;
+  var callbackArgs = null;
+  function attemptCall() {
+    if (callbackArgs === null) {
+      wait = false;
+    } else {
+      callback.apply(void 0, _toConsumableArray(callbackArgs));
+      callbackArgs = null;
+      setTimeout(attemptCall, delay);
+    }
+  }
+  return function () {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    if (wait) {
+      callbackArgs = args;
+      return;
+    }
+    callback.apply(void 0, args);
+    wait = true;
+    setTimeout(attemptCall, delay);
+  };
+}
+
 function useClickOutside(ref, callback) {
   useEffect(function () {
     var handleClickOutside = function handleClickOutside(event) {
@@ -578,5 +610,5 @@ function useClickOutside(ref, callback) {
   }, [ref]);
 }
 
-export { camelize, classNames, delimiterize, evaluateConditionalString, getBlockContext, getBlockIndex, getInnerBlocks, isExternalUrl, isFragmentUrl, renderJsxArray, replaceTokens, styles, useClickOutside };
+export { camelize, classNames, delimiterize, evaluateConditionalString, getBlockContext, getBlockIndex, getInnerBlocks, isExternalUrl, isFragmentUrl, renderJsxArray, replaceTokens, styles, throttle, useClickOutside };
 //# sourceMappingURL=index.js.map

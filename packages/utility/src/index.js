@@ -10,6 +10,7 @@ import isFragmentUrl from './is-fragment-url.js'
 import renderJsxArray from './render-jsx-array.js'
 import replaceTokens from './replace-tokens.js'
 import styles from './styles.js'
+import throttle from './throttle.js'
 import useClickOutside from './use-click-outside.js'
 
 export {
@@ -25,5 +26,6 @@ export {
 	renderJsxArray,
 	replaceTokens,
 	styles,
+	throttle,
 	useClickOutside,
 }

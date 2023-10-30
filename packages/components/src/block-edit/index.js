@@ -6,6 +6,7 @@ import {
 	renderJsxArray,
 	replaceTokens,
 	styles,
+	throttle,
 } from '@blueprint-blocks/utility'
 
 /**
@@ -90,10 +91,25 @@ function BlockEdit( blueprint ) {
 
 		const [ attributes, setStateAttributes ] = useState( props?.attributes || {} )
 
-		props?.setAttributes( {
-			_index: getBlockIndex( clientId ),
-			_innerBlocksLength: ( getInnerBlocks( clientId ).length || 0 ),
-		} )
+		/**
+		 * Sets the default block attributes for index and length. This is
+		 * throttled to prevent recursive updates.
+		 */
+		throttle( () => {
+
+			if (
+				attributes?._index !== getBlockIndex( clientId ) ||
+				attributes._innerBlocksLength !== ( getInnerBlocks( clientId ).length || 0 )
+			) {
+
+				props?.setAttributes( {
+					_index: getBlockIndex( clientId ),
+					_innerBlocksLength: ( getInnerBlocks( clientId ).length || 0 ),
+				} )
+
+			}
+
+		}, 500 )()
 
 		/**
 		 * Overrides the default setAttributes to also save attributes in

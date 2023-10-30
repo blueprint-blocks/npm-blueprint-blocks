@@ -554,7 +554,7 @@ function renderJsxArray(_ref5) {
   }
   var jsxComponents = jsx.map(function (jsxComponent) {
     if (typeof jsxComponent === 'function') {
-      return jsxComponent();
+      return jsxComponent(blockProps);
     }
     return render(jsxComponent, blockProps, Components);
   });

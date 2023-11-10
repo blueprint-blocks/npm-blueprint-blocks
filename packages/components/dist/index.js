@@ -321,7 +321,7 @@ function save$t(_ref) {
   if (className) {
     fieldProps.className = className;
   }
-  if (tagName === 'a' && 'href' in fieldProps && !('rel' in fieldProps) && (isExternalUrl(fieldProps.href) || isFragmentUrl(fieldProps.href))) {
+  if (tagName === 'a' && 'href' in fieldProps && !('rel' in fieldProps) && (isExternalUrl(fieldProps.href) || isFragmentUrl(fieldProps.href) || 'target' in fieldProps)) {
     fieldProps.rel = 'noopener';
   }
   var Component = tagName;
@@ -1866,9 +1866,10 @@ function save$e(_ref) {
   var href = value.href,
     target = value.target,
     label = value.label;
-  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, {
+  return /*#__PURE__*/React.createElement(Field.save, _extends({}, props, target === '_blank' && {
+    target: target
+  }, {
     href: href,
-    target: target,
     tagName: "a",
     type: "link"
   }), label);

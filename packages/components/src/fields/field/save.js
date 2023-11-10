@@ -41,7 +41,7 @@ function save( {
 		fieldProps.className = className
 	}
 
-	if ( tagName === 'a' && 'href' in fieldProps && !( 'rel' in fieldProps ) && ( isExternalUrl( fieldProps.href ) || isFragmentUrl( fieldProps.href ) ) ) {
+	if ( tagName === 'a' && 'href' in fieldProps && !( 'rel' in fieldProps ) && ( isExternalUrl( fieldProps.href ) || isFragmentUrl( fieldProps.href ) || 'target' in fieldProps ) ) {
 		fieldProps.rel = 'noopener'
 	}
 

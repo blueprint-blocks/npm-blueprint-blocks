@@ -11,8 +11,8 @@ function save( { placeholder, value, ...props } ) {
 	return (
 		<Field.save
 			{ ...props }
+			{ ...( target === '_blank' && { target } ) }
 			href={ href }
-			target={ target }
 			tagName="a"
 			type="link"
 		>

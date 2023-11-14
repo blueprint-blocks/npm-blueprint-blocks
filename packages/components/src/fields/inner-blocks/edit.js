@@ -1,5 +1,4 @@
 import { InnerBlocks } from '@wordpress/block-editor'
-import { useSelect } from '@wordpress/data'
 import Field from '../field/index.js'
 
 function edit( {
@@ -13,11 +12,7 @@ function edit( {
 	...props
 } ) {
 
-	const { clientId } = props
-	const innerBlocksLength = useSelect( ( select ) => (
-		select( 'core/block-editor' ).getBlock( clientId )?.innerBlocks?.length || 0
-	) )
-
+	const innerBlocksLength = props.attributes?._innerBlocksLength || 0
 	const fieldProps = Object.assign( {}, props )
 
 	if ( className ) {

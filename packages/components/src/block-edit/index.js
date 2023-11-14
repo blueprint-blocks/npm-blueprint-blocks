@@ -97,14 +97,14 @@ function BlockEdit( blueprint ) {
 		 */
 		throttle( () => {
 
-			if (
-				attributes?._index !== getBlockIndex( clientId ) ||
-				attributes._innerBlocksLength !== ( getInnerBlocks( clientId ).length || 0 )
-			) {
+			const blockIndex = getBlockIndex( clientId )
+			const innerBlocksLength = getInnerBlocks( clientId ).length || 0
+
+			if ( attributes?._index !== blockIndex || attributes._innerBlocksLength !== innerBlocksLength ) {
 
 				props?.setAttributes( {
-					_index: getBlockIndex( clientId ),
-					_innerBlocksLength: ( getInnerBlocks( clientId ).length || 0 ),
+					_index: blockIndex,
+					_innerBlocksLength: innerBlocksLength,
 				} )
 
 			}
@@ -134,7 +134,7 @@ function BlockEdit( blueprint ) {
 		const blockContext = getBlockContext( {
 			context: 'edit',
 			attributes,
-			innerBlocks: getInnerBlocks( clientId ) || [],
+			innerBlocks: ( new Array( attributes?._innerBlocksLength || 0 ) ).fill( null ),
 		} )
 
 		const blockSidebar = Array.isArray( blueprint.blockSidebar ) && blueprint.blockSidebar || [ blueprint.blockSidebar ]

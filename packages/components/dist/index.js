@@ -6,7 +6,6 @@ import { createRef, useState, useEffect } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
 import classNames from 'classnames';
 import memoize from 'micro-memoize';
-import { useSelect } from '@wordpress/data';
 
 var e = [],
   t = [];
@@ -1523,6 +1522,7 @@ var IncrementField = {
 
 var _excluded$A = ["name", "allowedBlocks", "orientation", "template", "templateLock", "max", "className"];
 function edit$h(_ref) {
+  var _props$attributes;
   _ref.name;
     var allowedBlocks = _ref.allowedBlocks,
     _ref$orientation = _ref.orientation,
@@ -1536,11 +1536,7 @@ function edit$h(_ref) {
     _ref$className = _ref.className,
     className = _ref$className === void 0 ? [] : _ref$className,
     props = _objectWithoutProperties(_ref, _excluded$A);
-  var clientId = props.clientId;
-  var innerBlocksLength = useSelect(function (select) {
-    var _select$getBlock;
-    return ((_select$getBlock = select('core/block-editor').getBlock(clientId)) === null || _select$getBlock === void 0 || (_select$getBlock = _select$getBlock.innerBlocks) === null || _select$getBlock === void 0 ? void 0 : _select$getBlock.length) || 0;
-  });
+  var innerBlocksLength = ((_props$attributes = props.attributes) === null || _props$attributes === void 0 ? void 0 : _props$attributes._innerBlocksLength) || 0;
   var fieldProps = Object.assign({}, props);
   if (className) {
     fieldProps.className = className;
@@ -3427,10 +3423,12 @@ function BlockEdit(blueprint) {
      * throttled to prevent recursive updates.
      */
     throttle(function () {
-      if ((attributes === null || attributes === void 0 ? void 0 : attributes._index) !== getBlockIndex(clientId) || attributes._innerBlocksLength !== (getInnerBlocks(clientId).length || 0)) {
+      var blockIndex = getBlockIndex(clientId);
+      var innerBlocksLength = getInnerBlocks(clientId).length || 0;
+      if ((attributes === null || attributes === void 0 ? void 0 : attributes._index) !== blockIndex || attributes._innerBlocksLength !== innerBlocksLength) {
         props === null || props === void 0 || props.setAttributes({
-          _index: getBlockIndex(clientId),
-          _innerBlocksLength: getInnerBlocks(clientId).length || 0
+          _index: blockIndex,
+          _innerBlocksLength: innerBlocksLength
         });
       }
     }, 500)();
@@ -3454,7 +3452,7 @@ function BlockEdit(blueprint) {
     var blockContext = getBlockContext({
       context: 'edit',
       attributes: attributes,
-      innerBlocks: getInnerBlocks(clientId) || []
+      innerBlocks: new Array((attributes === null || attributes === void 0 ? void 0 : attributes._innerBlocksLength) || 0).fill(null)
     });
     var blockSidebar = Array.isArray(blueprint.blockSidebar) && blueprint.blockSidebar || [blueprint.blockSidebar];
     var blockToolbar = Array.isArray(blueprint.blockToolbar) && blueprint.blockToolbar || [blueprint.blockToolbar];

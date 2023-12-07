@@ -14,7 +14,7 @@ function useInnerBlocks( clientId ) {
 	const { getBlocks } = useSelect( ( select ) => ( {
 		getBlocks: select( 'core/block-editor' )?.getBlocks
 	} ) )
-	return getBlocks( clientId ) || []
+	return getBlocks && getBlocks( clientId ) || []
 }
 
 export default useInnerBlocks

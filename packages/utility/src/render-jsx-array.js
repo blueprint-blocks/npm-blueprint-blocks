@@ -74,7 +74,11 @@ function render( {
 
 	if ( type in Components && Components[ type ] ) {
 		Component = Components[ type ]
+	} else if ( `${ type }-field` in Components && Components[ `${ type }-field` ] ) {
+		Component = Components[ `${ type }-field` ]
+	}
 
+	if ( Component !== tagName ) {
 		return (
 			<Component
 				{ ...jsxAttributes }

@@ -1052,6 +1052,10 @@ function render(_ref, _ref2) {
   var Component = tagName;
   if (type in Components && Components[type]) {
     Component = Components[type];
+  } else if ("".concat(type, "-field") in Components && Components["".concat(type, "-field")]) {
+    Component = Components["".concat(type, "-field")];
+  }
+  if (Component !== tagName) {
     return /*#__PURE__*/React.createElement(Component, _extends({}, jsxAttributes, {
       clientId: clientId,
       blockName: blockName,
@@ -5587,7 +5591,7 @@ function useBlockIndex(clientId) {
       };
     }),
     getBlockIndex = _useSelect.getBlockIndex;
-  return getBlockIndex(clientId) || 0;
+  return getBlockIndex && getBlockIndex(clientId) || 0;
 }
 function useClickOutside(ref, callback) {
   wp.element.useEffect(function () {
@@ -5622,7 +5626,7 @@ function useInnerBlocks(clientId) {
       };
     }),
     getBlocks = _useSelect.getBlocks;
-  return getBlocks(clientId) || [];
+  return getBlocks && getBlocks(clientId) || [];
 }
 
 function getDefaultExportFromCjs (x) {

@@ -14,7 +14,7 @@ function useBlockIndex( clientId ) {
 	const { getBlockIndex } = useSelect( ( select ) => ( {
 		getBlockIndex: select( 'core/block-editor' )?.getBlockIndex
 	} ) )
-	return getBlockIndex( clientId ) || 0
+	return getBlockIndex && getBlockIndex( clientId ) || 0
 }
 
 export default useBlockIndex

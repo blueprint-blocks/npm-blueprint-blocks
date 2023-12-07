@@ -10,11 +10,11 @@ import { useSelect } from '@wordpress/data'
  * @param {*} clientId
  * @returns
  */
-function getInnerBlocks( clientId ) {
+function useInnerBlocks( clientId ) {
 	const { getBlocks } = useSelect( ( select ) => ( {
 		getBlocks: select( 'core/block-editor' )?.getBlocks
 	} ) )
 	return getBlocks( clientId ) || []
 }
 
-export default getInnerBlocks
+export default useInnerBlocks

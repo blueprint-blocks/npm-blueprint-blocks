@@ -1,12 +1,12 @@
 import {
 	classNames,
 	getBlockContext,
-	getBlockIndex,
-	getInnerBlocks,
 	renderJsxArray,
 	replaceTokens,
 	styles,
 	throttle,
+	useBlockIndex,
+	useInnerBlocks,
 } from '@blueprint-blocks/utility'
 
 /**
@@ -31,7 +31,7 @@ import { ToolbarGroup } from '@wordpress/components'
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-element/#usestate
  */
-import { useState } from '@wordpress/element'
+import { useLayoutEffect, useState } from '@wordpress/element'
 
 /**
  * WordPress hooks for filtering or adding actions.
@@ -91,25 +91,23 @@ function BlockEdit( blueprint ) {
 
 		const [ attributes, setStateAttributes ] = useState( props?.attributes || {} )
 
+		const blockIndex = useBlockIndex( clientId )
+		const innerBlocks = useInnerBlocks( clientId )
+
 		/**
 		 * Sets the default block attributes for index and length. This is
 		 * throttled to prevent recursive updates.
 		 */
-		throttle( () => {
-
-			const blockIndex = getBlockIndex( clientId )
-			const innerBlocksLength = getInnerBlocks( clientId ).length || 0
-
-			if ( attributes?._index !== blockIndex || attributes._innerBlocksLength !== innerBlocksLength ) {
-
-				props?.setAttributes( {
-					_index: blockIndex,
-					_innerBlocksLength: innerBlocksLength,
-				} )
-
-			}
-
-		}, 500 )()
+		useLayoutEffect( () => {
+			throttle( () => {
+				if ( attributes?._index !== blockIndex || attributes._innerBlocksLength !== innerBlocks.length ) {
+					props?.setAttributes( {
+						_index: blockIndex,
+						_innerBlocksLength: innerBlocks.length,
+					} )
+				}
+			}, 500 )()
+		}, [ blockIndex, innerBlocks ] )
 
 		/**
 		 * Overrides the default setAttributes to also save attributes in

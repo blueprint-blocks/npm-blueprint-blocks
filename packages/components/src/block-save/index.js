@@ -51,7 +51,7 @@ function BlockSave( blueprint ) {
 		} )
 
 		const _blockEdit = blueprint?.blockEdit && ( Array.isArray( blueprint.blockEdit ) && blueprint.blockEdit || [ blueprint.blockEdit ] ) || [ {} ]
-		const _blockSave = blueprint?.blockSave && ( Array.isArray( blueprint.blockSave ) && blueprint.blockSave || [ blueprint.blockSave ] ) || _blockEdit
+		const _blockSave = blueprint?.blockSave?.length > 0 && ( Array.isArray( blueprint.blockSave ) && blueprint.blockSave || [ blueprint.blockSave ] ) || _blockEdit
 
 		const {
 			children = [],

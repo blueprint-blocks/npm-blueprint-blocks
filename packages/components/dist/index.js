@@ -9410,6 +9410,7 @@ var Components = Object.fromEntries(Object.values(Fields).map(function (_ref) {
  */
 function BlockSave(blueprint) {
   return function (_ref2) {
+    var _blueprint$blockSave;
     var attributes = _ref2.attributes,
       innerBlocks = _ref2.innerBlocks;
     var blockProps = wp.blockEditor.useBlockProps.save();
@@ -9420,7 +9421,7 @@ function BlockSave(blueprint) {
       innerBlocks: innerBlocks
     });
     var _blockEdit = (blueprint === null || blueprint === void 0 ? void 0 : blueprint.blockEdit) && (Array.isArray(blueprint.blockEdit) && blueprint.blockEdit || [blueprint.blockEdit]) || [{}];
-    var _blockSave = (blueprint === null || blueprint === void 0 ? void 0 : blueprint.blockSave) && (Array.isArray(blueprint.blockSave) && blueprint.blockSave || [blueprint.blockSave]) || _blockEdit;
+    var _blockSave = (blueprint === null || blueprint === void 0 || (_blueprint$blockSave = blueprint.blockSave) === null || _blueprint$blockSave === void 0 ? void 0 : _blueprint$blockSave.length) > 0 && (Array.isArray(blueprint.blockSave) && blueprint.blockSave || [blueprint.blockSave]) || _blockEdit;
     var _ref3 = (_blockSave === null || _blockSave === void 0 ? void 0 : _blockSave[0]) || {},
       _ref3$children = _ref3.children,
       children = _ref3$children === void 0 ? [] : _ref3$children,

@@ -1,9 +1,3 @@
-import { __ } from '@wordpress/i18n';
-import { ToolbarButton, ColorPalette, GradientPicker, withNotices, Button, SelectControl, TextareaControl, PanelBody, ToolbarGroup } from '@wordpress/components';
-import { useSetting, MediaPlaceholder, MediaUpload, InnerBlocks, RichText, URLInput, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
-import { createRef, useState, useEffect } from '@wordpress/element';
-import { addFilter as addFilter$1 } from '@wordpress/hooks';
-
 var e = [],
   t = [];
 function n(n, r) {
@@ -938,8 +932,8 @@ function classNames$1() {
 var _excluded$1$1 = ["clientId", "attributes", "innerBlocks"];
 /**
  * Returns the block context with private attributes formatted.
- * 
- * Note: The length of the inner blocks is saved as an attribute because 
+ *
+ * Note: The length of the inner blocks is saved as an attribute because
  * they can not be directly referenced upon initial save.
  */
 function getBlockContext() {
@@ -8957,7 +8951,7 @@ var classnames = {exports: {}};
 	  } else {
 	    window.classNames = classNames;
 	  }
-	})(); 
+	})();
 } (classnames));
 
 var classnamesExports = classnames.exports;
@@ -8983,7 +8977,7 @@ function edit$v(_ref) {
       subscript = _ref2.subscript,
       label = _ref2.label,
       option = _objectWithoutProperties$1(_ref2, _excluded2$4);
-    return /*#__PURE__*/React.createElement(ToolbarButton, {
+    return /*#__PURE__*/React.createElement(wp.components.ToolbarButton, {
       icon: icon || /*#__PURE__*/React.createElement("div", {
         className: "label"
       }, label),
@@ -9032,7 +9026,7 @@ function edit$u(_ref) {
   if (display !== true && Boolean(display) === false) {
     return;
   }
-  var ref = createRef();
+  var ref = wp.element.createRef();
   var fieldProps = Object.assign({}, props);
   if (className) {
     fieldProps.className = className;
@@ -9217,7 +9211,7 @@ function edit$s(_ref) {
     required = _ref$required === void 0 ? false : _ref$required,
     value = _ref.value,
     props = _objectWithoutProperties$1(_ref, _excluded$V);
-  var ref = createRef();
+  var ref = wp.element.createRef();
   return /*#__PURE__*/React.createElement(Field.edit, _extends$1({}, props, {
     type: "text",
     value: value
@@ -9282,7 +9276,7 @@ function edit$r(_ref) {
     value = _ref$value === void 0 ? {} : _ref$value,
     props = _objectWithoutProperties$1(_ref, _excluded$T);
   return /*#__PURE__*/React.createElement(Field.edit, _extends$1({}, props, {
-    description: (props === null || props === void 0 ? void 0 : props.description) || __('Enter an id for the anchor to this element on the page.'),
+    description: (props === null || props === void 0 ? void 0 : props.description) || wp.i18n.__('Enter an id for the anchor to this element on the page.'),
     className: classNames(Array.isArray(className) && className || [className]),
     type: "anchor",
     value: value
@@ -9291,7 +9285,7 @@ function edit$r(_ref) {
   }, /*#__PURE__*/React.createElement(TextField.edit, {
     placeholder: placeholder,
     pattern: "#?[A-Za-z0-9_-]+",
-    customValidity: customValidity || __('Anchors must be formatted with a # followed by letters, numbers, dashes, or underscores.'),
+    customValidity: customValidity || wp.i18n.__('Anchors must be formatted with a # followed by letters, numbers, dashes, or underscores.'),
     value: value,
     onInput: function onInput(value) {
       if (value.slice(0, 1) !== '#') {
@@ -9415,7 +9409,7 @@ function edit$q(_ref) {
     _ref.tooltipPosition;
     var value = _ref.value,
     props = _objectWithoutProperties$1(_ref, _excluded$R);
-  var _useState = useState(false),
+  var _useState = wp.element.useState(false),
     _useState2 = _slicedToArray$1(_useState, 2),
     hasHover = _useState2[0],
     setHasHover = _useState2[1];
@@ -9905,7 +9899,7 @@ function edit$p(_ref2) {
     saveAs = _ref2$saveAs === void 0 ? '{{ color.color }}' : _ref2$saveAs,
     onInput = _ref2.onInput,
     props = _objectWithoutProperties$1(_ref2, _excluded$P);
-  var palette = colors === null && useSetting('color.palette') || colors || [];
+  var palette = colors === null && wp.blockEditor.useSetting('color.palette') || colors || [];
   var colorValue = value;
   if (saveAs !== '{{ color.color }}') {
     colorValue = getColorFromSavedAsValue(value, saveAs, palette);
@@ -9913,7 +9907,7 @@ function edit$p(_ref2) {
   return /*#__PURE__*/React.createElement(Field.edit, _extends$1({}, props, {
     type: "color",
     value: value
-  }), /*#__PURE__*/React.createElement(ColorPalette, {
+  }), /*#__PURE__*/React.createElement(wp.components.ColorPalette, {
     colors: palette,
     clearable: clearable,
     disableCustomColors: disableCustomColors,
@@ -9965,7 +9959,7 @@ function edit$o(_ref) {
     required = _ref$required === void 0 ? false : _ref$required,
     value = _ref.value,
     props = _objectWithoutProperties$1(_ref, _excluded$N);
-  var ref = createRef();
+  var ref = wp.element.createRef();
   return /*#__PURE__*/React.createElement(Field.edit, _extends$1({}, props, {
     type: "email",
     value: value
@@ -10046,7 +10040,7 @@ function edit$n(_ref) {
   return /*#__PURE__*/React.createElement(Field.edit, _extends$1({}, props, {
     type: "gradient",
     value: value
-  }), /*#__PURE__*/React.createElement(GradientPicker, {
+  }), /*#__PURE__*/React.createElement(wp.components.GradientPicker, {
     gradients: gradients,
     clearable: clearable,
     disableCustomGradients: !enableCustomGradients,
@@ -10318,7 +10312,7 @@ function edit$m(_ref) {
     var value = _ref.value,
     props = _objectWithoutProperties$1(_ref, _excluded$I);
   var breakpointLabels = getBreakpointLabels(breakpoints);
-  var _useState = useState(breakpointLabels === null || breakpointLabels === void 0 || (_breakpointLabels$ = breakpointLabels[0]) === null || _breakpointLabels$ === void 0 ? void 0 : _breakpointLabels$.value),
+  var _useState = wp.element.useState(breakpointLabels === null || breakpointLabels === void 0 || (_breakpointLabels$ = breakpointLabels[0]) === null || _breakpointLabels$ === void 0 ? void 0 : _breakpointLabels$.value),
     _useState2 = _slicedToArray$1(_useState, 2),
     currentBreakpoint = _useState2[0],
     setCurrentBreakpoint = _useState2[1];
@@ -10460,11 +10454,11 @@ function edit$j(_ref) {
     _ref$value = _ref.value,
     value = _ref$value === void 0 ? null : _ref$value,
     props = _objectWithoutProperties$1(_ref, _excluded$E);
-  var _useState = useState(false),
+  var _useState = wp.element.useState(false),
     _useState2 = _slicedToArray$1(_useState, 2),
     hasHover = _useState2[0],
     setHasHover = _useState2[1];
-  var _useState3 = useState(null),
+  var _useState3 = wp.element.useState(null),
     _useState4 = _slicedToArray$1(_useState3, 2),
     optionHover = _useState4[0],
     setOptionHover = _useState4[1];
@@ -10489,7 +10483,7 @@ function edit$j(_ref) {
   return /*#__PURE__*/React.createElement(Field.edit, _extends$1({}, props, {
     type: "image",
     value: value
-  }), value === null && /*#__PURE__*/React.createElement(MediaPlaceholder, {
+  }), value === null && /*#__PURE__*/React.createElement(wp.blockEditor.MediaPlaceholder, {
     icon: "format-image",
     labels: {
       title: label
@@ -10514,7 +10508,7 @@ function edit$j(_ref) {
     style: _objectSpread2$2(_objectSpread2$2({}, optionsStyle$1), hasHover === true && optionsHoverStyle$1)
   }, /*#__PURE__*/React.createElement("div", {
     style: optionsDivStyle$1
-  }, /*#__PURE__*/React.createElement(MediaUpload, {
+  }, /*#__PURE__*/React.createElement(wp.blockEditor.MediaUpload, {
     allowedTypes: ['image'],
     gallery: false,
     multiple: false,
@@ -10522,8 +10516,8 @@ function edit$j(_ref) {
     value: (value === null || value === void 0 ? void 0 : value.id) || null,
     render: function render(_ref3) {
       var open = _ref3.open;
-      return /*#__PURE__*/React.createElement(Button, {
-        label: __("Edit ".concat(label || 'Image')),
+      return /*#__PURE__*/React.createElement(wp.components.Button, {
+        label: wp.i18n.__("Edit ".concat(label || 'Image')),
         onClick: open,
         icon: /*#__PURE__*/React.createElement("span", {
           className: "dashicons dashicons-edit"
@@ -10537,8 +10531,8 @@ function edit$j(_ref) {
         }
       });
     }
-  }), /*#__PURE__*/React.createElement(Button, {
-    label: __("Remove ".concat(label || 'Image')),
+  }), /*#__PURE__*/React.createElement(wp.components.Button, {
+    label: wp.i18n.__("Remove ".concat(label || 'Image')),
     icon: /*#__PURE__*/React.createElement("span", {
       className: "dashicons dashicons-trash"
     }),
@@ -10552,7 +10546,7 @@ function edit$j(_ref) {
     }
   })))));
 }
-var edit$k = withNotices(edit$j);
+var edit$k = wp.components.withNotices(edit$j);
 
 var _excluded$D = ["allowedTypes", "value"];
 function save$i(_ref) {
@@ -10692,25 +10686,25 @@ function edit$h(_ref) {
     fieldProps.className = className;
   }
   if ((props === null || props === void 0 ? void 0 : props.tagName) === false) {
-    return /*#__PURE__*/React.createElement(InnerBlocks, {
+    return /*#__PURE__*/React.createElement(wp.blockEditor.InnerBlocks, {
       allowedBlocks: allowedBlocks,
       orientation: orientation === 'horizontal' && 'horizontal' || 'vertical',
       template: template,
       templateLock: templateLock,
       renderAppender: function renderAppender() {
-        return (max === null || innerBlocksLength < max) && /*#__PURE__*/React.createElement(InnerBlocks.DefaultBlockAppender, null) || false;
+        return (max === null || innerBlocksLength < max) && /*#__PURE__*/React.createElement(wp.blockEditor.InnerBlocks.DefaultBlockAppender, null) || false;
       }
     });
   }
   return /*#__PURE__*/React.createElement(Field.edit, _extends$1({}, fieldProps, {
     type: "inner-blocks"
-  }), /*#__PURE__*/React.createElement(InnerBlocks, {
+  }), /*#__PURE__*/React.createElement(wp.blockEditor.InnerBlocks, {
     allowedBlocks: allowedBlocks,
     orientation: orientation === 'horizontal' && 'horizontal' || 'vertical',
     template: template,
     templateLock: templateLock,
     renderAppender: function renderAppender() {
-      return (max === null || innerBlocksLength < max) && /*#__PURE__*/React.createElement(InnerBlocks.DefaultBlockAppender, null) || false;
+      return (max === null || innerBlocksLength < max) && /*#__PURE__*/React.createElement(wp.blockEditor.InnerBlocks.DefaultBlockAppender, null) || false;
     }
   }));
 }
@@ -10724,11 +10718,11 @@ function save$g(_ref) {
     _ref.max;
     var props = _objectWithoutProperties$1(_ref, _excluded$z);
   if ((props === null || props === void 0 ? void 0 : props.tagName) === false) {
-    return /*#__PURE__*/React.createElement(InnerBlocks.Content, null);
+    return /*#__PURE__*/React.createElement(wp.blockEditor.InnerBlocks.Content, null);
   }
   return /*#__PURE__*/React.createElement(Field.save, _extends$1({}, props, {
     type: "inner-blocks"
-  }), /*#__PURE__*/React.createElement(InnerBlocks.Content, null));
+  }), /*#__PURE__*/React.createElement(wp.blockEditor.InnerBlocks.Content, null));
 }
 
 var index$e = {
@@ -10782,7 +10776,7 @@ function edit$g(_ref) {
       }
     }));
   }
-  return /*#__PURE__*/React.createElement(RichText, _extends$1({}, fieldProps, {
+  return /*#__PURE__*/React.createElement(wp.blockEditor.RichText, _extends$1({}, fieldProps, {
     onChange: onInput,
     tagName: tagName,
     allowedFormats: allowedFormats,
@@ -10872,8 +10866,8 @@ function Dialog(_ref) {
     _ref$style = _ref.style,
     style = _ref$style === void 0 ? {} : _ref$style;
     _objectWithoutProperties$1(_ref, _excluded$w);
-  var ref = createRef();
-  var _useState = useState(false),
+  var ref = wp.element.createRef();
+  var _useState = wp.element.useState(false),
     _useState2 = _slicedToArray$1(_useState, 2),
     isDialogOpen = _useState2[0],
     openDialog = _useState2[1];
@@ -10883,7 +10877,7 @@ function Dialog(_ref) {
   return /*#__PURE__*/React.createElement("div", {
     style: _objectSpread2$2(_objectSpread2$2({}, elStyle), style),
     ref: ref
-  }, /*#__PURE__*/React.createElement(Button, {
+  }, /*#__PURE__*/React.createElement(wp.components.Button, {
     icon: icon,
     style: toggleStyle,
     label: label,
@@ -10933,7 +10927,7 @@ function edit$f(_ref) {
     _ref$value = _ref.value,
     value = _ref$value === void 0 ? {} : _ref$value,
     props = _objectWithoutProperties$1(_ref, _excluded$v);
-  var ref = createRef();
+  var ref = wp.element.createRef();
   return /*#__PURE__*/React.createElement(Field.edit, _extends$1({}, props, {
     tagName: "a",
     type: "link",
@@ -10956,7 +10950,7 @@ function edit$f(_ref) {
         __html: link
       }
     }),
-    label: __('Edit Link Properties'),
+    label: wp.i18n.__('Edit Link Properties'),
     style: {
       marginLeft: '4px'
     }
@@ -11231,11 +11225,11 @@ function edit$c(_ref) {
     _ref$value = _ref.value,
     value = _ref$value === void 0 ? [] : _ref$value,
     props = _objectWithoutProperties$1(_ref, _excluded$r);
-  var _useState = useState(null),
+  var _useState = wp.element.useState(null),
     _useState2 = _slicedToArray$1(_useState, 2),
     itemHoverIndex = _useState2[0],
     setItemHoverIndex = _useState2[1];
-  var _useState3 = useState(null),
+  var _useState3 = wp.element.useState(null),
     _useState4 = _slicedToArray$1(_useState3, 2),
     optionHover = _useState4[0],
     setOptionHover = _useState4[1];
@@ -11299,7 +11293,7 @@ function edit$c(_ref) {
       style: _objectSpread2$2(_objectSpread2$2({}, optionsStyle), itemHoverIndex === index && optionsHoverStyle)
     }, /*#__PURE__*/React.createElement("div", {
       style: optionsDivStyle
-    }, /*#__PURE__*/React.createElement(MediaUpload, {
+    }, /*#__PURE__*/React.createElement(wp.blockEditor.MediaUpload, {
       allowedTypes: ALL_TYPES,
       gallery: multiple,
       multiple: multiple,
@@ -11310,8 +11304,8 @@ function edit$c(_ref) {
       }),
       render: function render(_ref6) {
         var open = _ref6.open;
-        return /*#__PURE__*/React.createElement(Button, {
-          label: __("Edit ".concat(label || 'Image')),
+        return /*#__PURE__*/React.createElement(wp.components.Button, {
+          label: wp.i18n.__("Edit ".concat(label || 'Image')),
           onClick: open,
           icon: /*#__PURE__*/React.createElement("span", {
             className: "dashicons dashicons-edit"
@@ -11325,8 +11319,8 @@ function edit$c(_ref) {
           }
         });
       }
-    }), /*#__PURE__*/React.createElement(Button, {
-      label: __("Remove ".concat(label || 'Image')),
+    }), /*#__PURE__*/React.createElement(wp.components.Button, {
+      label: wp.i18n.__("Remove ".concat(label || 'Image')),
       icon: /*#__PURE__*/React.createElement("span", {
         className: "dashicons dashicons-trash"
       }),
@@ -11345,7 +11339,7 @@ function edit$c(_ref) {
   return /*#__PURE__*/React.createElement(Field.edit, _extends$1({}, props, {
     type: "media",
     value: value
-  }), !hasValue(value) && /*#__PURE__*/React.createElement(MediaPlaceholder, {
+  }), !hasValue(value) && /*#__PURE__*/React.createElement(wp.blockEditor.MediaPlaceholder, {
     icon: "format-image",
     labels: {
       title: label
@@ -11357,7 +11351,7 @@ function edit$c(_ref) {
     onError: noticeOperations.createErrorNotice
   }), hasValue(value) && multiple === true && /*#__PURE__*/React.createElement("div", {
     style: itemsStyle$1
-  }, imagesJsx, /*#__PURE__*/React.createElement(MediaUpload, {
+  }, imagesJsx, /*#__PURE__*/React.createElement(wp.blockEditor.MediaUpload, {
     allowedTypes: ALL_TYPES,
     gallery: multiple,
     multiple: multiple,
@@ -11378,7 +11372,7 @@ function edit$c(_ref) {
     }
   })), hasValue(value) && multiple !== true && imagesJsx);
 }
-var edit$d = withNotices(edit$c);
+var edit$d = wp.components.withNotices(edit$c);
 
 var _excluded$q = ["allowedTypes", "multiple", "value"];
 function save$c(_ref) {
@@ -11987,7 +11981,7 @@ function edit$6(_ref) {
     type: "select",
     value: value,
     style: fieldStyle
-  }), /*#__PURE__*/React.createElement(SelectControl, {
+  }), /*#__PURE__*/React.createElement(wp.components.SelectControl, {
     disabled: disabled,
     onChange: onInput,
     options: options,
@@ -12030,7 +12024,7 @@ function edit$5(_ref) {
   return /*#__PURE__*/React.createElement(Field.edit, _extends$1({}, props, {
     type: "text",
     value: value
-  }), /*#__PURE__*/React.createElement(TextareaControl, {
+  }), /*#__PURE__*/React.createElement(wp.components.TextareaControl, {
     disabled: disabled,
     onChange: onInput,
     placeholder: placeholder,
@@ -12308,11 +12302,11 @@ function edit$2(_ref2) {
     value = _ref2$value === void 0 ? [] : _ref2$value,
     props = _objectWithoutProperties$1(_ref2, _excluded$7);
   var hasImages = optionsHaveImages(options);
-  var _useState = useState(null),
+  var _useState = wp.element.useState(null),
     _useState2 = _slicedToArray$1(_useState, 2),
     focusIndex = _useState2[0],
     setFocusIndex = _useState2[1];
-  var _useState3 = useState(null),
+  var _useState3 = wp.element.useState(null),
     _useState4 = _slicedToArray$1(_useState3, 2),
     hoverIndex = _useState4[0],
     setHoverIndex = _useState4[1];
@@ -12338,7 +12332,7 @@ function edit$2(_ref2) {
     setFocusIndex(null);
     window.removeEventListener('mouseup', onBlur);
   };
-  useEffect(function () {
+  wp.element.useEffect(function () {
     if (focusIndex !== null) {
       window.addEventListener('mouseup', onBlur);
     }
@@ -12418,7 +12412,7 @@ function edit$1(_ref) {
   return /*#__PURE__*/React.createElement(Field.edit, _extends$1({}, props, {
     type: "url",
     value: value
-  }), /*#__PURE__*/React.createElement(URLInput, {
+  }), /*#__PURE__*/React.createElement(wp.blockEditor.URLInput, {
     onChange: function onChange(url) {
       return onInput(url);
     },
@@ -12537,7 +12531,7 @@ var Components$1 = Object.fromEntries(Object.values(Fields).map(function (_ref) 
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-hooks/
  */
-addFilter$1('blocks.registerBlockType', 'blueprint-blocks/default-attributes', function (settings, name) {
+wp.hooks.addFilter('blocks.registerBlockType', 'blueprint-blocks/default-attributes', function (settings, name) {
   if (settings !== null && settings !== void 0 && settings.attributes && _typeof$4(settings === null || settings === void 0 ? void 0 : settings.attributes) === 'object') {
     settings.attributes['_index'] = {
       type: 'number',
@@ -12563,7 +12557,7 @@ function BlockEdit(blueprint) {
   return function (_ref2) {
     var clientId = _ref2.clientId,
       props = _objectWithoutProperties$1(_ref2, _excluded$1);
-    var _useState = useState((props === null || props === void 0 ? void 0 : props.attributes) || {}),
+    var _useState = wp.element.useState((props === null || props === void 0 ? void 0 : props.attributes) || {}),
       _useState2 = _slicedToArray$1(_useState, 2),
       attributes = _useState2[0],
       setStateAttributes = _useState2[1];
@@ -12597,7 +12591,7 @@ function BlockEdit(blueprint) {
       }
       setStateAttributes(Object.assign({}, attributes, newAttributeValues));
     };
-    var blockProps = useBlockProps();
+    var blockProps = wp.blockEditor.useBlockProps();
     var blockName = blockProps['data-type'];
     var blockContext = getBlockContext({
       context: 'edit',
@@ -12642,7 +12636,7 @@ function BlockEdit(blueprint) {
     }, Components$1), blockSidebar.map(function (_ref6) {
       var label = _ref6.label,
         props = _objectWithoutProperties$1(_ref6, _excluded3);
-      return /*#__PURE__*/React.createElement(InspectorControls, null, /*#__PURE__*/React.createElement(PanelBody, {
+      return /*#__PURE__*/React.createElement(wp.blockEditor.InspectorControls, null, /*#__PURE__*/React.createElement(wp.components.PanelBody, {
         title: label
       }, renderJsxArray({
         clientId: clientId,
@@ -12653,7 +12647,7 @@ function BlockEdit(blueprint) {
         context: blockContext
       }, Components$1)));
     }), blockToolbar.map(function (props) {
-      return /*#__PURE__*/React.createElement(BlockControls, null, /*#__PURE__*/React.createElement(ToolbarGroup, null, renderJsxArray({
+      return /*#__PURE__*/React.createElement(wp.blockEditor.BlockControls, null, /*#__PURE__*/React.createElement(wp.components.ToolbarGroup, null, renderJsxArray({
         clientId: clientId,
         blockName: blockName,
         attributes: attributes,
@@ -12685,7 +12679,7 @@ function BlockSave(blueprint) {
   return function (_ref2) {
     var attributes = _ref2.attributes,
       innerBlocks = _ref2.innerBlocks;
-    var blockProps = useBlockProps.save();
+    var blockProps = wp.blockEditor.useBlockProps.save();
     var blockName = blockProps.className;
     var blockContext = getBlockContext({
       context: 'save',
@@ -12729,4 +12723,3 @@ function BlockSave(blueprint) {
 }
 
 export { index$m as AlignField, index$l as AnchorField, BlockEdit, BlockSave, BooleanField, index$k as ColorField, index$j as EmailField, index$i as GradientField, index$h as GridField, index$g as Html, index$f as ImageField, IncrementField, index$e as InnerBlocks, index$d as LinkField, index$c as MarginField, index$b as MediaField, index$a as NumberField, index$9 as PaddingField, index$8 as PositionField, RangeField, index$7 as RepeatingField, RichTextField, index$6 as SelectField, index$4 as TextAlignField, TextField, index$3 as TextSizeField, index$5 as TextareaField, index$2 as ToggleField, ToolbarField, index$1 as UrlField, index as WidthField };
-//# sourceMappingURL=index.js.map

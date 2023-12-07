@@ -1,9 +1,9 @@
 {
   "name": "@blueprint-blocks/components",
   "private": false,
-  "version": "0.1.53",
+  "version": "0.1.54",
   "main": "dist/index.js",
-  "module": "src/index.js",
+  "module": "dist/index.js",
   "type": "module",
   "scripts": {
     "start": "rollup -c -w",
@@ -36,6 +36,7 @@
     "@wordpress/hooks": "^3.41.0",
     "@wordpress/i18n": "^4.4.0",
     "rollup": "^3.28.1",
+    "rollup-plugin-external-globals": "^0.9.1",
     "rollup-plugin-svg": "^2.0.0",
     "sass": "^1.68.0"
   }

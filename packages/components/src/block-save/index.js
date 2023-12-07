@@ -50,11 +50,14 @@ function BlockSave( blueprint ) {
 			innerBlocks,
 		} )
 
+		const _blockEdit = blueprint?.blockEdit && ( Array.isArray( blueprint.blockEdit ) && blueprint.blockEdit || [ blueprint.blockEdit ] ) || [ {} ]
+		const _blockSave = blueprint?.blockSave && ( Array.isArray( blueprint.blockSave ) && blueprint.blockSave || [ blueprint.blockSave ] ) || _blockEdit
+
 		const {
 			children = [],
 			tagName = 'div',
 			...blockSave
-		} = ( blueprint.blockSave !== null && blueprint.blockSave || blueprint.blockEdit || {} )
+		} = ( _blockSave?.[ 0 ] || {} )
 
 		const blockAttributes = Object.fromEntries( Object.entries( blockSave ).map( ( [ name, value ] ) => {
 			if ( typeof value === 'string' ) {

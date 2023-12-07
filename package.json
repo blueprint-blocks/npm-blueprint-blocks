@@ -10,6 +10,7 @@
     "@blueprint-blocks/utility": "file:packages/utility"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
     "lerna": "^6.4.1"
   },
   "workspaces": [

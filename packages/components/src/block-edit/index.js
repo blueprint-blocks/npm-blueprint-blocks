@@ -137,14 +137,15 @@ function BlockEdit( blueprint ) {
 			innerBlocks: ( new Array( attributes?._innerBlocksLength || 0 ) ).fill( null ),
 		} )
 
-		const blockSidebar = Array.isArray( blueprint.blockSidebar ) && blueprint.blockSidebar || [ blueprint.blockSidebar ]
-		const blockToolbar = Array.isArray( blueprint.blockToolbar ) && blueprint.blockToolbar || [ blueprint.blockToolbar ]
+		const _blockEdit = blueprint?.blockEdit && ( Array.isArray( blueprint.blockEdit ) && blueprint.blockEdit || [ blueprint.blockEdit ] ) || [ {} ]
+		const blockSidebar = blueprint?.blockSidebar && ( Array.isArray( blueprint.blockSidebar ) && blueprint.blockSidebar || [ blueprint.blockSidebar ] ) || [ {} ]
+		const blockToolbar = blueprint?.blockToolbar && ( Array.isArray( blueprint.blockToolbar ) && blueprint.blockToolbar || [ blueprint.blockToolbar ] ) || [ {} ]
 
 		const {
 			children = [],
 			tagName = 'div',
 			...blockEdit
-		} = ( blueprint.blockEdit || {} )
+		} = ( _blockEdit?.[ 0 ] || {} )
 
 		const blockAttributes = Object.fromEntries( Object.entries( blockEdit ).map( ( [ name, value ] ) => {
 			if ( typeof value === 'string' ) {

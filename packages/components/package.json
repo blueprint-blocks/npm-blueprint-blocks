@@ -1,9 +1,9 @@
 {
   "name": "@blueprint-blocks/components",
   "private": false,
-  "version": "0.1.50",
+  "version": "0.1.53",
   "main": "dist/index.js",
-  "module": "dist/index.js",
+  "module": "src/index.js",
   "type": "module",
   "scripts": {
     "start": "rollup -c -w",
@@ -11,7 +11,7 @@
     "prepublishOnly": "rm -rf ./dist && npm run build"
   },
   "dependencies": {
-    "@blueprint-blocks/utility": "^0.1.25",
+    "@blueprint-blocks/utility": "^0.1.26",
     "classnames": "^2.3.2",
     "micro-memoize": "^4.0.14"
   },
@@ -27,7 +27,9 @@
     "@babel/preset-react": "^7.22.5",
     "@ironkinoko/rollup-plugin-styles": "^4.0.3",
     "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "@wordpress/block-editor": "^12.8.0",
     "@wordpress/components": "^25.6.0",
     "@wordpress/data": "^9.10.0",

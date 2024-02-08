@@ -951,8 +951,16 @@ function getBlockContext() {
     innerBlocks: (innerBlocks === null || innerBlocks === void 0 ? void 0 : innerBlocks.length) && innerBlocks || new Array(length).fill(null)
   });
 }
+function isArray(value) {
+  return Array.isArray(value) && value !== null;
+}
 function isExternalUrl(url) {
-  if (url.indexOf('#') === 0 || url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
+  if (url.length === 0 || url.indexOf('#') === 0 || url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
+    return false;
+  }
+  try {
+    new URL(url);
+  } catch (error) {
     return false;
   }
   return new URL(url).origin !== location.origin;
@@ -962,6 +970,19 @@ function isFragmentUrl(url) {
     return true;
   }
   return false;
+}
+function isObject$1(value) {
+  return _typeof$3(value) === 'object' && !Array.isArray(value) && value !== null;
+}
+function normalizeComponentList(componentList) {
+  var defaultComponent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  if (isObject$1(componentList)) {
+    return [componentList];
+  }
+  if (isArray(componentList) && componentList.length > 0) {
+    return componentList;
+  }
+  return [defaultComponent];
 }
 var EXCLUDED_ATTRIBUTES = ["saveAs"];
 function styles() {
@@ -9331,9 +9352,9 @@ function BlockEdit(blueprint) {
       attributes: attributes,
       innerBlocks: new Array((attributes === null || attributes === void 0 ? void 0 : attributes._innerBlocksLength) || 0).fill(null)
     });
-    var _blockEdit = (blueprint === null || blueprint === void 0 ? void 0 : blueprint.blockEdit) && (Array.isArray(blueprint.blockEdit) && blueprint.blockEdit || [blueprint.blockEdit]) || [{}];
-    var blockSidebar = (blueprint === null || blueprint === void 0 ? void 0 : blueprint.blockSidebar) && (Array.isArray(blueprint.blockSidebar) && blueprint.blockSidebar || [blueprint.blockSidebar]) || [{}];
-    var blockToolbar = (blueprint === null || blueprint === void 0 ? void 0 : blueprint.blockToolbar) && (Array.isArray(blueprint.blockToolbar) && blueprint.blockToolbar || [blueprint.blockToolbar]) || [{}];
+    var _blockEdit = normalizeComponentList(blueprint === null || blueprint === void 0 ? void 0 : blueprint.blockEdit);
+    var blockSidebar = normalizeComponentList(blueprint === null || blueprint === void 0 ? void 0 : blueprint.blockSidebar);
+    var blockToolbar = normalizeComponentList(blueprint === null || blueprint === void 0 ? void 0 : blueprint.blockToolbar);
     var _ref3 = (_blockEdit === null || _blockEdit === void 0 ? void 0 : _blockEdit[0]) || {},
       _ref3$children = _ref3.children,
       children = _ref3$children === void 0 ? [] : _ref3$children,
@@ -9410,7 +9431,6 @@ var Components = Object.fromEntries(Object.values(Fields).map(function (_ref) {
  */
 function BlockSave(blueprint) {
   return function (_ref2) {
-    var _blueprint$blockSave;
     var attributes = _ref2.attributes,
       innerBlocks = _ref2.innerBlocks;
     var blockProps = wp.blockEditor.useBlockProps.save();
@@ -9420,8 +9440,8 @@ function BlockSave(blueprint) {
       attributes: attributes,
       innerBlocks: innerBlocks
     });
-    var _blockEdit = (blueprint === null || blueprint === void 0 ? void 0 : blueprint.blockEdit) && (Array.isArray(blueprint.blockEdit) && blueprint.blockEdit || [blueprint.blockEdit]) || [{}];
-    var _blockSave = (blueprint === null || blueprint === void 0 || (_blueprint$blockSave = blueprint.blockSave) === null || _blueprint$blockSave === void 0 ? void 0 : _blueprint$blockSave.length) > 0 && (Array.isArray(blueprint.blockSave) && blueprint.blockSave || [blueprint.blockSave]) || _blockEdit;
+    var _blockEdit = normalizeComponentList(blueprint === null || blueprint === void 0 ? void 0 : blueprint.blockEdit);
+    var _blockSave = normalizeComponentList(blueprint === null || blueprint === void 0 ? void 0 : blueprint.blockSave, _blockEdit[0]);
     var _ref3 = (_blockSave === null || _blockSave === void 0 ? void 0 : _blockSave[0]) || {},
       _ref3$children = _ref3.children,
       children = _ref3$children === void 0 ? [] : _ref3$children,

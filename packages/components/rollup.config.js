@@ -15,8 +15,6 @@ export default {
 			exports: 'named',
 			sourcemap: ( process.env.NODE_ENV === 'development' ),
 			strict: false,
-			globals: {
-			},
 		},
 	],
 	plugins: [

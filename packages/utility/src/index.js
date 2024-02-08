@@ -3,8 +3,11 @@ import classNames from './class-names.js'
 import delimiterize from './delimiterize.js'
 import evaluateConditionalString from './evaluate-conditional-string.js'
 import getBlockContext from './get-block-context.js'
+import isArray from './is-array.js'
 import isExternalUrl from './is-external-url.js'
 import isFragmentUrl from './is-fragment-url.js'
+import isObject from './is-object.js'
+import normalizeComponentList from './normalize-component-list.js'
 import renderJsxArray from './render-jsx-array.js'
 import replaceTokens from './replace-tokens.js'
 import styles from './styles.js'
@@ -19,8 +22,11 @@ export {
 	delimiterize,
 	evaluateConditionalString,
 	getBlockContext,
+	isArray,
 	isExternalUrl,
 	isFragmentUrl,
+	isObject,
+	normalizeComponentList,
 	renderJsxArray,
 	replaceTokens,
 	styles,

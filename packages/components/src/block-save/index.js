@@ -1,6 +1,7 @@
 import {
 	classNames,
 	getBlockContext,
+	normalizeComponentList,
 	renderJsxArray,
 	replaceTokens,
 	styles,
@@ -50,8 +51,8 @@ function BlockSave( blueprint ) {
 			innerBlocks,
 		} )
 
-		const _blockEdit = blueprint?.blockEdit && ( Array.isArray( blueprint.blockEdit ) && blueprint.blockEdit || [ blueprint.blockEdit ] ) || [ {} ]
-		const _blockSave = blueprint?.blockSave?.length > 0 && ( Array.isArray( blueprint.blockSave ) && blueprint.blockSave || [ blueprint.blockSave ] ) || _blockEdit
+		const _blockEdit = normalizeComponentList( blueprint?.blockEdit )
+		const _blockSave = normalizeComponentList( blueprint?.blockSave, _blockEdit[ 0 ] )
 
 		const {
 			children = [],

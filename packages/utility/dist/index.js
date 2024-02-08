@@ -1,3 +1,4 @@
+import { isObject as isObject$2, isArray as isArray$1 } from '@blueprint-blocks/utility';
 import { createContext, useContext, useRef, useMemo, useCallback, useSyncExternalStore, useDebugValue, useEffect } from '@wordpress/element';
 import { doAction } from '@wordpress/hooks';
 
@@ -789,8 +790,17 @@ function getBlockContext() {
   });
 }
 
+function isArray(value) {
+  return Array.isArray(value) && value !== null;
+}
+
 function isExternalUrl(url) {
-  if (url.indexOf('#') === 0 || url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
+  if (url.length === 0 || url.indexOf('#') === 0 || url.indexOf('http://') !== 0 && url.indexOf('https://') !== 0) {
+    return false;
+  }
+  try {
+    new URL(url);
+  } catch (error) {
     return false;
   }
   return new URL(url).origin !== location.origin;
@@ -801,6 +811,21 @@ function isFragmentUrl(url) {
     return true;
   }
   return false;
+}
+
+function isObject$1(value) {
+  return _typeof$3(value) === 'object' && !Array.isArray(value) && value !== null;
+}
+
+function normalizeComponentList(componentList) {
+  var defaultComponent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  if (isObject$2(componentList)) {
+    return [componentList];
+  }
+  if (isArray$1(componentList) && componentList.length > 0) {
+    return componentList;
+  }
+  return [defaultComponent];
 }
 
 var EXCLUDED_ATTRIBUTES = [
@@ -5507,5 +5532,5 @@ function useInnerBlocks(clientId) {
   return getBlocks && getBlocks(clientId) || [];
 }
 
-export { camelize, classNames, delimiterize, evaluateConditionalString, getBlockContext, isExternalUrl, isFragmentUrl, renderJsxArray, replaceTokens, styles, throttle, useBlockIndex, useClickOutside, useInnerBlocks };
+export { camelize, classNames, delimiterize, evaluateConditionalString, getBlockContext, isArray, isExternalUrl, isFragmentUrl, isObject$1 as isObject, normalizeComponentList, renderJsxArray, replaceTokens, styles, throttle, useBlockIndex, useClickOutside, useInnerBlocks };
 //# sourceMappingURL=index.js.map

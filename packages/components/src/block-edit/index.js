@@ -1,6 +1,7 @@
 import {
 	classNames,
 	getBlockContext,
+	normalizeComponentList,
 	renderJsxArray,
 	replaceTokens,
 	styles,
@@ -135,9 +136,9 @@ function BlockEdit( blueprint ) {
 			innerBlocks: ( new Array( attributes?._innerBlocksLength || 0 ) ).fill( null ),
 		} )
 
-		const _blockEdit = blueprint?.blockEdit && ( Array.isArray( blueprint.blockEdit ) && blueprint.blockEdit || [ blueprint.blockEdit ] ) || [ {} ]
-		const blockSidebar = blueprint?.blockSidebar && ( Array.isArray( blueprint.blockSidebar ) && blueprint.blockSidebar || [ blueprint.blockSidebar ] ) || [ {} ]
-		const blockToolbar = blueprint?.blockToolbar && ( Array.isArray( blueprint.blockToolbar ) && blueprint.blockToolbar || [ blueprint.blockToolbar ] ) || [ {} ]
+		const _blockEdit = normalizeComponentList( blueprint?.blockEdit )
+		const blockSidebar = normalizeComponentList( blueprint?.blockSidebar )
+		const blockToolbar = normalizeComponentList( blueprint?.blockToolbar )
 
 		const {
 			children = [],

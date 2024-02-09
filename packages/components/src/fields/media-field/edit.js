@@ -84,16 +84,16 @@ function edit( {
 		)
 	}
 
-	const selectItem = ( { id, height, type, url, width, ...item } ) => {
+	const selectItem = ( { id, height, subtype, type, url, width, ...item } ) => {
 		onInput( [
-			{ id, height, width, type, url }
+			{ id, height, width, subtype, type, url }
 		] )
 	}
 
 	const selectMultiple = ( items ) => {
 		onInput(
-			Object.values(items).map( ( { id, height, type, url, width, ...item } ) => (
-				{ id, height, width, type, url }
+			Object.values(items).map( ( { id, height, subtype, type, url, width, ...item } ) => (
+				{ id, height, width, subtype, type, url }
 			) )
 		)
 	}

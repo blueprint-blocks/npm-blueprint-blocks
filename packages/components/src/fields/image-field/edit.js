@@ -68,8 +68,8 @@ function edit( {
 		onInput( null )
 	}
 
-	const onSelect = ( { id, height, type, url, width, ...image } ) => {
-		onInput( { id, height, width, type, url } )
+	const onSelect = ( { id, height, subtype, type, url, width, ...image } ) => {
+		onInput( { id, height, width, subtype, type, url } )
 	}
 
 	return (

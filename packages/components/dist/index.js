@@ -7156,7 +7156,7 @@ var index$g = {
 };
 
 var _excluded$E = ["onInput", "label", "noticeUI", "noticeOperations", "value"],
-  _excluded2$3 = ["id", "height", "type", "url", "width"];
+  _excluded2$3 = ["id", "height", "subtype", "type", "url", "width"];
 var divStyle = {
   position: 'relative',
   width: 'fit-content'
@@ -7220,6 +7220,7 @@ function edit$j(_ref) {
   var onSelect = function onSelect(_ref2) {
     var id = _ref2.id,
       height = _ref2.height,
+      subtype = _ref2.subtype,
       type = _ref2.type,
       url = _ref2.url,
       width = _ref2.width;
@@ -7228,6 +7229,7 @@ function edit$j(_ref) {
       id: id,
       height: height,
       width: width,
+      subtype: subtype,
       type: type,
       url: url
     });
@@ -7919,8 +7921,8 @@ var hasValue = createMemoizedFunction(function (value) {
 });
 
 var _excluded$r = ["onInput", "label", "allowedTypes", "multiple", "noticeUI", "noticeOperations", "value"],
-  _excluded2$2 = ["id", "height", "type", "url", "width"],
-  _excluded3$1 = ["id", "height", "type", "url", "width"];
+  _excluded2$2 = ["id", "height", "subtype", "type", "url", "width"],
+  _excluded3$1 = ["id", "height", "subtype", "type", "url", "width"];
 var itemsStyle$1 = {
   position: 'relative'
 };
@@ -7993,6 +7995,7 @@ function edit$c(_ref) {
   var selectItem = function selectItem(_ref2) {
     var id = _ref2.id,
       height = _ref2.height,
+      subtype = _ref2.subtype,
       type = _ref2.type,
       url = _ref2.url,
       width = _ref2.width;
@@ -8001,6 +8004,7 @@ function edit$c(_ref) {
       id: id,
       height: height,
       width: width,
+      subtype: subtype,
       type: type,
       url: url
     }]);
@@ -8009,6 +8013,7 @@ function edit$c(_ref) {
     onInput(Object.values(items).map(function (_ref3) {
       var id = _ref3.id,
         height = _ref3.height,
+        subtype = _ref3.subtype,
         type = _ref3.type,
         url = _ref3.url,
         width = _ref3.width;
@@ -8017,6 +8022,7 @@ function edit$c(_ref) {
         id: id,
         height: height,
         width: width,
+        subtype: subtype,
         type: type,
         url: url
       };

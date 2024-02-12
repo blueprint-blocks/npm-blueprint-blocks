@@ -1,7 +1,7 @@
 {
   "name": "@blueprint-blocks/utility",
   "private": false,
-  "version": "0.1.31",
+  "version": "0.1.32",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "type": "module",
@@ -21,6 +21,7 @@
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@wordpress/data": "^9.10.0",
-    "rollup": "^3.28.1"
+    "rollup": "^3.28.1",
+    "rollup-plugin-external-globals": "^0.9.1"
   }
 }

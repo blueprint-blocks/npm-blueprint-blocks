@@ -1,18 +1,23 @@
-import replaceTokens from './replace-tokens'
+import convertStyleStringToObject from "./convert-style-string-to-object";
+import replaceTokens from "./replace-tokens";
 
-function styles( _styles = [], context = {} ) {
+function styles(styles = [], context = {}) {
+	let _styles = structuredClone(styles);
 
-	if (typeof _styles !== 'object') {
-		return {}
+	if (typeof _styles === "string") {
+		_styles = convertStyleStringToObject(_styles);
 	}
 
-	const stylesArray = Object.entries(_styles).map(([ property, value ]) => [
-		replaceTokens(property, context),
-		replaceTokens(value, context)
-	])
-	
-	return Object.fromEntries(stylesArray)
-	
+	if (typeof _styles !== "object") {
+		return {};
+	}
+
+	return Object.fromEntries(
+		Object.entries(_styles).map(([property, value]) => [
+			replaceTokens(property, context),
+			replaceTokens(value, context),
+		])
+	);
 }
 
-export default styles
+export default styles;

@@ -1,15 +1,17 @@
 import { styles } from "@blueprint-blocks/utility";
 import Field from "../field/index.js";
 
-function save({ allowedTypes = [], value = [], ...props }) {
+function save({ allowedTypes = [], value, ...props }) {
+	const { height = null, url = null, width = null } = value || {};
+
 	const fieldProps = {};
 	const fieldStyle = {};
 
-	if (value?.height && value?.width) {
-		fieldProps.height = value?.height;
-		fieldProps.width = value?.width;
-		fieldStyle["aspect-ratio"] = `${props?.width || value?.width} / ${
-			props?.height || value?.height
+	if (height && width) {
+		fieldProps.height = height;
+		fieldProps.width = width;
+		fieldStyle["aspect-ratio"] = `${props?.width || width} / ${
+			props?.height || height
 		}`;
 		fieldStyle.height = "auto";
 	}
@@ -18,7 +20,7 @@ function save({ allowedTypes = [], value = [], ...props }) {
 		<Field.save
 			{...fieldProps}
 			{...props}
-			src={value?.url}
+			src={url}
 			style={{
 				...fieldStyle,
 				...styles(props?.style),

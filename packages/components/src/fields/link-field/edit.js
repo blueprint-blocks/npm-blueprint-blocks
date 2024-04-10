@@ -59,12 +59,12 @@ function edit({
 	allowedFormats = null,
 	onInput,
 	placeholder,
-	value = {},
+	value,
 	...props
 }) {
 	const ref = createRef();
 
-	const { href = "", target = "", label = "" } = value;
+	const { href = "", target = "", label = "" } = value || {};
 
 	const _allowedFormats = useMemo(() => {
 		if (typeof allowedFormats !== "array") {

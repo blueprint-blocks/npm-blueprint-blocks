@@ -6038,19 +6038,25 @@ var edit$k = wp.components.withNotices(edit$j);
 var _excluded$D = ["allowedTypes", "value"];
 function save$i(_ref) {
   _ref.allowedTypes;
-    var _ref$value = _ref.value,
-    value = _ref$value === void 0 ? [] : _ref$value,
+    var value = _ref.value,
     props = _objectWithoutProperties$1(_ref, _excluded$D);
+  var _ref2 = value || {},
+    _ref2$height = _ref2.height,
+    height = _ref2$height === void 0 ? null : _ref2$height,
+    _ref2$url = _ref2.url,
+    url = _ref2$url === void 0 ? null : _ref2$url,
+    _ref2$width = _ref2.width,
+    width = _ref2$width === void 0 ? null : _ref2$width;
   var fieldProps = {};
   var fieldStyle = {};
-  if (value !== null && value !== void 0 && value.height && value !== null && value !== void 0 && value.width) {
-    fieldProps.height = value === null || value === void 0 ? void 0 : value.height;
-    fieldProps.width = value === null || value === void 0 ? void 0 : value.width;
-    fieldStyle["aspect-ratio"] = "".concat((props === null || props === void 0 ? void 0 : props.width) || (value === null || value === void 0 ? void 0 : value.width), " / ").concat((props === null || props === void 0 ? void 0 : props.height) || (value === null || value === void 0 ? void 0 : value.height));
+  if (height && width) {
+    fieldProps.height = height;
+    fieldProps.width = width;
+    fieldStyle["aspect-ratio"] = "".concat((props === null || props === void 0 ? void 0 : props.width) || width, " / ").concat((props === null || props === void 0 ? void 0 : props.height) || height);
     fieldStyle.height = "auto";
   }
   return /*#__PURE__*/React.createElement(Field.save, _extends$1({}, fieldProps, props, {
-    src: value === null || value === void 0 ? void 0 : value.url,
+    src: url,
     style: _objectSpread2$7(_objectSpread2$7({}, fieldStyle), styles(props === null || props === void 0 ? void 0 : props.style)),
     tagName: "img",
     type: "image"
@@ -6425,16 +6431,16 @@ function edit$f(_ref) {
     allowedFormats = _ref$allowedFormats === void 0 ? null : _ref$allowedFormats,
     _onInput = _ref.onInput,
     placeholder = _ref.placeholder,
-    _ref$value = _ref.value,
-    value = _ref$value === void 0 ? {} : _ref$value,
+    value = _ref.value,
     props = _objectWithoutProperties$1(_ref, _excluded$v);
   var ref = wp.element.createRef();
-  var _value$href = value.href,
-    href = _value$href === void 0 ? "" : _value$href,
-    _value$target = value.target,
-    target = _value$target === void 0 ? "" : _value$target,
-    _value$label = value.label,
-    label = _value$label === void 0 ? "" : _value$label;
+  var _ref2 = value || {},
+    _ref2$href = _ref2.href,
+    href = _ref2$href === void 0 ? "" : _ref2$href,
+    _ref2$target = _ref2.target,
+    target = _ref2$target === void 0 ? "" : _ref2$target,
+    _ref2$label = _ref2.label,
+    label = _ref2$label === void 0 ? "" : _ref2$label;
   var _allowedFormats = wp.element.useMemo(function () {
     if (typeof allowedFormats !== "array") {
       return ALLOWED_FORMATS;
@@ -6477,8 +6483,8 @@ function edit$f(_ref) {
       var _ref$current;
       return ref === null || ref === void 0 || (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.reportValidity();
     },
-    onChange: function onChange(_ref2) {
-      var target = _ref2.target;
+    onChange: function onChange(_ref3) {
+      var target = _ref3.target;
       return _onInput(Object.assign({}, value, {
         href: target.value
       }));
@@ -6517,15 +6523,15 @@ var _excluded$u = ["allowedFormats", "placeholder", "value"];
 function save$e(_ref) {
   _ref.allowedFormats;
     _ref.placeholder;
-    var _ref$value = _ref.value,
-    value = _ref$value === void 0 ? {} : _ref$value,
+    var value = _ref.value,
     props = _objectWithoutProperties$1(_ref, _excluded$u);
-  var _value$href = value.href,
-    href = _value$href === void 0 ? "" : _value$href,
-    _value$target = value.target,
-    target = _value$target === void 0 ? "" : _value$target,
-    _value$label = value.label,
-    label = _value$label === void 0 ? "" : _value$label;
+  var _ref2 = value || {},
+    _ref2$href = _ref2.href,
+    href = _ref2$href === void 0 ? "" : _ref2$href,
+    _ref2$target = _ref2.target,
+    target = _ref2$target === void 0 ? "" : _ref2$target,
+    _ref2$label = _ref2.label,
+    label = _ref2$label === void 0 ? "" : _ref2$label;
   return /*#__PURE__*/React.createElement(Field.save, _extends$1({}, props, target === "_blank" && {
     target: target
   }, {

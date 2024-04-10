@@ -4,7 +4,10 @@ function convertStyleStringToObject(style = "") {
 	}
 
 	return Object.fromEntries(
-		style.split(";").map((property) => property.split(":"))
+		style
+			.split(";")
+			.filter((property) => !!property)
+			.map((property) => property.split(":"))
 	);
 }
 

@@ -67,10 +67,19 @@ function edit({
 	const { href = "", target = "", label = "" } = value || {};
 
 	const _allowedFormats = useMemo(() => {
-		if (typeof allowedFormats !== "array") {
+		let _allowedFormats = structuredClone(allowedFormats);
+
+		if (typeof _allowedFormats === "string") {
+			_allowedFormats = _allowedFormats
+				.split(",")
+				.map((format) => format.trim());
+		}
+
+		if (!Array.isArray(_allowedFormats)) {
 			return ALLOWED_FORMATS;
 		}
-		return allowedFormats.filter((format) =>
+
+		return _allowedFormats.filter((format) =>
 			ALLOWED_FORMATS.includes(format)
 		);
 	}, [allowedFormats]);

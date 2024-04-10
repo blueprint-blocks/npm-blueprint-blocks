@@ -1,50 +1,59 @@
-import classNames from 'classnames'
-import { RichText } from '@wordpress/block-editor'
-import getFieldClassNames from '../field/functions/get-field-class-names.js'
+import classNames from "classnames";
+import { RichText } from "@wordpress/block-editor";
+import { useMemo } from "@wordpress/element";
+import getFieldClassNames from "../field/functions/get-field-class-names.js";
 
-function edit( {
+function edit({
 	blockName,
 	attributeName,
 	placeholder,
 	allowedFormats = null,
 	disabled = false,
-	tagName = 'p',
+	tagName = "p",
 	className = [],
 	display = true,
 	value,
 	onInput,
 	...props
-} ) {
-
-	if ( display !== true && Boolean( display ) === false ) {
-		return
+}) {
+	if (display !== true && Boolean(display) === false) {
+		return;
 	}
 
-	const fieldProps = Object.assign( {}, props )
+	const _allowedFormats = useMemo(() => {
+		if (typeof allowedFormats === "string") {
+			return allowedFormats.split(",").map((format) => format.trim());
+		}
+		return allowedFormats;
+	}, [allowedFormats]);
 
-	if ( className ) {
-		fieldProps.className = className
+	const fieldProps = Object.assign({}, props);
+
+	if (className) {
+		fieldProps.className = className;
 	}
 
-	if ( disabled === true ) {
-		const Component = tagName
-		return <Component
-			{ ...fieldProps }
-			dangerouslySetInnerHTML={ { __html: value } }
-		/>
+	if (disabled === true) {
+		const Component = tagName;
+		return (
+			<Component
+				{...fieldProps}
+				dangerouslySetInnerHTML={{ __html: value }}
+			/>
+		);
 	}
 
 	return (
 		<RichText
-			{ ...fieldProps }
-			onChange={ onInput }
-			tagName={ tagName }
-			allowedFormats={ allowedFormats }
-			keepPlaceholderOnFocus={ true }
-			placeholder={ placeholder }
-			value={ value }
+			{...fieldProps}
+			onChange={onInput}
+			tagName={tagName}
+			allowedFormats={_allowedFormats}
+			keepPlaceholderOnFocus={true}
+			placeholder={placeholder}
+			value={value}
 		/>
-	)
+	);
 }
 
-export default edit
+export default edit;

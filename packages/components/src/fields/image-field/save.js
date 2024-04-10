@@ -8,14 +8,11 @@ function save({ allowedTypes = [], value = [], ...props }) {
 	if (value?.height && value?.width) {
 		fieldProps.height = value?.height;
 		fieldProps.width = value?.width;
-		fieldStyle["aspect-ratio"] = `${value?.width} / ${value?.height}`;
+		fieldStyle["aspect-ratio"] = `${props?.width || value?.width} / ${
+			props?.height || value?.height
+		}`;
 		fieldStyle.height = "auto";
 	}
-
-	console.log({
-		...fieldStyle,
-		...styles(props?.style),
-	});
 
 	return (
 		<Field.save

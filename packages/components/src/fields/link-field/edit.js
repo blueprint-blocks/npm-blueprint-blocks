@@ -64,6 +64,8 @@ function edit({
 }) {
 	const ref = createRef();
 
+	const { href = "", target = "", label = "" } = value;
+
 	const _allowedFormats = useMemo(() => {
 		if (typeof allowedFormats !== "array") {
 			return ALLOWED_FORMATS;
@@ -80,7 +82,7 @@ function edit({
 					tagName="span"
 					placeholder={placeholder}
 					allowedFormats={_allowedFormats}
-					value={value?.label || ""}
+					value={label}
 					onInput={(label) =>
 						onInput(Object.assign({}, value, { label }))
 					}
@@ -102,7 +104,7 @@ function edit({
 								)
 							}
 							placeholder="https://"
-							value={value?.href}
+							value={href}
 							ref={ref}
 							style={urlInputStyle}
 						/>
@@ -125,7 +127,7 @@ function edit({
 							tooltip="Open in new window?"
 							tooltipPosition="left"
 							size="small"
-							value={value?.target === "_blank"}
+							value={target === "_blank"}
 							onInput={(newWindow) =>
 								onInput(
 									Object.assign({}, value, {

@@ -6429,6 +6429,12 @@ function edit$f(_ref) {
     value = _ref$value === void 0 ? {} : _ref$value,
     props = _objectWithoutProperties$1(_ref, _excluded$v);
   var ref = wp.element.createRef();
+  var _value$href = value.href,
+    href = _value$href === void 0 ? "" : _value$href,
+    _value$target = value.target,
+    target = _value$target === void 0 ? "" : _value$target,
+    _value$label = value.label,
+    label = _value$label === void 0 ? "" : _value$label;
   var _allowedFormats = wp.element.useMemo(function () {
     if (typeof allowedFormats !== "array") {
       return ALLOWED_FORMATS;
@@ -6447,7 +6453,7 @@ function edit$f(_ref) {
     tagName: "span",
     placeholder: placeholder,
     allowedFormats: _allowedFormats,
-    value: (value === null || value === void 0 ? void 0 : value.label) || "",
+    value: label,
     onInput: function onInput(label) {
       return _onInput(Object.assign({}, value, {
         label: label
@@ -6478,7 +6484,7 @@ function edit$f(_ref) {
       }));
     },
     placeholder: "https://",
-    value: value === null || value === void 0 ? void 0 : value.href,
+    value: href,
     ref: ref,
     style: urlInputStyle
   }), /*#__PURE__*/React.createElement("div", {
@@ -6496,7 +6502,7 @@ function edit$f(_ref) {
     tooltip: "Open in new window?",
     tooltipPosition: "left",
     size: "small",
-    value: (value === null || value === void 0 ? void 0 : value.target) === "_blank",
+    value: target === "_blank",
     onInput: function onInput(newWindow) {
       return _onInput(Object.assign({}, value, {
         target: newWindow && "_blank" || "_self"
@@ -6511,11 +6517,15 @@ var _excluded$u = ["allowedFormats", "placeholder", "value"];
 function save$e(_ref) {
   _ref.allowedFormats;
     _ref.placeholder;
-    var value = _ref.value,
+    var _ref$value = _ref.value,
+    value = _ref$value === void 0 ? {} : _ref$value,
     props = _objectWithoutProperties$1(_ref, _excluded$u);
-  var href = value.href,
-    target = value.target,
-    label = value.label;
+  var _value$href = value.href,
+    href = _value$href === void 0 ? "" : _value$href,
+    _value$target = value.target,
+    target = _value$target === void 0 ? "" : _value$target,
+    _value$label = value.label,
+    label = _value$label === void 0 ? "" : _value$label;
   return /*#__PURE__*/React.createElement(Field.save, _extends$1({}, props, target === "_blank" && {
     target: target
   }, {

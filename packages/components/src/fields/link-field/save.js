@@ -1,7 +1,7 @@
 import Field from "../field/index.js";
 
-function save({ allowedFormats = null, placeholder, value, ...props }) {
-	const { href, target, label } = value;
+function save({ allowedFormats = null, placeholder, value = {}, ...props }) {
+	const { href = "", target = "", label = "" } = value;
 
 	return (
 		<Field.save

@@ -1,24 +1,19 @@
-import Field from '../field/index.js'
+import Field from "../field/index.js";
 
-function save( { placeholder, value, ...props } ) {
-
-	const {
-		href,
-		target,
-		label,
-	} = value
+function save({ allowedFormats = null, placeholder, value, ...props }) {
+	const { href, target, label } = value;
 
 	return (
 		<Field.save
-			{ ...props }
-			{ ...( target === '_blank' && { target } ) }
-			href={ href }
+			{...props}
+			{...(target === "_blank" && { target })}
+			href={href}
 			tagName="a"
 			type="link"
 		>
-			{ label }
+			{label}
 		</Field.save>
-	)
+	);
 }
 
-export default save
+export default save;

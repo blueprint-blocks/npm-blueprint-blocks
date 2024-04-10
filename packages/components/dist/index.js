@@ -6389,43 +6389,54 @@ function Dialog(_ref) {
   })));
 }
 
-var _excluded$v = ["onInput", "placeholder", "value"];
+var _excluded$v = ["allowedFormats", "onInput", "placeholder", "value"];
 var wrapStyle$1 = {
-  position: 'relative'
+  position: "relative"
 };
 var propertiesStyle = {
-  alignItems: 'center',
-  display: 'grid',
-  gridGap: '8px',
-  gridTemplateColumns: '1fr 12px 34px',
-  rowGap: '4px'
+  alignItems: "center",
+  display: "grid",
+  gridGap: "8px",
+  gridTemplateColumns: "1fr 12px 34px",
+  rowGap: "4px"
 };
 var propertiesAfterStyle = {
-  background: 'gray',
-  content: '',
-  display: 'block',
-  height: '2px',
-  gridColumn: '1 / span 3'
+  background: "gray",
+  content: "",
+  display: "block",
+  height: "2px",
+  gridColumn: "1 / span 3"
 };
 var urlInputStyle = {
-  border: '0',
-  color: 'black',
-  display: 'block',
-  fontSize: '12px !important',
-  height: '32px !important',
-  lineHeight: '32px !important',
-  padding: '0',
-  textAlign: 'inherit',
-  transition: 'none',
-  width: '100% !important'
+  border: "0",
+  color: "black",
+  display: "block",
+  fontSize: "12px !important",
+  height: "32px !important",
+  lineHeight: "32px !important",
+  padding: "0",
+  textAlign: "inherit",
+  transition: "none",
+  width: "100% !important"
 };
+var ALLOWED_FORMATS = ["core/bold", "core/italic", "core/strikethrough", "core/subscript", "core/superscript", "core/text-color", "core/underline"];
 function edit$f(_ref) {
-  var _onInput = _ref.onInput,
+  var _ref$allowedFormats = _ref.allowedFormats,
+    allowedFormats = _ref$allowedFormats === void 0 ? null : _ref$allowedFormats,
+    _onInput = _ref.onInput,
     placeholder = _ref.placeholder,
     _ref$value = _ref.value,
     value = _ref$value === void 0 ? {} : _ref$value,
     props = _objectWithoutProperties$1(_ref, _excluded$v);
   var ref = wp.element.createRef();
+  var _allowedFormats = wp.element.useMemo(function () {
+    if (typeof allowedFormats !== "array") {
+      return ALLOWED_FORMATS;
+    }
+    return allowedFormats.filter(function (format) {
+      return ALLOWED_FORMATS.includes(format);
+    });
+  }, [allowedFormats]);
   return /*#__PURE__*/React.createElement(Field.edit, _extends$1({}, props, {
     tagName: "a",
     type: "link",
@@ -6435,8 +6446,8 @@ function edit$f(_ref) {
   }, /*#__PURE__*/React.createElement(RichTextField.edit, {
     tagName: "span",
     placeholder: placeholder,
-    allowedFormats: ["core/bold", "core/italic", "core/strikethrough", "core/subscript", "core/superscript"],
-    value: (value === null || value === void 0 ? void 0 : value.label) || '',
+    allowedFormats: _allowedFormats,
+    value: (value === null || value === void 0 ? void 0 : value.label) || "",
     onInput: function onInput(label) {
       return _onInput(Object.assign({}, value, {
         label: label
@@ -6448,9 +6459,9 @@ function edit$f(_ref) {
         __html: link
       }
     }),
-    label: wp.i18n.__('Edit Link Properties'),
+    label: wp.i18n.__("Edit Link Properties"),
     style: {
-      marginLeft: '4px'
+      marginLeft: "4px"
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: propertiesStyle
@@ -6476,19 +6487,19 @@ function edit$f(_ref) {
     }
   }), /*#__PURE__*/React.createElement(BooleanField.edit, {
     options: [{
-      label: 'Same Window',
-      value: '_self'
+      label: "Same Window",
+      value: "_self"
     }, {
-      label: 'New Window',
-      value: '_blank'
+      label: "New Window",
+      value: "_blank"
     }],
     tooltip: "Open in new window?",
     tooltipPosition: "left",
     size: "small",
-    value: (value === null || value === void 0 ? void 0 : value.target) === '_blank',
+    value: (value === null || value === void 0 ? void 0 : value.target) === "_blank",
     onInput: function onInput(newWindow) {
       return _onInput(Object.assign({}, value, {
-        target: newWindow && '_blank' || '_self'
+        target: newWindow && "_blank" || "_self"
       }));
     }
   }), /*#__PURE__*/React.createElement("div", {
@@ -6496,15 +6507,16 @@ function edit$f(_ref) {
   })))));
 }
 
-var _excluded$u = ["placeholder", "value"];
+var _excluded$u = ["allowedFormats", "placeholder", "value"];
 function save$e(_ref) {
-  _ref.placeholder;
+  _ref.allowedFormats;
+    _ref.placeholder;
     var value = _ref.value,
     props = _objectWithoutProperties$1(_ref, _excluded$u);
   var href = value.href,
     target = value.target,
     label = value.label;
-  return /*#__PURE__*/React.createElement(Field.save, _extends$1({}, props, target === '_blank' && {
+  return /*#__PURE__*/React.createElement(Field.save, _extends$1({}, props, target === "_blank" && {
     target: target
   }, {
     href: href,

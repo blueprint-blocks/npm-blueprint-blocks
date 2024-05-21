@@ -623,6 +623,29 @@ function createMemoizedFunction(fn, options) {
   return memoized;
 }
 
+var _wordpressData = "@wordpress/data",
+  select = _wordpressData.select;
+
+/**
+ * Returns the global context available to all blocks everywhere.
+ */
+function getGlobalContext() {
+  var _themeData$screenshot, _themeData$screenshot2;
+  var siteData = select("core").getSite();
+  var themeData = select("core").getCurrentTheme();
+  var siteUrl = (siteData === null || siteData === void 0 ? void 0 : siteData.url) || "";
+  var themeUrl = (themeData === null || themeData === void 0 || (_themeData$screenshot = themeData.screenshot) === null || _themeData$screenshot === void 0 ? void 0 : _themeData$screenshot.slice(0, (themeData === null || themeData === void 0 || (_themeData$screenshot2 = themeData.screenshot) === null || _themeData$screenshot2 === void 0 ? void 0 : _themeData$screenshot2.lastIndexOf("/")) || 0)) || "";
+  return {
+    site: {
+      url: siteUrl
+    },
+    theme: {
+      path: "".concat(themeUrl.slice(siteUrl.length)),
+      url: themeUrl
+    }
+  };
+}
+
 var valueByIdentifier = createMemoizedFunction(function () {
   var identifier = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
   var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -646,11 +669,12 @@ var valueByIdentifier = createMemoizedFunction(function () {
 function replaceTokens() {
   var string = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
   var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var allContext = _objectSpread2(_objectSpread2({}, getGlobalContext()), context);
   if (typeof string !== "string") {
     return string;
   }
   return string.replaceAll(/\{\{(.*?)\}\}/g, function (match, p1) {
-    return valueByIdentifier(p1.trim(), context);
+    return valueByIdentifier(p1.trim(), allContext);
   });
 }
 
@@ -1105,4 +1129,4 @@ function useInnerBlocks(clientId) {
   return getBlocks && getBlocks(clientId) || [];
 }
 
-export { camelize, classNames, convertStyleStringToObject, delimiterize, evaluateConditionalString, getBlockContext, isArray, isEmptyObject, isExternalUrl, isFragmentUrl, isObject, normalizeComponentList, renderJsxArray, replaceTokens, styles, throttle, useBlockIndex, useClickOutside, useInnerBlocks };
+export { camelize, classNames, convertStyleStringToObject, delimiterize, evaluateConditionalString, getBlockContext, getGlobalContext, isArray, isEmptyObject, isExternalUrl, isFragmentUrl, isObject, normalizeComponentList, renderJsxArray, replaceTokens, styles, throttle, useBlockIndex, useClickOutside, useInnerBlocks };

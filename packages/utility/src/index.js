@@ -4,6 +4,7 @@ import convertStyleStringToObject from "./convert-style-string-to-object.js";
 import delimiterize from "./delimiterize.js";
 import evaluateConditionalString from "./evaluate-conditional-string.js";
 import getBlockContext from "./get-block-context.js";
+import getGlobalContext from "./get-global-context.js";
 import isArray from "./is-array.js";
 import isEmptyObject from "./is-empty-object.js";
 import isExternalUrl from "./is-external-url.js";
@@ -25,6 +26,7 @@ export {
 	delimiterize,
 	evaluateConditionalString,
 	getBlockContext,
+	getGlobalContext,
 	isArray,
 	isEmptyObject,
 	isExternalUrl,

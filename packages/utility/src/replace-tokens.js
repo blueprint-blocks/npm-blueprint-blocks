@@ -1,4 +1,5 @@
 import memoize from "micro-memoize";
+import getGlobalContext from "./get-global-context";
 
 const valueByIdentifier = memoize((identifier = "", context = {}) => {
 	let value = { ...context };
@@ -26,12 +27,17 @@ const valueByIdentifier = memoize((identifier = "", context = {}) => {
 });
 
 function replaceTokens(string = "", context = {}) {
+	const allContext = {
+		...getGlobalContext(),
+		...context,
+	};
+
 	if (typeof string !== "string") {
 		return string;
 	}
 
 	return string.replaceAll(/\{\{(.*?)\}\}/g, (match, p1) => {
-		return valueByIdentifier(p1.trim(), context);
+		return valueByIdentifier(p1.trim(), allContext);
 	});
 }
 

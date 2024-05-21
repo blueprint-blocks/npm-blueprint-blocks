@@ -1,4 +1,4 @@
-const { select } = "@wordpress/data";
+import { select } from "@wordpress/data";
 
 /**
  * Returns the global context available to all blocks everywhere.

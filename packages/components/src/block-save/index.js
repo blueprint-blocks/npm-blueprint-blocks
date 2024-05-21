@@ -59,16 +59,6 @@ function BlockSave(blueprint) {
 			...blockSave
 		} = _blockSave?.[0] || {};
 
-		console.log(
-			"block save",
-			children,
-			tagName,
-			blockSave,
-			attributes,
-			props,
-			blockContext
-		);
-
 		const blockAttributes = Object.fromEntries(
 			Object.entries(blockSave).map(([name, value]) => {
 				if (typeof value === "string") {

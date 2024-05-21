@@ -1458,9 +1458,10 @@ function save$t(_ref) {
   if (tagName === "a" && "href" in fieldProps && !("rel" in fieldProps) && (isExternalUrl(fieldProps.href) || isFragmentUrl(fieldProps.href) || "target" in fieldProps)) {
     fieldProps.rel = "noopener";
   }
-  console.log("props:", fieldProps);
-  var Component = tagName;
+  var Component = tagName || "div";
   if (selfClosingTagNames.includes(tagName) === true || ((children === null || children === void 0 ? void 0 : children.length) || 0) === 0 || props.dangerouslySetInnerHTML) ;
+  console.log("save");
+  console.log(Component);
   return /*#__PURE__*/React.createElement(Component, _extends$1({}, fieldProps, {
     children: children
   }));
@@ -5113,8 +5114,8 @@ var Components = Object.fromEntries(Object.values(Fields).map(function (_ref) {
 function BlockSave(blueprint) {
   return function (_ref2) {
     var attributes = _ref2.attributes,
-      innerBlocks = _ref2.innerBlocks,
-      props = _objectWithoutProperties$1(_ref2, _excluded);
+      innerBlocks = _ref2.innerBlocks;
+      _objectWithoutProperties$1(_ref2, _excluded);
     var blockProps = wp.blockEditor.useBlockProps.save();
     var blockName = blockProps.className;
     var blockContext = getBlockContext({
@@ -5131,7 +5132,6 @@ function BlockSave(blueprint) {
       tagName = _ref3$tagName === void 0 ? "div" : _ref3$tagName;
       _ref3.type;
       var blockSave = _objectWithoutProperties$1(_ref3, _excluded2);
-    console.log("block save", children, tagName, blockSave, attributes, props, blockContext);
     var blockAttributes = Object.fromEntries(Object.entries(blockSave).map(function (_ref4) {
       var _ref5 = _slicedToArray$1(_ref4, 2),
         name = _ref5[0],

@@ -52,9 +52,7 @@ function save({
 		fieldProps.rel = "noopener";
 	}
 
-	console.log("props:", fieldProps);
-
-	const Component = tagName;
+	const Component = tagName || "div";
 
 	if (
 		selfClosingTagNames.includes(tagName) === true ||
@@ -63,6 +61,9 @@ function save({
 	) {
 		<Component {...fieldProps} />;
 	}
+
+	console.log("save");
+	console.log(Component);
 
 	return <Component {...fieldProps} children={children} />;
 }

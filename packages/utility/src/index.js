@@ -5,6 +5,7 @@ import delimiterize from "./delimiterize.js";
 import evaluateConditionalString from "./evaluate-conditional-string.js";
 import getBlockContext from "./get-block-context.js";
 import isArray from "./is-array.js";
+import isEmptyObject from "./is-empty-object.js";
 import isExternalUrl from "./is-external-url.js";
 import isFragmentUrl from "./is-fragment-url.js";
 import isObject from "./is-object.js";
@@ -25,6 +26,7 @@ export {
 	evaluateConditionalString,
 	getBlockContext,
 	isArray,
+	isEmptyObject,
 	isExternalUrl,
 	isFragmentUrl,
 	isObject,

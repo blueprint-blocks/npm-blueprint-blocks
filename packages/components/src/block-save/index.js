@@ -36,7 +36,7 @@ const Components = Object.fromEntries(
  * @return {WPElement} Element to render.
  */
 function BlockSave(blueprint) {
-	return ({ attributes, innerBlocks }) => {
+	return ({ attributes, innerBlocks, ...props }) => {
 		const blockProps = useBlockProps.save();
 		const blockName = blockProps.className;
 
@@ -55,8 +55,19 @@ function BlockSave(blueprint) {
 		const {
 			children = [],
 			tagName = "div",
+			type = "html",
 			...blockSave
 		} = _blockSave?.[0] || {};
+
+		console.log(
+			"block save",
+			children,
+			tagName,
+			blockSave,
+			attributes,
+			props,
+			blockContext
+		);
 
 		const blockAttributes = Object.fromEntries(
 			Object.entries(blockSave).map(([name, value]) => {

@@ -151,6 +151,7 @@ function BlockEdit(blueprint) {
 		const {
 			children = [],
 			tagName = "div",
+			type = "html",
 			...blockEdit
 		} = _blockEdit?.[0] || {};
 

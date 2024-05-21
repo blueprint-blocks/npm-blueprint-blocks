@@ -1,22 +1,17 @@
-import {
-	isArray,
-	isObject,
-} from '@blueprint-blocks/utility'
+import isArray from "./is-array";
+import isEmptyObject from "./is-empty-object";
+import isObject from "./is-object";
 
-function normalizeComponentList( componentList, defaultComponent = {} ) {
-
-	if ( isObject( componentList ) ) {
-		return [ componentList ]
+function normalizeComponentList(componentList, defaultComponent = {}) {
+	if (isObject(componentList) && !isEmptyObject(componentList)) {
+		return [componentList];
 	}
 
-	if ( isArray( componentList ) && componentList.length > 0 ) {
-		return componentList
+	if (isArray(componentList) && componentList.length > 0) {
+		return componentList;
 	}
 
-	return [ defaultComponent ]
-
+	return [defaultComponent];
 }
 
-export default normalizeComponentList
-
-
+export default normalizeComponentList;

@@ -4645,98 +4645,98 @@ var index$3 = {
 var _excluded$7 = ["onInput", "options", "multiple", "disabled", "value"],
   _excluded2$2 = ["icon", "image", "label"];
 var wrapStyle = {
-  '--grid-columns': 2,
-  background: '#fff',
-  border: '1px solid #8d96a0',
-  borderRadius: '2px',
-  fontFamily: 'var(--wp--preset--font-family--system-font)',
-  fontSize: '13px',
-  lineHeight: '1.4',
-  minHeight: '26px',
-  maxWidth: '300px',
-  overflow: 'hidden',
-  position: 'relative',
-  userSelect: 'none'
+  "--grid-columns": 2,
+  background: "#fff",
+  border: "1px solid #8d96a0",
+  borderRadius: "2px",
+  fontFamily: "var(--wp--preset--font-family--system-font)",
+  fontSize: "13px",
+  lineHeight: "1.4",
+  minHeight: "26px",
+  maxWidth: "300px",
+  overflow: "hidden",
+  position: "relative",
+  userSelect: "none"
 };
 var itemsStyle = {
-  display: 'grid',
-  gap: '1px',
-  gridTemplateColumns: 'repeat(var(--grid-columns), minmax(0, 1fr))',
-  width: '100%'
+  display: "grid",
+  gap: "1px",
+  gridTemplateColumns: "repeat(var(--grid-columns), minmax(0, 1fr))",
+  width: "100%"
 };
 var itemStyle = {
-  alignItems: 'stretch',
-  cursor: 'pointer',
-  display: 'flex',
-  flex: '1',
-  justifyContent: 'stretch',
-  height: '26px',
-  outline: '1px solid #e2e4e7',
-  padding: '2px'
+  alignItems: "stretch",
+  cursor: "pointer",
+  display: "flex",
+  flex: "1",
+  justifyContent: "stretch",
+  height: "26px",
+  outline: "1px solid #e2e4e7",
+  padding: "2px"
 };
 var itemDivStyle = {
-  borderColor: 'transparent',
-  borderRadius: '2px',
-  borderStyle: 'solid',
-  borderWidth: '1px',
-  alignItems: 'center',
-  cursor: 'pointer',
-  display: 'flex',
-  flex: '1',
-  justifyContent: 'center',
-  textAlign: 'center',
-  transition: 'background 0.4s, border 0.4s, colors 0.4s',
-  whiteSpace: 'nowrap'
+  borderColor: "transparent",
+  borderRadius: "2px",
+  borderStyle: "solid",
+  borderWidth: "1px",
+  alignItems: "center",
+  cursor: "pointer",
+  display: "flex",
+  flex: "1",
+  justifyContent: "center",
+  textAlign: "center",
+  transition: "background 0.4s, border 0.4s, colors 0.4s",
+  whiteSpace: "nowrap"
 };
 var itemDivHasImagesStyle = {
-  flexDirection: 'column',
-  height: 'auto',
-  justifyContent: 'start',
-  overflow: 'hidden',
-  whiteSpace: 'normal'
+  flexDirection: "column",
+  height: "auto",
+  justifyContent: "start",
+  overflow: "hidden",
+  whiteSpace: "normal"
 };
 var itemDivHoverStyle = {
-  borderColor: 'var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba))',
-  color: 'var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba))'
+  borderColor: "var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba))",
+  color: "var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba))"
 };
 var itemDivFocusStyle = {
-  background: 'var(--wp-components-color-gray-300, #ddd)',
-  borderColor: 'var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba))',
-  color: 'var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba))'
+  background: "var(--wp-components-color-gray-300, #ddd)",
+  borderColor: "var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba))",
+  color: "var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba))"
 };
 var itemDivActiveStyle = {
-  background: '#0085ba',
-  color: '#fff'
+  background: "#0085ba",
+  color: "#fff"
 };
 var imageStyle = {
-  display: 'block',
+  display: "block",
   gridColumn: 1,
   gridRow: 1,
-  height: '100%',
-  objectFit: 'contain',
-  objectPosition: 'center',
-  width: '100%'
+  height: "100%",
+  objectFit: "contain",
+  objectPosition: "center",
+  width: "100%"
 };
 var imageBeforeStyle = {
-  content: '',
-  display: 'block',
+  content: "",
+  display: "block",
   gridColumn: 1,
   gridRow: 1,
-  paddingBottom: 'calc(100% * (64 / 100))'
+  paddingBottom: "calc(100% * (64 / 100))"
 };
 var imageDivStyle = {
-  display: 'grid',
-  width: '100%'
+  display: "grid",
+  width: "100%"
 };
 var iconStyle = {
-  fontSize: '16px'
+  fontSize: "16px"
 };
 var iconHasImagesStyle = {
-  fontSize: '32px'
+  fontSize: "32px"
 };
 var labelStyle = {};
 var labelHasImagesStyle = {
-  padding: '8px'
+  padding: "8px"
 };
 var optionsHaveImages = createMemoizedFunction(function (options) {
   return options.reduce(function (hasImages, _ref) {
@@ -4776,18 +4776,17 @@ function edit$2(_ref2) {
         });
       }
     } else {
-      var _options$index2;
-      newValue = [options === null || options === void 0 || (_options$index2 = options[index]) === null || _options$index2 === void 0 ? void 0 : _options$index2.value];
+      newValue = optionValue;
     }
     onInput(newValue);
   };
   var onBlur = function onBlur() {
     setFocusIndex(null);
-    window.removeEventListener('mouseup', onBlur);
+    window.removeEventListener("mouseup", onBlur);
   };
   wp.element.useEffect(function () {
     if (focusIndex !== null) {
-      window.addEventListener('mouseup', onBlur);
+      window.addEventListener("mouseup", onBlur);
     }
   }, [focusIndex]);
   return /*#__PURE__*/React.createElement(Field.edit, _extends$1({}, props, {

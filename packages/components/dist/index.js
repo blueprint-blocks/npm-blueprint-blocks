@@ -2232,72 +2232,39 @@ function createMemoizedFunction(fn, options) {
   return memoized;
 }
 
-var _excluded$P = ["blockName", "name", "colors", "clearable", "disableCustomColors", "enableAlpha", "value", "saveAs", "onInput"];
-var getColor = createMemoizedFunction(function (_ref) {
-  var color = _ref.color,
-    name = _ref.name,
-    slug = _ref.slug;
+var _excluded$P = ["blockName", "name", "colors", "clearable", "disableCustomColors", "enableAlpha", "value", "onInput"];
+var getColor = createMemoizedFunction(function (color) {
   var colors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   for (var i = 0; i < colors.length; i++) {
     var _colors$i, _colors$i2, _colors$i3;
-    if (((_colors$i = colors[i]) === null || _colors$i === void 0 ? void 0 : _colors$i.color) === color || ((_colors$i2 = colors[i]) === null || _colors$i2 === void 0 ? void 0 : _colors$i2.name) === name || ((_colors$i3 = colors[i]) === null || _colors$i3 === void 0 ? void 0 : _colors$i3.slug) === slug) {
-      return colors[i];
+    if (((_colors$i = colors[i]) === null || _colors$i === void 0 ? void 0 : _colors$i.color) === color || ((_colors$i2 = colors[i]) === null || _colors$i2 === void 0 ? void 0 : _colors$i2.name) === color || ((_colors$i3 = colors[i]) === null || _colors$i3 === void 0 ? void 0 : _colors$i3.slug) === color) {
+      var _colors$i4, _colors$i5;
+      return {
+        color: (_colors$i4 = colors[i]) === null || _colors$i4 === void 0 ? void 0 : _colors$i4.color,
+        slug: (_colors$i5 = colors[i]) === null || _colors$i5 === void 0 ? void 0 : _colors$i5.slug
+      };
     }
   }
   return {
     color: color,
-    name: name || 'Custom',
-    slug: slug || 'custom'
+    slug: "custom"
   };
 });
-var getSavedAsToken = createMemoizedFunction(function (saveAs) {
-  if (saveAs.indexOf('{{ color.slug }}') !== -1) {
-    return ['slug', saveAs.indexOf('{{ color.slug }}')];
-  } else if (saveAs.indexOf('{{ color.color }}') !== -1) {
-    return ['color', saveAs.indexOf('{{ color.color }}')];
-  } else if (saveAs.indexOf('{{ color.name }}') !== -1) {
-    return ['name', saveAs.indexOf('{{ color.name }}')];
-  }
-  return [null, null];
-});
-var getColorFromSavedAsValue = createMemoizedFunction(function (value, saveAs) {
-  var colors = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-  var _getSavedAsToken = getSavedAsToken(saveAs),
-    _getSavedAsToken2 = _slicedToArray$1(_getSavedAsToken, 2),
-    key = _getSavedAsToken2[0];
-    _getSavedAsToken2[1];
-  if (key === null) {
-    return null;
-  }
-  for (var i = 0; i < colors.length; i++) {
-    if (value.indexOf(colors[i][key]) !== -1) {
-      return colors[i];
-    }
-  }
-  return value;
-});
-function edit$p(_ref2) {
-  var _colorValue;
-  _ref2.blockName;
-    _ref2.name;
-    var _ref2$colors = _ref2.colors,
-    colors = _ref2$colors === void 0 ? null : _ref2$colors,
-    _ref2$clearable = _ref2.clearable,
-    clearable = _ref2$clearable === void 0 ? true : _ref2$clearable,
-    _ref2$disableCustomCo = _ref2.disableCustomColors,
-    disableCustomColors = _ref2$disableCustomCo === void 0 ? false : _ref2$disableCustomCo,
-    _ref2$enableAlpha = _ref2.enableAlpha,
-    enableAlpha = _ref2$enableAlpha === void 0 ? false : _ref2$enableAlpha,
-    value = _ref2.value,
-    _ref2$saveAs = _ref2.saveAs,
-    saveAs = _ref2$saveAs === void 0 ? '{{ color.color }}' : _ref2$saveAs,
-    onInput = _ref2.onInput,
-    props = _objectWithoutProperties$1(_ref2, _excluded$P);
-  var palette = colors === null && wp.blockEditor.useSetting('color.palette') || colors || [];
-  var colorValue = value;
-  if (saveAs !== '{{ color.color }}') {
-    colorValue = getColorFromSavedAsValue(value, saveAs, palette);
-  }
+function edit$p(_ref) {
+  _ref.blockName;
+    _ref.name;
+    var _ref$colors = _ref.colors,
+    colors = _ref$colors === void 0 ? null : _ref$colors,
+    _ref$clearable = _ref.clearable,
+    clearable = _ref$clearable === void 0 ? true : _ref$clearable,
+    _ref$disableCustomCol = _ref.disableCustomColors,
+    disableCustomColors = _ref$disableCustomCol === void 0 ? false : _ref$disableCustomCol,
+    _ref$enableAlpha = _ref.enableAlpha,
+    enableAlpha = _ref$enableAlpha === void 0 ? false : _ref$enableAlpha,
+    value = _ref.value,
+    onInput = _ref.onInput,
+    props = _objectWithoutProperties$1(_ref, _excluded$P);
+  var palette = colors === null && wp.blockEditor.useSetting("color.palette") || colors || [];
   return /*#__PURE__*/React.createElement(Field.edit, _extends$1({}, props, {
     type: "color",
     value: value
@@ -2306,14 +2273,9 @@ function edit$p(_ref2) {
     clearable: clearable,
     disableCustomColors: disableCustomColors,
     enableAlpha: enableAlpha,
-    value: ((_colorValue = colorValue) === null || _colorValue === void 0 ? void 0 : _colorValue.color) || colorValue,
+    value: value === null || value === void 0 ? void 0 : value.color,
     onChange: function onChange(hex) {
-      var color = getColor({
-        color: hex
-      }, palette);
-      return onInput((color === null || color === void 0 ? void 0 : color.slug) === "custom" && color.color || replaceTokens(saveAs, {
-        color: color
-      }));
+      return onInput(getColor(hex, palette));
     }
   }));
 }

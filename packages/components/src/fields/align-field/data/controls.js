@@ -5,7 +5,7 @@ import {
 	objectsAlignLeft,
 	objectsAlignRight,
 	objectsAlignTop,
-} from "../../icons/index.js";
+} from "../../../icons/index.js";
 
 export default {
 	left: {

@@ -1,21 +1,26 @@
-import ToolbarField from '../toolbar-field/index.js'
+import ToolbarField from "../toolbar-field/index.js";
 
-import ALIGN_CONTROLS from './data/controls.json'
+import ALIGN_CONTROLS from "./data/controls.js";
 
-function edit( { onInput, controls = [ 'left', 'center', 'right' ], value, ...props } ) {
-
+function edit({
+	onInput,
+	controls = ["left", "center", "right"],
+	value,
+	...props
+}) {
 	return (
 		<ToolbarField.edit
-			{ ...props }
+			{...props}
 			type="align"
-			value={ value }
-			options={ controls.map( ( control ) => (
-				control in ALIGN_CONTROLS && ALIGN_CONTROLS[ control ] || control 
-			) ) }
-			onInput={ onInput }
+			value={value}
+			options={controls.map(
+				(control) =>
+					(control in ALIGN_CONTROLS && ALIGN_CONTROLS[control]) ||
+					control
+			)}
+			onInput={onInput}
 		/>
-	)
-
+	);
 }
 
-export default edit
+export default edit;

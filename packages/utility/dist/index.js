@@ -658,6 +658,9 @@ var valueByIdentifier = createMemoizedFunction(function () {
   if (parts.length === 0 && key === "length") {
     return Object.values(value).length;
   }
+  if (parts.length === 0 && _typeof(value[key]) === "object") {
+    return JSON.stringify(value[key]);
+  }
   if (parts.length === 0) {
     return value[key];
   }

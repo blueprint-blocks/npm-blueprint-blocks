@@ -62,9 +62,6 @@ function save({
 		<Component {...fieldProps} />;
 	}
 
-	console.log("save");
-	console.log(Component);
-
 	return <Component {...fieldProps} children={children} />;
 }
 

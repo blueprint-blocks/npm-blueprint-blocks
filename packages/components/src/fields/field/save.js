@@ -26,6 +26,7 @@ function save({
 	clientId,
 	innerHtml = "",
 	className = "",
+	htmlType = null,
 	tagName = "div",
 	type = "field",
 	display = true,
@@ -39,6 +40,10 @@ function save({
 
 	if (className) {
 		fieldProps.className = className;
+	}
+
+	if (htmlType !== null) {
+		fieldProps.type = htmlType;
 	}
 
 	if (

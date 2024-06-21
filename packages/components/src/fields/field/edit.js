@@ -34,6 +34,7 @@ function edit({
 	dangerouslySetInnerHTML,
 	innerHtml = "",
 	className = "",
+	htmlType = null,
 	label = "",
 	tagName = "div",
 	type = "field",
@@ -52,6 +53,10 @@ function edit({
 
 	if (className) {
 		fieldProps.className = className;
+	}
+
+	if (htmlType !== null) {
+		fieldProps.type = htmlType;
 	}
 
 	const Component = tagName || "div";

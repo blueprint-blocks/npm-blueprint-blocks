@@ -1069,11 +1069,11 @@ function render(_ref, _ref2) {
     _ref$style = _ref.style,
     style = _ref$style === void 0 ? {} : _ref$style,
     _ref$attributeName = _ref.attributeName,
-    attributeName = _ref$attributeName === void 0 ? '' : _ref$attributeName,
+    attributeName = _ref$attributeName === void 0 ? "" : _ref$attributeName,
     _ref$type = _ref.type,
-    type = _ref$type === void 0 ? 'html' : _ref$type,
+    type = _ref$type === void 0 ? "html" : _ref$type,
     _ref$tagName = _ref.tagName,
-    tagName = _ref$tagName === void 0 ? 'div' : _ref$tagName,
+    tagName = _ref$tagName === void 0 ? "div" : _ref$tagName,
     _ref$persist = _ref.persist,
     persist = _ref$persist === void 0 ? true : _ref$persist,
     props = _objectWithoutProperties(_ref, _excluded$10);
@@ -1093,7 +1093,7 @@ function render(_ref, _ref2) {
     var _ref4 = _slicedToArray(_ref3, 2),
       name = _ref4[0],
       value = _ref4[1];
-    if (typeof value === 'string' && EXCLUDED_ATTRIBUTES.includes(name) === false) {
+    if (typeof value === "string" && EXCLUDED_ATTRIBUTES.includes(name) === false) {
       return [name, replaceTokens(value, _objectSpread2(_objectSpread2({}, context), {}, {
         attribute: {
           value: attributeValue
@@ -1103,10 +1103,10 @@ function render(_ref, _ref2) {
       return [name, value];
     }
   }));
-  if ('display' in jsxAttributes) {
+  if ("display" in jsxAttributes) {
     jsxAttributes.display = evaluateConditionalString(props.display, context);
   }
-  var jsxClassNames = classNames$1([].concat(_toConsumableArray(Array.isArray(className) && className || [className]), _toConsumableArray((context === null || context === void 0 ? void 0 : context.context) === 'edit' && (Array.isArray(editorClassName) && editorClassName || [editorClassName]) || []), _toConsumableArray((context === null || context === void 0 ? void 0 : context.context) === 'save' && (Array.isArray(viewClassName) && viewClassName || [viewClassName]) || [])), _objectSpread2(_objectSpread2({}, context), {}, {
+  var jsxClassNames = classNames$1([].concat(_toConsumableArray(Array.isArray(className) && className || [className]), _toConsumableArray((context === null || context === void 0 ? void 0 : context.context) === "edit" && (Array.isArray(editorClassName) && editorClassName || [editorClassName]) || []), _toConsumableArray((context === null || context === void 0 ? void 0 : context.context) === "save" && (Array.isArray(viewClassName) && viewClassName || [viewClassName]) || [])), _objectSpread2(_objectSpread2({}, context), {}, {
     attribute: {
       value: attributeValue
     }
@@ -1122,18 +1122,23 @@ function render(_ref, _ref2) {
   if (Object.values(jsxStyles).length > 0) {
     jsxAttributes.style = jsxStyles;
   }
-  var Component = tagName;
+  var jsxTagName = replaceTokens(tagName, _objectSpread2(_objectSpread2({}, context), {}, {
+    attribute: {
+      value: attributeValue
+    }
+  }));
+  var Component = jsxTagName;
   if (type in Components && Components[type]) {
     Component = Components[type];
   } else if ("".concat(type, "-field") in Components && Components["".concat(type, "-field")]) {
     Component = Components["".concat(type, "-field")];
   }
-  if (Component !== tagName) {
+  if (Component !== jsxTagName) {
     return /*#__PURE__*/React.createElement(Component, _extends({}, jsxAttributes, {
       clientId: clientId,
       blockName: blockName,
       attributeName: attributeName,
-      tagName: tagName,
+      tagName: jsxTagName,
       attributes: attributes
     }, attributeValue !== undefined && {
       value: attributeValue
@@ -1141,7 +1146,7 @@ function render(_ref, _ref2) {
       attributeName: attributeName,
       setAttributes: setAttributes,
       onInput: function onInput(value) {
-        if ((context === null || context === void 0 ? void 0 : context.context) === 'save') {
+        if ((context === null || context === void 0 ? void 0 : context.context) === "save") {
           return;
         }
         setAttributes(_defineProperty({}, attributeName, value), persist);
@@ -1181,7 +1186,7 @@ function renderJsxArray(_ref5) {
     return null;
   }
   var jsxComponents = jsx.map(function (jsxComponent) {
-    if (typeof jsxComponent === 'function') {
+    if (typeof jsxComponent === "function") {
       return jsxComponent(blockProps);
     }
     return render(jsxComponent, blockProps, Components);
@@ -1389,7 +1394,7 @@ function edit$v(_ref) {
 var css$b = ".components-panel__body .blueprint-blocks\\:field {\n  margin: 0 0 16px;\n}\n\n.components-panel__body .blueprint-blocks\\:field:last-child {\n  margin-bottom: 0;\n}\n\n.blueprint-blocks\\:field-label {\n  margin-bottom: 8px;\n}";
 n(css$b,{});
 
-var _excluded$_ = ["attributes", "clientId", "blockName", "attributeName", "children", "dangerouslySetInnerHTML", "innerHtml", "className", "label", "tagName", "type", "display", "value", "onInput"];
+var _excluded$_ = ["attributes", "clientId", "blockName", "attributeName", "children", "dangerouslySetInnerHTML", "innerHtml", "className", "htmlType", "label", "tagName", "type", "display", "value", "onInput"];
 var selfClosingTagNames$1 = ["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"];
 function preventEventPropagation(event) {
   event.stopPropagation();
@@ -1407,6 +1412,8 @@ function edit$u(_ref) {
     _ref.innerHtml;
     var _ref$className = _ref.className,
     className = _ref$className === void 0 ? "" : _ref$className,
+    _ref$htmlType = _ref.htmlType,
+    htmlType = _ref$htmlType === void 0 ? null : _ref$htmlType,
     _ref$label = _ref.label,
     label = _ref$label === void 0 ? "" : _ref$label,
     _ref$tagName = _ref.tagName,
@@ -1424,6 +1431,9 @@ function edit$u(_ref) {
   var fieldProps = Object.assign({}, props);
   if (className) {
     fieldProps.className = className;
+  }
+  if (htmlType !== null) {
+    fieldProps.type = htmlType;
   }
   var Component = tagName || "div";
   if (selfClosingTagNames$1.includes(tagName) === false && dangerouslySetInnerHTML) {
@@ -1453,7 +1463,7 @@ function edit$u(_ref) {
   }, label), children);
 }
 
-var _excluded$Z = ["attributes", "blockName", "attributeName", "label", "children", "clientId", "innerHtml", "className", "tagName", "type", "display"];
+var _excluded$Z = ["attributes", "blockName", "attributeName", "label", "children", "clientId", "innerHtml", "className", "htmlType", "tagName", "type", "display"];
 var selfClosingTagNames = ["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"];
 function save$t(_ref) {
   _ref.attributes;
@@ -1466,6 +1476,8 @@ function save$t(_ref) {
     _ref.innerHtml;
     var _ref$className = _ref.className,
     className = _ref$className === void 0 ? "" : _ref$className,
+    _ref$htmlType = _ref.htmlType,
+    htmlType = _ref$htmlType === void 0 ? null : _ref$htmlType,
     _ref$tagName = _ref.tagName,
     tagName = _ref$tagName === void 0 ? "div" : _ref$tagName;
     _ref.type;
@@ -1479,13 +1491,14 @@ function save$t(_ref) {
   if (className) {
     fieldProps.className = className;
   }
+  if (htmlType !== null) {
+    fieldProps.type = htmlType;
+  }
   if (tagName === "a" && "href" in fieldProps && !("rel" in fieldProps) && (isExternalUrl(fieldProps.href) || isFragmentUrl(fieldProps.href) || "target" in fieldProps)) {
     fieldProps.rel = "noopener";
   }
   var Component = tagName || "div";
   if (selfClosingTagNames.includes(tagName) === true || ((children === null || children === void 0 ? void 0 : children.length) || 0) === 0 || props.dangerouslySetInnerHTML) ;
-  console.log("save");
-  console.log(Component);
   return /*#__PURE__*/React.createElement(Component, _extends$1({}, fieldProps, {
     children: children
   }));
@@ -4954,6 +4967,7 @@ var Fields = /*#__PURE__*/Object.freeze({
 	BooleanField: BooleanField,
 	ColorField: index$k,
 	EmailField: index$j,
+	Field: Field,
 	GradientField: index$i,
 	GridField: index$h,
 	Html: index$g,
@@ -5192,4 +5206,4 @@ function BlockSave(blueprint) {
   };
 }
 
-export { index$m as AlignField, index$l as AnchorField, BlockEdit, BlockSave, BooleanField, index$k as ColorField, index$j as EmailField, index$i as GradientField, index$h as GridField, index$g as Html, index$f as ImageField, IncrementField, index$e as InnerBlocks, index$d as LinkField, index$c as MarginField, index$b as MediaField, index$a as NumberField, index$9 as PaddingField, index$8 as PositionField, RangeField, index$7 as RepeatingField, RichTextField, index$6 as SelectField, index$4 as TextAlignField, TextField, index$3 as TextSizeField, index$5 as TextareaField, index$2 as ToggleField, ToolbarField, index$1 as UrlField, index as WidthField };
+export { index$m as AlignField, index$l as AnchorField, BlockEdit, BlockSave, BooleanField, index$k as ColorField, index$j as EmailField, Field, index$i as GradientField, index$h as GridField, index$g as Html, index$f as ImageField, IncrementField, index$e as InnerBlocks, index$d as LinkField, index$c as MarginField, index$b as MediaField, index$a as NumberField, index$9 as PaddingField, index$8 as PositionField, RangeField, index$7 as RepeatingField, RichTextField, index$6 as SelectField, index$4 as TextAlignField, TextField, index$3 as TextSizeField, index$5 as TextareaField, index$2 as ToggleField, ToolbarField, index$1 as UrlField, index as WidthField };

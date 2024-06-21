@@ -914,11 +914,11 @@ function render(_ref, _ref2) {
     _ref$style = _ref.style,
     style = _ref$style === void 0 ? {} : _ref$style,
     _ref$attributeName = _ref.attributeName,
-    attributeName = _ref$attributeName === void 0 ? '' : _ref$attributeName,
+    attributeName = _ref$attributeName === void 0 ? "" : _ref$attributeName,
     _ref$type = _ref.type,
-    type = _ref$type === void 0 ? 'html' : _ref$type,
+    type = _ref$type === void 0 ? "html" : _ref$type,
     _ref$tagName = _ref.tagName,
-    tagName = _ref$tagName === void 0 ? 'div' : _ref$tagName,
+    tagName = _ref$tagName === void 0 ? "div" : _ref$tagName,
     _ref$persist = _ref.persist,
     persist = _ref$persist === void 0 ? true : _ref$persist,
     props = _objectWithoutProperties(_ref, _excluded);
@@ -938,7 +938,7 @@ function render(_ref, _ref2) {
     var _ref4 = _slicedToArray(_ref3, 2),
       name = _ref4[0],
       value = _ref4[1];
-    if (typeof value === 'string' && EXCLUDED_ATTRIBUTES.includes(name) === false) {
+    if (typeof value === "string" && EXCLUDED_ATTRIBUTES.includes(name) === false) {
       return [name, replaceTokens(value, _objectSpread2(_objectSpread2({}, context), {}, {
         attribute: {
           value: attributeValue
@@ -948,10 +948,10 @@ function render(_ref, _ref2) {
       return [name, value];
     }
   }));
-  if ('display' in jsxAttributes) {
+  if ("display" in jsxAttributes) {
     jsxAttributes.display = evaluateConditionalString(props.display, context);
   }
-  var jsxClassNames = classNames([].concat(_toConsumableArray(Array.isArray(className) && className || [className]), _toConsumableArray((context === null || context === void 0 ? void 0 : context.context) === 'edit' && (Array.isArray(editorClassName) && editorClassName || [editorClassName]) || []), _toConsumableArray((context === null || context === void 0 ? void 0 : context.context) === 'save' && (Array.isArray(viewClassName) && viewClassName || [viewClassName]) || [])), _objectSpread2(_objectSpread2({}, context), {}, {
+  var jsxClassNames = classNames([].concat(_toConsumableArray(Array.isArray(className) && className || [className]), _toConsumableArray((context === null || context === void 0 ? void 0 : context.context) === "edit" && (Array.isArray(editorClassName) && editorClassName || [editorClassName]) || []), _toConsumableArray((context === null || context === void 0 ? void 0 : context.context) === "save" && (Array.isArray(viewClassName) && viewClassName || [viewClassName]) || [])), _objectSpread2(_objectSpread2({}, context), {}, {
     attribute: {
       value: attributeValue
     }
@@ -967,18 +967,23 @@ function render(_ref, _ref2) {
   if (Object.values(jsxStyles).length > 0) {
     jsxAttributes.style = jsxStyles;
   }
-  var Component = tagName;
+  var jsxTagName = replaceTokens(tagName, _objectSpread2(_objectSpread2({}, context), {}, {
+    attribute: {
+      value: attributeValue
+    }
+  }));
+  var Component = jsxTagName;
   if (type in Components && Components[type]) {
     Component = Components[type];
   } else if ("".concat(type, "-field") in Components && Components["".concat(type, "-field")]) {
     Component = Components["".concat(type, "-field")];
   }
-  if (Component !== tagName) {
+  if (Component !== jsxTagName) {
     return /*#__PURE__*/React.createElement(Component, _extends({}, jsxAttributes, {
       clientId: clientId,
       blockName: blockName,
       attributeName: attributeName,
-      tagName: tagName,
+      tagName: jsxTagName,
       attributes: attributes
     }, attributeValue !== undefined && {
       value: attributeValue
@@ -986,7 +991,7 @@ function render(_ref, _ref2) {
       attributeName: attributeName,
       setAttributes: setAttributes,
       onInput: function onInput(value) {
-        if ((context === null || context === void 0 ? void 0 : context.context) === 'save') {
+        if ((context === null || context === void 0 ? void 0 : context.context) === "save") {
           return;
         }
         setAttributes(_defineProperty({}, attributeName, value), persist);
@@ -1026,7 +1031,7 @@ function renderJsxArray(_ref5) {
     return null;
   }
   var jsxComponents = jsx.map(function (jsxComponent) {
-    if (typeof jsxComponent === 'function') {
+    if (typeof jsxComponent === "function") {
       return jsxComponent(blockProps);
     }
     return render(jsxComponent, blockProps, Components);

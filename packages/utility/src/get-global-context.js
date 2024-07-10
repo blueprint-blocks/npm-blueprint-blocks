@@ -1,28 +1,31 @@
 import { select } from "@wordpress/data";
 
+const { tokenContext = {} } = blueprintBlocksLoaderSettings || {};
+
 /**
  * Returns the global context available to all blocks everywhere.
  */
 function getGlobalContext() {
-	const siteData = select("core").getSite();
-	const themeData = select("core").getCurrentTheme();
+	let globalContext = { ...tokenContext };
 
-	const siteUrl = siteData?.url || "";
-	const themeUrl =
-		themeData?.screenshot?.slice(
-			0,
-			themeData?.screenshot?.lastIndexOf("/") || 0
-		) || "";
+	if (Object.entries(globalContext).length === 0) {
+		const siteData = select("core").getSite();
+		const themeData = select("core").getCurrentTheme();
 
-	return {
-		site: {
-			url: siteUrl,
-		},
-		theme: {
-			path: `${themeUrl.slice(siteUrl.length)}`,
-			url: themeUrl,
-		},
-	};
+		globalContext.site = {};
+		globalContext.site.url = siteData?.url || "";
+
+		globalContext.theme.url =
+			themeData?.screenshot?.slice(
+				0,
+				themeData?.screenshot?.lastIndexOf("/") || 0
+			) || "";
+		globalContext.theme.path = globalContext.theme.url.slice(
+			globalContext.site.url.length
+		);
+	}
+
+	return globalContext;
 }
 
 export default getGlobalContext;

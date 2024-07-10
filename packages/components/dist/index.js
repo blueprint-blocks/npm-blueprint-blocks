@@ -792,25 +792,25 @@ function createMemoizedFunction$1(fn, options) {
   memoized.options = normalizedOptions;
   return memoized;
 }
+var _ref = blueprintBlocksLoaderSettings || {},
+  _ref$tokenContext = _ref.tokenContext,
+  tokenContext = _ref$tokenContext === void 0 ? {} : _ref$tokenContext;
 
 /**
  * Returns the global context available to all blocks everywhere.
  */
 function getGlobalContext() {
-  var _themeData$screenshot, _themeData$screenshot2;
-  var siteData = wp.data.select("core").getSite();
-  var themeData = wp.data.select("core").getCurrentTheme();
-  var siteUrl = (siteData === null || siteData === void 0 ? void 0 : siteData.url) || "";
-  var themeUrl = (themeData === null || themeData === void 0 || (_themeData$screenshot = themeData.screenshot) === null || _themeData$screenshot === void 0 ? void 0 : _themeData$screenshot.slice(0, (themeData === null || themeData === void 0 || (_themeData$screenshot2 = themeData.screenshot) === null || _themeData$screenshot2 === void 0 ? void 0 : _themeData$screenshot2.lastIndexOf("/")) || 0)) || "";
-  return {
-    site: {
-      url: siteUrl
-    },
-    theme: {
-      path: "".concat(themeUrl.slice(siteUrl.length)),
-      url: themeUrl
-    }
-  };
+  var globalContext = _objectSpread2({}, tokenContext);
+  if (Object.entries(globalContext).length === 0) {
+    var _themeData$screenshot, _themeData$screenshot2;
+    var siteData = wp.data.select("core").getSite();
+    var themeData = wp.data.select("core").getCurrentTheme();
+    globalContext.site = {};
+    globalContext.site.url = (siteData === null || siteData === void 0 ? void 0 : siteData.url) || "";
+    globalContext.theme.url = (themeData === null || themeData === void 0 || (_themeData$screenshot = themeData.screenshot) === null || _themeData$screenshot === void 0 ? void 0 : _themeData$screenshot.slice(0, (themeData === null || themeData === void 0 || (_themeData$screenshot2 = themeData.screenshot) === null || _themeData$screenshot2 === void 0 ? void 0 : _themeData$screenshot2.lastIndexOf("/")) || 0)) || "";
+    globalContext.theme.path = globalContext.theme.url.slice(globalContext.site.url.length);
+  }
+  return globalContext;
 }
 var valueByIdentifier = createMemoizedFunction$1(function () {
   var identifier = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";

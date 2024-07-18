@@ -1,7 +1,7 @@
 {
 	"name": "@blueprint-blocks/utility",
 	"private": false,
-	"version": "0.1.41",
+	"version": "0.1.42",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
 	"type": "module",

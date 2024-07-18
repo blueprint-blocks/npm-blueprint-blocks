@@ -95,6 +95,22 @@ function BlockSave(blueprint) {
 			blockAttributes.style = styles(blockStyles, blockContext);
 		}
 
+		if (tagName === false) {
+			return (
+				<>
+					{renderJsxArray(
+						{
+							blockName,
+							attributes,
+							jsx: children,
+							context: blockContext,
+						},
+						Components
+					)}
+				</>
+			);
+		}
+
 		const Component = tagName;
 
 		return (

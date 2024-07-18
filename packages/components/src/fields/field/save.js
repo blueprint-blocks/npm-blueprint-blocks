@@ -57,6 +57,10 @@ function save({
 		fieldProps.rel = "noopener";
 	}
 
+	if (tagName === false) {
+		return <>{children}</>;
+	}
+
 	const Component = tagName || "div";
 
 	if (

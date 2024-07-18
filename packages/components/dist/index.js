@@ -1497,6 +1497,9 @@ function save$t(_ref) {
   if (tagName === "a" && "href" in fieldProps && !("rel" in fieldProps) && (isExternalUrl(fieldProps.href) || isFragmentUrl(fieldProps.href) || "target" in fieldProps)) {
     fieldProps.rel = "noopener";
   }
+  if (tagName === false) {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, children);
+  }
   var Component = tagName || "div";
   if (selfClosingTagNames.includes(tagName) === true || ((children === null || children === void 0 ? void 0 : children.length) || 0) === 0 || props.dangerouslySetInnerHTML) ;
   return /*#__PURE__*/React.createElement(Component, _extends$1({}, fieldProps, {
@@ -3153,9 +3156,6 @@ function save$g(_ref) {
     _ref.templateLock;
     _ref.max;
     var props = _objectWithoutProperties$1(_ref, _excluded$z);
-  if ((props === null || props === void 0 ? void 0 : props.tagName) === false) {
-    return /*#__PURE__*/React.createElement(wp.blockEditor.InnerBlocks.Content, null);
-  }
   return /*#__PURE__*/React.createElement(Field.save, _extends$1({}, props, {
     type: "inner-blocks"
   }), /*#__PURE__*/React.createElement(wp.blockEditor.InnerBlocks.Content, null));
@@ -3222,7 +3222,7 @@ function edit$g(_ref) {
   }
   return /*#__PURE__*/React.createElement(wp.blockEditor.RichText, _extends$1({}, fieldProps, {
     onChange: onInput,
-    tagName: tagName,
+    tagName: tagName || "div",
     allowedFormats: _allowedFormats,
     keepPlaceholderOnFocus: true,
     placeholder: placeholder,
@@ -5106,7 +5106,7 @@ function BlockEdit(blueprint) {
     if (Object.values(blockStyles).length > 0) {
       blockAttributes.style = styles(blockStyles, blockContext);
     }
-    var Component = tagName;
+    var Component = tagName || "div";
     return /*#__PURE__*/React.createElement(Component, _extends$1({}, blockProps, blockAttributes), renderJsxArray({
       clientId: clientId,
       blockName: blockName,
@@ -5195,6 +5195,14 @@ function BlockSave(blueprint) {
     var blockStyles = Object.assign({}, blockProps.style || {}, blockSave.style || {});
     if (Object.values(blockStyles).length > 0) {
       blockAttributes.style = styles(blockStyles, blockContext);
+    }
+    if (tagName === false) {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, renderJsxArray({
+        blockName: blockName,
+        attributes: attributes,
+        jsx: children,
+        context: blockContext
+      }, Components));
     }
     var Component = tagName;
     return /*#__PURE__*/React.createElement(Component, _extends$1({}, blockProps, blockAttributes), renderJsxArray({

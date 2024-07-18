@@ -9,10 +9,6 @@ function save({
 	max,
 	...props
 }) {
-	if (props?.tagName === false) {
-		return <InnerBlocks.Content />;
-	}
-
 	return (
 		<Field.save {...props} type="inner-blocks">
 			<InnerBlocks.Content />

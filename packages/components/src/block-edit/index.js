@@ -191,7 +191,7 @@ function BlockEdit(blueprint) {
 			blockAttributes.style = styles(blockStyles, blockContext);
 		}
 
-		const Component = tagName;
+		const Component = tagName || "div";
 
 		return (
 			<Component {...blockProps} {...blockAttributes}>

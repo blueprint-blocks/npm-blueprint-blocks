@@ -47,7 +47,7 @@ function edit({
 		<RichText
 			{...fieldProps}
 			onChange={onInput}
-			tagName={tagName}
+			tagName={tagName || "div"}
 			allowedFormats={_allowedFormats}
 			keepPlaceholderOnFocus={true}
 			placeholder={placeholder}

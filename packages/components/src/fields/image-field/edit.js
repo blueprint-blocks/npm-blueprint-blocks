@@ -67,8 +67,17 @@ function edit({
 		onInput(null);
 	};
 
-	const onSelect = ({ id, height, subtype, type, url, width, ...image }) => {
-		onInput({ id, height, width, subtype, type, url });
+	const onSelect = ({
+		alt,
+		id,
+		height,
+		subtype,
+		type,
+		url,
+		width,
+		...image
+	}) => {
+		onInput({ alt, id, height, width, subtype, type, url });
 	};
 
 	return (
